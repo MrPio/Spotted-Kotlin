@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "332232184670",
+    "project_id": "spotted-f3589",
+    "storage_bucket": "spotted-f3589.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332232184670:android:0ba84de43f33fb7d7ff5cf",
+        "android_client_info": {
+          "package_name": "com.example.spottedkotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "332232184670-lqpm8eggqaj5rfmep9mmjkt21qsm97fv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy21VNSLjLNB7cA4c0D-edNU8Vgh212CQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "332232184670-lqpm8eggqaj5rfmep9mmjkt21qsm97fv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
