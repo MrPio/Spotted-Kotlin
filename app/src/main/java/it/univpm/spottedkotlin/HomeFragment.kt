@@ -28,10 +28,16 @@ class HomeFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
+
 		val postsRecycleView: RecyclerView = view.findViewById(R.id.posts_recycler)
 		postsRecycleView.layoutManager = LinearLayoutManager(context)
-		binding.homePostsAdapter=HomePostsAdapter(listOf(
-			Post(11,"https://github.com/square/picasso/blob/master/website/static/sample.png"))
+		binding.homePostsAdapter = HomePostsAdapter(
+			listOf(
+				Post(
+					11,
+					"https://firebasestorage.googleapis.com/v0/b/spotted-f3589.appspot.com/o/src%2Funi_140.jpg?alt=media&token=53f4caee-dca6-47eb-a534-dc28dc354cb4"
+				)
+			)
 		)
 	}
 }

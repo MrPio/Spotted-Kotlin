@@ -1,9 +1,16 @@
 package it.univpm.spottedkotlin.viewmodel
 
+import android.content.res.Resources
+import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.SpotPostBinding
+import it.univpm.spottedkotlin.databinding.TagItemBinding
 import it.univpm.spottedkotlin.model.Post
+import it.univpm.spottedkotlin.model.Tag
+import java.util.zip.Inflater
 
 
 class SpotPostViewModel( binding: SpotPostBinding) : ViewHolder(binding.root) {
@@ -15,6 +22,16 @@ class SpotPostViewModel( binding: SpotPostBinding) : ViewHolder(binding.root) {
 	fun bind(post: Post):Unit{
 		binding.model=post
 		binding.viewModel=this
+
+		val tag:TagItemBinding= DataBindingUtil.inflate(
+			LayoutInflater.from(binding.root.context),
+			R.layout.tag_item,
+			binding.tagsLayout,
+			false
+		)
+		tag.model=Tag("Ciao",binding.root.context.resources.getString(R.string.Home))
+		binding.tagsLayout.addView(tag.root
+		)
 		binding.executePendingBindings()
 	}
 	fun cardClicked(post: Post) {

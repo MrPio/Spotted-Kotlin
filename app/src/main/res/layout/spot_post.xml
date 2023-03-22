@@ -28,13 +28,13 @@
 				<!--BackgroundImage-->
 				<ImageView
 					android:id = "@+id/background_image"
-
-					android:src="@drawable/uni_140"
 					android:layout_width = "match_parent"
 					android:layout_height = "220dp"
 					android:adjustViewBounds = "true"
 					android:contentDescription = "@string/luogo"
 					android:scaleType = "centerCrop"
+					android:src="@drawable/uni_140"
+					app:imageUrl = "@{model.locationImage}"
 					app:layout_constraintStart_toStartOf = "parent"
 					app:layout_constraintTop_toTopOf = "parent"/>
 				<!--Vignette-->
@@ -102,45 +102,41 @@
 
 					<!--===== Bottom =================================-->
 					<TextView
+						android:id="@+id/comment_icon"
 						style = "@style/LabelIcon"
-						android:layout_width = "wrap_content"
-						android:layout_height = "wrap_content"
-						android:fontFamily = "@font/material_design_icons"
 						android:text = "@string/MapMarker"
-						android:textColor = "@color/color4"
-						android:textSize = "20sp"
 						app:layout_constraintBottom_toBottomOf = "parent"
-						app:layout_constraintStart_toStartOf = "@id/tags_scroll"/>
-
+						app:layout_constraintStart_toEndOf= "@id/tags_scroll"
+						app:layout_constraintEnd_toEndOf="parent"
+						android:layout_marginEnd="30dp"/>
+					<!--Tags-->
 					<HorizontalScrollView
 						android:id = "@+id/tags_scroll"
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						app:layout_constraintBottom_toBottomOf = "parent"
-						app:layout_constraintStart_toStartOf = "parent">
-
+						app:layout_constraintStart_toStartOf = "parent"
+						app:layout_constraintEnd_toStartOf="@id/comment_icon">
 						<LinearLayout
 							android:id = "@+id/tags_layout"
 							android:layout_width = "wrap_content"
 							android:layout_height = "match_parent"
-							android:orientation = "horizontal"></LinearLayout>
+							android:orientation = "horizontal"/>
 					</HorizontalScrollView>
 
 				</androidx.constraintlayout.widget.ConstraintLayout>
-
 				<!--HighlightView-->
 				<View android:layout_width = "0dp"
 					  android:layout_height = "0dp"
 					  android:alpha = "0.2"
 					  android:clickable = "true"
-					  android:focusable="true"
+					  android:focusable = "true"
 					  android:foreground = "@drawable/ripple_white"
 					  android:onClickListener = "@{()->viewModel.cardClicked(model)}"
 					  app:layout_constraintBottom_toBottomOf = "parent"
 					  app:layout_constraintEnd_toEndOf = "parent"
 					  app:layout_constraintStart_toStartOf = "parent"
 					  app:layout_constraintTop_toTopOf = "parent"/>
-
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		</androidx.cardview.widget.CardView>
 	</RelativeLayout>
