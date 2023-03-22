@@ -33,7 +33,7 @@
 					android:adjustViewBounds = "true"
 					android:contentDescription = "@string/luogo"
 					android:scaleType = "centerCrop"
-					android:src="@drawable/uni_140"
+					android:src = "@drawable/uni_140"
 					app:imageUrl = "@{model.locationImage}"
 					app:layout_constraintStart_toStartOf = "parent"
 					app:layout_constraintTop_toTopOf = "parent"/>
@@ -47,13 +47,25 @@
 					android:background = "@drawable/gradient_linear_black"
 					app:layout_constraintBottom_toBottomOf = "@+id/background_image"
 					app:layout_constraintTop_toTopOf = "@+id/background_image"/>
+
+				<!--HighlightView-->
+				<View android:layout_width = "0dp"
+					  android:layout_height = "0dp"
+					  android:alpha = "0.2"
+					  android:clickable = "true"
+					  android:focusable = "true"
+					  android:foreground = "@drawable/ripple_white"
+					  android:onClickListener = "@{()->viewModel.cardClicked(model)}"
+					  app:layout_constraintBottom_toBottomOf = "parent"
+					  app:layout_constraintEnd_toEndOf = "parent"
+					  app:layout_constraintStart_toStartOf = "parent"
+					  app:layout_constraintTop_toTopOf = "parent"/>
+
 				<!--Content-->
 				<androidx.constraintlayout.widget.ConstraintLayout
 					android:layout_width = "match_parent"
 					android:layout_height = "0dp"
-					android:paddingStart = "20dp"
 					android:paddingTop = "10dp"
-					android:paddingEnd = "20dp"
 					android:paddingBottom = "10dp"
 					app:layout_constraintBottom_toBottomOf = "@+id/background_image"
 					app:layout_constraintStart_toStartOf = "parent"
@@ -66,6 +78,7 @@
 						style = "@style/LabelMedium"
 						android:layout_width = "wrap_content"
 						android:layout_height = "wrap_content"
+						android:layout_marginStart = "20dp"
 						android:background = "@drawable/border_rounded_red_small"
 						android:text = '@{model.percentage+"%"}'
 						android:textColor = "@color/color4"
@@ -87,6 +100,7 @@
 					<androidx.cardview.widget.CardView
 						android:layout_width = "wrap_content"
 						android:layout_height = "wrap_content"
+						android:layout_marginEnd = "20dp"
 						app:cardBackgroundColor = "#FFFFFF"
 						app:cardCornerRadius = "999dp"
 						app:layout_constraintEnd_toEndOf = "parent"
@@ -96,47 +110,135 @@
 							android:layout_width = "34dp"
 							android:layout_height = "34dp"
 							android:layout_margin = "2dp"
-							android:contentDescription = "TODO"
+							android:contentDescription = "@string/todo"
 							android:src = "@drawable/anonymous"/>
 					</androidx.cardview.widget.CardView>
 
 					<!--===== Bottom =================================-->
-					<TextView
-						android:id="@+id/comment_icon"
-						style = "@style/LabelIcon"
-						android:text = "@string/MapMarker"
-						app:layout_constraintBottom_toBottomOf = "parent"
-						app:layout_constraintStart_toEndOf= "@id/tags_scroll"
-						app:layout_constraintEnd_toEndOf="parent"
-						android:layout_marginEnd="30dp"/>
+					<!--Row 0 Column 0-->
+					<LinearLayout android:layout_width = "wrap_content"
+								  android:layout_height = "wrap_content"
+								  android:layout_marginStart = "20dp"
+								  android:layout_marginBottom = "6dp"
+								  app:layout_constraintBottom_toTopOf = "@id/row1_column0_layout"
+								  app:layout_constraintStart_toStartOf = "parent">
+						<!--LocationIcon-->
+						<TextView
+							style = "@style/LabelIcon"
+							android:textSize="24sp"
+							android:text = "@string/MapMarker"/>
+						<!--LocationText-->
+						<TextView
+							style = "@style/LabelBold"
+							android:layout_marginStart = "4dp"
+							android:layout_marginEnd = "8dp"
+							android:text = "@{model.location}"
+							android:textAlignment = "center"
+							android:textColor = "@color/color4"/>
+					</LinearLayout>
+					<!--Row 0 Column 1-->
+					<LinearLayout android:layout_width = "wrap_content"
+								  android:layout_height = "wrap_content"
+								  android:layout_marginEnd = "20dp"
+								  android:layout_marginBottom = "4dp"
+								  app:layout_constraintBottom_toTopOf = "@id/row1_column0_layout"
+								  app:layout_constraintEnd_toEndOf= "parent">
+						<!--GenderIcon-->
+						<TextView
+							style = "@style/LabelIcon"
+							android:textSize="38sp"
+							android:text = "@{model.gender.icon}"/>
+					</LinearLayout>
+
+					<!--Row 1 Column 0-->
+					<LinearLayout android:id="@+id/row1_column0_layout"
+								  android:layout_width = "wrap_content"
+								  android:layout_height = "wrap_content"
+								  android:layout_marginStart = "20dp"
+								  android:layout_marginBottom = "6dp"
+								  app:layout_constraintBottom_toTopOf = "@id/tags_scroll"
+								  app:layout_constraintStart_toStartOf = "parent">
+						<!--DateIcon-->
+						<TextView
+							style = "@style/LabelIcon"
+							android:text = "@string/CalendarBlank"/>
+						<!--DateText-->
+						<TextView
+							style = "@style/LabelMedium"
+							android:layout_height = "24dp"
+							android:layout_marginStart = "4dp"
+							android:layout_marginEnd = "8dp"
+							android:text = "@{model.dateStr}"
+							android:textAlignment = "center"
+							android:textColor = "@color/color4"/>
+
+						<!--TimeIcon-->
+						<TextView
+							style = "@style/LabelIcon"
+							android:text = "@string/Clock"/>
+						<!--TimeText-->
+						<TextView
+							style = "@style/LabelMedium"
+							android:layout_height = "24dp"
+							android:layout_marginStart = "4dp"
+							android:layout_marginEnd = "8dp"
+							android:text = "@{model.timeStr}"
+							android:textAlignment = "center"
+							android:textColor = "@color/color4"/>
+					</LinearLayout>
+					<!--Row 1 Column 1-->
+					<LinearLayout android:id = "@+id/comment_follow_layout"
+								  android:layout_width = "wrap_content"
+								  android:layout_height = "wrap_content"
+								  android:layout_marginEnd = "20dp"
+								  android:layout_marginBottom = "8dp"
+								  app:layout_constraintBottom_toTopOf = "@id/tags_scroll"
+								  app:layout_constraintEnd_toEndOf = "parent">
+						<!--MessageIcon-->
+						<TextView
+							style = "@style/LabelIcon"
+							android:text = "@string/Message"/>
+						<!--MessageText-->
+						<TextView
+							style = "@style/LabelMedium"
+							android:layout_height = "20dp"
+							android:layout_marginStart = "4dp"
+							android:layout_marginEnd = "8dp"
+							android:text = "@{String.valueOf(model.commentCount)}"
+							android:textAlignment = "center"
+							android:textColor = "@color/color4"/>
+
+						<!--FollowIcon-->
+						<TextView
+							style = "@style/LabelIcon"
+							android:text = "@string/Bookmark"/>
+						<!--FollowText-->
+						<TextView
+							style = "@style/LabelMedium"
+							android:layout_height = "20dp"
+							android:layout_marginStart = "2dp"
+							android:text = "@{String.valueOf(model.followCount)}"
+							android:textAlignment = "center"
+							android:textColor = "@color/color4"/>
+					</LinearLayout>
+
 					<!--Tags-->
 					<HorizontalScrollView
 						android:id = "@+id/tags_scroll"
-						android:layout_width = "match_parent"
+						android:layout_width = "0dp"
 						android:layout_height = "wrap_content"
 						app:layout_constraintBottom_toBottomOf = "parent"
-						app:layout_constraintStart_toStartOf = "parent"
-						app:layout_constraintEnd_toStartOf="@id/comment_icon">
+						app:layout_constraintEnd_toEndOf = "parent"
+						app:layout_constraintStart_toStartOf = "parent">
 						<LinearLayout
 							android:id = "@+id/tags_layout"
 							android:layout_width = "wrap_content"
 							android:layout_height = "match_parent"
-							android:orientation = "horizontal"/>
+							android:orientation = "horizontal"
+							android:paddingStart = "20dp"/>
 					</HorizontalScrollView>
 
 				</androidx.constraintlayout.widget.ConstraintLayout>
-				<!--HighlightView-->
-				<View android:layout_width = "0dp"
-					  android:layout_height = "0dp"
-					  android:alpha = "0.2"
-					  android:clickable = "true"
-					  android:focusable = "true"
-					  android:foreground = "@drawable/ripple_white"
-					  android:onClickListener = "@{()->viewModel.cardClicked(model)}"
-					  app:layout_constraintBottom_toBottomOf = "parent"
-					  app:layout_constraintEnd_toEndOf = "parent"
-					  app:layout_constraintStart_toStartOf = "parent"
-					  app:layout_constraintTop_toTopOf = "parent"/>
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		</androidx.cardview.widget.CardView>
 	</RelativeLayout>

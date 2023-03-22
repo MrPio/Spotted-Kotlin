@@ -4,16 +4,22 @@
 		<item name = "fontFamily">@font/lato_regular</item>
 		<item name = "android:textSize">14sp</item>
 		<item name = "android:textColor">@color/color1</item>
+		<item name = "android:layout_width">wrap_content</item>
+		<item name = "android:layout_height">wrap_content</item>
 	</style>
 	<style name = "LabelBold">
 		<item name = "fontFamily">@font/lato_bold</item>
-		<item name = "android:textSize">22sp</item>
+		<item name = "android:textSize">20sp</item>
 		<item name = "android:textColor">@color/color1</item>
+		<item name = "android:layout_width">wrap_content</item>
+		<item name = "android:layout_height">wrap_content</item>
 	</style>
 	<style name = "LabelBlack">
 		<item name = "fontFamily">@font/lato_black</item>
 		<item name = "android:textSize">20sp</item>
 		<item name = "android:textColor">@color/color1</item>
+		<item name = "android:layout_width">wrap_content</item>
+		<item name = "android:layout_height">wrap_content</item>
 	</style>
 	<style name = "LabelIcon">
 		<item name = "fontFamily">@font/material_design_icons</item>

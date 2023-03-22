@@ -13,29 +13,32 @@ import it.univpm.spottedkotlin.model.Tag
 import java.util.zip.Inflater
 
 
-class SpotPostViewModel( binding: SpotPostBinding) : ViewHolder(binding.root) {
+class SpotPostViewModel(binding: SpotPostBinding) : ViewHolder(binding.root) {
 	private val binding: SpotPostBinding
+
 	init {
-		this.binding=binding
+		this.binding = binding
 	}
 
-	fun bind(post: Post):Unit{
-		binding.model=post
-		binding.viewModel=this
+	fun bind(post: Post): Unit {
+		binding.model = post
+		binding.viewModel = this
 
-		val tag:TagItemBinding= DataBindingUtil.inflate(
-			LayoutInflater.from(binding.root.context),
-			R.layout.tag_item,
-			binding.tagsLayout,
-			false
-		)
-		tag.model=Tag("Ciao",binding.root.context.resources.getString(R.string.Home))
-		binding.tagsLayout.addView(tag.root
-		)
+		for (tag in post.tags) {
+			val tagBinding: TagItemBinding = DataBindingUtil.inflate(
+				LayoutInflater.from(binding.root.context),
+				R.layout.tag_item,
+				binding.tagsLayout,
+				false
+			)
+			tagBinding.model = tag
+			binding.tagsLayout.addView(tagBinding.root)
+		}
 		binding.executePendingBindings()
 	}
+
 	fun cardClicked(post: Post) {
-			Toast.makeText(
+		Toast.makeText(
 			binding.root.context, "You clicked ${post.percentage}%",
 			Toast.LENGTH_SHORT
 		).show()

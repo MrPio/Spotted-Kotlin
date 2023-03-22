@@ -11,15 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import it.univpm.spottedkotlin.adapter.HomePostsAdapter
 import it.univpm.spottedkotlin.databinding.HomeFragmentBinding
 import it.univpm.spottedkotlin.model.Post
+import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.viewmodel.HomeViewModel
+import it.univpm.spottedkotlin.extension.load
 
 class HomeFragment : Fragment() {
 	private lateinit var binding: HomeFragmentBinding
 	private val viewModel: HomeViewModel by viewModels()
 
 	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 	): View {
 		binding = HomeFragmentBinding.inflate(inflater, container, false)
 		return binding.root
@@ -34,8 +35,15 @@ class HomeFragment : Fragment() {
 		binding.homePostsAdapter = HomePostsAdapter(
 			listOf(
 				Post(
-					11,
-					"https://firebasestorage.googleapis.com/v0/b/spotted-f3589.appspot.com/o/src%2Funi_140.jpg?alt=media&token=53f4caee-dca6-47eb-a534-dc28dc354cb4"
+					percentage = 11,
+					locationImage = "https://firebasestorage.googleapis.com/v0/b/spotted-f3589.appspot.com/o/src%2Funi_140.jpg?alt=media&token=53f4caee-dca6-47eb-a534-dc28dc354cb4",
+					tags = listOf(
+						Tag("Alto", context?.load(R.string.Home) ?: ""),
+						Tag("Alto", context?.load(R.string.Home) ?: ""),
+						Tag("Alto", context?.load(R.string.Home) ?: ""),
+						Tag("Alto", context?.load(R.string.Home) ?: ""),
+					)
+
 				)
 			)
 		)
