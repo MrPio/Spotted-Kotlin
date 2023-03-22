@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:332232184670:android:0ba84de43f33fb7d7ff5cf",
         "android_client_info": {
-          "package_name": "com.example.spottedkotlin"
+          "package_name": "it.univpm.spottedkotlin"
         }
       },
       "oauth_client": [
