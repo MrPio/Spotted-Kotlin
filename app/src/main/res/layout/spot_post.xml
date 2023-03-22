@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android = "http://schemas.android.com/apk/res/android"
+		xmlns:app = "http://schemas.android.com/apk/res-auto">
 	<data>
 		<variable
 			name = "model"
 			type = "it.univpm.spottedkotlin.model.Post"/>
+		<variable name = "viewModel"
+				  type = "it.univpm.spottedkotlin.viewmodel.SpotPostViewModel"/>
 	</data>
 
-	<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-					xmlns:app = "http://schemas.android.com/apk/res-auto"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content">
+	<RelativeLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content">
 
 		<androidx.cardview.widget.CardView
 			android:layout_width = "match_parent"
@@ -26,12 +28,13 @@
 				<!--BackgroundImage-->
 				<ImageView
 					android:id = "@+id/background_image"
+
+					android:src="@drawable/uni_140"
 					android:layout_width = "match_parent"
 					android:layout_height = "220dp"
 					android:adjustViewBounds = "true"
-					android:contentDescription = "TODO"
+					android:contentDescription = "@string/luogo"
 					android:scaleType = "centerCrop"
-					android:src = "@drawable/uni_140"
 					app:layout_constraintStart_toStartOf = "parent"
 					app:layout_constraintTop_toTopOf = "parent"/>
 				<!--Vignette-->
@@ -64,7 +67,7 @@
 						android:layout_width = "wrap_content"
 						android:layout_height = "wrap_content"
 						android:background = "@drawable/border_rounded_red_small"
-						android:text = "@{String.valueOf(model.percentage)}"
+						android:text = '@{model.percentage+"%"}'
 						android:textColor = "@color/color4"
 						app:layout_constraintStart_toStartOf = "parent"
 						app:layout_constraintTop_toTopOf = "parent"/>
@@ -124,6 +127,19 @@
 					</HorizontalScrollView>
 
 				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<!--HighlightView-->
+				<View android:layout_width = "0dp"
+					  android:layout_height = "0dp"
+					  android:alpha = "0.2"
+					  android:clickable = "true"
+					  android:focusable="true"
+					  android:foreground = "@drawable/ripple_white"
+					  android:onClickListener = "@{()->viewModel.cardClicked(model)}"
+					  app:layout_constraintBottom_toBottomOf = "parent"
+					  app:layout_constraintEnd_toEndOf = "parent"
+					  app:layout_constraintStart_toStartOf = "parent"
+					  app:layout_constraintTop_toTopOf = "parent"/>
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		</androidx.cardview.widget.CardView>

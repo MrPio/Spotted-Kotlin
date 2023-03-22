@@ -20,4 +20,9 @@
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">@color/color1</item>
     </style>
+    <style name="LabelTitle">
+        <item name="fontFamily" >@font/clicker_script_regular</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/color2</item>
+    </style>
 </resources>

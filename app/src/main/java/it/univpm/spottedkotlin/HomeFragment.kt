@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.databinding.ObservableList
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +30,8 @@ class HomeFragment : Fragment() {
 
 		val postsRecycleView: RecyclerView = view.findViewById(R.id.posts_recycler)
 		postsRecycleView.layoutManager = LinearLayoutManager(context)
-		postsRecycleView.adapter = HomePostsAdapter(listOf(Post(11),))
+		binding.homePostsAdapter=HomePostsAdapter(listOf(
+			Post(11,"https://github.com/square/picasso/blob/master/website/static/sample.png"))
+		)
 	}
 }
