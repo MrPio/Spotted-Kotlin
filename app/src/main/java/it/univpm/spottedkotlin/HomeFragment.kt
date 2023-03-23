@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.univpm.spottedkotlin.adapter.HomePostsAdapter
@@ -29,9 +31,9 @@ class HomeFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-
 		val postsRecycleView: RecyclerView = view.findViewById(R.id.posts_recycler)
 		postsRecycleView.layoutManager = LinearLayoutManager(context)
+		binding.viewModel = viewModel
 		binding.homePostsAdapter = HomePostsAdapter(
 			listOf(
 				Post(
@@ -43,9 +45,22 @@ class HomeFragment : Fragment() {
 						Tag("Alto", context?.load(R.string.Home) ?: ""),
 						Tag("Alto", context?.load(R.string.Home) ?: ""),
 					)
-
 				)
 			)
 		)
+		binding.executePendingBindings()
+
+		binding.homeBottomBar.viewModel = viewModel
+		viewModel.currentFragment.observe(viewLifecycleOwner) {
+			when (viewModel.currentFragment.value) {
+				0 -> print("x == 1")
+				1 -> print("x == 2")
+				2 -> print("x == 2")
+				3 -> print("x == 2")
+				4 -> print("x == 2")
+			}
+			//TODO move to MAINVIEWMODEL
+		}
+		binding.homeBottomBar.executePendingBindings()
 	}
 }

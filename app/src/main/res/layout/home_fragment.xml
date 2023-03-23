@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 	<data>
+		<variable name = "viewModel"
+				  type = "it.univpm.spottedkotlin.viewmodel.HomeViewModel"/>
 		<variable
 			name = "home_posts_adapter"
 			type = "it.univpm.spottedkotlin.adapter.HomePostsAdapter"/>
@@ -26,7 +28,7 @@
 
 			<TextView
 				android:id = "@+id/textView"
-				style="@style/LabelTitle"
+				style = "@style/LabelTitle"
 				android:layout_width = "match_parent"
 				android:layout_height = "wrap_content"
 				android:fontFamily = "@font/clicker_script_regular"
@@ -42,5 +44,8 @@
 
 			</androidx.recyclerview.widget.RecyclerView>
 		</LinearLayout>
+
+		<include android:id = "@+id/home_bottom_bar"
+				 layout = "@layout/bottom_bar"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

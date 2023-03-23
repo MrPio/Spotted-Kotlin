@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	<data>
+		<import type = "it.univpm.spottedkotlin.enums.Colors"/>
+		<import type = "android.view.View"/>
+		<variable name = "viewModel"
+				  type = "it.univpm.spottedkotlin.viewmodel.HomeViewModel"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+													   xmlns:app = "http://schemas.android.com/apk/res-auto"
+													   android:layout_width = "match_parent"
+													   android:layout_height = "match_parent">
+		<!--RedRoundRectangle-->
+		<View android:layout_width = "300dp"
+			  android:layout_height = "68dp"
+			  android:layout_marginBottom = "28dp"
+			  android:background = "@drawable/border_rounded_red_small"
+			  android:elevation = "10dp"
+			  app:layout_constraintBottom_toBottomOf = "parent"
+			  app:layout_constraintEnd_toEndOf = "parent"
+			  app:layout_constraintStart_toStartOf = "parent"/>
+		<!--Icons-->
+		<LinearLayout android:layout_width = "300dp"
+					  android:layout_height = "68dp"
+					  android:layout_marginBottom = "28dp"
+					  android:elevation = "10dp"
+					  android:gravity = "center"
+					  android:paddingStart = "10dp"
+					  android:paddingEnd = "10dp"
+					  app:layout_constraintBottom_toBottomOf = "parent"
+					  app:layout_constraintEnd_toEndOf = "parent"
+					  app:layout_constraintStart_toStartOf = "parent">
+			<!--HomeIcon-->
+			<RelativeLayout android:layout_width = "52dp"
+							android:layout_height = "52dp"
+							android:layout_weight = "1">
+					<View android:layout_width = "match_parent"
+						  android:layout_height = "match_parent"
+						  android:background = "@drawable/border_rounded_white_small"
+						  android:visibility = "@{viewModel.currentFragment==0?View.VISIBLE:View.INVISIBLE}"/>
+				<TextView
+					style = "@style/LabelIcon"
+					android:layout_width = "match_parent"
+					android:layout_height = "match_parent"
+					android:gravity = "center"
+					android:text = "@string/HomeOutline"
+					android:textColor = "@{viewModel.currentFragment==0?0xff303030:0xffffffff}"
+					android:textSize = "28sp"/>
+				<View android:layout_width = "match_parent"
+					  android:layout_height = "match_parent"
+					  android:clickable = "true"
+					  android:focusable = "true"
+					  android:alpha="0.5"
+					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(0)}"
+					  android:foreground = "@drawable/ripple_white_round"/>
+
+			</RelativeLayout>
+			<!--MapIcon-->
+			<RelativeLayout android:layout_width = "52dp"
+							android:layout_height = "52dp"
+							android:layout_weight = "1">
+				<View android:layout_width = "match_parent"
+					  android:layout_height = "match_parent"
+					  android:background = "@drawable/border_rounded_white_small"
+					  android:visibility = "@{viewModel.currentFragment==1?View.VISIBLE:View.INVISIBLE}"/>
+				<TextView
+					style = "@style/LabelIcon"
+					android:layout_width = "match_parent"
+					android:layout_height = "match_parent"
+					android:gravity = "center"
+					android:text = "@string/MapOutline"
+					android:textColor = "@{viewModel.currentFragment==1?0xff303030:0xffffffff}"
+					android:textSize = "28sp"/>
+				<View android:layout_width = "match_parent"
+					  android:layout_height = "match_parent"
+					  android:clickable = "true"
+					  android:focusable = "true"
+					  android:alpha="0.5"
+					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(1)}"
+					  android:foreground = "@drawable/ripple_white_round"/>
+
+			</RelativeLayout>
+			<!--AddPostIcon-->
+			<RelativeLayout android:layout_width = "52dp"
+							android:layout_height = "52dp"
+							android:layout_weight = "1">
+				<View android:layout_width = "match_parent"
+					  android:layout_height = "match_parent"
+					  android:background = "@drawable/border_rounded_white_small"
+					  android:visibility = "@{viewModel.currentFragment==2?View.VISIBLE:View.INVISIBLE}"/>
+				<TextView
+					style = "@style/LabelIcon"
+					android:layout_width = "match_parent"
+					android:layout_height = "match_parent"
+					android:gravity = "center"
+					android:text = "@string/PlusCircleOutline"
+					android:textColor = "@{viewModel.currentFragment==2?0xff303030:0xffffffff}"
+					android:textSize = "28sp"/>
+				<View android:layout_width = "match_parent"
+					  android:layout_height = "match_parent"
+					  android:clickable = "true"
+					  android:focusable = "true"
+					  android:alpha="0.5"
+					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(2)}"
+					  android:foreground = "@drawable/ripple_white_round"/>
+			</RelativeLayout>
+			<!--AccountIcon-->
+			<RelativeLayout android:layout_width = "52dp"
+							android:layout_height = "52dp"
+							android:layout_weight = "1">
+				<View android:layout_width = "match_parent"
+					  android:layout_height = "match_parent"
+					  android:background = "@drawable/border_rounded_white_small"
+					  android:visibility = "@{viewModel.currentFragment==3?View.VISIBLE:View.INVISIBLE}"/>
+				<TextView
+					style = "@style/LabelIcon"
+					android:layout_width = "match_parent"
+					android:layout_height = "match_parent"
+					android:gravity = "center"
+					android:text = "@string/AccountOutline"
+					android:textColor = "@{viewModel.currentFragment==3?0xff303030:0xffffffff}"
+					android:textSize = "28sp"/>
+				<View android:layout_width = "match_parent"
+					  android:layout_height = "match_parent"
+					  android:clickable = "true"
+					  android:focusable = "true"
+					  android:alpha="0.5"
+					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(3)}"
+					  android:foreground = "@drawable/ripple_white_round"/>
+			</RelativeLayout>
+			<!--SettingsIcon-->
+			<RelativeLayout android:layout_width = "52dp"
+							android:layout_height = "52dp"
+							android:layout_weight = "1">
+				<View android:layout_width = "match_parent"
+					  android:layout_height = "match_parent"
+					  android:background = "@drawable/border_rounded_white_small"
+					  android:visibility = "@{viewModel.currentFragment==4?View.VISIBLE:View.INVISIBLE}"/>
+				<TextView
+					style = "@style/LabelIcon"
+					android:layout_width = "match_parent"
+					android:layout_height = "match_parent"
+					android:gravity = "center"
+					android:text = "@string/CogOutline"
+					android:textColor = "@{viewModel.currentFragment==4?0xff303030:0xffffffff}"
+					android:textSize = "28sp"/>
+				<View android:layout_width = "match_parent"
+					  android:layout_height = "match_parent"
+					  android:clickable = "true"
+					  android:focusable = "true"
+					  android:alpha="0.5"
+					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(4)}"
+					  android:foreground = "@drawable/ripple_white_round"/>
+			</RelativeLayout>
+		</LinearLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

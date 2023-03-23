@@ -1,6 +1,7 @@
 package it.univpm.spottedkotlin.extension
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
