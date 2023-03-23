@@ -20,6 +20,18 @@
 			  app:layout_constraintBottom_toBottomOf = "parent"
 			  app:layout_constraintEnd_toEndOf = "parent"
 			  app:layout_constraintStart_toStartOf = "parent"/>
+
+		<!--AnimationCircle-->
+		<View android:id = "@+id/animation_circle"
+			  android:layout_width = "52dp"
+			  android:layout_height = "52dp"
+			  android:elevation = "10dp"
+			  android:background = "@drawable/border_rounded_white_small"
+			  android:visibility = "invisible"
+			  app:layout_constraintBottom_toBottomOf = "parent"
+			  app:layout_constraintEnd_toEndOf = "parent"
+			  app:layout_constraintStart_toStartOf = "parent"/>
+
 		<!--Icons-->
 		<LinearLayout android:layout_width = "300dp"
 					  android:layout_height = "68dp"
@@ -68,7 +80,7 @@
 					  android:background = "@drawable/border_rounded_white_small"
 					  android:visibility = "@{viewModel.currentFragment==1?View.VISIBLE:View.INVISIBLE}"/>
 				<TextView
-					android:id="@+id/map_icon"
+					android:id = "@+id/map_icon"
 					style = "@style/LabelIcon"
 					android:layout_width = "match_parent"
 					android:layout_height = "match_parent"
@@ -89,7 +101,8 @@
 			<RelativeLayout android:layout_width = "52dp"
 							android:layout_height = "52dp"
 							android:layout_weight = "1">
-				<View android:id = "@+id/add_post_circle" android:layout_width = "match_parent"
+				<View android:id = "@+id/add_post_circle"
+					  android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
 					  android:visibility = "@{viewModel.currentFragment==2?View.VISIBLE:View.INVISIBLE}"/>
@@ -114,12 +127,14 @@
 			<RelativeLayout android:layout_width = "52dp"
 							android:layout_height = "52dp"
 							android:layout_weight = "1">
-				<View android:id = "@+id/account_circle" android:layout_width = "match_parent"
+				<View android:id = "@+id/account_circle"
+					  android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
 					  android:visibility = "@{viewModel.currentFragment==3?View.VISIBLE:View.INVISIBLE}"/>
 				<TextView
-					android:id = "@+id/account_icon" style = "@style/LabelIcon"
+					android:id = "@+id/account_icon"
+					style = "@style/LabelIcon"
 					android:layout_width = "match_parent"
 					android:layout_height = "match_parent"
 					android:gravity = "center"
@@ -138,7 +153,8 @@
 			<RelativeLayout android:layout_width = "52dp"
 							android:layout_height = "52dp"
 							android:layout_weight = "1">
-				<View android:id = "@+id/settings_circle" android:layout_width = "match_parent"
+				<View android:id = "@+id/settings_circle"
+					  android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
 					  android:visibility = "@{viewModel.currentFragment==4?View.VISIBLE:View.INVISIBLE}"/>
