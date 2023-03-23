@@ -2,8 +2,11 @@
     <string name="app_name">Spotted[Kotlin]</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="home_fragment_label">Home</string>
+    <string name="map_fragment_label">Mappa</string>
+    <string name="add_spot_fragment_label">Pubblica uno Spot</string>
+    <string name="account_fragment_label">Account</string>
+    <string name="settings_fragment_label">Impostazioni</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 

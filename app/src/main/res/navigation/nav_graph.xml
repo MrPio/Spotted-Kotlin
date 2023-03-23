@@ -3,11 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/HomeFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/HomeFragment"
         android:name="it.univpm.spottedkotlin.HomeFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/home_fragment"/>
+        android:label="@string/home_fragment_label"
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/action_Home_to_Map"
+            app:destination="@id/MapFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/MapFragment"
+        android:name="it.univpm.spottedkotlin.MapFragment"
+        android:label="@string/map_fragment_label"
+        tools:layout="@layout/map_fragment">
+        <action
+            android:id="@+id/action_Map_to_Home"
+            app:destination="@id/HomeFragment" />
+    </fragment>
 </navigation>

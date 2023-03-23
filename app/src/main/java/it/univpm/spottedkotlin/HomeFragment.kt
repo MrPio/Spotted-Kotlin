@@ -6,23 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.univpm.spottedkotlin.adapter.HomePostsAdapter
 import it.univpm.spottedkotlin.databinding.HomeFragmentBinding
+import it.univpm.spottedkotlin.enums.Colors
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.viewmodel.HomeViewModel
-import it.univpm.spottedkotlin.extension.load
+import it.univpm.spottedkotlin.extension.loadStr
 
 class HomeFragment : Fragment() {
 	private lateinit var binding: HomeFragmentBinding
 	private val viewModel: HomeViewModel by viewModels()
 
 	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
 	): View {
 		binding = HomeFragmentBinding.inflate(inflater, container, false)
 		return binding.root
@@ -40,27 +41,14 @@ class HomeFragment : Fragment() {
 					percentage = 11,
 					locationImage = "https://firebasestorage.googleapis.com/v0/b/spotted-f3589.appspot.com/o/src%2Funi_140.jpg?alt=media&token=53f4caee-dca6-47eb-a534-dc28dc354cb4",
 					tags = listOf(
-						Tag("Alto", context?.load(R.string.Home) ?: ""),
-						Tag("Alto", context?.load(R.string.Home) ?: ""),
-						Tag("Alto", context?.load(R.string.Home) ?: ""),
-						Tag("Alto", context?.load(R.string.Home) ?: ""),
+						Tag("Alto", context?.loadStr(R.string.Home) ?: ""),
+						Tag("Alto", context?.loadStr(R.string.Home) ?: ""),
+						Tag("Alto", context?.loadStr(R.string.Home) ?: ""),
+						Tag("Alto", context?.loadStr(R.string.Home) ?: ""),
 					)
 				)
 			)
 		)
 		binding.executePendingBindings()
-
-		binding.homeBottomBar.viewModel = viewModel
-		viewModel.currentFragment.observe(viewLifecycleOwner) {
-			when (viewModel.currentFragment.value) {
-				0 -> print("x == 1")
-				1 -> print("x == 2")
-				2 -> print("x == 2")
-				3 -> print("x == 2")
-				4 -> print("x == 2")
-			}
-			//TODO move to MAINVIEWMODEL
-		}
-		binding.homeBottomBar.executePendingBindings()
 	}
 }

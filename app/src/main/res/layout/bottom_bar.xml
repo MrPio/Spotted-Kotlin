@@ -4,7 +4,7 @@
 		<import type = "it.univpm.spottedkotlin.enums.Colors"/>
 		<import type = "android.view.View"/>
 		<variable name = "viewModel"
-				  type = "it.univpm.spottedkotlin.viewmodel.HomeViewModel"/>
+				  type = "it.univpm.spottedkotlin.viewmodel.MainViewModel"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
@@ -35,11 +35,13 @@
 			<RelativeLayout android:layout_width = "52dp"
 							android:layout_height = "52dp"
 							android:layout_weight = "1">
-					<View android:layout_width = "match_parent"
-						  android:layout_height = "match_parent"
-						  android:background = "@drawable/border_rounded_white_small"
-						  android:visibility = "@{viewModel.currentFragment==0?View.VISIBLE:View.INVISIBLE}"/>
+				<View android:id = "@+id/home_circle"
+					  android:layout_width = "match_parent"
+					  android:layout_height = "match_parent"
+					  android:background = "@drawable/border_rounded_white_small"
+					  android:visibility = "@{viewModel.currentFragment==0?View.VISIBLE:View.INVISIBLE}"/>
 				<TextView
+					android:id = "@+id/home_icon"
 					style = "@style/LabelIcon"
 					android:layout_width = "match_parent"
 					android:layout_height = "match_parent"
@@ -49,22 +51,24 @@
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
+					  android:alpha = "0.5"
 					  android:clickable = "true"
 					  android:focusable = "true"
-					  android:alpha="0.5"
-					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(0)}"
-					  android:foreground = "@drawable/ripple_white_round"/>
+					  android:foreground = "@drawable/ripple_white_round"
+					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(0)}"/>
 
 			</RelativeLayout>
 			<!--MapIcon-->
 			<RelativeLayout android:layout_width = "52dp"
 							android:layout_height = "52dp"
 							android:layout_weight = "1">
-				<View android:layout_width = "match_parent"
+				<View android:id = "@+id/map_circle"
+					  android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
 					  android:visibility = "@{viewModel.currentFragment==1?View.VISIBLE:View.INVISIBLE}"/>
 				<TextView
+					android:id="@+id/map_icon"
 					style = "@style/LabelIcon"
 					android:layout_width = "match_parent"
 					android:layout_height = "match_parent"
@@ -74,22 +78,23 @@
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
+					  android:alpha = "0.5"
 					  android:clickable = "true"
 					  android:focusable = "true"
-					  android:alpha="0.5"
-					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(1)}"
-					  android:foreground = "@drawable/ripple_white_round"/>
+					  android:foreground = "@drawable/ripple_white_round"
+					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(1)}"/>
 
 			</RelativeLayout>
 			<!--AddPostIcon-->
 			<RelativeLayout android:layout_width = "52dp"
 							android:layout_height = "52dp"
 							android:layout_weight = "1">
-				<View android:layout_width = "match_parent"
+				<View android:id = "@+id/add_post_circle" android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
 					  android:visibility = "@{viewModel.currentFragment==2?View.VISIBLE:View.INVISIBLE}"/>
 				<TextView
+					android:id = "@+id/add_post_icon"
 					style = "@style/LabelIcon"
 					android:layout_width = "match_parent"
 					android:layout_height = "match_parent"
@@ -99,22 +104,22 @@
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
+					  android:alpha = "0.5"
 					  android:clickable = "true"
 					  android:focusable = "true"
-					  android:alpha="0.5"
-					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(2)}"
-					  android:foreground = "@drawable/ripple_white_round"/>
+					  android:foreground = "@drawable/ripple_white_round"
+					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(2)}"/>
 			</RelativeLayout>
 			<!--AccountIcon-->
 			<RelativeLayout android:layout_width = "52dp"
 							android:layout_height = "52dp"
 							android:layout_weight = "1">
-				<View android:layout_width = "match_parent"
+				<View android:id = "@+id/account_circle" android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
 					  android:visibility = "@{viewModel.currentFragment==3?View.VISIBLE:View.INVISIBLE}"/>
 				<TextView
-					style = "@style/LabelIcon"
+					android:id = "@+id/account_icon" style = "@style/LabelIcon"
 					android:layout_width = "match_parent"
 					android:layout_height = "match_parent"
 					android:gravity = "center"
@@ -123,21 +128,22 @@
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
+					  android:alpha = "0.5"
 					  android:clickable = "true"
 					  android:focusable = "true"
-					  android:alpha="0.5"
-					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(3)}"
-					  android:foreground = "@drawable/ripple_white_round"/>
+					  android:foreground = "@drawable/ripple_white_round"
+					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(3)}"/>
 			</RelativeLayout>
 			<!--SettingsIcon-->
 			<RelativeLayout android:layout_width = "52dp"
 							android:layout_height = "52dp"
 							android:layout_weight = "1">
-				<View android:layout_width = "match_parent"
+				<View android:id = "@+id/settings_circle" android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
 					  android:visibility = "@{viewModel.currentFragment==4?View.VISIBLE:View.INVISIBLE}"/>
 				<TextView
+					android:id = "@+id/settings_icon"
 					style = "@style/LabelIcon"
 					android:layout_width = "match_parent"
 					android:layout_height = "match_parent"
@@ -147,11 +153,11 @@
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
+					  android:alpha = "0.5"
 					  android:clickable = "true"
 					  android:focusable = "true"
-					  android:alpha="0.5"
-					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(4)}"
-					  android:foreground = "@drawable/ripple_white_round"/>
+					  android:foreground = "@drawable/ripple_white_round"
+					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(4)}"/>
 			</RelativeLayout>
 		</LinearLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>
