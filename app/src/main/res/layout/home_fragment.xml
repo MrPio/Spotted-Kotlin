@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android = "http://schemas.android.com/apk/res/android">
 	<data>
+		<import type = "it.univpm.spottedkotlin.enums.RemoteImages"/>
 		<variable name = "viewModel"
 				  type = "it.univpm.spottedkotlin.viewmodel.HomeViewModel"/>
 		<variable
@@ -9,7 +10,6 @@
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
-		xmlns:android = "http://schemas.android.com/apk/res/android"
 		xmlns:app = "http://schemas.android.com/apk/res-auto"
 		xmlns:tools = "http://schemas.android.com/tools"
 		android:layout_width = "match_parent"
@@ -19,30 +19,103 @@
 		<LinearLayout
 			android:layout_width = "match_parent"
 			android:layout_height = "match_parent"
-			android:layout_marginTop = "16dp"
 			android:orientation = "vertical"
 			app:layout_constraintBottom_toBottomOf = "parent"
 			app:layout_constraintEnd_toEndOf = "parent"
 			app:layout_constraintStart_toStartOf = "parent"
-			app:layout_constraintTop_toTopOf = "parent">
+			app:layout_constraintTop_toTopOf = "parent"
+			android:background = "@color/color3">
 
-			<TextView
-				android:id = "@+id/textView"
-				style = "@style/LabelTitle"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:fontFamily = "@font/clicker_script_regular"
-				android:text = "@string/app_title"
-				android:textAlignment = "center"
-				android:textStyle = "bold"/>
+			<!--TopMenu-->
+			<LinearLayout android:layout_width = "match_parent"
+						  android:layout_height = "wrap_content"
+						  android:backgroundTint = "@color/color4"
+						  android:elevation = "1dp"
+						  android:paddingTop = "20dp"
+						  android:paddingBottom = "16dp"
+				android:background="@drawable/corner_radius_bottom">
 
+				<!--MenuIcon-->
+				<TextView style = "@style/LabelIcon"
+						  android:layout_width = "0dp"
+						  android:layout_height = "match_parent"
+						  android:layout_weight = "1"
+						  android:gravity = "center"
+						  android:text = "@string/Menu"
+						  android:textColor = "@color/color1"
+						  android:textSize = "28sp"/>
+
+				<!--Spotted title-->
+				<TextView
+					android:id = "@+id/textView"
+					style = "@style/LabelTitle"
+					android:layout_width = "0dp"
+					android:layout_height = "match_parent"
+					android:layout_weight = "2"
+					android:fontFamily = "@font/clicker_script_regular"
+					android:gravity = "center"
+					android:text = "@string/app_title"
+					android:textStyle = "bold"/>
+
+				<!--AvatarImage-->
+				<RelativeLayout android:layout_width = "0dp"
+								android:layout_height = "wrap_content"
+								android:layout_weight = "1"
+								android:gravity = "center">
+					<androidx.cardview.widget.CardView
+						android:layout_width = "wrap_content"
+						android:layout_height = "wrap_content"
+						android:layout_gravity = "center"
+						app:cardBackgroundColor = "#FFFFFF"
+						app:cardCornerRadius = "999dp">
+
+						<ImageView
+							android:layout_width = "48dp"
+							android:layout_height = "48dp"
+							android:layout_margin = "2dp"
+							android:contentDescription = "@string/todo"
+							android:src = "@drawable/anonymous"/>
+					</androidx.cardview.widget.CardView>
+				</RelativeLayout>
+			</LinearLayout>
+
+			<!--Title-->
+			<TextView android:layout_width = "wrap_content"
+					  android:layout_height = "wrap_content"
+					  android:layout_marginTop="20dp"
+					  android:paddingStart="30dp"
+					  android:paddingEnd="30dp"
+					  android:text="Ciao, Luca"
+					  style="@style/LabelBlack"/>
+			<!--Subtitle-->
+			<TextView android:layout_width = "wrap_content"
+					  android:layout_height = "wrap_content"
+					  android:paddingStart="30dp"
+					  android:paddingEnd="30dp"
+					  android:textSize="16sp"
+					  android:text="Ecco gli spot recenti, ti riconosci in  queste descrizioni?"
+					  style="@style/LabelMedium"/>
+
+			<!--SpotPosts-->
 			<androidx.recyclerview.widget.RecyclerView android:id = "@+id/posts_recycler"
 													   android:layout_width = "match_parent"
 													   android:layout_height = "match_parent"
+													   android:paddingTop="20dp"
+													   android:paddingBottom="40dp"
 													   android:adapter = "@{home_posts_adapter}"
-													   tools:listitem = "@layout/spot_post">
-
-			</androidx.recyclerview.widget.RecyclerView>
+													   tools:listitem = "@layout/spot_post"/>
 		</LinearLayout>
+
+		<!--TOP_SPRITE_001-->
+		<!--		<ImageView android:layout_width = "0dp"-->
+		<!--				   android:layout_height = "wrap_content"-->
+		<!--				   android:adjustViewBounds = "true"-->
+		<!--				   android:alpha = "0.15"-->
+		<!--				   android:contentDescription = "@string/todo"-->
+		<!--				   android:scaleType = "fitXY"-->
+		<!--				   app:imageUrl = "@{RemoteImages.TOP_SPRITE_001.url}"-->
+		<!--				   app:layout_constraintEnd_toEndOf = "parent"-->
+		<!--				   app:layout_constraintStart_toStartOf = "parent"-->
+		<!--				   app:layout_constraintTop_toTopOf = "parent"/>-->
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -17,7 +17,7 @@
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:layout_marginStart = "30dp"
-			android:layout_marginTop = "30dp"
+			android:layout_marginBottom = "20dp"
 			android:layout_marginEnd = "30dp"
 			app:cardCornerRadius = "30dp">
 
@@ -96,6 +96,7 @@
 						android:textColor = "@color/color4"
 						app:layout_constraintStart_toEndOf = "@id/percentage_label"
 						app:layout_constraintTop_toTopOf = "parent"/>
+
 					<!--AvatarImage-->
 					<androidx.cardview.widget.CardView
 						android:layout_width = "wrap_content"

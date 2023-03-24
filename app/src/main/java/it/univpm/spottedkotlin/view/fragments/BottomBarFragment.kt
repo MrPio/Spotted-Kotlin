@@ -67,9 +67,13 @@ class BottomBarFragment : Fragment() {
 		circle.visibility = View.VISIBLE
 
 		circle.animate()
-			.setDuration(200L + 50 * abs(to - from))
-			.x(circles[to].rawX())
-			.onEnd { circles[to].visibility = View.VISIBLE }
+			.setDuration(160L + 50 * abs(to - from))
+			.setInterpolator((if(to>from)TimesInterpolator.LINEAR else TimesInterpolator.ALMOST_LINEAR).interpolator)
+			.x(circles[to].rawX()+20)
+			.onEnd {
+				circles[to].visibility = View.VISIBLE
+				circle.visibility = View.INVISIBLE
+			}
 			.start()
 
 		//Width Animation
@@ -77,7 +81,7 @@ class BottomBarFragment : Fragment() {
 			start = circle.width,
 			end = circle.width * (1 + .5 * abs(to - from)),
 			interpolator = TimesInterpolator.BELL_SIN,
-			duration = 150L + 50 * abs(to - from)
+			duration = 140L + 50 * abs(to - from)
 		) { circle.setWidth((it.animatedValue as Number).toInt()) }
 	}
 }
