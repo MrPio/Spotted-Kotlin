@@ -2,10 +2,9 @@ package it.univpm.spottedkotlin.extension
 
 import android.app.Activity
 import android.content.Context
-import android.os.Build
+import android.content.ContextWrapper
 import android.util.DisplayMetrics
 import android.view.View
-import androidx.annotation.RequiresApi
 import it.univpm.spottedkotlin.managers.DeviceManager
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -13,6 +12,17 @@ import java.time.format.DateTimeFormatter
 
 fun Context.loadStr(res: Int) = this.resources.getString(res)
 fun Context.loadColor(res: Int) = this.resources.getColor(res, theme)
+
+inline fun <reified T> Context.getActivity(): T? {
+	var context = this
+	while (context is ContextWrapper) {
+		if (context is T)
+			return context
+		context = context.baseContext
+	}
+	return null
+}
+
 fun Activity.metrics(): DisplayMetrics {
 	val displayMetrics = DisplayMetrics()
 	this.windowManager.defaultDisplay.getMetrics(displayMetrics)

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 	<data>
-		<import type = "it.univpm.spottedkotlin.enums.Colors"/>
-		<import type = "android.view.View"/>
 		<variable name = "viewModel"
 				  type = "it.univpm.spottedkotlin.viewmodel.MainViewModel"/>
 	</data>
@@ -25,8 +23,8 @@
 		<View android:id = "@+id/animation_circle"
 			  android:layout_width = "52dp"
 			  android:layout_height = "52dp"
-			  android:elevation = "10dp"
 			  android:background = "@drawable/border_rounded_white_small"
+			  android:elevation = "10dp"
 			  android:visibility = "invisible"
 			  app:layout_constraintBottom_toBottomOf = "parent"
 			  app:layout_constraintEnd_toEndOf = "parent"
@@ -51,7 +49,7 @@
 					  android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
-					  android:visibility = "@{viewModel.currentFragment==0?View.VISIBLE:View.INVISIBLE}"/>
+					  android:visibility = "visible"/>
 				<TextView
 					android:id = "@+id/home_icon"
 					style = "@style/LabelIcon"
@@ -59,7 +57,7 @@
 					android:layout_height = "match_parent"
 					android:gravity = "center"
 					android:text = "@string/HomeOutline"
-					android:textColor = "@{viewModel.currentFragment==0?0xff303030:0xffffffff}"
+					android:textColor = "@color/color4"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
@@ -78,7 +76,7 @@
 					  android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
-					  android:visibility = "@{viewModel.currentFragment==1?View.VISIBLE:View.INVISIBLE}"/>
+					  android:visibility = "invisible"/>
 				<TextView
 					android:id = "@+id/map_icon"
 					style = "@style/LabelIcon"
@@ -86,7 +84,7 @@
 					android:layout_height = "match_parent"
 					android:gravity = "center"
 					android:text = "@string/MapOutline"
-					android:textColor = "@{viewModel.currentFragment==1?0xff303030:0xffffffff}"
+					android:textColor = "@color/color4"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
@@ -105,7 +103,7 @@
 					  android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
-					  android:visibility = "@{viewModel.currentFragment==2?View.VISIBLE:View.INVISIBLE}"/>
+					  android:visibility = "invisible"/>
 				<TextView
 					android:id = "@+id/add_post_icon"
 					style = "@style/LabelIcon"
@@ -113,7 +111,7 @@
 					android:layout_height = "match_parent"
 					android:gravity = "center"
 					android:text = "@string/PlusCircleOutline"
-					android:textColor = "@{viewModel.currentFragment==2?0xff303030:0xffffffff}"
+					android:textColor = "@color/color4"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
@@ -131,7 +129,7 @@
 					  android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
-					  android:visibility = "@{viewModel.currentFragment==3?View.VISIBLE:View.INVISIBLE}"/>
+					  android:visibility = "invisible"/>
 				<TextView
 					android:id = "@+id/account_icon"
 					style = "@style/LabelIcon"
@@ -139,7 +137,7 @@
 					android:layout_height = "match_parent"
 					android:gravity = "center"
 					android:text = "@string/AccountOutline"
-					android:textColor = "@{viewModel.currentFragment==3?0xff303030:0xffffffff}"
+					android:textColor = "@color/color4"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
@@ -147,7 +145,7 @@
 					  android:clickable = "true"
 					  android:focusable = "true"
 					  android:foreground = "@drawable/ripple_white_round"
-					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(3)}"/>
+					  android:visibility = "invisible"/>
 			</RelativeLayout>
 			<!--SettingsIcon-->
 			<RelativeLayout android:layout_width = "52dp"
@@ -157,7 +155,7 @@
 					  android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
 					  android:background = "@drawable/border_rounded_white_small"
-					  android:visibility = "@{viewModel.currentFragment==4?View.VISIBLE:View.INVISIBLE}"/>
+					  android:visibility = "invisible"/>
 				<TextView
 					android:id = "@+id/settings_icon"
 					style = "@style/LabelIcon"
@@ -165,7 +163,7 @@
 					android:layout_height = "match_parent"
 					android:gravity = "center"
 					android:text = "@string/CogOutline"
-					android:textColor = "@{viewModel.currentFragment==4?0xff303030:0xffffffff}"
+					android:textColor = "@color/color4"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"

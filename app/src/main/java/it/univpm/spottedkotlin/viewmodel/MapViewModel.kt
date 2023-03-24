@@ -1,4 +1,4 @@
-package it.univpm.spottedkotlin
+package it.univpm.spottedkotlin.viewmodel
 
 import androidx.lifecycle.ViewModel
 
