@@ -1,14 +1,11 @@
-package it.univpm.spottedkotlin
+package it.univpm.spottedkotlin.view
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import it.univpm.spottedkotlin.databinding.ActivityMainBinding
-import it.univpm.spottedkotlin.extension.*
+import it.univpm.spottedkotlin.extension.function.metrics
 import it.univpm.spottedkotlin.managers.DeviceManager
 import it.univpm.spottedkotlin.viewmodel.MainViewModel
 

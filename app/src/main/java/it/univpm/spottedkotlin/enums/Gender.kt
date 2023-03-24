@@ -7,5 +7,6 @@ enum class Gender {
 	FEMALE {
 		override val icon = "\uDB80\uDE9C"
 	};
+
 	open val icon: String = ""
 }

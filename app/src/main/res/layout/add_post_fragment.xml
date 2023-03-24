@@ -4,12 +4,11 @@
 	xmlns:tools = "http://schemas.android.com/tools"
 	android:layout_width = "match_parent"
 	android:layout_height = "match_parent"
-	tools:context = ".view.fragments.MapFragment">
+	tools:context = ".view.fragments.AddPostFragment">
 
 	<TextView
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
-		style="@style/LabelBlack"
 		android:text = "Hello"/>
 
 </FrameLayout>

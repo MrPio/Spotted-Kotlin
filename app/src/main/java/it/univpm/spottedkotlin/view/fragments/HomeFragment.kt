@@ -1,4 +1,4 @@
-package it.univpm.spottedkotlin
+package it.univpm.spottedkotlin.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.TransitionInflater
+import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.adapter.HomePostsAdapter
 import it.univpm.spottedkotlin.databinding.HomeFragmentBinding
-import it.univpm.spottedkotlin.enums.Colors
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.viewmodel.HomeViewModel
-import it.univpm.spottedkotlin.extension.loadStr
+import it.univpm.spottedkotlin.extension.function.loadStr
 
 class HomeFragment : Fragment() {
 	private lateinit var binding: HomeFragmentBinding

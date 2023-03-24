@@ -57,7 +57,7 @@
 					android:layout_height = "match_parent"
 					android:gravity = "center"
 					android:text = "@string/HomeOutline"
-					android:textColor = "@color/color4"
+					android:textColor = "@color/color1"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
@@ -145,7 +145,7 @@
 					  android:clickable = "true"
 					  android:focusable = "true"
 					  android:foreground = "@drawable/ripple_white_round"
-					  android:visibility = "invisible"/>
+					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(3)}"/>
 			</RelativeLayout>
 			<!--SettingsIcon-->
 			<RelativeLayout android:layout_width = "52dp"

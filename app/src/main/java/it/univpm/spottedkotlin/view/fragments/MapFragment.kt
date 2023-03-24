@@ -1,4 +1,4 @@
-package it.univpm.spottedkotlin
+package it.univpm.spottedkotlin.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,8 +1,8 @@
 package it.univpm.spottedkotlin.model
 
 import it.univpm.spottedkotlin.enums.Gender
-import it.univpm.spottedkotlin.extension.toDateStr
-import it.univpm.spottedkotlin.extension.toTimeStr
+import it.univpm.spottedkotlin.extension.function.toDateStr
+import it.univpm.spottedkotlin.extension.function.toTimeStr
 import java.time.LocalDateTime
 
 data class Post(

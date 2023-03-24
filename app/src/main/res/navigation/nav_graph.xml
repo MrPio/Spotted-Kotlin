@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/HomeFragment"
-        android:name="it.univpm.spottedkotlin.HomeFragment"
+        android:name="it.univpm.spottedkotlin.view.fragments.HomeFragment"
         android:label="@string/home_fragment_label"
         tools:layout="@layout/home_fragment">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/MapFragment"
-        android:name="it.univpm.spottedkotlin.MapFragment"
+        android:name="it.univpm.spottedkotlin.view.fragments.MapFragment"
         android:label="@string/map_fragment_label"
         tools:layout="@layout/map_fragment">
         <action
