@@ -12,6 +12,7 @@
 
     <string name="intro_title"> Dai un nome\n ai volti che incontri</string>
     <string name="intro_subtitle"> Pubblica annunci e trova\n le persone che stai cercando.</string>
+    <string name="start_button">Iniziamo</string>
     <string name="app_title">Spotted</string>
 	<string name = "luogo">Luogo</string>
 	<string name = "todo">TODO</string>
