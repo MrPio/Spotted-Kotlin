@@ -6,14 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import it.univpm.spottedkotlin.databinding.ActivityMainBinding
 import it.univpm.spottedkotlin.extension.function.metrics
+import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.managers.DeviceManager
 import it.univpm.spottedkotlin.viewmodel.MainViewModel
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
 
 	private lateinit var binding: ActivityMainBinding
 	val viewModel: MainViewModel by viewModels()
-	override fun onCreate(savedInstanceState: Bundle?)  {
+	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
 		DeviceManager.displayMetrics = this.metrics()
@@ -32,14 +34,18 @@ class MainActivity : AppCompatActivity() {
 				viewModel.bottomBarFragment
 			)
 		}
-		//Set bottomBar's binding to MainViewModel
 
 		//BottomBar Observer
 		viewModel.currentFragment.observe(this) {
 			viewModel.currentFragmentChanged(binding)
 		}
-	}
 
+//		DatabaseManager.post("posts","ciao")
+
+//		DatabaseManager.get<String>("posts/-NRTiYUnNSY8KzY5J0B5") {
+//			var c = it
+//		}
+	}
 }
 
 
