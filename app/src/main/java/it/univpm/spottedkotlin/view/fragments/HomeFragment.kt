@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.adapter.HomePostsAdapter
 import it.univpm.spottedkotlin.databinding.HomeFragmentBinding
+import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.viewmodel.HomeViewModel
-import it.univpm.spottedkotlin.extension.function.loadStr
 
 class HomeFragment : Fragment() {
 	private lateinit var binding: HomeFragmentBinding
@@ -39,12 +39,12 @@ class HomeFragment : Fragment() {
 			listOf(
 				Post(
 					percentage = 11,
-					locationImage = "https://firebasestorage.googleapis.com/v0/b/spotted-f3589.appspot.com/o/src%2Funi_140.jpg?alt=media&token=53f4caee-dca6-47eb-a534-dc28dc354cb4",
+					locationImage = RemoteImages.QT_140.url,
 					tags = listOf(
-						Tag("Alto", context?.loadStr(R.string.Home) ?: ""),
-						Tag("Alto", context?.loadStr(R.string.Home) ?: ""),
-						Tag("Alto", context?.loadStr(R.string.Home) ?: ""),
-						Tag("Alto", context?.loadStr(R.string.Home) ?: ""),
+						Tag("Alto", context?.getString(R.string.Home) ?: ""),
+						Tag("Alto", context?.getString(R.string.Home) ?: ""),
+						Tag("Alto", context?.getString(R.string.Home) ?: ""),
+						Tag("Alto", context?.getString(R.string.Home) ?: ""),
 					)
 				)
 			)

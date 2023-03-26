@@ -6,14 +6,17 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import it.univpm.spottedkotlin.model.Post
 import kotlinx.coroutines.tasks.await
+import kotlin.reflect.typeOf
 
 
 object DatabaseManager {
 	private const val tag = "FIREBASE"
 	private val database = Firebase.database.reference
-	private fun getChild(
+	fun getChild(
 		path: String,
 		database: DatabaseReference = this.database
 	): DatabaseReference {
@@ -39,9 +42,13 @@ object DatabaseManager {
 		put("$path/$key", res)
 	}
 
-	fun <T> getList(path: String, success: (it: List<T>) -> Unit) {
+	inline fun <reified T> getList(path: String, crossinline success: (it: List<T>) -> Unit) {
 		getChild(path).get().addOnSuccessListener {
-			success((it.value as HashMap<*, T>).values.toList())
+			val map = it.getValue<HashMap<String,T>>() ?: return@addOnSuccessListener
+			when (T::class) {
+				Post::class -> map.forEach { e -> (e.value as Post).uid = e.key }
+			}
+			success(map.values.toList())
 		}
 	}
 

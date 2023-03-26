@@ -205,7 +205,7 @@
 							android:layout_height = "20dp"
 							android:layout_marginStart = "4dp"
 							android:layout_marginEnd = "8dp"
-							android:text = "@{String.valueOf(model.commentCount)}"
+							android:text = "@{String.valueOf(model.commentsCount)}"
 							android:textAlignment = "center"
 							android:textColor = "@color/color4"/>
 
@@ -218,7 +218,7 @@
 							style = "@style/LabelMedium"
 							android:layout_height = "20dp"
 							android:layout_marginStart = "2dp"
-							android:text = "@{String.valueOf(model.followCount)}"
+							android:text = "@{String.valueOf(model.followersCount)}"
 							android:textAlignment = "center"
 							android:textColor = "@color/color4"/>
 					</LinearLayout>

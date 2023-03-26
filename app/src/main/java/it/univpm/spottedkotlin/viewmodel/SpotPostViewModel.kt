@@ -24,16 +24,17 @@ class SpotPostViewModel(binding: SpotPostBinding) : ViewHolder(binding.root) {
 		binding.model = post
 		binding.viewModel = this
 
-		for (tag in post.tags) {
-			val tagBinding: TagItemBinding = DataBindingUtil.inflate(
-				LayoutInflater.from(binding.root.context),
-				R.layout.tag_item,
-				binding.tagsLayout,
-				false
-			)
-			tagBinding.model = tag
-			binding.tagsLayout.addView(tagBinding.root)
-		}
+		if (post.tags != null)
+			for (tag in post.tags) {
+				val tagBinding: TagItemBinding = DataBindingUtil.inflate(
+					LayoutInflater.from(binding.root.context),
+					R.layout.tag_item,
+					binding.tagsLayout,
+					false
+				)
+				tagBinding.model = tag
+				binding.tagsLayout.addView(tagBinding.root)
+			}
 		binding.executePendingBindings()
 	}
 
