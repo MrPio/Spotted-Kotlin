@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android = "http://schemas.android.com/apk/res/android">
 	<data>
+		<import type = "it.univpm.spottedkotlin.R"/>
 		<import type = "it.univpm.spottedkotlin.enums.RemoteImages"/>
 		<variable name = "viewModel"
 				  type = "it.univpm.spottedkotlin.viewmodel.HomeViewModel"/>
@@ -86,39 +87,39 @@
 					  android:layout_marginTop = "20dp"
 					  android:paddingStart = "30dp"
 					  android:paddingEnd = "30dp"
-					  android:text = "Ciao, Luca"/>
+					  app:parameter = '@{"Luca"}'
+					  app:text = '@{R.string.home_title}'/>
 			<!--Subtitle-->
-			<TextView style = "@style/LabelMedium"
+			<TextView android:id="@+id/home_subtitle" style = "@style/LabelMedium"
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
 					  android:paddingStart = "30dp"
 					  android:paddingEnd = "30dp"
-					  android:text = "Ecco gli spot recenti, ti riconosci in  queste descrizioni?"
+					  android:text = "@string/home_persone_subtitle"
 					  android:textSize = "16sp"/>
 
 			<!--SpotTypes-->
 			<HorizontalScrollView android:layout_width = "match_parent"
-								  android:layout_height = "wrap_content">
+								  android:layout_height = "wrap_content"
+								  android:paddingStart = "30dp"
+								  android:paddingTop = "16dp">
 				<RadioGroup android:layout_width = "wrap_content"
-							android:layout_height = "wrap_content">
+							android:layout_height = "wrap_content"
+							android:onCheckedChanged="@{(group,checkedId)->viewModel.onRadioCheckedChanged(group,checkedId)}"
+							android:orientation = "horizontal">
 					<RadioButton
-						android:id = "@+id/radio0"
-						android:layout_width = "wrap_content"
-						android:layout_height = "wrap_content"
-						android:checked = "true"
-						android:text = "RadioButton1"/>
+						android:id = "@+id/radio_persone"
+						style = "@style/RadioButton"
+						android:text = "@string/type_persone"
+						android:checked="true"/>
 					<RadioButton
-						android:id = "@+id/radio1"
-						android:layout_width = "wrap_content"
-						android:layout_height = "wrap_content"
-						android:checked = "true"
-						android:text = "RadioButton1"/>
+						android:id = "@+id/radio_feste"
+						style = "@style/RadioButton"
+						android:text = "@string/type_feste"/>
 					<RadioButton
-						android:id = "@+id/radio2"
-						android:layout_width = "wrap_content"
-						android:layout_height = "wrap_content"
-						android:checked = "true"
-						android:text = "RadioButton1"/>
+						android:id = "@+id/radio_sport"
+						style = "@style/RadioButton"
+						android:text = "@string/type_sport"/>
 				</RadioGroup>
 			</HorizontalScrollView>
 

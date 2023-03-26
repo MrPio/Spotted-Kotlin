@@ -16,5 +16,12 @@
     <string name="app_title">Spotted</string>
 	<string name = "luogo">Luogo</string>
 	<string name = "todo">TODO</string>
+	<string name = "type_feste">Feste</string>
+    <string name = "type_sport">Sport</string>
+    <string name = "type_persone">Persone</string>
+	<string name = "home_persone_subtitle">Ecco gli spot recenti, ti riconosci in queste descrizioni?</string>
+	<string name = "home_feste_subtitle">Pronto a festeggiare? Questi party aspettano solo te!</string>
+	<string name = "home_sport_subtitle">Hai voglia di fare un po\' di sport? Controlla i seguenti spot.</string>
+	<string name = "home_title">Ciao, %1$s! </string>
 
 </resources>

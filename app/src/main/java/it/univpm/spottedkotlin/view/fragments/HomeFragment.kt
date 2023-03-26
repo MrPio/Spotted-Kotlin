@@ -50,5 +50,12 @@ class HomeFragment : Fragment() {
 			)
 		)
 		binding.executePendingBindings()
+		observe()
+	}
+
+	private fun observe(){
+		viewModel.subtitle.observe(viewLifecycleOwner) {
+			binding.homeSubtitle.text=requireContext().getString(it)
+		}
 	}
 }

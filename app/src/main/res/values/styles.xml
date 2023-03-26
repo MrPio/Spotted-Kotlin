@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+	<!--TextView-->
 	<style name = "LabelMedium">
 		<item name = "fontFamily">@font/lato_regular</item>
 		<item name = "android:textSize">14sp</item>
@@ -7,6 +9,7 @@
 		<item name = "android:layout_width">wrap_content</item>
 		<item name = "android:layout_height">wrap_content</item>
 	</style>
+
 	<style name = "LabelBold">
 		<item name = "fontFamily">@font/lato_bold</item>
 		<item name = "android:textSize">20sp</item>
@@ -14,6 +17,7 @@
 		<item name = "android:layout_width">wrap_content</item>
 		<item name = "android:layout_height">wrap_content</item>
 	</style>
+
 	<style name = "LabelBlack">
 		<item name = "fontFamily">@font/lato_black</item>
 		<item name = "android:textSize">26sp</item>
@@ -21,6 +25,7 @@
 		<item name = "android:layout_width">wrap_content</item>
 		<item name = "android:layout_height">wrap_content</item>
 	</style>
+
 	<style name = "LabelIcon">
 		<item name = "fontFamily">@font/material_design_icons</item>
 		<item name = "android:textSize">20sp</item>
@@ -28,11 +33,20 @@
 		<item name = "android:layout_width">wrap_content</item>
 		<item name = "android:layout_height">wrap_content</item>
 	</style>
+
 	<style name = "LabelTitle">
 		<item name = "fontFamily">@font/clicker_script_regular</item>
 		<item name = "android:textSize">34sp</item>
 		<item name = "android:textColor">@color/color2</item>
 	</style>
 
-	<!--Home-->
+	<!--RadioButton-->
+	<style name = "RadioButton">
+		<item name = "android:layout_width">wrap_content</item>
+		<item name = "android:layout_height">38dp</item>
+		<item name = "android:background">@drawable/radio_button_selector</item>
+		<item name = "android:button">@color/transparent</item>
+		<item name = "android:textColor">@drawable/radio_text_selector</item>
+		<item name = "android:layout_marginEnd">10dp</item>
+	</style>
 </resources>
