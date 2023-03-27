@@ -38,7 +38,6 @@ class HomeFragment : Fragment() {
 		binding.homePostsAdapter = HomePostsAdapter(
 			listOf(
 				Post(
-					percentage = 11,
 					locationImage = RemoteImages.QT_140.url,
 					tags = listOf(
 						Tag("Alto", context?.getString(R.string.Home) ?: ""),

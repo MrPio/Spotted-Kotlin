@@ -17,8 +17,8 @@
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:layout_marginStart = "30dp"
-			android:layout_marginBottom = "20dp"
 			android:layout_marginEnd = "30dp"
+			android:layout_marginBottom = "20dp"
 			app:cardCornerRadius = "30dp">
 
 			<androidx.constraintlayout.widget.ConstraintLayout
@@ -49,17 +49,9 @@
 					app:layout_constraintTop_toTopOf = "@+id/background_image"/>
 
 				<!--HighlightView-->
-				<View android:layout_width = "0dp"
-					  android:layout_height = "0dp"
-					  android:alpha = "0.2"
-					  android:clickable = "true"
-					  android:focusable = "true"
-					  android:foreground = "@drawable/ripple_white"
-					  android:onClickListener = "@{()->viewModel.cardClicked(model)}"
-					  app:layout_constraintBottom_toBottomOf = "parent"
-					  app:layout_constraintEnd_toEndOf = "parent"
-					  app:layout_constraintStart_toStartOf = "parent"
-					  app:layout_constraintTop_toTopOf = "parent"/>
+				<include layout = "@layout/highlight_view"
+						 app:foreground = "@{@drawable/ripple_white}"
+						 app:onClickListener = "@{()->viewModel.cardClicked(model)}"/>
 
 				<!--Content-->
 				<androidx.constraintlayout.widget.ConstraintLayout
@@ -126,8 +118,8 @@
 						<!--LocationIcon-->
 						<TextView
 							style = "@style/LabelIcon"
-							android:textSize="24sp"
-							android:text = "@string/MapMarker"/>
+							android:text = "@string/MapMarker"
+							android:textSize = "24sp"/>
 						<!--LocationText-->
 						<TextView
 							style = "@style/LabelBold"
@@ -143,16 +135,16 @@
 								  android:layout_marginEnd = "20dp"
 								  android:layout_marginBottom = "4dp"
 								  app:layout_constraintBottom_toTopOf = "@id/row1_column0_layout"
-								  app:layout_constraintEnd_toEndOf= "parent">
+								  app:layout_constraintEnd_toEndOf = "parent">
 						<!--GenderIcon-->
 						<TextView
 							style = "@style/LabelIcon"
-							android:textSize="38sp"
-							android:text = "@{model.gender.icon}"/>
+							android:text = "@{model.gender.icon}"
+							android:textSize = "38sp"/>
 					</LinearLayout>
 
 					<!--Row 1 Column 0-->
-					<LinearLayout android:id="@+id/row1_column0_layout"
+					<LinearLayout android:id = "@+id/row1_column0_layout"
 								  android:layout_width = "wrap_content"
 								  android:layout_height = "wrap_content"
 								  android:layout_marginStart = "20dp"

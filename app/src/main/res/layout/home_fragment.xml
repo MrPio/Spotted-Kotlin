@@ -37,14 +37,27 @@
 						  android:paddingBottom = "16dp">
 
 				<!--MenuIcon-->
-				<TextView style = "@style/LabelIcon"
-						  android:layout_width = "0dp"
-						  android:layout_height = "match_parent"
-						  android:layout_weight = "1"
-						  android:gravity = "center"
-						  android:text = "@string/Menu"
-						  android:textColor = "@color/color1"
-						  android:textSize = "28sp"/>
+				<RelativeLayout android:layout_width = "0dp"
+								android:layout_weight = "1"
+								android:layout_height = "match_parent"
+								android:gravity = "center">
+
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "match_parent"
+							  android:layout_height="match_parent"
+							  android:text = "@string/Menu"
+							  android:gravity = "center"
+							  android:textColor = "@color/color1"
+							  android:textSize = "28sp"/>
+
+					<include layout = "@layout/highlight_view"
+							 android:layout_width = "match_parent"
+							 android:layout_height="match_parent"
+							 android:gravity = "center"
+							 app:foreground = "@{@drawable/ripple_black_round}">
+					</include>
+				</RelativeLayout>
+
 
 				<!--Spotted title-->
 				<TextView
@@ -90,7 +103,8 @@
 					  app:parameter = '@{"Luca"}'
 					  app:text = '@{R.string.home_title}'/>
 			<!--Subtitle-->
-			<TextView android:id="@+id/home_subtitle" style = "@style/LabelMedium"
+			<TextView android:id = "@+id/home_subtitle"
+					  style = "@style/LabelMedium"
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
 					  android:paddingStart = "30dp"
@@ -105,13 +119,13 @@
 								  android:paddingTop = "16dp">
 				<RadioGroup android:layout_width = "wrap_content"
 							android:layout_height = "wrap_content"
-							android:onCheckedChanged="@{(group,checkedId)->viewModel.onRadioCheckedChanged(group,checkedId)}"
+							android:onCheckedChanged = "@{(group,checkedId)->viewModel.onRadioCheckedChanged(group,checkedId)}"
 							android:orientation = "horizontal">
 					<RadioButton
 						android:id = "@+id/radio_persone"
 						style = "@style/RadioButton"
-						android:text = "@string/type_persone"
-						android:checked="true"/>
+						android:checked = "true"
+						android:text = "@string/type_persone"/>
 					<RadioButton
 						android:id = "@+id/radio_feste"
 						style = "@style/RadioButton"
