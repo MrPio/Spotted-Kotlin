@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
 		return binding.root
 	}
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+	/*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
 		val postsRecycleView: RecyclerView = view.findViewById(R.id.posts_recycler)
@@ -57,5 +57,5 @@ class HomeFragment : Fragment() {
 		viewModel.subtitle.observe(viewLifecycleOwner) {
 			binding.homeSubtitle.text=requireContext().getString(it)
 		}
-	}
+	}*/
 }
