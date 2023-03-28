@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:visibility="invisible">
+	xmlns:tools="http://schemas.android.com/tools">
 
 	<data>
 
@@ -11,38 +10,7 @@
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:background="@drawable/first_access">
-
-		<ImageView
-			android:id="@+id/imageView2"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			android:layout_marginTop="200dp"
-			android:alpha="0.95"
-			app:imageUrl="@{RemoteImages.TOP_SPRITE_001.url}"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.0"
-			app:srcCompat="@drawable/gradient_linear_black" />
-
-		<TextView
-			android:id="@+id/first_access_title"
-			style="@style/LabelTitle"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="56dp"
-			android:fontFamily="@font/clicker_script_regular"
-			android:text="@string/app_title"
-			android:textAlignment="center"
-			android:textColor="#FFFFFF"
-			android:textSize="52sp"
-			app:layout_constraintBottom_toTopOf="@+id/login_card"
-			app:layout_constraintTop_toTopOf="parent"
-			tools:layout_editor_absoluteX="0dp" />
+		android:layout_height="match_parent">
 
 		<androidx.cardview.widget.CardView
 			android:id="@+id/login_card"
@@ -103,9 +71,10 @@
 						<EditText
 							android:id="@+id/editTextTextEmailAddress"
 							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
+							android:layout_height="50dp"
 							android:ems="10"
 							android:inputType="textEmailAddress"
+							android:text="pass@gmail"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/email" />
@@ -114,6 +83,7 @@
 							android:id="@+id/password"
 							android:layout_width="match_parent"
 							android:layout_height="20dp"
+							android:fontFamily="@font/lato_bold"
 							android:text="@string/password"
 							android:textColor="@color/color1"
 							app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
@@ -126,10 +96,11 @@
 						<EditText
 							android:id="@+id/editTextTextPassword"
 							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
+							android:layout_height="50dp"
 							android:layout_marginTop="36dp"
 							android:ems="10"
 							android:inputType="textPassword"
+							android:text="pass"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintHorizontal_bias="0.0"
 							app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +144,7 @@
 							android:id="@+id/not_registred"
 							android:layout_width="0dp"
 							android:layout_height="wrap_content"
-							android:layout_marginTop="4dp"
+							android:layout_marginTop="24dp"
 							android:text="@string/not_registred"
 							android:textAlignment="center"
 							android:textColor="@color/color1"
