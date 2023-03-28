@@ -22,13 +22,8 @@
 
         <activity
             android:name=".view.MainActivity"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.SpottedKotlin.NoActionBar"/>
-
-        <activity
-            android:name=".view.FirstActivity"
             android:exported="true"
+            android:label="@string/app_name"
             android:theme="@style/Theme.SpottedKotlin.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
