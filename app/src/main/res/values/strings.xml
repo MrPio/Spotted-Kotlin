@@ -14,6 +14,13 @@
     <string name="intro_subtitle"> Pubblica annunci e trova\n le persone che stai cercando.</string>
     <string name="start_button">Iniziamo</string>
     <string name="app_title">Spotted</string>
+    <string name="login">Login</string>
+    <string name="email">E-mail:</string>
+    <string name="password">Password:</string>
+    <string name="oppure">Oppure</string>
+    <string name="not_registred">Non sei ancora registrato?</string>
+    <string name="registrati"><u>Registrati</u></string>
+
 	<string name = "luogo">Luogo</string>
 	<string name = "todo">TODO</string>
 	<string name = "type_feste">Feste</string>
