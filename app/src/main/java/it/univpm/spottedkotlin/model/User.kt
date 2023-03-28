@@ -14,7 +14,8 @@ data class User(
 	val posts: MutableList<String>? = null,
 	val comments: MutableList<Comment>? = null,
 	val following: MutableList<String>? = null,
-	val cellNumber: String?=null,
-	val instagramNickname:String?=null,
-) {
+	val cellNumber: String? = null,
+	val instagramNickname: String? = null,
+){
+	var uid: String? = null
 }

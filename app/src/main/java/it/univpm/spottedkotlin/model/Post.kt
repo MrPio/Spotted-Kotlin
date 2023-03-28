@@ -10,7 +10,7 @@ import java.util.*
 @IgnoreExtraProperties
 data class Post(
 	val authorUID: String? = null,
-	val location: Locations,
+	val location: Locations?=null,
 	val gender: Gender = Gender.FEMALE,
 	val date: Date = Calendar.getInstance().time,
 	val description: String = "",
@@ -19,7 +19,7 @@ data class Post(
 	val comments: MutableList<Comment>? = null,
 ) {
 	var uid: String? = null
-	var percentage: Int = 0
+	var percentage: Int? = null
 
 	fun dateStr()  = date.toDateStr()
 	fun timeStr()  = date.toTimeStr()

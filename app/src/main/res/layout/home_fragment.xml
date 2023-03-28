@@ -15,14 +15,15 @@
 		xmlns:tools = "http://schemas.android.com/tools"
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
+		android:background = "@color/color3"
 		tools:context = ".view.fragments.HomeFragment">
 
 		<LinearLayout
+			android:id = "@+id/home_scaffold"
 			android:layout_width = "match_parent"
-			android:layout_height = "match_parent"
-			android:background = "@color/color3"
+			android:layout_height = "wrap_content"
 			android:orientation = "vertical"
-			app:layout_constraintBottom_toBottomOf = "parent"
+			android:paddingBottom="20dp"
 			app:layout_constraintEnd_toEndOf = "parent"
 			app:layout_constraintStart_toStartOf = "parent"
 			app:layout_constraintTop_toTopOf = "parent">
@@ -38,26 +39,25 @@
 
 				<!--MenuIcon-->
 				<RelativeLayout android:layout_width = "0dp"
-								android:layout_weight = "1"
 								android:layout_height = "match_parent"
+								android:layout_weight = "1"
 								android:gravity = "center">
 
 					<TextView style = "@style/LabelIcon"
 							  android:layout_width = "match_parent"
-							  android:layout_height="match_parent"
-							  android:text = "@string/Menu"
+							  android:layout_height = "match_parent"
 							  android:gravity = "center"
+							  android:text = "@string/Menu"
 							  android:textColor = "@color/color1"
 							  android:textSize = "28sp"/>
 
 					<include layout = "@layout/highlight_view"
 							 android:layout_width = "match_parent"
-							 android:layout_height="match_parent"
+							 android:layout_height = "match_parent"
 							 android:gravity = "center"
 							 app:foreground = "@{@drawable/ripple_black_round}">
 					</include>
 				</RelativeLayout>
-
 
 				<!--Spotted title-->
 				<TextView
@@ -137,25 +137,22 @@
 				</RadioGroup>
 			</HorizontalScrollView>
 
-			<!--SpotPosts-->
-			<androidx.recyclerview.widget.RecyclerView android:id = "@+id/posts_recycler"
-													   android:layout_width = "match_parent"
-													   android:layout_height = "match_parent"
-													   android:adapter = "@{home_posts_adapter}"
-													   android:paddingTop = "20dp"
-													   tools:listitem = "@layout/spot_post"/>
 		</LinearLayout>
 
-		<!--TOP_SPRITE_001-->
-		<!--		<ImageView android:layout_width = "0dp"-->
-		<!--				   android:layout_height = "wrap_content"-->
-		<!--				   android:adjustViewBounds = "true"-->
-		<!--				   android:alpha = "0.15"-->
-		<!--				   android:contentDescription = "@string/todo"-->
-		<!--				   android:scaleType = "fitXY"-->
-		<!--				   app:imageUrl = "@{RemoteImages.TOP_SPRITE_001.url}"-->
-		<!--				   app:layout_constraintEnd_toEndOf = "parent"-->
-		<!--				   app:layout_constraintStart_toStartOf = "parent"-->
-		<!--				   app:layout_constraintTop_toTopOf = "parent"/>-->
+		<!--SpotPosts-->
+		<androidx.recyclerview.widget.RecyclerView android:id = "@+id/posts_recycler"
+												   android:layout_width = "match_parent"
+												   android:layout_height = "0dp"
+												   android:adapter = "@{home_posts_adapter}"
+												   app:layout_constraintBottom_toBottomOf = "parent"
+												   app:layout_constraintStart_toStartOf = "parent"
+												   app:layout_constraintTop_toBottomOf = "@id/home_scaffold"
+												   tools:listitem = "@layout/spot_post"/>
+
+		<!--LoadingView-->
+		<include android:id = "@+id/home_loading_view"
+				 layout = "@layout/loading_view"
+				 android:visibility = "gone"/>
+
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,5 +4,6 @@
     <color name="color2">#f15450</color>
     <color name="color3">#efefef</color>
     <color name="color4">#ffffff</color>
+    <color name = "overlay">#60000000</color>
     <color name="transparent">#00000000</color>
 </resources>

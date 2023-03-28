@@ -42,14 +42,16 @@ object DatabaseManager {
 		put("$path/$key", res)
 	}
 
-	inline fun <reified T> getList(path: String, crossinline success: (it: List<T>) -> Unit) {
-		getChild(path).get().addOnSuccessListener {
-			val map = it.getValue<HashMap<String,T>>() ?: return@addOnSuccessListener
-			when (T::class) {
-				Post::class -> map.forEach { e -> (e.value as Post).uid = e.key }
-			}
-			success(map.values.toList())
+	suspend inline fun <reified T> getList(
+		path: String,
+		limit: Int = 99,
+	): List<T>? {
+		val dataSnapshot = getChild(path).orderByKey().limitToFirst(limit).get().await()
+		val map = dataSnapshot.getValue<HashMap<String, T>>() ?: return null
+		when (T::class) {
+			Post::class -> map.forEach { e -> (e.value as Post).uid = e.key }
 		}
+		return map.values.toList()
 	}
 
 	fun <T> get(path: String, success: (it: T) -> Unit) {

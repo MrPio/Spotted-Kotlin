@@ -7,17 +7,21 @@ import androidx.fragment.app.commit
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.ActivityMainBinding
 import it.univpm.spottedkotlin.extension.function.metrics
+import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.managers.DeviceManager
+import it.univpm.spottedkotlin.managers.DummyManager
 import it.univpm.spottedkotlin.model.Comment
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.viewmodel.MainViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
 
-	private lateinit var binding: ActivityMainBinding
+	lateinit var binding: ActivityMainBinding
 	val viewModel: MainViewModel by viewModels()
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -42,22 +46,8 @@ class MainActivity : AppCompatActivity() {
 			viewModel.currentFragmentChanged(binding)
 		}
 
-//		DatabaseManager.post(
-//			"posts", Post(
-//				"uid",
-//				listOf("a", "b"),
-//				listOf(Comment("c", "Ciao!")),
-//				tags = listOf(Tag("Ciccio",baseContext.getString(R.string.CircleDouble)))
-//			)
-//		)
+//		DummyManager.generatePosts()
 
-//		DatabaseManager.getList<Post>("posts") {
-//			var c = it
-//		}
-
-//		DatabaseManager.get<String>("posts/-NRTiYUnNSY8KzY5J0B5") {
-//			var c = it
-//		}
 	}
 }
 
