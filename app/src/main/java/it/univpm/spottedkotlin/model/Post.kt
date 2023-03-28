@@ -14,9 +14,9 @@ data class Post(
 	val gender: Gender = Gender.FEMALE,
 	val date: Date = Calendar.getInstance().time,
 	val description: String = "",
-	val tags: List<Tag>? = null,
-	val followers: List<String>? = null,
-	val comments: List<Comment>? = null,
+	val tags: MutableList<Tag>? = null,
+	val followers: MutableList<String>? = null,
+	val comments: MutableList<Comment>? = null,
 ) {
 	var uid: String? = null
 	var percentage: Int = 0

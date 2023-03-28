@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.adapter.HomePostsAdapter
 import it.univpm.spottedkotlin.databinding.HomeFragmentBinding
+import it.univpm.spottedkotlin.enums.Locations
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.Tag
@@ -38,7 +39,7 @@ class HomeFragment : Fragment() {
 		binding.homePostsAdapter = HomePostsAdapter(
 			listOf(
 				Post(
-					locationImage = RemoteImages.QT_140.url,
+					location = Locations.QT_140,
 					tags = listOf(
 						Tag("Alto", context?.getString(R.string.Home) ?: ""),
 						Tag("Alto", context?.getString(R.string.Home) ?: ""),
