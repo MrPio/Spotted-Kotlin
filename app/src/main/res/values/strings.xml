@@ -30,5 +30,6 @@
     <string name="home_feste_subtitle">Pronto a festeggiare? Questi party aspettano solo te!</string>
     <string name="home_sport_subtitle">Hai voglia di fare un po\' di sport? Controlla i seguenti spot.</string>
     <string name="home_title">Ciao, %1$s! </string>
+	<string name = "nuovo_spot">Nuovo Spot</string>
 
 </resources>
