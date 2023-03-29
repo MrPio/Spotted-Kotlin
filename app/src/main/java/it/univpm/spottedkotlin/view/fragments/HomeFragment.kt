@@ -1,5 +1,7 @@
 package it.univpm.spottedkotlin.view.fragments
 
+import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -169,7 +171,8 @@ class HomeFragment : Fragment() {
 		binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {
 			delay(1600)
-			requireContext().runUI {
+
+			context?.runUI {
 				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
 			}
 		}

@@ -48,7 +48,7 @@
 			android:layout_marginBottom = "52dp"
 			android:fontFamily = "@font/lato_bold"
 			android:text = "@string/start_button"
-			app:cornerRadius = "90dp"
+			app:cornerRadius = "999dp"
 			app:icon = "@drawable/anonymous"
 			app:iconGravity = "end"
 			app:iconSize = "30dp"

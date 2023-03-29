@@ -1,7 +1,9 @@
 package it.univpm.spottedkotlin.viewmodel
 
 import androidx.lifecycle.ViewModel
+import it.univpm.spottedkotlin.enums.Locations
 
 class AddPostViewModel : ViewModel() {
-	// TODO: Implement the ViewModel
+	val plessi= Locations.values().map { it.title }
+	val zone= Locations.values().map { it.title }
 }

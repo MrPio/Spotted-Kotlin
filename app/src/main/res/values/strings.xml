@@ -31,5 +31,9 @@
     <string name="home_sport_subtitle">Hai voglia di fare un po\' di sport? Controlla i seguenti spot.</string>
     <string name="home_title">Ciao, %1$s! </string>
 	<string name = "nuovo_spot">Nuovo Spot</string>
+	<string name = "tags">Tags</string>
+    <string name = "zona">Zona</string>
+    <string name = "plesso">Plesso</string>
+	<string name = "descrizione">Descrizione</string>
 
 </resources>

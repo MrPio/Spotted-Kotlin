@@ -49,4 +49,9 @@
 		<item name = "android:textColor">@drawable/radio_text_selector</item>
 		<item name = "android:layout_marginEnd">10dp</item>
 	</style>
+
+	<style name="SpinnerTheme">
+		<item name="android:textColor">@color/color1</item>
+		<item name="android:fontFamily">@font/lato_regular</item>
+	</style>
 </resources>
