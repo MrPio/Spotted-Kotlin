@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
 				binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
 			}
 			DataManager.fetchData()
-			requireContext().runUI {
+			context?.runUI {
 				recyclerLoadMore()
 				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
 
@@ -91,69 +91,74 @@ class HomeFragment : Fragment() {
 
 					override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 						super.onScrolled(recyclerView, dx, dy)
-						val y = recyclerView.computeVerticalScrollOffset()
-						if (topExpanded == false && (lastScrollY - y < -150)) {
-							topExpanded = null
-							requireContext().getActivity<MainActivity>()?.binding?.bottomBarContainer?.animate()
-								?.translationY(400f)?.setDuration(300L)?.start()
-							AnimationManager.animate(
-								start = 20.toDp(),
-								end = 0,
-								update = {
-									binding.homeScaffold.setPadding(
-										0,
-										0,
-										0,
-										(it.animatedValue as Float).toInt(),
-									)
-								}
-							)
-							AnimationManager.animate(
-								start = 0,
-								end = scaffoldHeight - 80,
-								interpolator = TimesInterpolator.LINEAR,
-								update = { binding.homeScaffold.setHeight(scaffoldHeight - (it.animatedValue as Float).toInt()) },
-								endListener = {
-									lastScrollY = y - scaffoldHeight;topExpanded = true
-								},
-							)
-
-
-						} else if (topExpanded == true && (lastScrollY - y > 150 || y < 10)) {
-							topExpanded = null
-							requireContext().getActivity<MainActivity>()?.binding?.bottomBarContainer?.animate()
-								?.translationY(0f)?.setDuration(300L)?.start()
-							AnimationManager.animate(
-								start = 0,
-								end = 20.toDp(),
-								update = {
-									binding.homeScaffold.setPadding(
-										0,
-										0,
-										0,
-										(it.animatedValue as Float).toInt()
-									)
-								}
-							)
-							AnimationManager.animate(
-								start = scaffoldHeight,
-								end = 0,
-								interpolator = TimesInterpolator.LINEAR,
-								update = {
-									binding.homeScaffold.setHeight(scaffoldHeight - (it.animatedValue as Float).toInt())
-								},
-								endListener = {
-									lastScrollY = y + scaffoldHeight;topExpanded = false
-								},
-							)
-						} else if (topExpanded == false && lastScrollY - y > 500)
-							lastScrollY = y + 500
-						else if (topExpanded == true && lastScrollY - y < -500)
-							lastScrollY = y - 500
+						onRecyclerScroll()
 					}
 				})
 			}
 		}
+	}
+
+	private fun onRecyclerScroll() {
+		val y = binding.postsRecycler.computeVerticalScrollOffset()
+
+		if (topExpanded == false && (lastScrollY - y < -150)) {
+			topExpanded = null
+			requireContext().getActivity<MainActivity>()?.binding?.bottomBarContainer?.animate()
+				?.translationY(400f)?.setDuration(300L)?.start()
+			AnimationManager.animate(
+				start = 20.toDp(),
+				end = 0,
+				update = {
+					binding.homeScaffold.setPadding(
+						0,
+						0,
+						0,
+						(it.animatedValue as Float).toInt(),
+					)
+				}
+			)
+			AnimationManager.animate(
+				start = 0,
+				end = scaffoldHeight - 80,
+				interpolator = TimesInterpolator.LINEAR,
+				update = { binding.homeScaffold.setHeight(scaffoldHeight - (it.animatedValue as Float).toInt()) },
+				endListener = {
+					lastScrollY = y - scaffoldHeight;topExpanded = true
+				},
+			)
+
+
+		} else if (topExpanded == true && (lastScrollY - y > 150 || y < 10)) {
+			topExpanded = null
+			requireContext().getActivity<MainActivity>()?.binding?.bottomBarContainer?.animate()
+				?.translationY(0f)?.setDuration(300L)?.start()
+			AnimationManager.animate(
+				start = 0,
+				end = 20.toDp(),
+				update = {
+					binding.homeScaffold.setPadding(
+						0,
+						0,
+						0,
+						(it.animatedValue as Float).toInt()
+					)
+				}
+			)
+			AnimationManager.animate(
+				start = scaffoldHeight,
+				end = 0,
+				interpolator = TimesInterpolator.LINEAR,
+				update = {
+					binding.homeScaffold.setHeight(scaffoldHeight - (it.animatedValue as Float).toInt())
+				},
+				endListener = {
+					lastScrollY = y + scaffoldHeight;topExpanded = false
+				},
+			)
+		} else if (topExpanded == false && lastScrollY - y > 500)
+			lastScrollY = y + 500
+		else if (topExpanded == true && lastScrollY - y < -500)
+			lastScrollY = y - 500
 	}
 
 	private fun recyclerLoadMore() {

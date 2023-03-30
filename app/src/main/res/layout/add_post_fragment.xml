@@ -1,180 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android = "http://schemas.android.com/apk/res/android"
+		xmlns:app = "http://schemas.android.com/apk/res-auto"
+		xmlns:tools = "http://schemas.android.com/tools">
 	<data>
 		<variable name = "viewModel"
 				  type = "it.univpm.spottedkotlin.viewmodel.AddPostViewModel"/>
 	</data>
-<androidx.constraintlayout.widget.ConstraintLayout
-	xmlns:android = "http://schemas.android.com/apk/res/android"
-	xmlns:app = "http://schemas.android.com/apk/res-auto"
-	xmlns:tools = "http://schemas.android.com/tools"
-	android:layout_width = "match_parent"
-	android:layout_height = "match_parent"
-	android:background = "@color/color1"
-	tools:context = ".view.fragments.AddPostFragment">
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent"
+		android:background = "@color/color1"
+		tools:context = ".view.fragments.AddPostFragment">
 
-	<androidx.cardview.widget.CardView android:id = "@+id/add_post_image_card"
-									   android:layout_width = "0dp"
-									   android:layout_height = "wrap_content"
-									   android:layout_marginTop = "0dp"
-									   app:cardCornerRadius = "36dp"
-									   app:layout_constraintEnd_toEndOf = "parent"
-									   app:layout_constraintStart_toStartOf = "parent"
-									   app:layout_constraintTop_toTopOf = "parent">
+		<!--Top Black roundedRectangle-->
+		<FrameLayout android:layout_width = "wrap_content"
+					 android:layout_height = "wrap_content"
+					 android:background = "@drawable/corner_radius_bottom"
+					 android:backgroundTint = "@color/color1"
+					 android:elevation = "10dp"
+					 app:layout_constraintEnd_toEndOf = "parent"
+					 app:layout_constraintStart_toStartOf = "parent"
+					 app:layout_constraintTop_toTopOf = "@id/add_post_image_card">
+			<TextView style = "@style/LabelBold"
+					  android:layout_width = "wrap_content"
+					  android:layout_height = "wrap_content"
+					  android:paddingHorizontal = "20dp"
+					  android:paddingVertical = "10dp"
+					  android:text = "@string/nuovo_spot"
+					  android:textColor = "@color/color4"/>
+		</FrameLayout>
 
-		<ImageView android:layout_width = "match_parent"
-				   android:layout_height = "wrap_content"
-				   android:layout_marginBottom = "36dp"
-				   android:adjustViewBounds = "true"
-				   android:scaleType = "fitXY"
-				   android:src = "@drawable/uni_140"/>
-	</androidx.cardview.widget.CardView>
-
-	<FrameLayout android:layout_width = "wrap_content"
-				 android:layout_height = "wrap_content"
-				 android:background = "@drawable/corner_radius_bottom"
-				 android:backgroundTint = "@color/color1"
-				 android:elevation = "10dp"
-				 app:layout_constraintEnd_toEndOf = "parent"
-				 app:layout_constraintStart_toStartOf = "parent"
-				 app:layout_constraintTop_toTopOf = "@id/add_post_image_card">
-		<TextView style = "@style/LabelBold"
-				  android:layout_width = "wrap_content"
-				  android:layout_height = "wrap_content"
-				  android:paddingHorizontal = "20dp"
-				  android:paddingVertical = "10dp"
-				  android:text = "@string/nuovo_spot"
-				  android:textColor = "@color/color4"/>
-	</FrameLayout>
-
-	<androidx.cardview.widget.CardView android:layout_width = "0dp"
-									   android:layout_height = "0dp"
-									   android:layout_marginTop = "-72dp"
-									   app:cardCornerRadius = "36dp"
-									   app:layout_constraintBottom_toBottomOf = "parent"
-									   app:layout_constraintEnd_toEndOf = "parent"
-									   app:layout_constraintStart_toStartOf = "parent"
-									   app:layout_constraintTop_toBottomOf = "@id/add_post_image_card">
-		<ScrollView android:layout_width = "match_parent"
-					android:layout_height = "wrap_content">
+		<!--CenterOfScreen-->
+		<ScrollView android:id = "@+id/add_post_scrollview"
+					android:layout_width = "0dp"
+					android:layout_height = "0dp"
+					android:layout_marginBottom = "-36dp"
+					app:layout_constraintBottom_toTopOf = "@+id/add_post_footer"
+					app:layout_constraintEnd_toEndOf = "parent"
+					app:layout_constraintStart_toStartOf = "parent"
+					app:layout_constraintTop_toTopOf = "parent">
 			<LinearLayout android:layout_width = "match_parent"
 						  android:layout_height = "wrap_content"
 						  android:clipToPadding = "false"
-						  android:orientation = "vertical"
-						  android:padding = "30dp"
-						  android:paddingBottom = "80dp">
+						  android:orientation = "vertical">
 
-				<!--Plesso-->
-				<TextView style = "@style/LabelBold"
-						  android:layout_width = "wrap_content"
-						  android:layout_height = "wrap_content"
-						  android:layout_marginTop = "6dp"
-						  android:text = "@string/plesso"
-						  android:textColor = "@color/color2"
-						  android:textSize = "22sp"/>
-				<Spinner android:id = "@+id/plesso_spinner"
-						 android:layout_width = "match_parent"
-						 android:layout_height = "wrap_content"
-						 android:layout_marginTop = "10dp"
-						 android:alpha = "0.75"
-						 android:entries = "@{viewModel.plessi}"
-						 android:padding = "10dp"
-						 android:theme = "@style/SpinnerTheme"
-						 android:tooltipText = "Plesso"/>
+				<!--TopImage-->
+				<androidx.cardview.widget.CardView android:id = "@+id/add_post_image_card"
+												   android:layout_width = "match_parent"
+												   android:layout_height = "wrap_content"
+												   android:elevation = "0dp"
+												   app:cardCornerRadius = "36dp"
+												   app:cardElevation = "0dp"
+												   app:layout_constraintEnd_toEndOf = "parent"
+												   app:layout_constraintStart_toStartOf = "parent"
+												   app:layout_constraintTop_toTopOf = "parent">
 
-				<!--HLine-->
-				<View android:layout_width = "match_parent"
-					  android:layout_height = "0.5dp"
-					  android:layout_marginTop = "10dp"
-					  android:layout_marginEnd = "-30dp"
-					  android:alpha = "0.125"
-					  android:foreground = "@color/color1"/>
+					<ImageView android:id = "@+id/add_post_image"
+							   android:layout_width = "match_parent"
+							   android:layout_height = "wrap_content"
+							   android:layout_marginBottom = "36dp"
+							   android:adjustViewBounds = "true"
+							   android:scaleType = "centerCrop"
+							   android:src = "@drawable/uni_140"/>
+				</androidx.cardview.widget.CardView>
 
-				<!--Zona-->
-				<TextView style = "@style/LabelBold"
-						  android:layout_width = "wrap_content"
-						  android:layout_height = "wrap_content"
-						  android:layout_marginTop = "20dp"
-						  android:text = "@string/zona"
-						  android:textColor = "@color/color2"
-						  android:textSize = "22sp"/>
-				<Spinner android:id = "@+id/zona_spinner"
-						 android:layout_width = "match_parent"
-						 android:layout_height = "wrap_content"
-						 android:layout_marginTop = "10dp"
-						 android:alpha = "0.75"
-						 android:padding = "10dp"
-						 android:entries = "@{viewModel.zone}"
-						 android:theme = "@style/SpinnerTheme"
-						 android:tooltipText = "Plesso"/>
+				<androidx.cardview.widget.CardView android:id = "@+id/add_post_main_card"
+												   android:layout_width = "match_parent"
+												   android:layout_height = "wrap_content"
+												   android:layout_marginTop="-72dp"
+												   app:cardBackgroundColor = "@color/color4"
+												   app:cardCornerRadius = "36dp">
+					<LinearLayout android:layout_width = "match_parent"
+								  android:layout_height = "wrap_content"
+								  android:padding = "30dp"
+								  android:orientation = "vertical">
 
-				<!--HLine-->
-				<View android:layout_width = "match_parent"
-					  android:layout_height = "0.5dp"
-					  android:layout_marginTop = "10dp"
-					  android:layout_marginEnd = "-30dp"
-					  android:alpha = "0.125"
-					  android:foreground = "@color/color1"/>
+						<!--Plesso-->
+						<TextView style = "@style/LabelBold"
+								  android:layout_width = "wrap_content"
+								  android:layout_height = "wrap_content"
+								  android:layout_marginTop = "6dp"
+								  android:text = "@string/plesso"
+								  android:textColor = "@color/color2"
+								  android:textSize = "22sp"/>
+						<Spinner android:id = "@+id/plesso_spinner"
+								 android:layout_width = "match_parent"
+								 android:layout_height = "wrap_content"
+								 android:layout_marginTop = "10dp"
+								 android:alpha = "0.75"
+								 android:entries = "@{viewModel.plessi}"
+								 android:padding = "10dp"
+								 android:theme = "@style/SpinnerTheme"
+								 android:tooltipText = "Plesso"/>
 
-				<!--Tags-->
-				<TextView style = "@style/LabelBold"
-						  android:layout_width = "wrap_content"
-						  android:layout_height = "wrap_content"
-						  android:layout_marginTop = "20dp"
-						  android:text = "@string/tags"
-						  android:textColor = "@color/color2"
-						  android:textSize = "22sp"/>
-				<GridView android:layout_width = "match_parent"
-						  android:layout_height = "wrap_content"
-						  android:layout_marginStart = "-30dp"
-						  android:layout_marginTop = "10dp"
-						  android:layout_marginEnd = "-30dp"
-						  android:numColumns = "4"
-						  android:paddingStart = "30dp"
-						  android:scrollbars = "horizontal"
-						  tools:listitem = "@layout/tag_item"/>
+						<!--HLine-->
+						<View android:layout_width = "match_parent"
+							  android:layout_height = "0.5dp"
+							  android:layout_marginTop = "10dp"
+							  android:layout_marginEnd = "-30dp"
+							  android:alpha = "0.125"
+							  android:foreground = "@color/color1"/>
 
-				<!--HLine-->
-				<View android:layout_width = "match_parent"
-					  android:layout_height = "0.5dp"
-					  android:layout_marginTop = "10dp"
-					  android:layout_marginEnd = "-30dp"
-					  android:alpha = "0.125"
-					  android:foreground = "@color/color1"/>
+						<!--Zona-->
+						<TextView style = "@style/LabelBold"
+								  android:layout_width = "wrap_content"
+								  android:layout_height = "wrap_content"
+								  android:layout_marginTop = "20dp"
+								  android:text = "@string/zona"
+								  android:textColor = "@color/color2"
+								  android:textSize = "22sp"/>
+						<Spinner android:id = "@+id/zona_spinner"
+								 android:layout_width = "match_parent"
+								 android:layout_height = "wrap_content"
+								 android:layout_marginTop = "10dp"
+								 android:alpha = "0.75"
+								 android:entries = "@{viewModel.zone}"
+								 android:padding = "10dp"
+								 android:theme = "@style/SpinnerTheme"
+								 android:tooltipText = "Plesso"/>
 
-				<!--Descrizione-->
-				<TextView style = "@style/LabelBold"
-						  android:layout_width = "wrap_content"
-						  android:layout_height = "wrap_content"
-						  android:layout_marginTop = "20dp"
-						  android:text = "@string/descrizione"
-						  android:textColor = "@color/color2"
-						  android:textSize = "22sp"/>
-				<EditText style = "@style/LabelMedium"
-						  android:layout_width = "match_parent"
-						  android:layout_height = "wrap_content"
-						  android:alpha = "0.75"
-						  android:hint="Indossava una felpa nera"
-						  android:textSize = "16sp"/>
+						<!--HLine-->
+						<View android:layout_width = "match_parent"
+							  android:layout_height = "0.5dp"
+							  android:layout_marginTop = "10dp"
+							  android:layout_marginEnd = "-30dp"
+							  android:alpha = "0.125"
+							  android:foreground = "@color/color1"/>
+
+						<!--Tags-->
+						<TextView style = "@style/LabelBold"
+								  android:layout_width = "wrap_content"
+								  android:layout_height = "wrap_content"
+								  android:layout_marginTop = "20dp"
+								  android:text = "@string/tags"
+								  android:textColor = "@color/color2"
+								  android:textSize = "22sp"/>
+						<GridView android:layout_width = "match_parent"
+								  android:layout_height = "wrap_content"
+								  android:layout_marginStart = "-30dp"
+								  android:layout_marginTop = "10dp"
+								  android:layout_marginEnd = "-30dp"
+								  android:numColumns = "4"
+								  android:paddingStart = "30dp"
+								  android:scrollbars = "horizontal"
+								  tools:listitem = "@layout/tag_item"/>
+
+						<!--HLine-->
+						<View android:layout_width = "match_parent"
+							  android:layout_height = "0.5dp"
+							  android:layout_marginTop = "10dp"
+							  android:layout_marginEnd = "-30dp"
+							  android:alpha = "0.125"
+							  android:foreground = "@color/color1"/>
+
+						<!--Descrizione-->
+						<TextView style = "@style/LabelBold"
+								  android:layout_width = "wrap_content"
+								  android:layout_height = "wrap_content"
+								  android:layout_marginTop = "20dp"
+								  android:text = "@string/descrizione"
+								  android:textColor = "@color/color2"
+								  android:textSize = "22sp"/>
+						<EditText style = "@style/LabelMedium"
+								  android:layout_width = "match_parent"
+								  android:layout_height = "wrap_content"
+								  android:alpha = "0.75"
+								  android:hint = "Indossava una felpa nera"
+								  android:text = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
+								  android:textSize = "16sp"/>
+
+						<View android:layout_width = "match_parent"
+							  android:layout_height = "30dp"/>
+					</LinearLayout>
+				</androidx.cardview.widget.CardView>
 			</LinearLayout>
 		</ScrollView>
-	</androidx.cardview.widget.CardView>
 
-	<!--Footer-->
-	<LinearLayout
-		android:layout_width = "match_parent"
-		android:layout_height = "80dp"
-		android:background = "@color/color3"
-		android:elevation = "10dp"
-		android:orientation="horizontal"
-		app:layout_constraintBottom_toBottomOf = "parent"
-		app:layout_constraintStart_toStartOf = "parent"
-		android:gravity="center">
-		<Button android:layout_width = "0dp"
-				android:background="@drawable/button_empty"
-				android:layout_height = "60dp"
-				app:cornerRadius = "999dp"
-				android:layout_weight="1"/>
-	</LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+		<!--Footer-->
+		<LinearLayout
+			android:id = "@+id/add_post_footer"
+			android:layout_width = "match_parent"
+			android:layout_height = "196dp"
+			android:background = "@color/color3"
+			android:elevation = "10dp"
+			android:gravity = "start"
+			android:orientation = "horizontal"
+			android:paddingTop = "20dp"
+			app:layout_constraintBottom_toBottomOf = "parent"
+			app:layout_constraintStart_toStartOf = "parent">
+			<androidx.appcompat.widget.AppCompatButton android:id = "@+id/add_post_reimposta_button"
+													   android:layout_width = "0dp"
+													   android:layout_height = "56dp"
+													   android:layout_marginStart = "30dp"
+													   android:layout_marginEnd = "10dp"
+													   android:layout_weight = "1"
+													   android:background = "@drawable/button_empty"
+													   android:fontFamily = "@font/lato_regular"
+													   android:foreground = "@drawable/ripple_white_corner_round"
+													   android:text = "@string/reimposta"
+													   android:textColor = "@color/color1"
+													   android:textSize = "16sp"/>
+
+			<androidx.appcompat.widget.AppCompatButton android:id = "@+id/add_post_pubblica_button"
+													   android:layout_width = "0dp"
+													   android:layout_height = "56dp"
+													   android:layout_marginStart = "10dp"
+													   android:layout_marginEnd = "30dp"
+													   android:layout_weight = "1"
+													   android:background = "@drawable/button_selector"
+													   android:fontFamily = "@font/lato_regular"
+													   android:foreground = "@drawable/ripple_white_corner_round"
+													   android:text = "@string/pubblica"
+													   android:textColor = "@drawable/button_text_color_selector"
+													   android:textSize = "16sp"/>
+		</LinearLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

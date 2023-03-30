@@ -35,5 +35,7 @@
     <string name = "zona">Zona</string>
     <string name = "plesso">Plesso</string>
 	<string name = "descrizione">Descrizione</string>
+	<string name = "reimposta">Reimposta</string>
+    <string name = "pubblica">Pubblica</string>
 
 </resources>
