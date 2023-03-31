@@ -9,11 +9,11 @@ import java.util.*
 
 @IgnoreExtraProperties
 data class Post(
-	val authorUID: String? = null,
-	val location: Locations?=null,
-	val gender: Gender = Gender.FEMALE,
-	val date: Date = Calendar.getInstance().time,
-	val description: String = "",
+	var authorUID: String? = null,
+	var location: Locations?=null,
+	var gender: Gender = Gender.FEMALE,
+	var date: Date = Calendar.getInstance().time,
+	var description: String = "",
 	val tags: MutableList<Tag>? = null,
 	val followers: MutableList<String>? = null,
 	val comments: MutableList<Comment>? = null,

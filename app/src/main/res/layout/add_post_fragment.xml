@@ -67,13 +67,13 @@
 				<androidx.cardview.widget.CardView android:id = "@+id/add_post_main_card"
 												   android:layout_width = "match_parent"
 												   android:layout_height = "wrap_content"
-												   android:layout_marginTop="-72dp"
+												   android:layout_marginTop = "-72dp"
 												   app:cardBackgroundColor = "@color/color4"
 												   app:cardCornerRadius = "36dp">
 					<LinearLayout android:layout_width = "match_parent"
 								  android:layout_height = "wrap_content"
-								  android:padding = "30dp"
-								  android:orientation = "vertical">
+								  android:orientation = "vertical"
+								  android:padding = "30dp">
 
 						<!--Plesso-->
 						<TextView style = "@style/LabelBold"
@@ -86,10 +86,11 @@
 						<Spinner android:id = "@+id/plesso_spinner"
 								 android:layout_width = "match_parent"
 								 android:layout_height = "wrap_content"
+								 android:layout_marginHorizontal = "10dp"
 								 android:layout_marginTop = "10dp"
 								 android:alpha = "0.75"
 								 android:entries = "@{viewModel.plessi}"
-								 android:padding = "10dp"
+								 android:selectedItemPosition = "@={viewModel.plesso}"
 								 android:theme = "@style/SpinnerTheme"
 								 android:tooltipText = "Plesso"/>
 
@@ -112,10 +113,10 @@
 						<Spinner android:id = "@+id/zona_spinner"
 								 android:layout_width = "match_parent"
 								 android:layout_height = "wrap_content"
+								 android:layout_marginHorizontal = "10dp"
 								 android:layout_marginTop = "10dp"
 								 android:alpha = "0.75"
 								 android:entries = "@{viewModel.zone}"
-								 android:padding = "10dp"
 								 android:theme = "@style/SpinnerTheme"
 								 android:tooltipText = "Plesso"/>
 
@@ -166,7 +167,6 @@
 								  android:layout_height = "wrap_content"
 								  android:alpha = "0.75"
 								  android:hint = "Indossava una felpa nera"
-								  android:text = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
 								  android:textSize = "16sp"/>
 
 						<View android:layout_width = "match_parent"

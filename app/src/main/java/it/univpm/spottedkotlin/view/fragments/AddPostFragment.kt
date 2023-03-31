@@ -27,10 +27,10 @@ class AddPostFragment : Fragment() {
 		savedInstanceState: Bundle?
 	): View {
 		binding = AddPostFragmentBinding.inflate(inflater, container, false)
+		binding.viewModel=viewModel
 		return binding.root
 	}
 
-	@SuppressLint("ClickableViewAccessibility")
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
