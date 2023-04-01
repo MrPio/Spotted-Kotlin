@@ -8,8 +8,8 @@
 		android:right = "12dp"
 		android:top = "5dp"/>
 	<stroke
-		android:width = "6dp"
+		android:width = "3dp"
 		android:color = "@color/color2"
-		android:dashWidth = "12dp"
-		android:dashGap = "8dp"/>
+		android:dashWidth = "10dp"
+		android:dashGap = "6dp"/>
 </shape>

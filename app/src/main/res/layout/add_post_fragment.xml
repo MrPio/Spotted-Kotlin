@@ -7,6 +7,8 @@
 				  type = "it.univpm.spottedkotlin.viewmodel.AddPostViewModel"/>
 		<variable name = "tags_adapter"
 				  type = "it.univpm.spottedkotlin.adapter.AddPostTagsAdapter"/>
+		<variable name = "view"
+				  type = "android.view.View"/>
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width = "match_parent"
@@ -112,7 +114,8 @@
 								  android:layout_marginTop = "20dp"
 								  android:text = "@string/zona"
 								  android:textColor = "@color/color2"
-								  android:textSize = "22sp"/>
+								  android:textSize = "22sp"
+								  android:visibility = "@{viewModel.zone.size()==0?view.GONE:view.VISIBLE}"/>
 						<Spinner android:id = "@+id/zona_spinner"
 								 android:layout_width = "match_parent"
 								 android:layout_height = "48dp"
@@ -121,8 +124,10 @@
 								 android:alpha = "0.75"
 								 android:contentDescription = "@string/zona"
 								 android:entries = "@{viewModel.zone}"
+								 android:selectedItemPosition = "@={viewModel.zona}"
 								 android:theme = "@style/SpinnerTheme"
-								 android:tooltipText = "Plesso"/>
+								 android:tooltipText = "Plesso"
+								 android:visibility = "@{viewModel.zone.size()==0?view.GONE:view.VISIBLE}"/>
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"
@@ -130,7 +135,8 @@
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/color1"/>
+							  android:foreground = "@color/color1"
+							  android:visibility = "@{viewModel.zone.size()==0?view.GONE:view.VISIBLE}"/>
 
 						<!--Tags-->
 						<TextView style = "@style/LabelBold"
@@ -145,8 +151,8 @@
 								  android:layout_marginStart = "-30dp"
 								  android:layout_marginTop = "10dp"
 								  android:layout_marginEnd = "-30dp"
+								  android:adapter = "@{tags_adapter}"
 								  android:numColumns = "4"
-								  android:adapter="@{tags_adapter}"
 								  android:paddingStart = "30dp"
 								  android:scrollbars = "horizontal"
 								  tools:listitem = "@layout/tag_item"/>
@@ -171,10 +177,10 @@
 								  android:layout_width = "match_parent"
 								  android:layout_height = "wrap_content"
 								  android:alpha = "0.75"
+								  android:autofillHints = "name"
 								  android:hint = "@string/indossava_una_felpa_nera"
 								  android:inputType = "text"
-								  android:textSize = "16sp"
-								  android:autofillHints = "name"/>
+								  android:textSize = "16sp"/>
 
 						<View android:layout_width = "match_parent"
 							  android:layout_height = "30dp"/>

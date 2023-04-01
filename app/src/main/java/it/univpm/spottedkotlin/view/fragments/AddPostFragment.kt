@@ -6,11 +6,14 @@ import android.view.*
 import android.widget.ScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import it.univpm.spottedkotlin.adapter.AddPostTagsAdapter
+import it.univpm.spottedkotlin.adapter.HomePostsAdapter
 import it.univpm.spottedkotlin.databinding.AddPostFragmentBinding
 import it.univpm.spottedkotlin.extension.function.fromDp
 import it.univpm.spottedkotlin.extension.function.getActivity
 import it.univpm.spottedkotlin.extension.function.setHeight
 import it.univpm.spottedkotlin.extension.function.toDp
+import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.AddPostViewModel
 import kotlin.math.max
@@ -20,6 +23,7 @@ class AddPostFragment : Fragment() {
 	private lateinit var binding: AddPostFragmentBinding
 	private val viewModel: AddPostViewModel by viewModels()
 	private var footerHeight = 0
+	private val adapter = AddPostTagsAdapter(mutableListOf(Tag("ciao"),null))
 
 
 	override fun onCreateView(
@@ -27,7 +31,7 @@ class AddPostFragment : Fragment() {
 		savedInstanceState: Bundle?
 	): View {
 		binding = AddPostFragmentBinding.inflate(inflater, container, false)
-		binding.viewModel=viewModel
+		binding.viewModel = viewModel
 		return binding.root
 	}
 
@@ -52,5 +56,7 @@ class AddPostFragment : Fragment() {
 				)
 			)
 		}
+
+		binding.tagsAdapter = adapter
 	}
 }
