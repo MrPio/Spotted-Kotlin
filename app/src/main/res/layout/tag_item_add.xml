@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android = "http://schemas.android.com/apk/res/android">
+	<data>
+		<variable name = "model"
+				  type = "it.univpm.spottedkotlin.model.Tag"/>
+	</data>
+
+	<LinearLayout
+		android:layout_width = "120dp"
+		android:layout_height = "48dp"
+		android:background = "@drawable/border_dashed_red_tag"
+		android:orientation = "horizontal">
+
+		<TextView
+			style = "@style/LabelIcon"
+			android:layout_width = "match_parent"
+			android:layout_height = "match_parent"
+			android:fontFamily = "@font/material_design_icons"
+			android:gravity = "center"
+			android:text = "@string/Plus"
+			android:textColor = "@color/color2"
+			android:textSize = "18sp"/>
+	</LinearLayout>
+</layout>

@@ -5,6 +5,8 @@
 	<data>
 		<variable name = "viewModel"
 				  type = "it.univpm.spottedkotlin.viewmodel.AddPostViewModel"/>
+		<variable name = "tags_adapter"
+				  type = "it.univpm.spottedkotlin.adapter.AddPostTagsAdapter"/>
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width = "match_parent"
@@ -20,7 +22,7 @@
 					 android:elevation = "10dp"
 					 app:layout_constraintEnd_toEndOf = "parent"
 					 app:layout_constraintStart_toStartOf = "parent"
-					 app:layout_constraintTop_toTopOf = "@id/add_post_image_card">
+					 app:layout_constraintTop_toTopOf = "parent">
 			<TextView style = "@style/LabelBold"
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
@@ -85,10 +87,11 @@
 								  android:textSize = "22sp"/>
 						<Spinner android:id = "@+id/plesso_spinner"
 								 android:layout_width = "match_parent"
-								 android:layout_height = "wrap_content"
+								 android:layout_height = "48dp"
 								 android:layout_marginHorizontal = "10dp"
 								 android:layout_marginTop = "10dp"
 								 android:alpha = "0.75"
+								 android:contentDescription = "@string/plesso"
 								 android:entries = "@{viewModel.plessi}"
 								 android:selectedItemPosition = "@={viewModel.plesso}"
 								 android:theme = "@style/SpinnerTheme"
@@ -112,10 +115,11 @@
 								  android:textSize = "22sp"/>
 						<Spinner android:id = "@+id/zona_spinner"
 								 android:layout_width = "match_parent"
-								 android:layout_height = "wrap_content"
+								 android:layout_height = "48dp"
 								 android:layout_marginHorizontal = "10dp"
 								 android:layout_marginTop = "10dp"
 								 android:alpha = "0.75"
+								 android:contentDescription = "@string/zona"
 								 android:entries = "@{viewModel.zone}"
 								 android:theme = "@style/SpinnerTheme"
 								 android:tooltipText = "Plesso"/>
@@ -142,6 +146,7 @@
 								  android:layout_marginTop = "10dp"
 								  android:layout_marginEnd = "-30dp"
 								  android:numColumns = "4"
+								  android:adapter="@{tags_adapter}"
 								  android:paddingStart = "30dp"
 								  android:scrollbars = "horizontal"
 								  tools:listitem = "@layout/tag_item"/>
@@ -166,8 +171,10 @@
 								  android:layout_width = "match_parent"
 								  android:layout_height = "wrap_content"
 								  android:alpha = "0.75"
-								  android:hint = "Indossava una felpa nera"
-								  android:textSize = "16sp"/>
+								  android:hint = "@string/indossava_una_felpa_nera"
+								  android:inputType = "text"
+								  android:textSize = "16sp"
+								  android:autofillHints = "name"/>
 
 						<View android:layout_width = "match_parent"
 							  android:layout_height = "30dp"/>

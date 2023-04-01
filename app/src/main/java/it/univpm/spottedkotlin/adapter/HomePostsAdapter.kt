@@ -11,7 +11,7 @@ import it.univpm.spottedkotlin.databinding.SpotPostBinding
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.viewmodel.SpotPostViewModel
 
-class HomePostsAdapter(var posts: List<Post>, var loaded:Int=0) : Adapter<SpotPostViewModel>() {
+class HomePostsAdapter(var posts: List<Post>) : Adapter<SpotPostViewModel>() {
 	val LOADING_STEP=8
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpotPostViewModel {
 		val binding: SpotPostBinding = DataBindingUtil.inflate(

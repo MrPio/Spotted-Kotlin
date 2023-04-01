@@ -13,14 +13,8 @@ import it.univpm.spottedkotlin.model.Tag
 import java.util.zip.Inflater
 
 
-class SpotPostViewModel(binding: SpotPostBinding) : ViewHolder(binding.root) {
-	private val binding: SpotPostBinding
-
-	init {
-		this.binding = binding
-	}
-
-	fun bind(post: Post): Unit {
+class SpotPostViewModel(val binding: SpotPostBinding) : ViewHolder(binding.root) {
+	fun bind(post: Post) {
 		binding.model = post
 		binding.viewModel = this
 

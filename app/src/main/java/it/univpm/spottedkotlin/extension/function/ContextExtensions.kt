@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import it.univpm.spottedkotlin.view.MainActivity
 
-//fun Context.loadStr(res: Int) = this.resources.getString(res) TODO remove
 fun Context.loadColor(res: Int) = this.resources.getColor(res, theme)
 inline fun <reified T> Context.getActivity(): T? {
 	var context = this

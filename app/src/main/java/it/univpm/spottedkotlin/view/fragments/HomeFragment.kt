@@ -48,21 +48,19 @@ class HomeFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-
-		binding.postsRecycler.layoutManager = layoutManager
 		binding.homeScaffold.viewTreeObserver.addOnGlobalLayoutListener(object :
 			OnGlobalLayoutListener {
 			override fun onGlobalLayout() {
 				binding.homeScaffold.viewTreeObserver.removeOnGlobalLayoutListener(this);
 				scaffoldHeight = binding.homeScaffold.height
+				binding.postsRecycler.translationY = scaffoldHeight.toFloat()
 			}
 		})
+		binding.postsRecycler.layoutManager = layoutManager
 		binding.viewModel = viewModel
-
 		binding.homePostsAdapter = adapter
-		fetchPosts()
-
 		binding.executePendingBindings()
+		fetchPosts()
 		observe()
 	}
 
@@ -126,6 +124,7 @@ class HomeFragment : Fragment() {
 					lastScrollY = y - scaffoldHeight;topExpanded = true
 				},
 			)
+			binding.postsRecycler.animate().translationY(80f).setDuration(250).start()
 
 
 		} else if (topExpanded == true && (lastScrollY - y > 150 || y < 10)) {
@@ -155,6 +154,8 @@ class HomeFragment : Fragment() {
 					lastScrollY = y + scaffoldHeight;topExpanded = false
 				},
 			)
+			binding.postsRecycler.animate().translationY(scaffoldHeight.toFloat()).setDuration(250).start()
+
 		} else if (topExpanded == false && lastScrollY - y > 500)
 			lastScrollY = y + 500
 		else if (topExpanded == true && lastScrollY - y < -500)
