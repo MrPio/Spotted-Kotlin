@@ -38,5 +38,6 @@
 	<string name = "reimposta">Reimposta</string>
     <string name = "pubblica">Pubblica</string>
 	<string name = "indossava_una_felpa_nera">Indossava una felpa nera</string>
+	<string name = "genere">Genere</string>
 
 </resources>

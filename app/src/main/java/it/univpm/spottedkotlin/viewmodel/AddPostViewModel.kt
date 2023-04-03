@@ -2,6 +2,7 @@ package it.univpm.spottedkotlin.viewmodel
 
 import androidx.databinding.Bindable
 import it.univpm.spottedkotlin.BR
+import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
 import it.univpm.spottedkotlin.enums.Plexuses
 import it.univpm.spottedkotlin.extension.ObservableViewModel
@@ -9,11 +10,14 @@ import it.univpm.spottedkotlin.model.Post
 
 class AddPostViewModel : ObservableViewModel() {
 	val plessi = Plexuses.values().map { it.title }
-//	var zone = Plexuses.INGEGNERIA.locations?.map { it.title }
+	var genders = Gender.values().map { it.name }
 
 	val nuovoPost: Post = Post()
 	var currentPlesso = Plexuses.values()[0]
 	var currentZona = Locations.values()[0]
+
+	@get:Bindable
+	var currentGender = Gender.FEMALE
 
 	init {
 		nuovoPost.location = Plexuses.INGEGNERIA.locations?.get(0)
@@ -38,7 +42,17 @@ class AddPostViewModel : ObservableViewModel() {
 		get() = Locations.values().indexOf(currentZona)
 		set(value) {
 			nuovoPost.location = Locations.values()[value]
-			currentZona=Locations.values()[value]
+			currentZona = Locations.values()[value]
 			notifyPropertyChanged(BR.zona)
+		}
+
+	@get:Bindable
+	var gender: Int
+		get() = Gender.values().indexOf(currentGender)
+		set(value) {
+			currentGender = Gender.values()[value]
+			nuovoPost.gender = currentGender
+			notifyPropertyChanged(BR.gender)
+			notifyPropertyChanged(BR.currentGender)
 		}
 }
