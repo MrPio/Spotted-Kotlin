@@ -1,5 +1,8 @@
 package it.univpm.spottedkotlin.viewmodel
 
+import android.R
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.Bindable
 import it.univpm.spottedkotlin.BR
 import it.univpm.spottedkotlin.enums.Gender
@@ -10,7 +13,7 @@ import it.univpm.spottedkotlin.model.Post
 
 class AddPostViewModel : ObservableViewModel() {
 	val plessi = Plexuses.values().map { it.title }
-	var genders = Gender.values().map { it.name }
+	var genders = Gender.values().map { it.title }
 
 	val nuovoPost: Post = Post()
 	var currentPlesso = Plexuses.values()[0]
@@ -55,4 +58,6 @@ class AddPostViewModel : ObservableViewModel() {
 			notifyPropertyChanged(BR.gender)
 			notifyPropertyChanged(BR.currentGender)
 		}
+
+
 }

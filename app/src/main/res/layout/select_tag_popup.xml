@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	<data>
+		<variable name = "tags_adapter"
+				  type = "it.univpm.spottedkotlin.adapter.TagsAdapter"/>
+	</data>
+
+	<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+					xmlns:tools = "http://schemas.android.com/tools"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:orientation = "vertical"
+					android:paddingHorizontal = "20dp">
+		<GridView android:id = "@+id/select_tag_popup_gridView"
+				  android:layout_width = "match_parent"
+				  android:numColumns="4"
+				  android:layout_marginTop = "20dp"
+
+				  android:divider="@android:color/transparent"
+				  android:verticalSpacing="6dp"
+				  android:layout_height = "wrap_content"
+				  android:adapter = "@{tags_adapter}"
+				  tools:listitem = "@layout/tag_item"/>
+	</RelativeLayout>
+</layout>

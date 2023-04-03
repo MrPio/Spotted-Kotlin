@@ -4,23 +4,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ListAdapter
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import it.univpm.spottedkotlin.R
-import it.univpm.spottedkotlin.databinding.SpotPostBinding
 import it.univpm.spottedkotlin.databinding.TagItemAddBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
-import it.univpm.spottedkotlin.extension.function.toInt
 import it.univpm.spottedkotlin.model.Tag
-import it.univpm.spottedkotlin.viewmodel.SpotPostViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemAddViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
+import kotlin.reflect.KFunction0
 
-class AddPostTagsAdapter(private val tags: MutableList<Tag?>) : BaseAdapter() {
+class AddPostTagsAdapter(
+	private val tags: MutableList<Tag?>,
+	private val addTagCallback: KFunction0<Unit>
+) : BaseAdapter() {
 	override fun getItem(position: Int): Any? = null
-
 	override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 		if (getItemViewType(position) == R.layout.tag_item_add) {
 			val binding: TagItemAddBinding =
@@ -34,6 +31,7 @@ class AddPostTagsAdapter(private val tags: MutableList<Tag?>) : BaseAdapter() {
 						false
 					)
 			binding.viewModel = TagItemAddViewModel()
+			binding.onClickListener = View.OnClickListener { addTagCallback() }
 			return binding.root
 		} else {
 			val binding: TagItemBinding =

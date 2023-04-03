@@ -54,4 +54,11 @@
 		<item name="android:textColor">@color/color1</item>
 		<item name="android:fontFamily">@font/lato_regular</item>
 	</style>
+
+	<!--Popup-->
+	<style name = "PopupTheme">
+		<item name = "android:background" parent="Theme.AppCompat.Light.Dialog.Alert">
+			@drawable/small_corner_radius
+		</item>
+	</style>
 </resources>
