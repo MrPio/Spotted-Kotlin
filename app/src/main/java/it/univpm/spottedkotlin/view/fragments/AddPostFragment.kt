@@ -33,7 +33,6 @@ class AddPostFragment : Fragment() {
 			Tag("mas", Gender.MALE.icon),
 		),
 		this::chooseTag
-
 	)
 
 	override fun onCreateView(
@@ -66,11 +65,11 @@ class AddPostFragment : Fragment() {
 				)
 			)
 		}
-
 		binding.tagsAdapter = adapter
 	}
 
 	private fun chooseTag() {
+		val selectedTags = mutableListOf<Tag>()
 		val popupBinding = SelectTagPopupBinding.inflate(layoutInflater, null, false)
 		popupBinding.tagsAdapter = TagsAdapter(
 			mutableListOf(
@@ -84,17 +83,21 @@ class AddPostFragment : Fragment() {
 				Tag("mas", Gender.MALE.icon),
 				Tag("fem", Gender.FEMALE.icon),
 				Tag("mas", Gender.MALE.icon),
-			),
-		)
-		popupBinding.selectTagPopupGridView.onItemClickListener =
-			OnItemClickListener { _, v, position, _ ->
-			}
+			)
+		) { tag, checked ->
+			if (checked)
+				tag?.let { selectedTags.add(it) }
+			else
+				selectedTags.remove(tag)
+		}
 
 		val builder = AlertDialog.Builder(requireContext())
 		builder.setTitle("Scegli dei tag da aggiungere")
 		builder.setView(popupBinding.root)
-		builder.setPositiveButton("OK") { dialog, which -> }
-		builder.setNegativeButton("Cancel") { dialog, which -> }
+		builder.setPositiveButton("Aggiungi") { dialog, which ->
+			println(selectedTags.toString())
+//			TODO
+		}
 
 		val dialog = builder.create()
 		dialog.show()

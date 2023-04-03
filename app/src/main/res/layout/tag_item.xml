@@ -3,7 +3,7 @@
 	<data>
 		<variable name = "model"
 				  type = "it.univpm.spottedkotlin.model.Tag"/>
-		<variable name = "view_model"
+		<variable name = "viewModel"
 				  type = "it.univpm.spottedkotlin.viewmodel.TagItemViewModel"/>
 	</data>
 
@@ -11,10 +11,10 @@
 		android:layout_width = "wrap_content"
 		android:layout_height = "32dp"
 		android:layout_marginEnd = "4dp"
+		android:background = "@{viewModel.selected?@drawable/border_rounded_red_tag:@drawable/border_outlined_red_tag}"
 		android:clickable = "true"
 		android:foreground = "@drawable/ripple_black_corner_round"
-
-		android:background = "@drawable/border_rounded_red_tag"
+		android:onClickListener = "@{()->viewModel.onClick()}"
 		android:orientation = "horizontal">
 
 		<TextView
@@ -23,7 +23,7 @@
 			android:layout_height = "wrap_content"
 			android:fontFamily = "@font/material_design_icons"
 			android:text = "@{model.icon}"
-			android:textColor = "@color/color4"
+			android:textColor = "@{viewModel.selected?@color/color4:@color/color1}"
 			android:textSize = "18sp"/>
 
 		<TextView
@@ -34,6 +34,6 @@
 			android:layout_marginStart = "2dp"
 			android:text = "@{model.name}"
 			android:textAlignment = "center"
-			android:textColor = "@color/color4"/>
+			android:textColor = "@{viewModel.selected?@color/color4:@color/color1}"/>
 	</LinearLayout>
 </layout>

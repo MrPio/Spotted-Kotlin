@@ -3,8 +3,6 @@ package it.univpm.spottedkotlin.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ObservableList
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.SpotPostBinding

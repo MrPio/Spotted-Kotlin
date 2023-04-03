@@ -1,15 +1,31 @@
 package it.univpm.spottedkotlin.viewmodel
 
-import android.view.LayoutInflater
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
+import android.view.View
+import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import it.univpm.spottedkotlin.R
-import it.univpm.spottedkotlin.databinding.TagItemBinding
-import it.univpm.spottedkotlin.model.Post
-import it.univpm.spottedkotlin.model.Tag
+import it.univpm.spottedkotlin.BR
+import it.univpm.spottedkotlin.extension.ObservableViewModel
 
-class TagItemViewModel : ViewModel() {
+class TagItemViewModel(
+	private val selectable: Boolean = false,
+	val onClickListener: (selected: Boolean) -> Unit = {},
+) : ObservableViewModel() {
 
+	@get:Bindable
+	var selected = true
+
+	init {
+		if (selectable) {
+			selected = false
+		}
+		notifyPropertyChanged(BR.selected)
+	}
+
+	fun onClick() {
+		if (selectable) {
+			selected = !selected
+			notifyPropertyChanged(BR.selected)
+			onClickListener(selected)
+		}
+	}
 }

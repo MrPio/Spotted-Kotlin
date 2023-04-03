@@ -26,6 +26,7 @@ class SpotPostViewModel(val binding: SpotPostBinding) : ViewHolder(binding.root)
 					binding.tagsLayout,
 					false
 				)
+				tagBinding.viewModel=TagItemViewModel()
 				tagBinding.model = tag
 				binding.tagsLayout.addView(tagBinding.root)
 			}

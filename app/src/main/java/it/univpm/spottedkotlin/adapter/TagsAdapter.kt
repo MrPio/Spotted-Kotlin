@@ -14,7 +14,8 @@ import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import kotlin.reflect.KFunction0
 
 class TagsAdapter(
-	private val tags: MutableList<Tag?>
+	private val tags: MutableList<Tag?>,
+	private val tagClickCallback: (tag: Tag?, selected: Boolean) -> Unit,
 ) : BaseAdapter() {
 	override fun getItem(position: Int): Any? = null
 	override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -29,7 +30,7 @@ class TagsAdapter(
 					false
 				)
 		binding.model = tags[position]
-		binding.viewModel = TagItemViewModel()
+		binding.viewModel = TagItemViewModel(selectable = true) { tagClickCallback(binding.model, it) }
 		return binding.root
 	}
 
