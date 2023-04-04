@@ -6,8 +6,6 @@
 		<import type = "it.univpm.spottedkotlin.enums.Gender"/>
 		<variable name = "viewModel"
 				  type = "it.univpm.spottedkotlin.viewmodel.AddPostViewModel"/>
-		<variable name = "tags_adapter"
-				  type = "it.univpm.spottedkotlin.adapter.AddPostTagsAdapter"/>
 		<variable name = "view"
 				  type = "android.view.View"/>
 	</data>
@@ -98,7 +96,8 @@
 								 android:entries = "@{viewModel.plessi}"
 								 android:selectedItemPosition = "@={viewModel.plesso}"
 								 android:theme = "@style/SpinnerTheme"
-								 android:tooltipText = "Plesso"/>
+								 android:tooltipText = "Plesso"
+								 tools:visibility = "gone"/>
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"
@@ -128,7 +127,8 @@
 								 android:selectedItemPosition = "@={viewModel.zona}"
 								 android:theme = "@style/SpinnerTheme"
 								 android:tooltipText = "Plesso"
-								 android:visibility = "@{viewModel.zone.size()==0?view.GONE:view.VISIBLE}"/>
+								 android:visibility = "@{viewModel.zone.size()==0?view.GONE:view.VISIBLE}"
+								 tools:visibility = "gone"/>
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"
@@ -149,17 +149,17 @@
 								  android:textSize = "22sp"/>
 						<LinearLayout android:layout_width = "match_parent"
 									  android:layout_height = "wrap_content"
-									  android:gravity = "center_vertical"
 									  android:layout_marginTop = "10dp"
+									  android:gravity = "center_vertical"
 									  android:orientation = "horizontal">
 							<TextView style = "@style/LabelIcon"
 									  android:layout_width = "wrap_content"
 									  android:layout_height = "wrap_content"
 									  android:layout_marginStart = "10dp"
-									  android:gravity="center_vertical"
-									  android:textSize="26sp"
+									  android:gravity = "center_vertical"
 									  android:text = "@{viewModel.currentGender.icon}"
-									  android:textColor = "@color/color1"/>
+									  android:textColor = "@color/color1"
+									  android:textSize = "26sp"/>
 
 							<Spinner android:id = "@+id/genere_spinner"
 									 android:layout_width = "match_parent"
@@ -170,7 +170,8 @@
 									 android:entries = "@{viewModel.genders}"
 									 android:selectedItemPosition = "@={viewModel.gender}"
 									 android:theme = "@style/SpinnerTheme"
-									 android:tooltipText = "Plesso"/>
+									 android:tooltipText = "Plesso"
+									 tools:visibility = "gone"/>
 						</LinearLayout>
 
 						<!--HLine-->
@@ -182,6 +183,11 @@
 							  android:foreground = "@color/color1"
 							  android:visibility = "@{viewModel.zone.size()==0?view.GONE:view.VISIBLE}"/>
 
+<!--						android:layout_marginStart = "-30dp"-->
+<!--						android:layout_marginTop = "10dp"-->
+<!--						android:layout_marginEnd = "-30dp"-->
+<!--						android:paddingStart = "30dp"-->
+
 						<!--Tags-->
 						<TextView style = "@style/LabelBold"
 								  android:layout_width = "wrap_content"
@@ -190,16 +196,12 @@
 								  android:text = "@string/tags"
 								  android:textColor = "@color/color2"
 								  android:textSize = "22sp"/>
-						<androidx.recyclerview.widget.RecyclerView android:layout_width = "match_parent"
-								  android:layout_height = "wrap_content"
-								  android:layout_marginStart = "-30dp"
-								  android:layout_marginTop = "10dp"
-								  android:layout_marginEnd = "-30dp"
-								  android:adapter = "@{tags_adapter}"
-								  android:numColumns = "3"
-								  android:paddingStart = "30dp"
-								  android:scrollbars = "horizontal"
-								  tools:listitem = "@layout/tag_item"/>
+						<GridLayout android:id = "@+id/add_post_tags_recycler"
+									android:layout_width = "match_parent"
+									android:layout_height = "wrap_content"
+									android:useDefaultMargins="true"
+									android:columnCount="3"
+									android:numColumns = "3"/>
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"

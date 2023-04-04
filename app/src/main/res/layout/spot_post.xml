@@ -6,7 +6,7 @@
 			name = "model"
 			type = "it.univpm.spottedkotlin.model.Post"/>
 		<variable name = "viewModel"
-				  type = "it.univpm.spottedkotlin.viewmodel.SpotPostViewModel"/>
+				  type = "it.univpm.spottedkotlin.view.holders.SpotPostViewHolder"/>
 	</data>
 
 	<RelativeLayout

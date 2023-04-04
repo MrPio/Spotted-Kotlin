@@ -1,6 +1,5 @@
-package it.univpm.spottedkotlin.viewmodel
+package it.univpm.spottedkotlin.view.holders
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -9,27 +8,24 @@ import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.SpotPostBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
 import it.univpm.spottedkotlin.model.Post
-import it.univpm.spottedkotlin.model.Tag
-import java.util.zip.Inflater
+import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 
-
-class SpotPostViewModel(val binding: SpotPostBinding) : ViewHolder(binding.root) {
+class SpotPostViewHolder(val binding: SpotPostBinding) : ViewHolder(binding.root) {
 	fun bind(post: Post) {
 		binding.model = post
 		binding.viewModel = this
 
-		if (post.tags != null)
-			for (tag in post.tags) {
-				val tagBinding: TagItemBinding = DataBindingUtil.inflate(
-					LayoutInflater.from(binding.root.context),
-					R.layout.tag_item,
-					binding.tagsLayout,
-					false
-				)
-				tagBinding.viewModel=TagItemViewModel()
-				tagBinding.model = tag
-				binding.tagsLayout.addView(tagBinding.root)
-			}
+		for (tag in post.tags) {
+			val tagBinding: TagItemBinding = DataBindingUtil.inflate(
+				LayoutInflater.from(binding.root.context),
+				R.layout.tag_item,
+				binding.tagsLayout,
+				false
+			)
+			tagBinding.viewModel = TagItemViewModel()
+			tagBinding.model = tag
+			binding.tagsLayout.addView(tagBinding.root)
+		}
 		binding.executePendingBindings()
 	}
 

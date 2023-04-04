@@ -6,24 +6,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.SpotPostBinding
+import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.model.Post
-import it.univpm.spottedkotlin.viewmodel.SpotPostViewModel
+import it.univpm.spottedkotlin.view.holders.SpotPostViewHolder
 
-class HomePostsAdapter(var posts: List<Post>, var loaded:Int=0) : Adapter<SpotPostViewModel>() {
-	val LOADING_STEP=8
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpotPostViewModel {
-		val binding: SpotPostBinding = DataBindingUtil.inflate(
-			LayoutInflater.from(parent.context),
-			R.layout.spot_post,
-			parent,
-			false
-		)
-		return SpotPostViewModel(binding)
-	}
+class HomePostsAdapter(var posts: List<Post>, var loaded: Int = 0) : Adapter<SpotPostViewHolder>() {
+	val LOADING_STEP = 8
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpotPostViewHolder =
+		SpotPostViewHolder(parent.context.inflate(R.layout.spot_post))
 
-	override fun onBindViewHolder(holder: SpotPostViewModel, position: Int) {
+	override fun onBindViewHolder(holder: SpotPostViewHolder, position: Int) =
 		holder.bind(posts[position])
-	}
 
 	override fun getItemCount(): Int = posts.size
 }

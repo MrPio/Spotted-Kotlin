@@ -5,22 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.widget.AdapterView.OnItemClickListener
+import android.widget.GridLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import it.univpm.spottedkotlin.adapter.AddPostTagsAdapter
+import androidx.recyclerview.widget.GridLayoutManager
+import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.adapter.TagsAdapter
 import it.univpm.spottedkotlin.databinding.AddPostFragmentBinding
 import it.univpm.spottedkotlin.databinding.SelectTagPopupBinding
-import it.univpm.spottedkotlin.enums.Gender
-import it.univpm.spottedkotlin.extension.function.fromDp
-import it.univpm.spottedkotlin.extension.function.getActivity
-import it.univpm.spottedkotlin.extension.function.setHeight
+import it.univpm.spottedkotlin.databinding.TagItemAddBinding
+import it.univpm.spottedkotlin.databinding.TagItemBinding
+import it.univpm.spottedkotlin.extension.function.*
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.AddPostViewModel
+import it.univpm.spottedkotlin.viewmodel.TagItemAddViewModel
+import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import kotlin.math.max
 
 
@@ -28,7 +31,6 @@ class AddPostFragment : Fragment() {
 	private lateinit var binding: AddPostFragmentBinding
 	private val viewModel: AddPostViewModel by viewModels()
 	private var footerHeight = 0
-	private val adapter = AddPostTagsAdapter(::chooseTag)
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -60,11 +62,28 @@ class AddPostFragment : Fragment() {
 				)
 			)
 		}
-		binding.tagsAdapter = adapter
-		adapter.tags = viewModel.nuovoPost.tags.toMutableList()
+
+		loadTags()
 	}
 
-	private fun chooseTag() {
+	private fun loadTags() {
+		val grid = binding.addPostTagsRecycler
+		grid.removeAllViews()
+		//Tags
+		for (tag in viewModel.nuovoPost.tags) {
+			val tagBinding: TagItemBinding = requireContext().inflate(R.layout.tag_item)
+			tagBinding.model = tag
+			tagBinding.viewModel = TagItemViewModel()
+			grid.addViewLast(tagBinding.root)
+		}
+		//AddTag
+		val addTagBinding: TagItemAddBinding = requireContext().inflate(R.layout.tag_item_add)
+		addTagBinding.viewModel = TagItemAddViewModel()
+		addTagBinding.onClickListener = View.OnClickListener { addTags() }
+		grid.addViewLast(addTagBinding.root)
+	}
+
+	private fun addTags() {
 
 		// Recupero i tags già aggiunti in precedenza al post
 		val selectedTags = mutableSetOf<Tag>()
@@ -91,7 +110,8 @@ class AddPostFragment : Fragment() {
 		builder.setPositiveButton("Aggiungi") { dialog, which ->
 			viewModel.nuovoPost.tags.clear()
 			viewModel.nuovoPost.tags.addAll(selectedTags)
-			adapter.tags = viewModel.nuovoPost.tags.toMutableList()
+//			adapter.tags = viewModel.nuovoPost.tags.toMutableList()
+			loadTags()
 		}
 
 		val dialog = builder.create()
