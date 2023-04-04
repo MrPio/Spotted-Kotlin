@@ -16,13 +16,12 @@
 			android:id="@+id/login_card"
 			android:layout_width="350dp"
 			android:layout_height="500dp"
-			android:layout_marginBottom="90dp"
 			app:cardBackgroundColor="#FFFFFF"
 			app:cardCornerRadius="36dp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.491"
-			app:layout_constraintStart_toStartOf="parent">
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
 
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:layout_width="match_parent"
