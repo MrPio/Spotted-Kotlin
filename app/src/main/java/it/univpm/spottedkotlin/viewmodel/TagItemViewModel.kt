@@ -13,11 +13,8 @@ class TagItemViewModel(
 
 	@get:Bindable
 	var selected = true
-
-	init {
-		if (selectable) {
-			selected = false
-		}
+	set(value) {
+		field=value
 		notifyPropertyChanged(BR.selected)
 	}
 

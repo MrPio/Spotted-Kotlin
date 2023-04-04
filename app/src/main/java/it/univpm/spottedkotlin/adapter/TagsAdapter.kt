@@ -15,10 +15,12 @@ import kotlin.reflect.KFunction0
 
 class TagsAdapter(
 	private val tags: MutableList<Tag?>,
+	private val selectedTags: MutableSet<Tag>,
 	private val tagClickCallback: (tag: Tag?, selected: Boolean) -> Unit,
 ) : BaseAdapter() {
 	override fun getItem(position: Int): Any? = null
 	override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+		val model = tags[position]
 		val binding: TagItemBinding =
 			if (convertView?.id == R.layout.tag_item)
 				TagItemBinding.bind(convertView)
@@ -29,8 +31,10 @@ class TagsAdapter(
 					parent,
 					false
 				)
-		binding.model = tags[position]
-		binding.viewModel = TagItemViewModel(selectable = true) { tagClickCallback(binding.model, it) }
+		binding.model = model
+		binding.viewModel = TagItemViewModel(selectable = true) {
+			tagClickCallback(binding.model, it)
+		}.apply { selected = selectedTags.contains(model) }
 		return binding.root
 	}
 

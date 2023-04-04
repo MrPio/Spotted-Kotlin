@@ -14,9 +14,17 @@ import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import kotlin.reflect.KFunction0
 
 class AddPostTagsAdapter(
-	private val tags: MutableList<Tag?>,
+
 	private val addTagCallback: KFunction0<Unit>
 ) : BaseAdapter() {
+
+	var tags: MutableList<Tag?> = mutableListOf()
+		set(value) {
+			field = value
+			field.add(null)
+			notifyDataSetChanged()
+		}
+
 	override fun getItem(position: Int): Any? = null
 	override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 		if (getItemViewType(position) == R.layout.tag_item_add) {

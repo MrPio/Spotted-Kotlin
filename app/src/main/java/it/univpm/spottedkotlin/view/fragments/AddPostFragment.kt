@@ -27,13 +27,7 @@ class AddPostFragment : Fragment() {
 	private lateinit var binding: AddPostFragmentBinding
 	private val viewModel: AddPostViewModel by viewModels()
 	private var footerHeight = 0
-	private val adapter = AddPostTagsAdapter(
-		mutableListOf(
-			Tag("fem", Gender.FEMALE.icon),
-			Tag("mas", Gender.MALE.icon),
-		),
-		this::chooseTag
-	)
+	private val adapter = AddPostTagsAdapter(::chooseTag)
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -66,13 +60,21 @@ class AddPostFragment : Fragment() {
 			)
 		}
 		binding.tagsAdapter = adapter
+		adapter.tags = viewModel.nuovoPost.tags.toMutableList()
 	}
 
 	private fun chooseTag() {
-		val selectedTags = mutableListOf<Tag>()
-		val popupBinding = SelectTagPopupBinding.inflate(layoutInflater, null, false)
+
+		// Recupero i tags già aggiunti in precedenza al post
+		val selectedTags = mutableSetOf<Tag>()
+		viewModel.nuovoPost.tags.let { selectedTags.addAll(it) }
+
+		// Inflate del body del popup
+		val popupBinding =
+			SelectTagPopupBinding.inflate(layoutInflater, null, false)
 		popupBinding.tagsAdapter = TagsAdapter(
-			mutableListOf(
+			tags = mutableListOf(
+				//TODO
 				Tag("fem", Gender.FEMALE.icon),
 				Tag("mas", Gender.MALE.icon),
 				Tag("fem", Gender.FEMALE.icon),
@@ -83,8 +85,11 @@ class AddPostFragment : Fragment() {
 				Tag("mas", Gender.MALE.icon),
 				Tag("fem", Gender.FEMALE.icon),
 				Tag("mas", Gender.MALE.icon),
-			)
-		) { tag, checked ->
+			),
+			selectedTags = selectedTags
+		) {
+			//tagClickCallback
+				tag, checked ->
 			if (checked)
 				tag?.let { selectedTags.add(it) }
 			else
@@ -95,8 +100,8 @@ class AddPostFragment : Fragment() {
 		builder.setTitle("Scegli dei tag da aggiungere")
 		builder.setView(popupBinding.root)
 		builder.setPositiveButton("Aggiungi") { dialog, which ->
-			println(selectedTags.toString())
-//			TODO
+			viewModel.nuovoPost.tags.addAll(selectedTags)
+			adapter.tags = viewModel.nuovoPost.tags.toMutableList()
 		}
 
 		val dialog = builder.create()
