@@ -14,7 +14,7 @@ import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import kotlin.reflect.KFunction0
 
 class TagsAdapter(
-	private val tags: MutableList<Tag?>,
+	private val tags: List<Tag?>,
 	private val selectedTags: MutableSet<Tag>,
 	private val tagClickCallback: (tag: Tag?, selected: Boolean) -> Unit,
 ) : BaseAdapter() {

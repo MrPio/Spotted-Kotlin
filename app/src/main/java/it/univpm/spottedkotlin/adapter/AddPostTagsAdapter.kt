@@ -14,7 +14,7 @@ import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import kotlin.reflect.KFunction0
 
 class AddPostTagsAdapter(
-
+//TODO MIGRATE TO RECYCLERVIEW ADAPTER AND ADD GRID LAYOUT MANAGER
 	private val addTagCallback: KFunction0<Unit>
 ) : BaseAdapter() {
 

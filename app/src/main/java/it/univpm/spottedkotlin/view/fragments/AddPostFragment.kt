@@ -17,6 +17,7 @@ import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.extension.function.fromDp
 import it.univpm.spottedkotlin.extension.function.getActivity
 import it.univpm.spottedkotlin.extension.function.setHeight
+import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.AddPostViewModel
@@ -73,19 +74,7 @@ class AddPostFragment : Fragment() {
 		val popupBinding =
 			SelectTagPopupBinding.inflate(layoutInflater, null, false)
 		popupBinding.tagsAdapter = TagsAdapter(
-			tags = mutableListOf(
-				//TODO
-				Tag("fem", Gender.FEMALE.icon),
-				Tag("mas", Gender.MALE.icon),
-				Tag("fem", Gender.FEMALE.icon),
-				Tag("mas", Gender.MALE.icon),
-				Tag("fem", Gender.FEMALE.icon),
-				Tag("mas", Gender.MALE.icon),
-				Tag("fem", Gender.FEMALE.icon),
-				Tag("mas", Gender.MALE.icon),
-				Tag("fem", Gender.FEMALE.icon),
-				Tag("mas", Gender.MALE.icon),
-			),
+			tags = DataManager.tags!!.toList(),
 			selectedTags = selectedTags
 		) {
 			//tagClickCallback
@@ -100,6 +89,7 @@ class AddPostFragment : Fragment() {
 		builder.setTitle("Scegli dei tag da aggiungere")
 		builder.setView(popupBinding.root)
 		builder.setPositiveButton("Aggiungi") { dialog, which ->
+			viewModel.nuovoPost.tags.clear()
 			viewModel.nuovoPost.tags.addAll(selectedTags)
 			adapter.tags = viewModel.nuovoPost.tags.toMutableList()
 		}

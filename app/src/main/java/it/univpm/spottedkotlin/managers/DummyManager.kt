@@ -1,5 +1,7 @@
 package it.univpm.spottedkotlin.managers
 
+import android.content.Context
+import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
 import it.univpm.spottedkotlin.extension.function.addDays
@@ -407,5 +409,26 @@ object DummyManager {
 		}
 		users.forEach { DatabaseManager.put("users/${it.uid}", it) }
 		posts.forEach { DatabaseManager.post("posts", it) }
+	}
+
+	fun generateTags(context: Context): Set<Tag> {
+		return setOf(
+
+			//Height
+			Tag("Alto", context.getString(R.string.HumanMaleHeightVariant)),
+			Tag("Basso", context.getString(R.string.HumanMaleHeightVariant)),
+
+			//Hair
+			Tag("Ricci", context.getString(R.string.HairDryer)),
+			Tag("Lisci", context.getString(R.string.HairDryer)),
+
+			Tag("Felpa", context.getString(R.string.TshirtCrew)),
+			Tag("Camicia", context.getString(R.string.TshirtCrew)),
+			Tag("Giubbotto", context.getString(R.string.TshirtCrew)),
+			Tag("Cardigan", context.getString(R.string.TshirtCrew)),
+
+			Tag("Da vista", context.getString(R.string.Sunglasses)),
+			Tag("Da sole", context.getString(R.string.Sunglasses)),
+		)
 	}
 }

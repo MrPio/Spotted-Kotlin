@@ -75,7 +75,7 @@ class HomeFragment : Fragment() {
 			requireContext().runUI {
 				binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
 			}
-			DataManager.fetchData()
+			DataManager.fetchData(requireContext())
 			context?.runUI {
 				recyclerLoadMore()
 				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
