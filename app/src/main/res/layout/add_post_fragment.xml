@@ -59,6 +59,7 @@
 												   app:layout_constraintTop_toTopOf = "parent">
 
 					<ImageView android:id = "@+id/add_post_image"
+							   imageUrl = "@{viewModel.image}"
 							   android:layout_width = "match_parent"
 							   android:layout_height = "wrap_content"
 							   android:layout_marginBottom = "36dp"
@@ -115,7 +116,7 @@
 								  android:text = "@string/zona"
 								  android:textColor = "@color/color2"
 								  android:textSize = "22sp"
-								  android:visibility = "@{viewModel.zone.size()==0?view.GONE:view.VISIBLE}"/>
+								  android:visibility = "@{viewModel.zone.size()&lt;=1?view.GONE:view.VISIBLE}"/>
 						<Spinner android:id = "@+id/zona_spinner"
 								 android:layout_width = "match_parent"
 								 android:layout_height = "48dp"
@@ -127,7 +128,7 @@
 								 android:selectedItemPosition = "@={viewModel.zona}"
 								 android:theme = "@style/SpinnerTheme"
 								 android:tooltipText = "Plesso"
-								 android:visibility = "@{viewModel.zone.size()==0?view.GONE:view.VISIBLE}"
+								 android:visibility = "@{viewModel.zone.size()&lt;=1?view.GONE:view.VISIBLE}"
 								 tools:visibility = "gone"/>
 
 						<!--HLine-->
@@ -137,7 +138,7 @@
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
 							  android:foreground = "@color/color1"
-							  android:visibility = "@{viewModel.zone.size()==0?view.GONE:view.VISIBLE}"/>
+							  android:visibility = "@{viewModel.zone.size()&lt;=1?view.GONE:view.VISIBLE}"/>
 
 						<!--Genere-->
 						<TextView style = "@style/LabelBold"
@@ -181,12 +182,8 @@
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
 							  android:foreground = "@color/color1"
-							  android:visibility = "@{viewModel.zone.size()==0?view.GONE:view.VISIBLE}"/>
+							  android:visibility = "@{viewModel.zone.size()&lt;=1?view.GONE:view.VISIBLE}"/>
 
-<!--						android:layout_marginStart = "-30dp"-->
-<!--						android:layout_marginTop = "10dp"-->
-<!--						android:layout_marginEnd = "-30dp"-->
-<!--						android:paddingStart = "30dp"-->
 
 						<!--Tags-->
 						<TextView style = "@style/LabelBold"
@@ -199,9 +196,13 @@
 						<GridLayout android:id = "@+id/add_post_tags_recycler"
 									android:layout_width = "match_parent"
 									android:layout_height = "wrap_content"
-									android:useDefaultMargins="true"
-									android:columnCount="3"
-									android:numColumns = "3"/>
+									android:columnCount = "3"
+									android:numColumns = "3"
+									android:layout_marginStart = "-30dp"
+									android:layout_marginTop = "10dp"
+									android:layout_marginEnd = "-30dp"
+									android:paddingStart = "30dp"
+									android:useDefaultMargins = "true"/>
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"

@@ -11,7 +11,7 @@
         android:label="@string/home_fragment_label"
         tools:layout="@layout/home_fragment">
         <action
-            android:id="@+id/action_Home_to_Map"
+            android:id="@+id/action_firstFragment_to_loginFragment"
             app:destination="@id/MapFragment" />
     </fragment>
 

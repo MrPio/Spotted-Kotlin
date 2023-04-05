@@ -12,5 +12,10 @@ enum class Locations(val title: String? = null, val imageUrl: String? = null) {
 	STAZIONE_FS("Stazione FS", RemoteImages.QT_140.url),
 
 	QT_140("Quota 140", RemoteImages.QT_140.url),
+	QT_145("Quota 145", RemoteImages.QT_160.url),
+	QT_150("Quota 150", RemoteImages.QT_160.url),
+	QT_155("Quota 155", RemoteImages.QT_160.url),
 	QT_160("Quota 160", RemoteImages.QT_160.url),
+	AULE_SUD("Aule Sud", RemoteImages.QT_160.url),
+
 }

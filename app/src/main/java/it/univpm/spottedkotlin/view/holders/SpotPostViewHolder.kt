@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.SpotPostBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
+import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 
@@ -16,12 +17,7 @@ class SpotPostViewHolder(val binding: SpotPostBinding) : ViewHolder(binding.root
 		binding.viewModel = this
 
 		for (tag in post.tags) {
-			val tagBinding: TagItemBinding = DataBindingUtil.inflate(
-				LayoutInflater.from(binding.root.context),
-				R.layout.tag_item,
-				binding.tagsLayout,
-				false
-			)
+			val tagBinding: TagItemBinding = binding.root.context.inflate(R.layout.tag_item)
 			tagBinding.viewModel = TagItemViewModel()
 			tagBinding.model = tag
 			binding.tagsLayout.addView(tagBinding.root)

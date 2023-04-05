@@ -51,6 +51,7 @@ class BottomBarFragment : Fragment() {
 	fun changeIndex(from: Int, to: Int) {
 		val activity = binding.root.context.getActivity<MainActivity>()!!
 		val circle = binding.animationCircle
+		activity.binding.bottomBarContainer.animate().translationY(0f).start()
 
 		//Setting bottomBar white circles and icons text colors
 		for ((i, pair) in circles.zip(icons).withIndex()) {

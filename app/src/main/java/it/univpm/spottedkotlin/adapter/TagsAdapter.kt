@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.TagItemAddBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
+import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.viewmodel.TagItemAddViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
@@ -25,12 +26,7 @@ class TagsAdapter(
 			if (convertView?.id == R.layout.tag_item)
 				TagItemBinding.bind(convertView)
 			else
-				DataBindingUtil.inflate(
-					LayoutInflater.from(parent?.context),
-					R.layout.tag_item,
-					parent,
-					false
-				)
+				parent?.context!!.inflate(R.layout.tag_item, parent)
 		binding.model = model
 		binding.viewModel = TagItemViewModel(selectable = true) {
 			tagClickCallback(binding.model, it)
