@@ -1,21 +1,36 @@
 package it.univpm.spottedkotlin.enums
 
-enum class Locations(val title: String? = null, val imageUrl: String? = null) {
-	INGEGNERIA("Univpm - Ingegneria", RemoteImages.QT_140.url),
-	MEDICINA("Univpm - Medicina", RemoteImages.QT_140.url),
-	ECONOMIA("Univpm - Economia", RemoteImages.QT_140.url),
-	MENSA("Mensa", RemoteImages.QT_140.url),
-	CAVOUR("Piazza Cavour", RemoteImages.QT_140.url),
-	ROMA("Piazza Roma", RemoteImages.QT_140.url),
-	IV_NOVEMBRE("Piazza IV Novembre", RemoteImages.QT_140.url),
-	UGO_BASSI("Piazza Ugo Bassi", RemoteImages.QT_140.url),
-	STAZIONE_FS("Stazione FS", RemoteImages.QT_140.url),
+enum class Locations(val title: String? = null, private val _imageUrl: String? = null) {
+	//=== PLESSI ======================================================
+	INGEGNERIA("Univpm - Ingegneria", RemoteImages.TORRE.url),
+	AGRARIA("Agraria"),
+	SCIENZE("Scienze", RemoteImages.SCIENZE_1.url),
+	MENSA("Mensa"),
+	MEDICINA("Univpm - Medicina"),
+	ECONOMIA("Univpm - Economia"),
+	//=================================================================
 
-	QT_140("Quota 140", RemoteImages.QT_140.url),
-	QT_145("Quota 145", RemoteImages.QT_160.url),
-	QT_150("Quota 150", RemoteImages.QT_160.url),
-	QT_155("Quota 155", RemoteImages.QT_160.url),
-	QT_160("Quota 160", RemoteImages.QT_160.url),
-	AULE_SUD("Aule Sud", RemoteImages.QT_160.url),
+	//INGEGNERIA
+	QT_140("Quota 140"),
+	QT_150("Quota 150"),
+	QT_155("Quota 155"),
+	QT_160("Quota 160"),
+	AULE_SUD("Aule Sud", RemoteImages.AULE_SUD_ATRIO.url),
+	PORTINERIA("Portineria"),
+	SEGRETERIA("Segreteria"),
+	CLAB("Clab"),
+	DIPARTIMENTO_MATEMATICA("Dip. Matematica/Copisteria"),
+	BIBLIOTECA("Biblioteca"),
 
+	//AGRARIA
+	AGRARIA_ATRIO("Atrio"),
+	AGRARIA_INGRESSO("Ingresso", RemoteImages.AGRARIA.url),
+	AGRARIA_ZONA_STUDENTI("Zona studenti"),
+
+	//SCIENZE
+	SCIENZE_1("Scienze 1"),
+	SCIENZE_2("Scienze 2"),
+	SCIENZE_3("Scienze 3");
+
+	val imageUrl get() = _imageUrl ?: RemoteImages.valueOf(this.name).url
 }
