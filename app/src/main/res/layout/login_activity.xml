@@ -32,18 +32,18 @@
 		<androidx.fragment.app.FragmentContainerView
 			android:id="@+id/title_container"
 			android:name="androidx.navigation.fragment.NavHostFragment"
-			android:layout_width="0dp"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			app:defaultNavHost="true"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintHorizontal_bias="0.49"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/first_access_title"
-			app:layout_constraintVertical_bias="1.0"
-			tools:layout="@layout/first_fragment"
 
-			app:defaultNavHost = "true"
-			app:navGraph = "@navigation/nav_graph"/>
+			app:layout_constraintTop_toBottomOf="@+id/first_access_title"
+			app:layout_constraintVertical_bias="0.872"
+			app:navGraph="@navigation/login_nav_graph"
+			tools:layout="@layout/first_fragment" />
 
 		<TextView
 			android:id="@+id/first_access_title"

@@ -28,17 +28,6 @@ class FirstActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         //binding.executePendingBindings()
 
-        /*supportFragmentManager.commit {
-            add(
-                binding.titleContainer.id, viewModel.fragments[0]
-            )
-        }*/
-
-        /*viewModel.currentFragment.observe(this) {
-            viewModel.currentFragmentChanged(binding)
-        }*/
-
-
     }
 
 
