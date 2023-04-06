@@ -8,6 +8,8 @@
 				  type = "it.univpm.spottedkotlin.viewmodel.AddPostViewModel"/>
 		<variable name = "view"
 				  type = "android.view.View"/>
+		<variable name = "pubblicaOnClickListener"
+				  type = "android.view.View.OnClickListener"/>
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width = "match_parent"
@@ -265,7 +267,8 @@
 													   android:background = "@drawable/button_empty"
 													   android:fontFamily = "@font/lato_regular"
 													   android:foreground = "@drawable/ripple_white_corner_round"
-													   android:text = "@string/reimposta"
+													   android:text = "@string/azzera"
+													   android:onClickListener="@{()->viewModel.azzera()}"
 													   android:textColor = "@color/color1"
 													   android:textSize = "16sp"/>
 
@@ -274,6 +277,7 @@
 													   android:layout_height = "56dp"
 													   android:layout_marginStart = "10dp"
 													   android:layout_marginEnd = "30dp"
+													   android:onClickListener="@{pubblicaOnClickListener}"
 													   android:layout_weight = "1"
 													   android:background = "@drawable/button_selector"
 													   android:fontFamily = "@font/lato_regular"

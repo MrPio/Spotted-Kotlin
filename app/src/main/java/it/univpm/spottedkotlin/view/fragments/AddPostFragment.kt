@@ -36,6 +36,7 @@ class AddPostFragment : Fragment() {
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View {
+		viewModel.loadTagsCallback = ::loadTags
 		binding = AddPostFragmentBinding.inflate(inflater, container, false)
 		binding.viewModel = viewModel
 		return binding.root
@@ -62,7 +63,7 @@ class AddPostFragment : Fragment() {
 				)
 			)
 		}
-
+		binding.pubblicaOnClickListener = View.OnClickListener { pubblica() }
 		loadTags()
 	}
 
@@ -116,5 +117,16 @@ class AddPostFragment : Fragment() {
 
 		val dialog = builder.create()
 		dialog.show()
+	}
+
+	private fun pubblica() {
+		AlertDialog.Builder(requireContext())
+			.setTitle("Tutto ok")
+			.setMessage("Post pubblicato correttamente!")
+			.setPositiveButton("Ok") { _, _ -> }
+			.create()
+			.show()
+		viewModel.pubblica()
+		requireContext().getActivity<MainActivity>()?.viewModel?.currentFragment?.value = 0
 	}
 }

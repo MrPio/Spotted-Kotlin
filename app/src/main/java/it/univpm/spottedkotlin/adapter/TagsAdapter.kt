@@ -1,18 +1,13 @@
 package it.univpm.spottedkotlin.adapter
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import androidx.databinding.DataBindingUtil
 import it.univpm.spottedkotlin.R
-import it.univpm.spottedkotlin.databinding.TagItemAddBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
 import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.model.Tag
-import it.univpm.spottedkotlin.viewmodel.TagItemAddViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
-import kotlin.reflect.KFunction0
 
 class TagsAdapter(
 	private val tags: List<Tag?>,
