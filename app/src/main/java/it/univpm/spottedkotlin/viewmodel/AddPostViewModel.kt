@@ -15,7 +15,7 @@ import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.model.Post
 import kotlin.reflect.KFunction
 
-class AddPostViewModel() : ObservableViewModel() {
+class AddPostViewModel : ObservableViewModel() {
 	lateinit var loadTagsCallback: () -> Unit
 	val plessi = Plexuses.values().map { it.title }
 	var genders = Gender.values().map { it.title }

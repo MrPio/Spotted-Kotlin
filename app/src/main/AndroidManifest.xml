@@ -16,14 +16,19 @@
 
 
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".view.FirstActivity"
             android:exported="false"
             android:theme="@style/Theme.SpottedKotlin.NoActionBar"/>
 
         <activity
+            android:name=".view.ViewPostActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SpottedKotlin.NoActionBar"/>
+
+
+        <activity
             android:name=".view.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.SpottedKotlin.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

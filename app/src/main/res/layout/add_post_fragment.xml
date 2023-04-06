@@ -230,7 +230,7 @@
 								  android:text = "@string/descrizione"
 								  android:textColor = "@color/color2"
 								  android:textSize = "22sp"/>
-						<EditText style = "@style/LabelMedium"
+						<EditText style = "@style/LabelRegular"
 								  android:layout_width = "match_parent"
 								  android:layout_height = "wrap_content"
 								  android:alpha = "0.75"

@@ -2,7 +2,15 @@
 <resources>
 
 	<!--TextView-->
-	<style name = "LabelMedium">
+	<style name = "LabelLight">
+		<item name = "fontFamily">@font/lato_light</item>
+		<item name = "android:textSize">14sp</item>
+		<item name = "android:textColor">@color/color1</item>
+		<item name = "android:layout_width">wrap_content</item>
+		<item name = "android:layout_height">wrap_content</item>
+	</style>
+
+	<style name = "LabelRegular">
 		<item name = "fontFamily">@font/lato_regular</item>
 		<item name = "android:textSize">14sp</item>
 		<item name = "android:textColor">@color/color1</item>

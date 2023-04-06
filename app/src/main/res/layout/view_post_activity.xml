@@ -3,12 +3,9 @@
 		xmlns:app = "http://schemas.android.com/apk/res-auto"
 		xmlns:tools = "http://schemas.android.com/tools">
 	<data>
-		<import type = "it.univpm.spottedkotlin.enums.Gender"/>
 		<variable name = "viewModel"
-				  type = "it.univpm.spottedkotlin.viewmodel.AddPostViewModel"/>
-		<variable name = "view"
-				  type = "android.view.View"/>
-		<variable name = "pubblicaOnClickListener"
+				  type = "it.univpm.spottedkotlin.viewmodel.ViewPostViewModel"/>
+		<variable name = "exitOnClick"
 				  type = "android.view.View.OnClickListener"/>
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -65,28 +62,31 @@
 									android:layout_marginBottom = "36dp">
 
 						<!--LoadingView-->
-						<include android:id = "@+id/home_loading_view"
-								 layout = "@layout/loading_view"
-								 android:visibility = "visible"/>
+						<!--						<include android:id = "@+id/home_loading_view"-->
+						<!--								 layout = "@layout/loading_view"-->
+						<!--								 android:visibility = "visible"/>-->
 
-						<ImageView android:id = "@+id/add_post_image"
-								   imageUrl = "@{viewModel.image}"
+						<!--								   imageUrl = "@{viewModel.post.location.imageUrl}"-->
+						<ImageView android:id = "@+id/view_post_image"
 								   android:layout_width = "match_parent"
 								   android:layout_height = "310dp"
 								   android:adjustViewBounds = "true"
 								   android:scaleType = "centerCrop"
-								   android:src = "@drawable/uni_140"/>
+							/>
 
 						<TextView style = "@style/LabelIcon"
-								  android:layout_width = "60dp"
-								  android:layout_height = "60dp"
+								  android:layout_width = "50dp"
+								  android:layout_height = "50dp"
 								  android:layout_marginStart = "20dp"
 								  android:layout_marginTop = "20dp"
 								  android:background = "@drawable/corner_radius_fill_white_alpha"
+								  android:clickable = "true"
+								  android:foreground = "@drawable/ripple_white_corner_round"
 								  android:gravity = "center"
+								  android:onClickListener = "@{exitOnClick}"
 								  android:text = "@string/ChevronLeft"
 								  android:textColor = "@color/color1"
-								  android:textSize = "20sp"/>
+								  android:textSize = "28sp"/>
 
 					</RelativeLayout>
 				</androidx.cardview.widget.CardView>
@@ -110,12 +110,13 @@
 									  app:layout_constraintTop_toTopOf = "parent">
 
 							<!--Plesso-->
-							<TextView style = "@style/LabelBlack"
+							<TextView android:id = "@+id/view_post_location"
+									  style = "@style/LabelBlack"
 									  android:layout_width = "wrap_content"
 									  android:layout_height = "wrap_content"
-									  android:text = "Quota 140"
+									  android:text = "@{viewModel.post.location.title}"
 									  android:textColor = "@color/color1"
-									  android:textSize = "34sp"/>
+									  android:textSize = "32sp"/>
 
 							<!--AvatarImage-->
 							<LinearLayout android:layout_width = "match_parent"
@@ -129,6 +130,7 @@
 									android:layout_width = "wrap_content"
 									android:layout_height = "wrap_content"
 									android:layout_marginBottom = "1dp"
+									android:foreground = "@drawable/ripple_black_round"
 									app:cardBackgroundColor = "#FFFFFF"
 									app:cardCornerRadius = "999dp"
 									app:layout_constraintEnd_toEndOf = "parent"
@@ -136,6 +138,8 @@
 
 									<LinearLayout android:layout_width = "match_parent"
 												  android:layout_height = "wrap_content"
+												  android:clickable = "true"
+												  android:foreground = "@drawable/ripple_black_corner_round"
 												  android:gravity = "center_vertical"
 												  android:orientation = "horizontal">
 
@@ -151,29 +155,29 @@
 												  android:layout_height = "wrap_content"
 												  android:layout_marginStart = "10dp"
 												  android:layout_marginEnd = "16dp"
-												  android:text = "Mario Rossi"
+												  android:text = "@{viewModel.author}"
 												  android:textColor = "@color/color1"
-												  android:textSize = "20sp"/>
+												  android:textSize = "16sp"/>
 
 									</LinearLayout>
 								</androidx.cardview.widget.CardView>
-								<TextView style = "@style/LabelMedium"
+								<TextView style = "@style/LabelRegular"
 										  android:layout_width = "wrap_content"
 										  android:layout_height = "wrap_content"
 										  android:layout_marginStart = "10dp"
 										  android:alpha = "0.65"
-										  android:text = "- Lunedì 5 marzo"
+										  android:text = '@{"- "+viewModel.date}'
 										  android:textColor = "@color/color1"
-										  android:textSize = "20sp"/>
+										  android:textSize = "16sp"/>
 							</LinearLayout>
 
 							<!--Descrizione-->
-							<TextView style = "@style/LabelMedium"
+							<TextView style = "@style/LabelRegular"
 									  android:layout_width = "match_parent"
 									  android:layout_height = "wrap_content"
 									  android:alpha = "0.75"
-									  android:hint = "@string/lorem"
-									  android:textSize = "18sp"/>
+									  android:text= "@{viewModel.post.description}"
+									  android:textSize = "16sp"/>
 
 							<!--Tags-->
 							<GridLayout android:id = "@+id/add_post_tags_recycler"
@@ -185,7 +189,7 @@
 										android:useDefaultMargins = "true"/>
 
 							<View android:layout_width = "wrap_content"
-								  android:layout_height = "80dp"/>
+								  android:layout_height = "180dp"/>
 						</LinearLayout>
 					</androidx.cardview.widget.CardView>
 
@@ -204,10 +208,12 @@
 								  android:layout_marginStart = "10dp"
 								  android:layout_marginTop = "10dp"
 								  android:background = "@drawable/corner_radius_fill_gray"
+								  android:clickable = "true"
+								  android:foreground = "@drawable/ripple_black_corner_round"
 								  android:gravity = "center"
 								  android:text = "@string/BookmarkOutline"
 								  android:textColor = "@color/color1"
-								  android:textSize = "20sp"/>
+								  android:textSize = "28sp"/>
 					</FrameLayout>
 				</androidx.constraintlayout.widget.ConstraintLayout>
 			</LinearLayout>
@@ -217,46 +223,85 @@
 		<LinearLayout
 			android:id = "@+id/add_post_footer"
 			android:layout_width = "match_parent"
-			android:layout_height = "296dp"
+			android:layout_height = "230dp"
 			android:background = "@drawable/corner_radius_top"
 			android:backgroundTint = "@color/color3"
+			android:clickable = "true"
 			android:elevation = "10dp"
+			android:foreground = "@drawable/ripple_black_corner_round_light"
 			android:gravity = "start"
-			android:orientation = "horizontal"
+			android:orientation = "vertical"
 			android:paddingHorizontal = "30dp"
 			android:paddingTop = "20dp"
 			app:layout_constraintBottom_toBottomOf = "parent"
 			app:layout_constraintStart_toStartOf = "parent">
 
-			<LinearLayout android:layout_width = "match_parent"
-						  android:layout_height = "wrap_content"
-						  android:orientation = "horizontal">
-				<ImageView
-					android:layout_width = "30dp"
-					android:layout_height = "30dp"
-					android:background = "@drawable/avatar_corner"
-					android:contentDescription = "@string/todo"
-					android:src = "@drawable/anonymous"/>
-				<ImageView
-					android:layout_width = "30dp"
-					android:layout_height = "30dp"
-					android:layout_marginStart = "-15dp"
-					android:background = "@drawable/avatar_corner"
-					android:contentDescription = "@string/todo"
-					android:src = "@drawable/anonymous"/>
-				<ImageView
-					android:layout_width = "30dp"
-					android:layout_height = "30dp"
-					android:layout_marginStart = "-15dp"
-					android:background = "@drawable/avatar_corner"
-					android:contentDescription = "@string/todo"
-					android:src = "@drawable/anonymous"/>
+			<HorizontalScrollView android:layout_width = "match_parent"
+								  android:layout_height = "wrap_content">
+				<LinearLayout android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:gravity = "center_vertical"
+							  android:orientation = "horizontal">
+					<ImageView
+						android:layout_width = "30dp"
+						android:layout_height = "30dp"
+						android:background = "@drawable/avatar_corner"
+						android:contentDescription = "@string/todo"
+						android:src = "@drawable/anonymous"/>
+					<ImageView
+						android:layout_width = "30dp"
+						android:layout_height = "30dp"
+						android:layout_marginStart = "-15dp"
+						android:background = "@drawable/avatar_corner"
+						android:contentDescription = "@string/todo"
+						android:src = "@drawable/anonymous"/>
+					<ImageView
+						android:layout_width = "30dp"
+						android:layout_height = "30dp"
+						android:layout_marginStart = "-15dp"
+						android:background = "@drawable/avatar_corner"
+						android:contentDescription = "@string/todo"
+						android:src = "@drawable/anonymous"/>
 
-				<TextView android:layout_width = "wrap_content"
-						  android:layout_height = "wrap_content"
-						  style="@style/LabelMedium"
-						  android:text="Seguito da MariaRossi"
-			</LinearLayout>
+					<TextView style = "@style/LabelLight"
+							  android:layout_width = "wrap_content"
+							  android:layout_height = "wrap_content"
+							  android:layout_marginStart = "10dp"
+							  android:text = "@string/seguito_da"/>
+					<TextView style = "@style/LabelBold"
+							  android:layout_width = "wrap_content"
+							  android:layout_height = "wrap_content"
+							  android:text = "MariaRossi"
+							  android:textSize = "14sp"/>
+					<TextView style = "@style/LabelLight"
+							  android:layout_width = "wrap_content"
+							  android:layout_height = "wrap_content"
+							  android:text = "@string/e"/>
+					<TextView style = "@style/LabelBold"
+							  android:layout_width = "wrap_content"
+							  android:layout_height = "wrap_content"
+							  android:text = " altri 12"
+							  android:textSize = "14sp"/>
+				</LinearLayout>
+			</HorizontalScrollView>
+
+			<TextView style = "@style/LabelLight"
+					  android:layout_width = "wrap_content"
+					  android:layout_height = "wrap_content"
+					  android:layout_marginTop = "10dp"
+					  android:text = "**Maria Rossi** Lorem ipsum dolor 🕓 sit amet ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet 😊😂⭕"/>
+			<TextView style = "@style/LabelLight"
+					  android:layout_width = "wrap_content"
+					  android:layout_height = "wrap_content"
+					  android:layout_marginTop = "10dp"
+					  android:text = "**Maria Rossi**  dolor 🕓 sit amet ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet 😊😂⭕"/>
+
+			<TextView style = "@style/LabelRegular"
+					  android:layout_width = "match_parent"
+					  android:layout_height = "wrap_content"
+					  android:layout_marginTop = "12dp"
+					  android:alpha = "0.65"
+					  android:text = "Visualizza tutti i 17 commenti"/>
 
 		</LinearLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>

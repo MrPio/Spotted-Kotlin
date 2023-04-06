@@ -5,6 +5,7 @@ import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
 import it.univpm.spottedkotlin.extension.function.toDateStr
 import it.univpm.spottedkotlin.extension.function.toTimeStr
+import java.io.Serializable
 import java.util.*
 
 @IgnoreExtraProperties
@@ -17,7 +18,7 @@ data class Post(
 	val tags: MutableList<Tag> = mutableListOf(),
 	val followers: MutableList<String> = mutableListOf(),
 	val comments: MutableList<Comment> = mutableListOf(),
-) {
+) : Serializable {
 	var uid: String? = null
 	var percentage: Int? = null
 

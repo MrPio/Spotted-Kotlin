@@ -1,6 +1,10 @@
 package it.univpm.spottedkotlin.view
 
 import android.os.Bundle
+import android.transition.ChangeImageTransform
+import android.transition.Explode
+import android.transition.Slide
+import android.view.Window
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
@@ -20,7 +24,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
-
 	lateinit var binding: ActivityMainBinding
 	val viewModel: MainViewModel by viewModels()
 	override fun onCreate(savedInstanceState: Bundle?) {

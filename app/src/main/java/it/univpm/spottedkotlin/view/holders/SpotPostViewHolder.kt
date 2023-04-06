@@ -1,14 +1,17 @@
 package it.univpm.spottedkotlin.view.holders
 
-import android.view.LayoutInflater
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
+import android.app.ActivityOptions
+import android.content.Intent
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.SpotPostBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
+import it.univpm.spottedkotlin.extension.function.getActivity
 import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.model.Post
+import it.univpm.spottedkotlin.view.MainActivity
+import it.univpm.spottedkotlin.view.ViewPostActivity
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 
 class SpotPostViewHolder(val binding: SpotPostBinding) : ViewHolder(binding.root) {
@@ -26,9 +29,13 @@ class SpotPostViewHolder(val binding: SpotPostBinding) : ViewHolder(binding.root
 	}
 
 	fun cardClicked(post: Post) {
-		Toast.makeText(
-			binding.root.context, "You clicked ${post.percentage}%",
-			Toast.LENGTH_SHORT
-		).show()
+		val mainActivity = binding.root.context.getActivity<MainActivity>()
+		val intent = Intent(mainActivity, ViewPostActivity::class.java)
+		intent.putExtra("postUID", post.uid)
+		val option = ActivityOptions.makeSceneTransitionAnimation(
+			mainActivity,
+			android.util.Pair(binding.backgroundImage, ViewPostActivity.TRANSITION_IMAGE),
+		)
+		mainActivity?.startActivity(intent, option.toBundle())
 	}
 }

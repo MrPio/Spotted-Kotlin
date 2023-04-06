@@ -23,7 +23,7 @@ object DatabaseManager {
 		val paths = path.split('/').filter { it.isNotEmpty() }
 		val child = database.child(paths[0])
 		return if (paths.count() <= 1) child else getChild(
-			path = paths.drop(1).joinToString(""),
+			path = paths.drop(1).joinToString("/"),
 			database = child
 		)
 	}
@@ -53,6 +53,9 @@ object DatabaseManager {
 		}
 		return map.values.toList()
 	}
+
+	suspend inline fun <T> get(path: String): T =
+		getChild(path).get().await().value as T
 
 	fun <T> get(path: String, success: (it: T) -> Unit) {
 		getChild(path).get().addOnSuccessListener {

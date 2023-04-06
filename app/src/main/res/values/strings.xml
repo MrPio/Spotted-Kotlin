@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Spotted[Kotlin]</string>
+    <string name="app_name">Spotted!</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="home_fragment_label">Home</string>
@@ -41,5 +41,7 @@
 	<string name = "genere">Genere</string>
 	<string name = "azzera">azzera</string>
 	<string name = "lorem">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "</string>
+	<string name = "seguito_da">Seguito da </string>
+	<string name = "e"> e</string>
 
 </resources>

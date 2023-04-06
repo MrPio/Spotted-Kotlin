@@ -1,6 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.SpottedKotlin" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowSharedElementEnterTransition" tools:ignore="NewApi">
+            @transition/view_post_transition
+        </item>
+        <item name="android:windowSharedElementExitTransition" tools:ignore="NewApi">
+            @transition/view_post_transition
+        </item>
+
+
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color2</item>
         <item name="colorPrimaryVariant">@color/color1</item>
