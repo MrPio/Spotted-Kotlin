@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android = "http://schemas.android.com/apk/res/android"
+		xmlns:app = "http://schemas.android.com/apk/res-auto"
+		xmlns:tools = "http://schemas.android.com/tools">
+	<data>
+		<import type = "it.univpm.spottedkotlin.enums.Gender"/>
+		<variable name = "viewModel"
+				  type = "it.univpm.spottedkotlin.viewmodel.AddPostViewModel"/>
+		<variable name = "view"
+				  type = "android.view.View"/>
+		<variable name = "pubblicaOnClickListener"
+				  type = "android.view.View.OnClickListener"/>
+	</data>
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent"
+		android:background = "@color/color1"
+		tools:context = ".view.fragments.AddPostFragment">
+
+		<!--Top Black roundedRectangle-->
+		<FrameLayout android:layout_width = "wrap_content"
+					 android:layout_height = "wrap_content"
+					 android:background = "@drawable/corner_radius_bottom"
+					 android:backgroundTint = "@color/color1"
+					 android:elevation = "10dp"
+					 app:layout_constraintEnd_toEndOf = "parent"
+					 app:layout_constraintStart_toStartOf = "parent"
+					 app:layout_constraintTop_toTopOf = "parent">
+			<TextView style = "@style/LabelBold"
+					  android:layout_width = "wrap_content"
+					  android:layout_height = "wrap_content"
+					  android:paddingHorizontal = "30dp"
+					  android:paddingVertical = "10dp"
+					  android:text = "63%"
+					  android:textColor = "@color/color4"/>
+		</FrameLayout>
+
+		<!--CenterOfScreen-->
+		<ScrollView android:id = "@+id/add_post_scrollview"
+					android:layout_width = "0dp"
+					android:layout_height = "0dp"
+					android:layout_marginBottom = "-72dp"
+					app:layout_constraintBottom_toTopOf = "@+id/add_post_footer"
+					app:layout_constraintEnd_toEndOf = "parent"
+					app:layout_constraintStart_toStartOf = "parent"
+					app:layout_constraintTop_toTopOf = "parent">
+			<LinearLayout android:layout_width = "match_parent"
+						  android:layout_height = "wrap_content"
+						  android:clipToPadding = "false"
+						  android:orientation = "vertical">
+
+				<!--TopImage-->
+				<androidx.cardview.widget.CardView android:id = "@+id/add_post_image_card"
+												   android:layout_width = "match_parent"
+												   android:layout_height = "wrap_content"
+												   android:elevation = "0dp"
+												   app:cardCornerRadius = "36dp"
+												   app:cardElevation = "0dp"
+												   app:layout_constraintEnd_toEndOf = "parent"
+												   app:layout_constraintStart_toStartOf = "parent"
+												   app:layout_constraintTop_toTopOf = "parent">
+					<RelativeLayout android:id = "@+id/add_post_top"
+									android:layout_width = "match_parent"
+									android:layout_height = "310dp"
+									android:layout_marginBottom = "36dp">
+
+						<!--LoadingView-->
+						<include android:id = "@+id/home_loading_view"
+								 layout = "@layout/loading_view"
+								 android:visibility = "visible"/>
+
+						<ImageView android:id = "@+id/add_post_image"
+								   imageUrl = "@{viewModel.image}"
+								   android:layout_width = "match_parent"
+								   android:layout_height = "310dp"
+								   android:adjustViewBounds = "true"
+								   android:scaleType = "centerCrop"
+								   android:src = "@drawable/uni_140"/>
+
+						<TextView style = "@style/LabelIcon"
+								  android:layout_width = "60dp"
+								  android:layout_height = "60dp"
+								  android:layout_marginStart = "20dp"
+								  android:layout_marginTop = "20dp"
+								  android:background = "@drawable/corner_radius_fill_white_alpha"
+								  android:gravity = "center"
+								  android:text = "@string/ChevronLeft"
+								  android:textColor = "@color/color1"
+								  android:textSize = "20sp"/>
+
+					</RelativeLayout>
+				</androidx.cardview.widget.CardView>
+
+				<androidx.constraintlayout.widget.ConstraintLayout android:layout_width = "match_parent"
+																   android:layout_height = "wrap_content"
+																   android:layout_marginTop = "-102dp">
+					<androidx.cardview.widget.CardView android:id = "@+id/add_post_main_card"
+													   android:layout_width = "match_parent"
+													   android:layout_height = "wrap_content"
+													   android:layout_marginTop = "30dp"
+													   app:cardBackgroundColor = "@color/color4"
+													   app:cardCornerRadius = "36dp"
+													   app:layout_constraintStart_toStartOf = "parent"
+													   app:layout_constraintTop_toTopOf = "parent">
+						<LinearLayout android:layout_width = "match_parent"
+									  android:layout_height = "wrap_content"
+									  android:orientation = "vertical"
+									  android:padding = "30dp"
+									  app:layout_constraintStart_toStartOf = "parent"
+									  app:layout_constraintTop_toTopOf = "parent">
+
+							<!--Plesso-->
+							<TextView style = "@style/LabelBlack"
+									  android:layout_width = "wrap_content"
+									  android:layout_height = "wrap_content"
+									  android:text = "Quota 140"
+									  android:textColor = "@color/color1"
+									  android:textSize = "34sp"/>
+
+							<!--AvatarImage-->
+							<LinearLayout android:layout_width = "match_parent"
+										  android:layout_height = "wrap_content"
+										  android:layout_marginTop = "10dp"
+										  android:gravity = "center_vertical"
+										  android:orientation = "horizontal"
+										  android:paddingVertical = "10dp">
+
+								<androidx.cardview.widget.CardView
+									android:layout_width = "wrap_content"
+									android:layout_height = "wrap_content"
+									android:layout_marginBottom = "1dp"
+									app:cardBackgroundColor = "#FFFFFF"
+									app:cardCornerRadius = "999dp"
+									app:layout_constraintEnd_toEndOf = "parent"
+									app:layout_constraintTop_toTopOf = "parent">
+
+									<LinearLayout android:layout_width = "match_parent"
+												  android:layout_height = "wrap_content"
+												  android:gravity = "center_vertical"
+												  android:orientation = "horizontal">
+
+										<ImageView
+											android:layout_width = "34dp"
+											android:layout_height = "34dp"
+											android:layout_margin = "2dp"
+											android:contentDescription = "@string/todo"
+											android:src = "@drawable/anonymous"/>
+
+										<TextView style = "@style/LabelBold"
+												  android:layout_width = "wrap_content"
+												  android:layout_height = "wrap_content"
+												  android:layout_marginStart = "10dp"
+												  android:layout_marginEnd = "16dp"
+												  android:text = "Mario Rossi"
+												  android:textColor = "@color/color1"
+												  android:textSize = "20sp"/>
+
+									</LinearLayout>
+								</androidx.cardview.widget.CardView>
+								<TextView style = "@style/LabelMedium"
+										  android:layout_width = "wrap_content"
+										  android:layout_height = "wrap_content"
+										  android:layout_marginStart = "10dp"
+										  android:alpha = "0.65"
+										  android:text = "- Lunedì 5 marzo"
+										  android:textColor = "@color/color1"
+										  android:textSize = "20sp"/>
+							</LinearLayout>
+
+							<!--Descrizione-->
+							<TextView style = "@style/LabelMedium"
+									  android:layout_width = "match_parent"
+									  android:layout_height = "wrap_content"
+									  android:alpha = "0.75"
+									  android:hint = "@string/lorem"
+									  android:textSize = "18sp"/>
+
+							<!--Tags-->
+							<GridLayout android:id = "@+id/add_post_tags_recycler"
+										android:layout_width = "match_parent"
+										android:layout_height = "wrap_content"
+										android:layout_marginTop = "10dp"
+										android:columnCount = "3"
+										android:numColumns = "3"
+										android:useDefaultMargins = "true"/>
+
+							<View android:layout_width = "wrap_content"
+								  android:layout_height = "80dp"/>
+						</LinearLayout>
+					</androidx.cardview.widget.CardView>
+
+					<FrameLayout android:layout_width = "70dp"
+								 android:layout_height = "70dp"
+								 android:layout_marginEnd = "40dp"
+								 android:background = "@drawable/corner_radius_fill_white"
+								 android:elevation = "2dp"
+								 android:gravity = "center"
+								 app:layout_constraintEnd_toEndOf = "parent"
+								 app:layout_constraintTop_toTopOf = "parent">
+
+						<TextView style = "@style/LabelIcon"
+								  android:layout_width = "50dp"
+								  android:layout_height = "50dp"
+								  android:layout_marginStart = "10dp"
+								  android:layout_marginTop = "10dp"
+								  android:background = "@drawable/corner_radius_fill_gray"
+								  android:gravity = "center"
+								  android:text = "@string/BookmarkOutline"
+								  android:textColor = "@color/color1"
+								  android:textSize = "20sp"/>
+					</FrameLayout>
+				</androidx.constraintlayout.widget.ConstraintLayout>
+			</LinearLayout>
+		</ScrollView>
+
+		<!--Footer-->
+		<LinearLayout
+			android:id = "@+id/add_post_footer"
+			android:layout_width = "match_parent"
+			android:layout_height = "296dp"
+			android:background = "@drawable/corner_radius_top"
+			android:backgroundTint = "@color/color3"
+			android:elevation = "10dp"
+			android:gravity = "start"
+			android:orientation = "horizontal"
+			android:paddingHorizontal = "30dp"
+			android:paddingTop = "20dp"
+			app:layout_constraintBottom_toBottomOf = "parent"
+			app:layout_constraintStart_toStartOf = "parent">
+
+			<LinearLayout android:layout_width = "match_parent"
+						  android:layout_height = "wrap_content"
+						  android:orientation = "horizontal">
+				<ImageView
+					android:layout_width = "30dp"
+					android:layout_height = "30dp"
+					android:background = "@drawable/avatar_corner"
+					android:contentDescription = "@string/todo"
+					android:src = "@drawable/anonymous"/>
+				<ImageView
+					android:layout_width = "30dp"
+					android:layout_height = "30dp"
+					android:layout_marginStart = "-15dp"
+					android:background = "@drawable/avatar_corner"
+					android:contentDescription = "@string/todo"
+					android:src = "@drawable/anonymous"/>
+				<ImageView
+					android:layout_width = "30dp"
+					android:layout_height = "30dp"
+					android:layout_marginStart = "-15dp"
+					android:background = "@drawable/avatar_corner"
+					android:contentDescription = "@string/todo"
+					android:src = "@drawable/anonymous"/>
+
+				<TextView android:layout_width = "wrap_content"
+						  android:layout_height = "wrap_content"
+						  style="@style/LabelMedium"
+						  android:text="Seguito da MariaRossi"
+			</LinearLayout>
+
+		</LinearLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,14 +1,15 @@
 package it.univpm.spottedkotlin.extension
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
+import androidx.lifecycle.AndroidViewModel
 
 /**
- * An [Observable] [ViewModel] for Data Binding.
+ * An [Observable] [AndroidViewModel] for Data Binding.
  */
-open class ObservableViewModel : ViewModel(), Observable {
+open class ObservableAndroidViewModel(application: Application) : AndroidViewModel(application), Observable {
 
 	private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 

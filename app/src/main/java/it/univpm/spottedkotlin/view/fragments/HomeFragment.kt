@@ -62,6 +62,7 @@ class HomeFragment : Fragment() {
 		binding.executePendingBindings()
 		fetchPosts()
 		observe()
+		reload()
 	}
 
 	private fun observe() {
@@ -154,7 +155,8 @@ class HomeFragment : Fragment() {
 					lastScrollY = y + scaffoldHeight;topExpanded = false
 				},
 			)
-			binding.postsRecycler.animate().translationY(scaffoldHeight.toFloat()).setDuration(250).start()
+			binding.postsRecycler.animate().translationY(scaffoldHeight.toFloat()).setDuration(250)
+				.start()
 
 		} else if (topExpanded == false && lastScrollY - y > 500)
 			lastScrollY = y + 500
@@ -182,5 +184,11 @@ class HomeFragment : Fragment() {
 				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
 			}
 		}
+	}
+
+	private fun reload() {
+		adapter.loaded = 0
+		DataManager.sort()
+		recyclerLoadMore()
 	}
 }

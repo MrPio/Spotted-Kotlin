@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 	val viewModel: MainViewModel by viewModels()
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-
 		DeviceManager.displayMetrics = this.metrics()
 
 		binding = ActivityMainBinding.inflate(layoutInflater)
@@ -40,14 +39,30 @@ class MainActivity : AppCompatActivity() {
 				binding.bottomBarContainer.id, viewModel.bottomBarFragment
 			)
 		}
+		observe()
+	}
 
-		//BottomBar Observer
+	private fun observe() {
 		viewModel.currentFragment.observe(this) {
-			viewModel.currentFragmentChanged(binding)
+			val currIndex: Int = viewModel.currentFragment.value ?: 0
+
+			if (currIndex != viewModel.lastIndex)
+				viewModel.bottomBarFragment.changeIndex(viewModel.lastIndex, currIndex)
+
+			//Transition with Animation framework
+			supportFragmentManager.commit {
+				remove(viewModel.fragments[viewModel.lastIndex])
+				setCustomAnimations(
+					if (currIndex > viewModel.lastIndex) R.anim.slide_in_right else R.anim.slide_in_left,
+					R.anim.fade_out,
+				)
+				add(
+					binding.mainFragmentContainer.id,
+					viewModel.fragments[currIndex]
+				)
+			}
+			viewModel.lastIndex = currIndex
 		}
-
-//		DummyManager.generatePosts()
-
 	}
 }
 
