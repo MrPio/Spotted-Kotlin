@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.LoginFragmentBinding
 import it.univpm.spottedkotlin.viewmodel.LoginViewModel
 
@@ -45,9 +47,14 @@ class LoginFragment : Fragment() {
                         //TODO(user non loggato == MESSAGGIO DI ERRORE)
                     }
                 }
-
         }
 
+
+
+
+        binding.registerText.setOnClickListener {
+            binding.root.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
         return binding.root
 
 

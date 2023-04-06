@@ -16,10 +16,14 @@
     <string name="app_title">Spotted</string>
     <string name="login">Login</string>
     <string name="email">E-mail:</string>
+    <string name="register">Register</string>
     <string name="password">Password:</string>
+    <string name="repeat_password">Ripeti password:</string>
     <string name="oppure">Oppure</string>
-    <string name="not_registred">Non sei ancora registrato?</string>
+    <string name="not_registered">Non sei ancora registrato?</string>
+    <string name="already_registered">Sei già registrato?</string>
     <string name="registrati"><u>Registrati</u></string>
+    <string name="do_login"><u>Effettua il Login</u></string>
 
     <string name="luogo">Luogo</string>
     <string name="todo">TODO</string>
@@ -30,14 +34,16 @@
     <string name="home_feste_subtitle">Pronto a festeggiare? Questi party aspettano solo te!</string>
     <string name="home_sport_subtitle">Hai voglia di fare un po\' di sport? Controlla i seguenti spot.</string>
     <string name="home_title">Ciao, %1$s! </string>
-	<string name = "nuovo_spot">Nuovo Spot</string>
-	<string name = "tags">Tags</string>
-    <string name = "zona">Zona</string>
-    <string name = "plesso">Plesso</string>
-	<string name = "descrizione">Descrizione</string>
-	<string name = "reimposta">Reimposta</string>
-    <string name = "pubblica">Pubblica</string>
-	<string name = "indossava_una_felpa_nera">Indossava una felpa nera</string>
-	<string name = "genere">Genere</string>
+    <string name="nuovo_spot">Nuovo Spot</string>
+    <string name="tags">Tags</string>
+    <string name="zona">Zona</string>
+    <string name="plesso">Plesso</string>
+    <string name="descrizione">Descrizione</string>
+    <string name="reimposta">Reimposta</string>
+    <string name="pubblica">Pubblica</string>
+    <string name="indossava_una_felpa_nera">Indossava una felpa nera</string>
+    <string name="genere">Genere</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
