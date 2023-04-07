@@ -68,7 +68,7 @@ class AddPostFragment : Fragment() {
 	}
 
 	private fun loadTags() {
-		val grid = binding.addPostTagsRecycler
+		val grid = binding.addPostTagsGrid
 		grid.removeAllViews()
 		//Tags
 		for (tag in viewModel.nuovoPost.tags) {

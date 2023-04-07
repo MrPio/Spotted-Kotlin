@@ -31,15 +31,15 @@ object DatabaseManager {
 	fun put(path: String, res: Any) =
 		getChild(path).setValue(res)
 
-	fun post(path: String, res: Any) {
+	fun post(path: String, res: Any): String? {
 		val child = getChild(path)
 		val key = child.push().key
 		if (key == null) {
 			Log.w(tag, "Couldn't get push key for posts")
-			return
+			return null
 		}
-
 		put("$path/$key", res)
+		return key
 	}
 
 	suspend inline fun <reified T> getList(

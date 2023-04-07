@@ -11,13 +11,20 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.commit
+import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.ActivityMainBinding
+import it.univpm.spottedkotlin.databinding.TagItemAddBinding
+import it.univpm.spottedkotlin.databinding.TagItemBinding
 import it.univpm.spottedkotlin.databinding.ViewPostActivityBinding
+import it.univpm.spottedkotlin.extension.function.addViewLast
+import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.extension.function.loadUrl
 import it.univpm.spottedkotlin.extension.function.metrics
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DeviceManager
 import it.univpm.spottedkotlin.model.Post
+import it.univpm.spottedkotlin.viewmodel.TagItemAddViewModel
+import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import it.univpm.spottedkotlin.viewmodel.ViewPostViewModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -48,6 +55,18 @@ class ViewPostActivity : AppCompatActivity() {
 		binding.exitOnClick = View.OnClickListener { finishAfterTransition() }
 		MainScope().launch {
 			viewModel.initialize()
+		}
+		loadTags()
+	}
+	private fun loadTags() {
+		val grid = binding.viewPostTagsGrid
+		grid.removeAllViews()
+		//Tags
+		for (tag in viewModel.post.tags) {
+			val tagBinding: TagItemBinding = applicationContext.inflate(R.layout.tag_item)
+			tagBinding.model = tag
+			tagBinding.viewModel = TagItemViewModel()
+			grid.addViewLast(tagBinding.root)
 		}
 	}
 }

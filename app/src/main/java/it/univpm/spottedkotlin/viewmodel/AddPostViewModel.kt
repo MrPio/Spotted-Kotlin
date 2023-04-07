@@ -10,6 +10,7 @@ import it.univpm.spottedkotlin.enums.Plexuses
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.ObservableAndroidViewModel
 import it.univpm.spottedkotlin.extension.ObservableViewModel
+import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.model.Post
@@ -22,7 +23,10 @@ class AddPostViewModel : ObservableViewModel() {
 
 	var currentPlesso = Plexuses.INGEGNERIA
 	var currentZona = Locations.QT_140
-	var nuovoPost: Post = Post().apply { location = currentZona }
+	var nuovoPost: Post = Post().apply {
+		location = currentZona
+		authorUID = AccountManager.user.uid
+	}
 
 	@get:Bindable
 	val image: String
@@ -34,6 +38,7 @@ class AddPostViewModel : ObservableViewModel() {
 		set(value) {
 			currentPlesso = Plexuses.values()[value]
 			currentZona = currentPlesso.locations[0]
+			nuovoPost.location = currentZona
 			notifyPropertyChanged(BR.zone)
 			notifyPropertyChanged(BR.image)
 			notifyPropertyChanged(BR.plesso)
@@ -77,8 +82,8 @@ class AddPostViewModel : ObservableViewModel() {
 	}
 
 	fun pubblica() {
+		nuovoPost.uid = DatabaseManager.post("posts", nuovoPost)
 		DataManager.posts?.add(nuovoPost)
-		DatabaseManager.post("posts", nuovoPost)
 		azzera()
 	}
 }
