@@ -21,9 +21,9 @@ data class Post(
 ) : Serializable {
 	var uid: String? = null
 	var percentage: Int? = null
+	var author: User? = null
+	var lastFollowers: MutableList<User?> = mutableListOf()
 
 	fun dateStr() = date.toDateStr()
 	fun timeStr() = date.toTimeStr()
-	fun commentsCount() = comments?.size ?: 0
-	fun followersCount() = followers?.size ?: 0
 }

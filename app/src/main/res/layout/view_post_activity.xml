@@ -3,6 +3,8 @@
 		xmlns:app = "http://schemas.android.com/apk/res-auto"
 		xmlns:tools = "http://schemas.android.com/tools">
 	<data>
+		<import type = "it.univpm.spottedkotlin.enums.RemoteImages"/>
+		<import type = "android.view.View"/>
 		<variable name = "viewModel"
 				  type = "it.univpm.spottedkotlin.viewmodel.ViewPostViewModel"/>
 		<variable name = "exitOnClick"
@@ -144,6 +146,7 @@
 												  android:orientation = "horizontal">
 
 										<ImageView
+											imageUrl = "@{viewModel.post.author.avatar}"
 											android:layout_width = "34dp"
 											android:layout_height = "34dp"
 											android:layout_margin = "2dp"
@@ -155,7 +158,7 @@
 												  android:layout_height = "wrap_content"
 												  android:layout_marginStart = "10dp"
 												  android:layout_marginEnd = "16dp"
-												  android:text = "@{viewModel.author}"
+												  android:text = '@{viewModel.post.author.name +" "+viewModel.post.author.surname}'
 												  android:textColor = "@color/color1"
 												  android:textSize = "16sp"/>
 
@@ -176,7 +179,7 @@
 									  android:layout_width = "match_parent"
 									  android:layout_height = "wrap_content"
 									  android:alpha = "0.75"
-									  android:text= "@{viewModel.post.description}"
+									  android:text = "@{viewModel.post.description}"
 									  android:textSize = "16sp"/>
 
 							<!--Tags-->
@@ -211,7 +214,8 @@
 								  android:clickable = "true"
 								  android:foreground = "@drawable/ripple_black_corner_round"
 								  android:gravity = "center"
-								  android:text = "@string/BookmarkOutline"
+								  android:onClickListener = "@{()->viewModel.follow()}"
+								  android:text = "@{viewModel.following? @string/Bookmark:@string/BookmarkOutline}"
 								  android:textColor = "@color/color1"
 								  android:textSize = "28sp"/>
 					</FrameLayout>
@@ -238,71 +242,78 @@
 
 			<HorizontalScrollView android:layout_width = "match_parent"
 								  android:layout_height = "wrap_content">
-				<LinearLayout android:layout_width = "match_parent"
+				<LinearLayout android:layout_width = "wrap_content"
 							  android:layout_height = "wrap_content"
 							  android:gravity = "center_vertical"
 							  android:orientation = "horizontal">
 					<ImageView
+						imageUrl = "@{viewModel.lastFollowersAvatar.size()>0?viewModel.lastFollowersAvatar[0]:RemoteImages.ANONNYMOUS.url}"
 						android:layout_width = "30dp"
 						android:layout_height = "30dp"
 						android:background = "@drawable/avatar_corner"
 						android:contentDescription = "@string/todo"
-						android:src = "@drawable/anonymous"/>
+						android:visibility = "@{viewModel.post.followers.size()>0? View.VISIBLE:View.GONE}"/>
 					<ImageView
+						imageUrl = "@{viewModel.lastFollowersAvatar.size()>1?viewModel.lastFollowersAvatar[1]:RemoteImages.ANONNYMOUS.url}"
 						android:layout_width = "30dp"
 						android:layout_height = "30dp"
 						android:layout_marginStart = "-15dp"
 						android:background = "@drawable/avatar_corner"
 						android:contentDescription = "@string/todo"
-						android:src = "@drawable/anonymous"/>
+						android:visibility = "@{viewModel.post.followers.size()>1? View.VISIBLE:View.GONE}"/>
 					<ImageView
+						imageUrl = "@{viewModel.lastFollowersAvatar.size()>1?viewModel.lastFollowersAvatar[2]:RemoteImages.ANONNYMOUS.url}"
 						android:layout_width = "30dp"
 						android:layout_height = "30dp"
 						android:layout_marginStart = "-15dp"
 						android:background = "@drawable/avatar_corner"
 						android:contentDescription = "@string/todo"
-						android:src = "@drawable/anonymous"/>
+						android:visibility = "@{viewModel.post.followers.size()>2? View.VISIBLE:View.GONE}"/>
 
 					<TextView style = "@style/LabelLight"
 							  android:layout_width = "wrap_content"
 							  android:layout_height = "wrap_content"
 							  android:layout_marginStart = "10dp"
-							  android:text = "@string/seguito_da"/>
+							  android:text = "@string/seguito_da"
+							  android:visibility = "@{viewModel.post.followers.size()>0?View.VISIBLE:View.GONE}"/>
 					<TextView style = "@style/LabelBold"
 							  android:layout_width = "wrap_content"
 							  android:layout_height = "wrap_content"
-							  android:text = "MariaRossi"
+							  android:layout_marginStart = "4dp"
+							  android:text = "@{viewModel.lastFollower}"
 							  android:textSize = "14sp"/>
 					<TextView style = "@style/LabelLight"
 							  android:layout_width = "wrap_content"
 							  android:layout_height = "wrap_content"
-							  android:text = "@string/e"/>
+							  android:text = "@string/e"
+							  android:visibility = "@{viewModel.post.followers.size()>1?View.VISIBLE:View.GONE}"/>
 					<TextView style = "@style/LabelBold"
 							  android:layout_width = "wrap_content"
 							  android:layout_height = "wrap_content"
-							  android:text = " altri 12"
-							  android:textSize = "14sp"/>
+							  android:text = '@{" altri "+viewModel.post.followers.size()}'
+							  android:textSize = "14sp"
+							  android:visibility = "@{viewModel.post.followers.size()>1?View.VISIBLE:View.GONE}"/>
 				</LinearLayout>
 			</HorizontalScrollView>
 
 			<TextView style = "@style/LabelLight"
+					  markdown = "@{viewModel.lastComment}"
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
-					  android:layout_marginTop = "10dp"
-					  android:text = "**Maria Rossi** Lorem ipsum dolor 🕓 sit amet ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet 😊😂⭕"/>
+					  android:visibility = "@{viewModel.lastComment.empty?View.GONE:View.VISIBLE}"
+					  android:layout_marginTop = "10dp"/>
 			<TextView style = "@style/LabelLight"
+					  markdown = "@{viewModel.penultimateComment}"
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
 					  android:layout_marginTop = "10dp"
-					  android:text = "**Maria Rossi**  dolor 🕓 sit amet ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet 😊😂⭕"/>
-
+					  android:visibility = "@{viewModel.penultimateComment.empty?View.GONE:View.VISIBLE}"/>
 			<TextView style = "@style/LabelRegular"
 					  android:layout_width = "match_parent"
 					  android:layout_height = "wrap_content"
 					  android:layout_marginTop = "12dp"
 					  android:alpha = "0.65"
-					  android:text = "Visualizza tutti i 17 commenti"/>
-
+					  android:text = "@{viewModel.bottomText}"/>
 		</LinearLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

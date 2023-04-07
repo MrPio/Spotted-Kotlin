@@ -1,32 +1,32 @@
 package it.univpm.spottedkotlin.view.fragments
 
-import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import androidx.core.view.doOnLayout
-import androidx.core.widget.NestedScrollView
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.adapter.HomePostsAdapter
 import it.univpm.spottedkotlin.databinding.HomeFragmentBinding
 import it.univpm.spottedkotlin.enums.TimesInterpolator
-import it.univpm.spottedkotlin.extension.function.*
+import it.univpm.spottedkotlin.extension.function.getActivity
+import it.univpm.spottedkotlin.extension.function.runUI
+import it.univpm.spottedkotlin.extension.function.setHeight
+import it.univpm.spottedkotlin.extension.function.toDp
 import it.univpm.spottedkotlin.managers.AnimationManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.HomeViewModel
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 import kotlin.math.min
+
 
 class HomeFragment : Fragment() {
 	private lateinit var binding: HomeFragmentBinding
@@ -37,9 +37,7 @@ class HomeFragment : Fragment() {
 	private var topExpanded: Boolean? = false
 	private var lastScrollY = 300
 	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 	): View {
 		binding = HomeFragmentBinding.inflate(inflater, container, false)
 		layoutManager = LinearLayoutManager(context)
@@ -84,8 +82,7 @@ class HomeFragment : Fragment() {
 				binding.postsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 					override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
 						super.onScrollStateChanged(recyclerView, newState)
-						if (layoutManager.itemCount == layoutManager.findLastVisibleItemPosition() + 1)
-							recyclerLoadMore()
+						if (layoutManager.itemCount == layoutManager.findLastVisibleItemPosition() + 1) recyclerLoadMore()
 					}
 
 					override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -104,18 +101,14 @@ class HomeFragment : Fragment() {
 			topExpanded = null
 			requireContext().getActivity<MainActivity>()?.binding?.bottomBarContainer?.animate()
 				?.translationY(400f)?.setDuration(300L)?.start()
-			AnimationManager.animate(
-				start = 20.toDp(),
-				end = 0,
-				update = {
-					binding.homeScaffold.setPadding(
-						0,
-						0,
-						0,
-						(it.animatedValue as Float).toInt(),
-					)
-				}
-			)
+			AnimationManager.animate(start = 20.toDp(), end = 0, update = {
+				binding.homeScaffold.setPadding(
+					0,
+					0,
+					0,
+					(it.animatedValue as Float).toInt(),
+				)
+			})
 			AnimationManager.animate(
 				start = 0,
 				end = scaffoldHeight - 80,
@@ -132,18 +125,11 @@ class HomeFragment : Fragment() {
 			topExpanded = null
 			requireContext().getActivity<MainActivity>()?.binding?.bottomBarContainer?.animate()
 				?.translationY(0f)?.setDuration(300L)?.start()
-			AnimationManager.animate(
-				start = 0,
-				end = 20.toDp(),
-				update = {
-					binding.homeScaffold.setPadding(
-						0,
-						0,
-						0,
-						(it.animatedValue as Float).toInt()
-					)
-				}
-			)
+			AnimationManager.animate(start = 0, end = 20.toDp(), update = {
+				binding.homeScaffold.setPadding(
+					0, 0, 0, (it.animatedValue as Float).toInt()
+				)
+			})
 			AnimationManager.animate(
 				start = scaffoldHeight,
 				end = 0,
@@ -158,21 +144,15 @@ class HomeFragment : Fragment() {
 			binding.postsRecycler.animate().translationY(scaffoldHeight.toFloat()).setDuration(250)
 				.start()
 
-		} else if (topExpanded == false && lastScrollY - y > 500)
-			lastScrollY = y + 500
-		else if (topExpanded == true && lastScrollY - y < -500)
-			lastScrollY = y - 500
+		} else if (topExpanded == false && lastScrollY - y > 500) lastScrollY = y + 500
+		else if (topExpanded == true && lastScrollY - y < -500) lastScrollY = y - 500
 	}
 
 	private fun recyclerLoadMore() {
-		if (DataManager.posts?.size == adapter.posts.size)
-			return
-		adapter.posts =
-			DataManager.posts?.subList(
-				0,
-				min(DataManager.posts?.size ?: 0, adapter.LOADING_STEP * ++adapter.loaded)
-			)?.toList()
-				?: listOf()
+		if (DataManager.posts?.size == adapter.posts.size) return
+		adapter.posts = DataManager.posts?.subList(
+			0, min(DataManager.posts?.size ?: 0, adapter.LOADING_STEP * ++adapter.loaded)
+		)?.toList() ?: listOf()
 		adapter.notifyItemRangeChanged(0, adapter.posts.size)
 
 		//loadingView

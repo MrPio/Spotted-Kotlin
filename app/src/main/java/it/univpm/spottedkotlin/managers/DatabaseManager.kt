@@ -54,8 +54,8 @@ object DatabaseManager {
 		return map.values.toList()
 	}
 
-	suspend inline fun <T> get(path: String): T =
-		getChild(path).get().await().value as T
+	suspend inline fun <reified T> get(path: String): T? =
+		getChild(path).get().await().getValue(T::class.java)
 
 	fun <T> get(path: String, success: (it: T) -> Unit) {
 		getChild(path).get().addOnSuccessListener {

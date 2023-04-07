@@ -1,7 +1,13 @@
 package it.univpm.spottedkotlin.enums
 
 enum class RemoteImages(private val _url: String = "") {
+
+	//Misc
 	TOP_SPRITE_001("top_sprite_001.png"),
+	ANONNYMOUS("anonymous.png"),
+	AVATAR("avatar.png"),
+
+	//Locations
 	QT_140("uni_140.jpg"), QT_150, QT_155, QT_160("uni_160.jpg"),
 	SCIENZE_1, SCIENZE_2, SCIENZE_3,
 	PORTINERIA, SEGRETERIA,
@@ -15,5 +21,5 @@ enum class RemoteImages(private val _url: String = "") {
 
 	val url
 		get() = "https://firebasestorage.googleapis.com/v0/b/spotted-f3589.appspot.com/o/src%2F" +
-				"${_url.ifEmpty { this.name.lowercase()+".jpg" }}?alt=media"
+				"${_url.ifEmpty { this.name.lowercase() + ".jpg" }}?alt=media"
 }

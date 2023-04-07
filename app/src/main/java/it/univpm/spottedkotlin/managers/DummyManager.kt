@@ -377,13 +377,10 @@ object DummyManager {
 					"Guendalina Gundelinda").split(' ')
 	}
 
-	fun generatePosts(limit: Int = 15) {
+	fun generatePosts(limit: Int = 5) {
 		val posts = mutableListOf<Post>()
 		val users = mutableListOf<User>()
-		val tags = listOf(
-			Tag("Alto", "\u0001"),
-			Tag("Basso", "\u0002"),
-		)
+		val tags = DataManager.tags?.toList()?: listOf()
 		for (i in 1..limit) {
 			val user = User(
 				name = names.names.random(),
