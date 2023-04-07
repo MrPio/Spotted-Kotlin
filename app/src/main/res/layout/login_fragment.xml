@@ -147,7 +147,7 @@
 							android:layout_width="0dp"
 							android:layout_height="wrap_content"
 							android:layout_marginTop="16dp"
-							android:text="@string/not_registred"
+							android:text="@string/not_registered"
 							android:textAlignment="center"
 							android:textColor="@color/color1"
 							app:layout_constraintEnd_toEndOf="parent"

@@ -18,8 +18,12 @@
     <string name="email">E-mail:</string>
     <string name="password">Password:</string>
     <string name="oppure">Oppure</string>
-    <string name="not_registred">Non sei ancora registrato?</string>
+    <string name="not_registered">Non sei ancora registrato?</string>
     <string name="registrati"><u>Registrati</u></string>
+    <string name="sign_in">Sign in</string>
+    <string name="repeat_password">Ripeti password:</string>
+    <string name="already_registered">Sei già registrato?</string>
+    <string name="do_login"><u>Effettua il Login</u></string>
 
     <string name="luogo">Luogo</string>
     <string name="todo">TODO</string>
