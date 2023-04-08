@@ -12,9 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.LoginFragmentBinding
+import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment() {
@@ -22,22 +25,28 @@ class LoginFragment : Fragment() {
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var auth: FirebaseAuth
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = LoginFragmentBinding.inflate(inflater, container, false)
         auth= Firebase.auth
 
+
         binding.loginButton.setOnClickListener() {
+            
+            //Prendo i campi e-mail e password
             val email : String = binding.TextEmailAddress.text.toString()
             val pass  : String = binding.TextPassword.text.toString()
 
+            //Authentication da firebase
             auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener() { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(ContentValues.TAG, "signInWithEmail:success")
                         val user = auth.currentUser
-
-                        Toast.makeText(context, "Accesso eseguitoo!!",
-                            Toast.LENGTH_SHORT).show()
+                        //Se ha avuto successo prendo dal database l'utente corrispondente
+                        if (user != null) {
+                            AccountManager.login(user)
+                        }
                         //TODO(user è la istanza dell'utente loggato, deve essere portato sulla sua lista di spot)
                     } else {
                         // If sign in fails, display a message to the user.

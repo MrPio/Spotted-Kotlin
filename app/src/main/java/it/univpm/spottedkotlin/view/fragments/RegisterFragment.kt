@@ -76,7 +76,7 @@ class RegisterFragment : Fragment() {
             override fun beforeTextChanged(charSequence : CharSequence, i : Int, i1 : Int, i2 : Int) {}
 
             override fun onTextChanged(charSequence : CharSequence, i : Int, i1 : Int, i2 : Int) {
-                // Recupera il testo dalla casella di testo
+
                 val input : String = binding.RegisterPassword.getText().toString()
 
                 when (pass_strong(input)) {
