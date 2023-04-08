@@ -1,20 +1,15 @@
 package it.univpm.spottedkotlin.viewmodel
 
-import android.app.AlertDialog
-import android.app.Application
 import androidx.databinding.Bindable
 import it.univpm.spottedkotlin.BR
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
 import it.univpm.spottedkotlin.enums.Plexuses
-import it.univpm.spottedkotlin.enums.RemoteImages
-import it.univpm.spottedkotlin.extension.ObservableAndroidViewModel
 import it.univpm.spottedkotlin.extension.ObservableViewModel
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.model.Post
-import kotlin.reflect.KFunction
 
 class AddPostViewModel : ObservableViewModel() {
 	lateinit var loadTagsCallback: () -> Unit

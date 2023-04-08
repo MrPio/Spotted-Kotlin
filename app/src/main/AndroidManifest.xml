@@ -25,6 +25,10 @@
             android:exported="false"
             android:theme="@style/Theme.SpottedKotlin.NoActionBar"/>
 
+        <activity
+            android:name=".view.CommentsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SpottedKotlin.NoActionBar"/>
 
         <activity
             android:name=".view.MainActivity"

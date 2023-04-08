@@ -1,6 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-												   android:layout_width = "match_parent"
-												   android:layout_height = "match_parent">
+<layout>
+	<data>
+		<variable name = "viewModel"
+				  type = "it.univpm.spottedkotlin.viewmodel.CommentsViewModel"/>
+	</data>
+	<androidx.constraintlayout.widget.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+													   xmlns:app = "http://schemas.android.com/apk/res-auto"
+													   android:layout_width = "match_parent"
+													   android:layout_height = "match_parent">
+		<!--Header-->
+		<LinearLayout android:id = "@+id/comments_header"
+					  android:layout_width = "match_parent"
+					  android:layout_height = "wrap_content"
+					  android:background = "@drawable/corner_radius_bottom"
+					  android:backgroundTint = "@color/color1"
+					  android:orientation = "vertical"
+					  android:paddingHorizontal = "30dp"
+					  android:paddingTop = "30dp"
+					  android:paddingBottom = "20dp"
+					  app:layout_constraintEnd_toEndOf = "parent"
+					  app:layout_constraintStart_toStartOf = "parent"
+					  app:layout_constraintTop_toTopOf = "parent">
+			<TextView style = "@style/LabelBold"
+					  markdown = '@{"Spot di **"+viewModel.post.author.name+" "+viewModel.post.author.surname+"**"}'
+					  android:layout_width = "match_parent"
+					  android:layout_height = "wrap_content"
+					  android:gravity = "center_horizontal"
+					  android:textColor = "@color/color4"/>
+			<TextView style = "@style/LabelRegular"
+					  android:layout_width = "match_parent"
+					  android:layout_height = "wrap_content"
+					  android:layout_marginTop = "6dp"
+					  android:gravity = "center_horizontal"
+					  android:text = '@{viewModel.post.comments.size()+" commenti"}'
+					  android:textColor = "@color/color4"/>
+		</LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+		<!--InfoIcon-->
+		<TextView style = "@style/LabelIcon"
+				  android:layout_width = "wrap_content"
+				  android:layout_height = "wrap_content"
+				  android:layout_marginEnd = "30dp"
+				  android:layout_marginBottom = "10dp"
+				  android:clickable = "true"
+				  android:foreground = "@drawable/ripple_white_corner_round"
+				  android:padding = "20dp"
+				  android:text = "@string/InformationOutline"
+				  android:textSize = "28sp"
+				  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
+				  app:layout_constraintEnd_toEndOf = "parent"/>
+
+		<!--CommentsList-->
+		<androidx.recyclerview.widget.RecyclerView android:id = "@+id/comments_recycler"
+												   android:layout_width = "match_parent"
+												   android:layout_height = "0dp"
+												   android:layout_marginTop = "-22dp"
+												   android:paddingHorizontal = "30dp"
+												   android:paddingVertical = "40dp"
+												   app:layout_constraintBottom_toTopOf = "@id/comments_footer"
+												   app:layout_constraintStart_toStartOf = "parent"
+												   app:layout_constraintTop_toBottomOf = "@id/comments_header"
+												   app:reverseLayout = "true"
+												   app:stackFromEnd = "true"/>
+
+		<!--Footer-->
+		<LinearLayout android:id = "@+id/comments_footer"
+					  android:layout_width = "match_parent"
+					  android:layout_height = "wrap_content"
+					  android:background = "@color/color1"
+					  android:orientation = "vertical"
+					  android:paddingHorizontal = "30dp"
+					  android:paddingTop = "20dp"
+					  android:paddingBottom = "20dp"
+					  app:layout_constraintBottom_toBottomOf = "parent"
+					  app:layout_constraintStart_toStartOf = "parent">
+			<EditText android:layout_width = "match_parent"
+					  android:layout_height = "wrap_content"
+					  android:autofillHints = "name"
+					  android:backgroundTint = "@color/color3"
+					  android:hint = "@string/credo_proprio_di_essere_io"
+					  android:inputType = "textMultiLine"
+					  android:lines = "1"
+					  android:maxLines = "4"
+					  android:minLines = "1"
+					  android:text = "@={viewModel.newComment}"
+					  android:textColor = "@color/color4"
+					  android:textColorHint = "@color/color3"/>
+			<LinearLayout android:layout_width = "match_parent"
+						  android:layout_height = "wrap_content"
+						  android:layout_marginTop = "10dp">
+				<TextView style = "@style/LabelIcon"
+						  android:layout_width = "wrap_content"
+						  android:layout_height = "wrap_content"
+						  android:layout_weight = "1"
+						  android:clickable = "true"
+						  android:foreground = "@drawable/ripple_white_corner_round"
+						  android:gravity = "center_horizontal"
+						  android:paddingVertical = "5dp"
+						  android:text = "@string/EmoticonHappyOutline"
+						  android:textSize = "26sp"
+
+						  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
+						  app:layout_constraintEnd_toEndOf = "parent"/>
+				<TextView style = "@style/LabelIcon"
+						  android:layout_width = "wrap_content"
+						  android:layout_height = "wrap_content"
+						  android:layout_weight = "1"
+						  android:clickable = "true"
+						  android:foreground = "@drawable/ripple_white_corner_round"
+						  android:gravity = "center_horizontal"
+						  android:paddingVertical = "5dp"
+						  android:text = "@string/EmoticonHappyOutline"
+						  android:textSize = "26sp"
+
+						  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
+						  app:layout_constraintEnd_toEndOf = "parent"/>
+				<TextView style = "@style/LabelIcon"
+						  android:layout_width = "wrap_content"
+						  android:layout_height = "wrap_content"
+						  android:layout_weight = "1"
+						  android:clickable = "true"
+						  android:foreground = "@drawable/ripple_white_corner_round"
+						  android:gravity = "center_horizontal"
+						  android:paddingVertical = "5dp"
+						  android:text = "@string/EmoticonHappyOutline"
+						  android:textSize = "26sp"
+						  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
+						  app:layout_constraintEnd_toEndOf = "parent"/>
+				<View android:layout_width = "0dp"
+					  android:layout_height = "0dp"
+					  android:layout_weight = "0.5"/>
+				<androidx.appcompat.widget.AppCompatButton android:layout_width = "wrap_content"
+														   android:layout_height = "wrap_content"
+														   android:layout_weight = "1"
+														   android:background = "@drawable/button_empty_inverted"
+														   android:fontFamily = "@font/lato_regular"
+														   android:foreground = "@drawable/ripple_white_corner_round"
+														   android:onClickListener = "@{()->viewModel.commenta()}"
+														   android:text = "@string/pubblica"
+														   android:textColor = "@color/color4"
+														   android:textSize = "16sp"/>
+			</LinearLayout>
+		</LinearLayout>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

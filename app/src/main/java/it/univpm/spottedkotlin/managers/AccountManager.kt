@@ -10,8 +10,8 @@ import it.univpm.spottedkotlin.model.User
 
 object AccountManager {
 	private lateinit var database: DatabaseReference
-	lateinit var user: User
-	//var user: User = User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply { uid = "Lj1dlqZAREdLnzjsJ6mM2F08SnUc" }
+//	lateinit var user: User
+	var user: User = User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply { uid = "Lj1dlqZAREdLnzjsJ6mM2F08SnUc" }
 
 	fun cacheLogin(): User? = null
 

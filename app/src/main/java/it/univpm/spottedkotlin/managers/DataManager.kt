@@ -1,6 +1,7 @@
 package it.univpm.spottedkotlin.managers
 
 import android.content.Context
+import com.google.android.gms.common.AccountPicker
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.model.User
@@ -22,6 +23,9 @@ object DataManager {
 		val cachedUser = cachedUsers.find { it.uid == uid }
 		if (cachedUser != null)
 			return cachedUser
+		//Is current User?
+		if (AccountManager.user.uid == uid)
+			return AccountManager.user
 		//Asking the database for the user and caching it
 		val user = DatabaseManager.get<User>("users/$uid")
 		if (user != null) {

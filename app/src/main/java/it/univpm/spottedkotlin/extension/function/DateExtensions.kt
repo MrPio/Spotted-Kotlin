@@ -5,6 +5,11 @@ import java.util.*
 
 fun Date.toDateStr(): String = SimpleDateFormat("dd MMM yyyy").format(this)
 fun Date.toTimeStr(): String = SimpleDateFormat("HH:mm").format(this)
+fun Date.toConceptualStr(): String =
+	if (Calendar.getInstance().time.time - this.time < 1000 * 3600 * 24)
+		this.toTimeStr()
+	else
+		this.toDateStr()
 
 fun Date.addDays(days: Int): Date {
 	val cal = Calendar.getInstance()

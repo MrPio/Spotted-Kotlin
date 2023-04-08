@@ -1,29 +1,19 @@
 package it.univpm.spottedkotlin.view
 
-import android.app.Activity
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
-import android.transition.ChangeImageTransform
-import android.transition.Explode
-import android.transition.Slide
 import android.view.View
-import android.view.Window
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.fragment.app.commit
 import it.univpm.spottedkotlin.R
-import it.univpm.spottedkotlin.databinding.ActivityMainBinding
-import it.univpm.spottedkotlin.databinding.TagItemAddBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
 import it.univpm.spottedkotlin.databinding.ViewPostActivityBinding
 import it.univpm.spottedkotlin.extension.function.addViewLast
+import it.univpm.spottedkotlin.extension.function.getActivity
 import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.extension.function.loadUrl
-import it.univpm.spottedkotlin.extension.function.metrics
 import it.univpm.spottedkotlin.managers.DataManager
-import it.univpm.spottedkotlin.managers.DeviceManager
 import it.univpm.spottedkotlin.model.Post
-import it.univpm.spottedkotlin.viewmodel.TagItemAddViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import it.univpm.spottedkotlin.viewmodel.ViewPostViewModel
 import kotlinx.coroutines.MainScope
@@ -53,11 +43,17 @@ class ViewPostActivity : AppCompatActivity() {
 		binding.viewModel = viewModel
 		viewModel.post.location?.imageUrl?.let { binding.viewPostImage.loadUrl(it) }
 		binding.exitOnClick = View.OnClickListener { finishAfterTransition() }
+		binding.commentsOnClick = View.OnClickListener {
+			val intent = Intent(this, CommentsActivity::class.java)
+			intent.putExtra("postUID", viewModel.post.uid)
+			this.startActivity(intent)
+		}
 		MainScope().launch {
 			viewModel.initialize()
 		}
 		loadTags()
 	}
+
 	private fun loadTags() {
 		val grid = binding.viewPostTagsGrid
 		grid.removeAllViews()

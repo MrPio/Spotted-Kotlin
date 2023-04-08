@@ -9,6 +9,8 @@
 				  type = "it.univpm.spottedkotlin.viewmodel.ViewPostViewModel"/>
 		<variable name = "exitOnClick"
 				  type = "android.view.View.OnClickListener"/>
+		<variable name = "commentsOnClick"
+				  type = "android.view.View.OnClickListener"/>
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width = "match_parent"
@@ -231,6 +233,7 @@
 			android:background = "@drawable/corner_radius_top"
 			android:backgroundTint = "@color/color3"
 			android:clickable = "true"
+			android:onClickListener="@{commentsOnClick}"
 			android:elevation = "10dp"
 			android:foreground = "@drawable/ripple_black_corner_round_light"
 			android:gravity = "start"

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android = "http://schemas.android.com/apk/res/android"
+		xmlns:app = "http://schemas.android.com/apk/res-auto">
+	<data>
+		<import type = "android.view.View"/>
+		<import type = "android.util.LayoutDirection"/>
+		<variable name = "viewModel"
+				  type = "it.univpm.spottedkotlin.viewmodel.CommentItemViewModel"/>
+	</data>
+	<LinearLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:background = "@color/color3"
+		android:layoutDirection = '@{viewModel.me?LayoutDirection.RTL:LayoutDirection.LTR}'
+		android:orientation = "horizontal">
+		<!--Avatar-->
+		<ImageView
+			android:layout_width = "34dp"
+			android:layout_height = "34dp"
+			android:layout_margin = "2dp"
+			android:contentDescription = "@string/todo"
+			android:src = "@drawable/anonymous"
+			android:visibility = "@{viewModel.full?View.VISIBLE:View.INVISIBLE}"
+			app:imageUrl = "@{viewModel.comment.user.avatar}"/>
+
+		<!--Comment Whole Content	-->
+		<LinearLayout android:layout_width = "match_parent"
+					  android:layout_height = "wrap_content"
+					  android:layout_marginStart = "10dp"
+					  android:layout_marginTop = "2dp"
+					  android:layout_marginBottom = "6dp"
+					  android:orientation = "vertical">
+			<LinearLayout android:layout_width = "match_parent"
+						  android:layout_height = "wrap_content"
+						  android:layoutDirection = "ltr"
+						  android:orientation = "horizontal"
+						  android:visibility = "@{viewModel.full?View.VISIBLE:View.GONE}">
+				<TextView style = "@style/LabelRegular"
+						  android:layout_width = "wrap_content"
+						  android:layout_height = "wrap_content"
+						  android:text = '@{viewModel.comment.user.name+" "+viewModel.comment.user.surname}'/>
+				<TextView style = "@style/LabelIcon"
+						  android:layout_width = "wrap_content"
+						  android:layout_height = "wrap_content"
+						  android:layout_marginStart = "8dp"
+						  android:text = "@string/ClockOutline"
+						  android:textColor = "@color/color1"
+						  android:textSize = "18sp"/>
+				<TextView style = "@style/LabelRegular"
+						  android:layout_width = "wrap_content"
+						  android:layout_height = "wrap_content"
+						  android:layout_marginStart = "4dp"
+						  android:text = "@{viewModel.date}"/>
+			</LinearLayout>
+			<FrameLayout android:layout_width = "match_parent"
+						 android:layout_height = "wrap_content"
+						 android:background = "@{viewModel.me?@drawable/comment_border_right:@drawable/comment_border_left}"
+						 android:backgroundTint = "@{viewModel.author?@color/color2:viewModel.me?@color/color1:@color/color3}">
+				<TextView style = "@style/LabelLight"
+						  markdown = "@{viewModel.comment.text}"
+						  android:layout_width = "wrap_content"
+						  android:layout_height = "wrap_content"
+						  android:textColor = "@{viewModel.author?@color/color4:viewModel.me?@color/color4:@color/color1}"
+						  android:textSize = "16sp"/>
+			</FrameLayout>
+		</LinearLayout>
+	</LinearLayout>
+</layout>
