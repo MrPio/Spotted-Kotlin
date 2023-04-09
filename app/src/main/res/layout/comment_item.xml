@@ -10,8 +10,6 @@
 	<LinearLayout
 		android:layout_width = "match_parent"
 		android:layout_height = "wrap_content"
-		android:background = "@color/color3"
-		android:layoutDirection = '@{viewModel.me?LayoutDirection.RTL:LayoutDirection.LTR}'
 		android:orientation = "horizontal">
 		<!--Avatar-->
 		<ImageView
@@ -54,7 +52,7 @@
 			</LinearLayout>
 			<FrameLayout android:layout_width = "match_parent"
 						 android:layout_height = "wrap_content"
-						 android:background = "@{viewModel.me?@drawable/comment_border_right:@drawable/comment_border_left}"
+						 android:background="@drawable/comment_border_left"
 						 android:backgroundTint = "@{viewModel.author?@color/color2:viewModel.me?@color/color1:@color/color3}">
 				<TextView style = "@style/LabelLight"
 						  markdown = "@{viewModel.comment.text}"

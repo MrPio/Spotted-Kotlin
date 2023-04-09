@@ -83,7 +83,7 @@ class BottomBarFragment : Fragment() {
 			end = circle.width * (1 + .5 * abs(to - from)),
 			interpolator = TimesInterpolator.BELL_SIN,
 			duration = 140L + 50 * abs(to - from),
-			update = { circle.setWidth((it.animatedValue as Number).toInt()) }
+			update = { circle.setWidth(it.toInt()) }
 		)
 	}
 }

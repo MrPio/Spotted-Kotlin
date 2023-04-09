@@ -12,7 +12,7 @@ fun View.rawX(): Float = this.rawPos()[0].toFloat()
 fun View.rawY(): Float = this.rawPos()[1].toFloat()
 
 fun View.setWidth(width: Int): View {
-	this.layoutParams = layoutParams.apply { this.width = width }
+	this.layoutParams = this.layoutParams.apply { this.width = width }
 	return this
 }
 

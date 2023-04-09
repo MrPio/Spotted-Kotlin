@@ -1,6 +1,5 @@
 package it.univpm.spottedkotlin.view.holders
 
-import android.util.LayoutDirection
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import it.univpm.spottedkotlin.databinding.CommentItemBinding
 import it.univpm.spottedkotlin.model.Comment

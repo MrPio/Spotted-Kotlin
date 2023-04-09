@@ -38,6 +38,11 @@ class ViewPostActivity : AppCompatActivity() {
 		initialize()
 	}
 
+	override fun onResume() {
+		super.onResume()
+		initialize()
+	}
+
 	private fun initialize() {
 		binding.viewPostImage.transitionName = TRANSITION_IMAGE
 		binding.viewModel = viewModel
@@ -59,7 +64,7 @@ class ViewPostActivity : AppCompatActivity() {
 		grid.removeAllViews()
 		//Tags
 		for (tag in viewModel.post.tags) {
-			val tagBinding: TagItemBinding = applicationContext.inflate(R.layout.tag_item)
+			val tagBinding: TagItemBinding = this.inflate(R.layout.tag_item)
 			tagBinding.model = tag
 			tagBinding.viewModel = TagItemViewModel()
 			grid.addViewLast(tagBinding.root)

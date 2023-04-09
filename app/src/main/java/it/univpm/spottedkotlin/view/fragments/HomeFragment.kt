@@ -102,18 +102,13 @@ class HomeFragment : Fragment() {
 			requireContext().getActivity<MainActivity>()?.binding?.bottomBarContainer?.animate()
 				?.translationY(400f)?.setDuration(300L)?.start()
 			AnimationManager.animate(start = 20.toDp(), end = 0, update = {
-				binding.homeScaffold.setPadding(
-					0,
-					0,
-					0,
-					(it.animatedValue as Float).toInt(),
-				)
+				binding.homeScaffold.setPadding(0, 0, 0, it.toInt())
 			})
 			AnimationManager.animate(
 				start = 0,
 				end = scaffoldHeight - 80,
 				interpolator = TimesInterpolator.LINEAR,
-				update = { binding.homeScaffold.setHeight(scaffoldHeight - (it.animatedValue as Float).toInt()) },
+				update = { binding.homeScaffold.setHeight(scaffoldHeight - it.toInt()) },
 				endListener = {
 					lastScrollY = y - scaffoldHeight;topExpanded = true
 				},
@@ -126,16 +121,14 @@ class HomeFragment : Fragment() {
 			requireContext().getActivity<MainActivity>()?.binding?.bottomBarContainer?.animate()
 				?.translationY(0f)?.setDuration(300L)?.start()
 			AnimationManager.animate(start = 0, end = 20.toDp(), update = {
-				binding.homeScaffold.setPadding(
-					0, 0, 0, (it.animatedValue as Float).toInt()
-				)
+				binding.homeScaffold.setPadding(0, 0, 0, it.toInt())
 			})
 			AnimationManager.animate(
 				start = scaffoldHeight,
 				end = 0,
 				interpolator = TimesInterpolator.LINEAR,
 				update = {
-					binding.homeScaffold.setHeight(scaffoldHeight - (it.animatedValue as Float).toInt())
+					binding.homeScaffold.setHeight(scaffoldHeight - it.toInt())
 				},
 				endListener = {
 					lastScrollY = y + scaffoldHeight;topExpanded = false

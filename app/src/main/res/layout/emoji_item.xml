@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android = "http://schemas.android.com/apk/res/android">
+	<data>
+		<variable name = "text"
+				  type = "String"/>
+	</data>
+	<TextView
+		android:id = "@+id/emoji_item_text"
+		style = "@style/LabelBold"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:layout_columnWeight = "1"
+		android:clickable = "true"
+		android:foreground = "@drawable/ripple_white_corner_round"
+		android:gravity = "center"
+		android:paddingVertical = "4dp"
+		android:paddingHorizontal="6dp"
+		android:textSize = "26sp"
+		android:text="@{text}"/>
+</layout>
