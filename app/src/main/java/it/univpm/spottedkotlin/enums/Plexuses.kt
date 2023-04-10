@@ -32,7 +32,7 @@ enum class Plexuses(
 			Locations.SCIENZE_3,
 		)
 	),
-	MENSA("Mensa", listOf(Locations.MENSA)),
-	MEDICINA("Univpm - Medicina", listOf(Locations.MEDICINA)),
 	ECONOMIA("Univpm - Economia", listOf(Locations.ECONOMIA)),
+	MEDICINA("Univpm - Medicina", listOf(Locations.MEDICINA)),
+	ALTRI("Altri", listOf(Locations.MENSA)),
 }

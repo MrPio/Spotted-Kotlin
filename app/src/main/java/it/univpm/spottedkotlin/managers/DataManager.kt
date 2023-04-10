@@ -2,6 +2,7 @@ package it.univpm.spottedkotlin.managers
 
 import android.content.Context
 import com.google.android.gms.common.AccountPicker
+import it.univpm.spottedkotlin.model.Filter
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.model.User
@@ -38,4 +39,7 @@ object DataManager {
 	fun sort() {
 		posts?.sortByDescending { it.date }
 	}
+
+	fun filteredPosts(filter: Filter) =
+		filter.postFilter(posts?.toList() ?: listOf())
 }

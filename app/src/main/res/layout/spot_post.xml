@@ -5,7 +5,7 @@
 		<variable
 			name = "model"
 			type = "it.univpm.spottedkotlin.model.Post"/>
-		<variable name = "viewModel"
+		<variable name = "view"
 				  type = "it.univpm.spottedkotlin.view.holders.SpotPostViewHolder"/>
 	</data>
 
@@ -51,7 +51,7 @@
 				<!--HighlightView-->
 				<include layout = "@layout/highlight_view"
 						 app:foreground = "@{@drawable/ripple_white}"
-						 app:onClickListener = "@{()->viewModel.cardClicked(model)}"/>
+						 app:onClickListener = "@{()->view.cardClicked(model)}"/>
 
 				<!--Content-->
 				<androidx.constraintlayout.widget.ConstraintLayout
@@ -84,7 +84,7 @@
 						android:layout_height = "wrap_content"
 						android:layout_marginStart = "6dp"
 						android:background = "@drawable/border_rounded_black_small"
-						android:text = "5 min fa"
+						android:text = "@{view.dataPost}"
 						android:textColor = "@color/color4"
 						app:layout_constraintStart_toEndOf = "@id/percentage_label"
 						app:layout_constraintTop_toTopOf = "parent"/>

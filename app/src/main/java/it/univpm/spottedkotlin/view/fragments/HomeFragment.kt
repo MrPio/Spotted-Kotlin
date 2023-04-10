@@ -20,6 +20,8 @@ import it.univpm.spottedkotlin.extension.function.setHeight
 import it.univpm.spottedkotlin.extension.function.toDp
 import it.univpm.spottedkotlin.managers.AnimationManager
 import it.univpm.spottedkotlin.managers.DataManager
+import it.univpm.spottedkotlin.model.Filter
+import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.HomeViewModel
 import kotlinx.coroutines.MainScope
@@ -27,10 +29,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.min
 
-
 class HomeFragment : Fragment() {
 	private lateinit var binding: HomeFragmentBinding
-	private val viewModel: HomeViewModel by viewModels()
+	private val viewModel: HomeViewModel = HomeViewModel(::reload)
+	private var posts: List<Post> = DataManager.posts?.toList() ?: listOf()
 	private val adapter = HomePostsAdapter(listOf())
 	private lateinit var layoutManager: LinearLayoutManager
 	private var scaffoldHeight: Int = 0
@@ -57,40 +59,32 @@ class HomeFragment : Fragment() {
 		binding.postsRecycler.layoutManager = layoutManager
 		binding.viewModel = viewModel
 		binding.homePostsAdapter = adapter
-		binding.executePendingBindings()
-		fetchPosts()
+		binding.postsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+			override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+				super.onScrollStateChanged(recyclerView, newState)
+				if (layoutManager.itemCount == layoutManager.findLastVisibleItemPosition() + 1) recyclerLoadMore()
+			}
+
+			override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+				super.onScrolled(recyclerView, dx, dy)
+				onRecyclerScroll()
+			}
+		})
+
+		binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
+		MainScope().launch {
+			DataManager.fetchData(requireContext())
+			context?.runUI {
+				reload()
+				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
+			}
+		}
 		observe()
-		reload()
 	}
 
 	private fun observe() {
 		viewModel.subtitle.observe(viewLifecycleOwner) {
 			binding.homeSubtitle.text = requireContext().getString(it)
-		}
-	}
-
-	private fun fetchPosts() {
-		MainScope().launch {
-			requireContext().runUI {
-				binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
-			}
-			DataManager.fetchData(requireContext())
-			context?.runUI {
-				recyclerLoadMore()
-				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
-
-				binding.postsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-					override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-						super.onScrollStateChanged(recyclerView, newState)
-						if (layoutManager.itemCount == layoutManager.findLastVisibleItemPosition() + 1) recyclerLoadMore()
-					}
-
-					override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-						super.onScrolled(recyclerView, dx, dy)
-						onRecyclerScroll()
-					}
-				})
-			}
 		}
 	}
 
@@ -142,16 +136,16 @@ class HomeFragment : Fragment() {
 	}
 
 	private fun recyclerLoadMore() {
-		if (DataManager.posts?.size == adapter.posts.size) return
-		adapter.posts = DataManager.posts?.subList(
-			0, min(DataManager.posts?.size ?: 0, adapter.LOADING_STEP * ++adapter.loaded)
-		)?.toList() ?: listOf()
-		adapter.notifyItemRangeChanged(0, adapter.posts.size)
+		if (posts.size == adapter.posts.size) return
+		adapter.posts = posts.subList(
+			0, min(posts.size, adapter.LOADING_STEP * ++adapter.loaded)
+		).toList()
+		adapter.notifyDataSetChanged()
 
 		//loadingView
 		binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {
-			delay(1600)
+			delay(400)
 
 			context?.runUI {
 				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
@@ -162,6 +156,7 @@ class HomeFragment : Fragment() {
 	private fun reload() {
 		adapter.loaded = 0
 		DataManager.sort()
+		posts = DataManager.filteredPosts(viewModel.filter)
 		recyclerLoadMore()
 	}
 }

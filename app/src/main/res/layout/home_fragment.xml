@@ -122,18 +122,30 @@
 							android:onCheckedChanged = "@{(group,checkedId)->viewModel.onRadioCheckedChanged(group,checkedId)}"
 							android:orientation = "horizontal">
 					<RadioButton
-						android:id = "@+id/radio_persone"
+						android:id = "@+id/radio_ingegneria"
 						style = "@style/RadioButton"
 						android:checked = "true"
-						android:text = "@string/type_persone"/>
+						android:text = "@string/type_ingegneria"/>
 					<RadioButton
-						android:id = "@+id/radio_feste"
+						android:id = "@+id/radio_agraria"
 						style = "@style/RadioButton"
-						android:text = "@string/type_feste"/>
+						android:text = "@string/type_agraria"/>
 					<RadioButton
-						android:id = "@+id/radio_sport"
+						android:id = "@+id/radio_scienze"
 						style = "@style/RadioButton"
-						android:text = "@string/type_sport"/>
+						android:text = "@string/type_scienze"/>
+					<RadioButton
+						android:id = "@+id/radio_economia"
+						style = "@style/RadioButton"
+						android:text = "@string/type_economia"/>
+					<RadioButton
+						android:id = "@+id/radio_medicina"
+						style = "@style/RadioButton"
+						android:text = "@string/type_medicina"/>
+					<RadioButton
+						android:id = "@+id/radio_altri"
+						style = "@style/RadioButton"
+						android:text = "@string/type_altri"/>
 				</RadioGroup>
 			</HorizontalScrollView>
 

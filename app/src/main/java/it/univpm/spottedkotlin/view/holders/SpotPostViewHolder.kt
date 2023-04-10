@@ -9,15 +9,17 @@ import it.univpm.spottedkotlin.databinding.SpotPostBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
 import it.univpm.spottedkotlin.extension.function.getActivity
 import it.univpm.spottedkotlin.extension.function.inflate
+import it.univpm.spottedkotlin.extension.function.toPostStr
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.view.ViewPostActivity
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 
 class SpotPostViewHolder(val binding: SpotPostBinding) : ViewHolder(binding.root) {
+
 	fun bind(post: Post) {
 		binding.model = post
-		binding.viewModel = this
+		binding.setView(this)
 
 		for (tag in post.tags) {
 			val tagBinding: TagItemBinding = binding.root.context.inflate(R.layout.tag_item)
@@ -27,6 +29,8 @@ class SpotPostViewHolder(val binding: SpotPostBinding) : ViewHolder(binding.root
 		}
 		binding.executePendingBindings()
 	}
+
+	val dataPost get() = binding.model?.date?.toPostStr()
 
 	fun cardClicked(post: Post) {
 		val mainActivity = binding.root.context.getActivity<MainActivity>()

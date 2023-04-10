@@ -33,4 +33,5 @@ enum class Locations(val title: String? = null, private val _imageUrl: String? =
 	SCIENZE_3("Scienze 3");
 
 	val imageUrl get() = _imageUrl ?: RemoteImages.valueOf(this.name).url
+	val plexus get() = Plexuses.values().find { it.locations.contains(this) }
 }

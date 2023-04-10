@@ -33,7 +33,15 @@
     <string name="home_persone_subtitle">Ecco gli spot recenti, ti riconosci in queste descrizioni?</string>
     <string name="home_feste_subtitle">Pronto a festeggiare? Questi party aspettano solo te!</string>
     <string name="home_sport_subtitle">Hai voglia di fare un po\' di sport? Controlla i seguenti spot.</string>
-    <string name="home_title">Ciao, %1$s! </string>
+
+	<string name="home_ingegneria_subtitle">Univpm - Plesso Monte Dago</string>
+	<string name="home_agraria_subtitle">Univpm - Plesso Monte Dago</string>
+	<string name="home_scienze_subtitle">Univpm - Dipartimento di Scienze della Vita e dell’Ambiente</string>
+	<string name="home_economia_subtitle">Univpm - Facoltà di Economia "Giorgio Fuà"</string>
+	<string name="home_medicina_subtitle">Univpm - Polo Universitario Torrette </string>
+	<string name="home_altri_subtitle">Mensa, luoghi di Ancona e altro ancora</string>
+
+	<string name="home_title">Ciao, %1$s! </string>
 	<string name = "nuovo_spot">Nuovo Spot</string>
 	<string name = "tags">Tags</string>
     <string name = "zona">Zona</string>
@@ -48,5 +56,11 @@
 	<string name = "seguito_da">Seguito da </string>
 	<string name = "e"> e</string>
 	<string name = "credo_proprio_di_essere_io">Credo proprio di essere io!</string>
+	<string name = "type_ingegneria">Ingegneria</string>
+	<string name = "type_agraria">Agraria</string>
+	<string name = "type_economia">Economia</string>
+	<string name = "type_altri">Altri</string>
+	<string name = "type_medicina">Medicina</string>
+	<string name = "type_scienze">Scienze</string>
 
 </resources>

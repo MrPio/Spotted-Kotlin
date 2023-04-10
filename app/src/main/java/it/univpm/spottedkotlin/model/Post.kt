@@ -20,7 +20,7 @@ data class Post(
 	val comments: MutableList<Comment> = mutableListOf(),
 ) : Serializable {
 	var uid: String? = null
-	var percentage: Int? = null
+	var percentage: Int = 0
 	var author: User? = null
 	var lastFollowers: MutableList<User?> = mutableListOf()
 
