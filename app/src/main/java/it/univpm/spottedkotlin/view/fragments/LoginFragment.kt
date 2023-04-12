@@ -1,6 +1,7 @@
 package it.univpm.spottedkotlin.view.fragments
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +19,8 @@ import com.google.firebase.ktx.Firebase
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.LoginFragmentBinding
 import it.univpm.spottedkotlin.managers.AccountManager
+import it.univpm.spottedkotlin.view.FirstActivity
+import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment() {
@@ -46,8 +49,8 @@ class LoginFragment : Fragment() {
                         //Se ha avuto successo prendo dal database l'utente corrispondente
                         if (user != null) {
                             AccountManager.login(user)
+                            startActivity(Intent(activity, MainActivity::class.java))
                         }
-                        //TODO(user è la istanza dell'utente loggato, deve essere portato sulla sua lista di spot)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
@@ -57,8 +60,6 @@ class LoginFragment : Fragment() {
                     }
                 }
         }
-
-
 
 
         binding.registerText.setOnClickListener {
