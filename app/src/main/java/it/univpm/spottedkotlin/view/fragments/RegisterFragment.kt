@@ -1,6 +1,7 @@
 package it.univpm.spottedkotlin.view.fragments
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -16,12 +17,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import it.univpm.spottedkotlin.R
-import it.univpm.spottedkotlin.databinding.RegisterFragmentBinding
-import java.io.Console
+import it.univpm.spottedkotlin.databinding.SignupFragmentBinding
+import it.univpm.spottedkotlin.managers.AccountManager
+import it.univpm.spottedkotlin.view.MainActivity
 
 
 class RegisterFragment : Fragment() {
-    private lateinit var binding: RegisterFragmentBinding
+    private lateinit var binding: SignupFragmentBinding
 
     private lateinit var auth: FirebaseAuth
 
@@ -40,7 +42,7 @@ class RegisterFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = RegisterFragmentBinding.inflate(inflater, container, false)
+        binding = SignupFragmentBinding.inflate(inflater, container, false)
         auth = Firebase.auth
 
         binding.registerButton.setOnClickListener(){
@@ -50,22 +52,14 @@ class RegisterFragment : Fragment() {
 
 
             if(validation(pass,rep_pass)){
-                auth.createUserWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener() { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success")
-                            val user = auth.currentUser
-                            //TODO(User subito loggato oppure deve effettuare il login?)
-                            Toast.makeText(context, "",
-                                Toast.LENGTH_SHORT).show()
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                            Toast.makeText(context, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show()
-                        }
-                    }
+
+                AccountManager.user == null
+                AccountManager.signup(email,pass)
+
+                if (AccountManager.user != null) {
+                    startActivity(Intent(activity, MainActivity::class.java))
+                }
+                else { }//TODO(messaggio di errore)
             }
         }
 
@@ -80,19 +74,20 @@ class RegisterFragment : Fragment() {
                 val input : String = binding.RegisterPassword.getText().toString()
 
                 when (pass_strong(input)) {
-                    0 -> binding.button222.setBackgroundColor(Color.TRANSPARENT)
-                    1 -> binding.button222.setBackgroundColor(Color.RED)
-                    2 -> binding.button222.setBackgroundColor(Color.YELLOW)
-                    3 -> binding.button222.setBackgroundColor(Color.YELLOW)
-                    4 -> binding.button222.setBackgroundColor(Color.GREEN)
+                    0 -> binding.strengthButton.setBackgroundColor(Color.TRANSPARENT)
+                    1 -> binding.strengthButton.setBackgroundColor(Color.RED)
+                    2 -> binding.strengthButton.setBackgroundColor(Color.YELLOW)
+                    3 -> binding.strengthButton.setBackgroundColor(Color.YELLOW)
+                    4 -> binding.strengthButton.setBackgroundColor(Color.GREEN)
                     else -> { // Note the block
-                        binding.button222.setBackgroundColor(Color.TRANSPARENT)
+                        binding.strengthButton.setBackgroundColor(Color.TRANSPARENT)
                     }
                 }
             }
 
             override fun afterTextChanged(editable : Editable) {}
             })
+
 
 
         binding.doLoginText.setOnClickListener {
@@ -154,16 +149,6 @@ class RegisterFragment : Fragment() {
         Toast.makeText(context, strong.toString(),
             Toast.LENGTH_SHORT).show()
         return strong
-    }
-
-
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        if(currentUser != null){
-            //TODO(Reload)
-        }
     }
 
 

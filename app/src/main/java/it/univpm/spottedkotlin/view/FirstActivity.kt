@@ -20,7 +20,7 @@ class FirstActivity : AppCompatActivity() {
 
         binding = FirstActivityBinding.inflate(layoutInflater)
 
-        //TODO transizione a MainActivity se utente già loggato
+        //TODO() transizione a MainActivity se utente già loggato
 
         setContentView(binding.root)
         binding.viewModel = viewModel

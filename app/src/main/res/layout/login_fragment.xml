@@ -118,8 +118,9 @@
 							app:cornerRadius = "60dp"
 							app:layout_constraintEnd_toEndOf = "parent"
 							app:layout_constraintStart_toStartOf = "parent"
-							app:layout_constraintTop_toBottomOf = "@+id/TextPassword"/>
-
+							app:layout_constraintTop_toBottomOf = "@+id/TextPassword"
+							android:onClickListener="@{()->viewModel.login()}"/>
+							<!--   SAM sigle abstract method	-->
 						<View
 							android:id = "@+id/divider"
 							android:layout_width = "match_parent"
