@@ -23,7 +23,8 @@ class CommentsViewModel(
 	@get:Bindable
 	var emojiVisible = false
 		set(value) {
-			field = value;notifyPropertyChanged(BR.emojiVisible)
+			field = value;
+			notifyPropertyChanged(BR.emojiVisible)
 		}
 
 	@get:Bindable

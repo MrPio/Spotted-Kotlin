@@ -9,8 +9,8 @@ import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.Plexuses
 import it.univpm.spottedkotlin.model.Filter
 
-class HomeViewModel(val reloadCallback: () -> Unit) : ViewModel() {
-
+class HomeViewModel() : ViewModel() {
+	lateinit var reloadCallback: () -> Unit
 	private val subtitles = listOf(
 		R.string.home_ingegneria_subtitle,
 		R.string.home_agraria_subtitle,

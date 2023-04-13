@@ -20,7 +20,7 @@ object DatabaseManager {
 		path: String,
 		database: DatabaseReference = this.database
 	): DatabaseReference {
-		val paths = path.split('/').filter { it.isNotEmpty() }
+			val paths = path.split('/').filter { it.isNotEmpty() }
 		val child = database.child(paths[0])
 		return if (paths.count() <= 1) child else getChild(
 			path = paths.drop(1).joinToString("/"),

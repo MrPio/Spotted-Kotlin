@@ -6,10 +6,11 @@
 	android:layout_height = "match_parent"
 	tools:context = ".view.fragments.MapFragment">
 
-	<TextView
-		android:layout_width = "match_parent"
-		android:layout_height = "match_parent"
-		style="@style/LabelBlack"
-		android:text = "Hello"/>
+	<org.osmdroid.views.MapView
+		android:id="@+id/mapView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:clickable="true"
+		android:focusable="true" />
 
 </FrameLayout>

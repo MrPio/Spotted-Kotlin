@@ -31,7 +31,7 @@ import kotlin.math.min
 
 class HomeFragment : Fragment() {
 	private lateinit var binding: HomeFragmentBinding
-	private val viewModel: HomeViewModel = HomeViewModel(::reload)
+	private val viewModel: HomeViewModel by viewModels()
 	private var posts: List<Post> = DataManager.posts?.toList() ?: listOf()
 	private val adapter = HomePostsAdapter(listOf())
 	private lateinit var layoutManager: LinearLayoutManager
@@ -57,6 +57,7 @@ class HomeFragment : Fragment() {
 			}
 		})
 		binding.postsRecycler.layoutManager = layoutManager
+		viewModel.reloadCallback = ::reload
 		binding.viewModel = viewModel
 		binding.homePostsAdapter = adapter
 		binding.postsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -146,7 +147,6 @@ class HomeFragment : Fragment() {
 		binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {
 			delay(400)
-
 			context?.runUI {
 				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
 			}

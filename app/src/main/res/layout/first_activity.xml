@@ -5,7 +5,7 @@
 
 	<data>
 		<variable name = "viewModel"
-			type = "it.univpm.spottedkotlin.viewmodel.LoginViewModel"/>
+			type = "it.univpm.spottedkotlin.viewmodel.FirstActivityViewModel"/>
 		<import type="it.univpm.spottedkotlin.enums.RemoteImages" />
 	</data>
 
