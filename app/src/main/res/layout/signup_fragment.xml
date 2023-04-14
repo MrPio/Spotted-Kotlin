@@ -72,9 +72,12 @@
 							android:id="@+id/RegisterEmailAddress"
 							android:layout_width="match_parent"
 							android:layout_height="50dp"
+							android:cursorVisible="true"
 							android:ems="10"
 							android:inputType="textEmailAddress"
 							android:text="admin@admin.com"
+							android:background="@drawable/text_view_border"
+							android:padding="10dp"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/email" />
@@ -101,6 +104,8 @@
 							android:ems="10"
 							android:inputType="textPassword"
 							android:text=""
+							android:background="@drawable/text_view_border"
+							android:padding="10dp"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintHorizontal_bias="0.0"
 							app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +127,7 @@
 							android:id="@+id/or_text"
 							android:layout_width="0dp"
 							android:layout_height="wrap_content"
-							android:layout_marginTop="20dp"
+							android:layout_marginTop="4dp"
 							android:text="@string/oppure"
 							android:textAlignment="center"
 							app:layout_constraintEnd_toEndOf="parent"
@@ -141,7 +146,8 @@
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintHorizontal_bias="0.0"
 							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/button3" />
+							app:layout_constraintTop_toBottomOf="@+id/button3"
+							app:layout_constraintVertical_bias="0.344" />
 
 						<TextView
 							android:id="@+id/do_login_text"
@@ -182,6 +188,8 @@
 							android:fontFamily="@font/lato_bold"
 							android:text="@string/repeat_password"
 							android:textColor="@color/color1"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/RegisterPassword"
 							tools:layout_editor_absoluteX="0dp" />
 
@@ -189,8 +197,11 @@
 							android:id="@+id/ControlPassword"
 							android:layout_width="0dp"
 							android:layout_height="50dp"
+							android:layout_marginTop="48dp"
 							android:ems="10"
 							android:inputType="textPassword"
+							android:background="@drawable/text_view_border"
+							android:padding="10dp"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintHorizontal_bias="0.0"
 							app:layout_constraintStart_toStartOf="parent"

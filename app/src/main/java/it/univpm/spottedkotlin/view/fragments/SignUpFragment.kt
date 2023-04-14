@@ -1,12 +1,11 @@
 package it.univpm.spottedkotlin.view.fragments
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.view.MainActivity
 
 
-class RegisterFragment : Fragment() {
+class SignUpFragment : Fragment() {
     private lateinit var binding: SignupFragmentBinding
 
     private lateinit var auth: FirebaseAuth
@@ -43,6 +42,8 @@ class RegisterFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = SignupFragmentBinding.inflate(inflater, container, false)
+        binding.strengthButton.visibility=View.INVISIBLE
+
         auth = Firebase.auth
 
         binding.registerButton.setOnClickListener(){
@@ -74,9 +75,9 @@ class RegisterFragment : Fragment() {
                 val input : String = binding.RegisterPassword.getText().toString()
 
                 when (pass_strong(input)) {
-                    0 -> binding.strengthButton.setBackgroundColor(Color.TRANSPARENT)
-                    1 -> binding.strengthButton.setBackgroundColor(Color.RED)
-                    2 -> binding.strengthButton.setBackgroundColor(Color.YELLOW)
+                    0 -> binding.strengthButton.visibility=View.INVISIBLE
+                    1 -> {binding.strengthButton.visibility=View.VISIBLE; binding.strengthButton.setBackgroundColor(Color.RED)}
+                    2 -> {val aa = binding.RegisterPassword.background; aa.mutate().setColorFilter( Color.YELLOW, PorterDuff.Mode.LIGHTEN)}
                     3 -> binding.strengthButton.setBackgroundColor(Color.YELLOW)
                     4 -> binding.strengthButton.setBackgroundColor(Color.GREEN)
                     else -> { // Note the block
@@ -103,6 +104,9 @@ class RegisterFragment : Fragment() {
     //TODO(i check per lo strong vanno rivisti)
     fun validation(pass: String, rep_pass : String): Boolean {
 
+        if(pass.length < MIN_LENGHT) return false
+        if(pass != rep_pass) return false
+
         val caratteri = pass.toCharArray()
 
         //For password check
@@ -117,9 +121,6 @@ class RegisterFragment : Fragment() {
             if (!checkNumber){if(caratteri[i] in number) checkNumber=true}
             if (!checkSpecial){if(caratteri[i] in special) checkSpecial=true}
         }
-
-        if(pass.length < MIN_LENGHT) return false
-        if(pass != rep_pass) return false
         return checkChar && checkCharUp && checkNumber && checkSpecial
     }
 

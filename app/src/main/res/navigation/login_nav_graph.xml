@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="it.univpm.spottedkotlin.view.fragments.RegisterFragment"
+        android:name="it.univpm.spottedkotlin.view.fragments.SignUpFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
