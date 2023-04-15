@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.model.User
 import it.univpm.spottedkotlin.view.MainActivity
 import kotlinx.coroutines.MainScope
@@ -19,9 +20,7 @@ import kotlinx.coroutines.tasks.await
 
 object AccountManager {
 	private lateinit var auth : FirebaseAuth
-	lateinit var user: User
-	//var user: User = User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply { uid = "Lj1dlqZAREdLnzjsJ6mM2F08SnUc" }
-
+	/*lateinit*/ var user: User= User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply { uid = "Lj1dlqZAREdLnzjsJ6mM2F08SnUc" }
 
 	//SALVARE IN MEMORIA L'ID (MANAGER I/O con chiave valore e chiave uid)
 

@@ -1,9 +1,7 @@
 package it.univpm.spottedkotlin.view.fragments
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.LoginFragmentBinding
-import it.univpm.spottedkotlin.extension.function.runUI
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.LoginViewModel
 
@@ -39,9 +36,9 @@ class LoginFragment : Fragment() {
 
 	}
 
-	fun goToMainActivity(){
+	private fun goToMainActivity(){
 
-		requireContext().runUI { startActivity(Intent(activity, MainActivity::class.java)) }
+		requireActivity().runOnUiThread { startActivity(Intent(activity, MainActivity::class.java)) }
 
 	}
 }
