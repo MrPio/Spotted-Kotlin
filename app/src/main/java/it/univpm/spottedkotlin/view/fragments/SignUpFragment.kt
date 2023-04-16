@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -77,7 +78,9 @@ class SignUpFragment : Fragment() {
                 when (pass_strong(input)) {
                     0 -> binding.strengthButton.visibility=View.INVISIBLE
                     1 -> {binding.strengthButton.visibility=View.VISIBLE; binding.strengthButton.setBackgroundColor(Color.RED)}
-                    2 -> {val aa = binding.RegisterPassword.background; aa.mutate().setColorFilter( Color.YELLOW, PorterDuff.Mode.LIGHTEN)}
+                    2 -> binding.RegisterPassword.background=
+                        context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }
+
                     3 -> binding.strengthButton.setBackgroundColor(Color.YELLOW)
                     4 -> binding.strengthButton.setBackgroundColor(Color.GREEN)
                     else -> { // Note the block
