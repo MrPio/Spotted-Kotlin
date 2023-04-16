@@ -57,7 +57,7 @@
 					android:layout_height = "match_parent"
 					android:gravity = "center"
 					android:text = "@string/HomeOutline"
-					android:textColor = "@color/color1"
+					android:textColor = "@color/black"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
@@ -84,7 +84,7 @@
 					android:layout_height = "match_parent"
 					android:gravity = "center"
 					android:text = "@string/MapOutline"
-					android:textColor = "@color/color4"
+					android:textColor = "@color/white"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
@@ -111,7 +111,7 @@
 					android:layout_height = "match_parent"
 					android:gravity = "center"
 					android:text = "@string/PlusCircleOutline"
-					android:textColor = "@color/color4"
+					android:textColor = "@color/white"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
@@ -137,7 +137,7 @@
 					android:layout_height = "match_parent"
 					android:gravity = "center"
 					android:text = "@string/AccountOutline"
-					android:textColor = "@color/color4"
+					android:textColor = "@color/white"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"
@@ -163,7 +163,7 @@
 					android:layout_height = "match_parent"
 					android:gravity = "center"
 					android:text = "@string/CogOutline"
-					android:textColor = "@color/color4"
+					android:textColor = "@color/white"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "match_parent"

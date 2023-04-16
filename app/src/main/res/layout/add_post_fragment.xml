@@ -14,14 +14,14 @@
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
-		android:background = "@color/color1"
+		android:background = "@color/black"
 		tools:context = ".view.fragments.AddPostFragment">
 
 		<!--Top Black roundedRectangle-->
 		<FrameLayout android:layout_width = "wrap_content"
 					 android:layout_height = "wrap_content"
 					 android:background = "@drawable/corner_radius_bottom"
-					 android:backgroundTint = "@color/color1"
+					 android:backgroundTint = "@color/black"
 					 android:elevation = "10dp"
 					 app:layout_constraintEnd_toEndOf = "parent"
 					 app:layout_constraintStart_toStartOf = "parent"
@@ -32,7 +32,7 @@
 					  android:paddingHorizontal = "20dp"
 					  android:paddingVertical = "10dp"
 					  android:text = "@string/nuovo_spot"
-					  android:textColor = "@color/color4"/>
+					  android:textColor = "@color/white"/>
 		</FrameLayout>
 
 		<!--CenterOfScreen-->
@@ -83,7 +83,7 @@
 												   android:layout_width = "match_parent"
 												   android:layout_height = "wrap_content"
 												   android:layout_marginTop = "-72dp"
-												   app:cardBackgroundColor = "@color/color4"
+												   app:cardBackgroundColor = "@color/white"
 												   app:cardCornerRadius = "36dp">
 					<LinearLayout android:layout_width = "match_parent"
 								  android:layout_height = "wrap_content"
@@ -96,7 +96,7 @@
 								  android:layout_height = "wrap_content"
 								  android:layout_marginTop = "6dp"
 								  android:text = "@string/plesso"
-								  android:textColor = "@color/color2"
+								  android:textColor = "@color/red"
 								  android:textSize = "22sp"/>
 						<Spinner android:id = "@+id/plesso_spinner"
 								 android:layout_width = "match_parent"
@@ -117,7 +117,7 @@
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/color1"/>
+							  android:foreground = "@color/black"/>
 
 						<!--Zona-->
 						<TextView style = "@style/LabelBold"
@@ -125,7 +125,7 @@
 								  android:layout_height = "wrap_content"
 								  android:layout_marginTop = "20dp"
 								  android:text = "@string/zona"
-								  android:textColor = "@color/color2"
+								  android:textColor = "@color/red"
 								  android:textSize = "22sp"
 								  android:visibility = "@{viewModel.zone.size()&lt;=1?view.GONE:view.VISIBLE}"/>
 						<Spinner android:id = "@+id/zona_spinner"
@@ -148,7 +148,7 @@
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/color1"
+							  android:foreground = "@color/black"
 							  android:visibility = "@{viewModel.zone.size()&lt;=1?view.GONE:view.VISIBLE}"/>
 
 						<!--Genere-->
@@ -157,7 +157,7 @@
 								  android:layout_height = "wrap_content"
 								  android:layout_marginTop = "20dp"
 								  android:text = "@string/genere"
-								  android:textColor = "@color/color2"
+								  android:textColor = "@color/red"
 								  android:textSize = "22sp"/>
 						<LinearLayout android:layout_width = "match_parent"
 									  android:layout_height = "wrap_content"
@@ -170,7 +170,7 @@
 									  android:layout_marginStart = "10dp"
 									  android:gravity = "center_vertical"
 									  android:text = "@{viewModel.currentGender.icon}"
-									  android:textColor = "@color/color1"
+									  android:textColor = "@color/black"
 									  android:textSize = "26sp"/>
 
 							<Spinner android:id = "@+id/genere_spinner"
@@ -192,7 +192,7 @@
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/color1"
+							  android:foreground = "@color/black"
 							  android:visibility = "@{viewModel.zone.size()&lt;=1?view.GONE:view.VISIBLE}"/>
 
 						<!--Tags-->
@@ -201,7 +201,7 @@
 								  android:layout_height = "wrap_content"
 								  android:layout_marginTop = "20dp"
 								  android:text = "@string/tags"
-								  android:textColor = "@color/color2"
+								  android:textColor = "@color/red"
 								  android:textSize = "22sp"/>
 						<GridLayout android:id = "@+id/add_post_tags_grid"
 									android:layout_width = "match_parent"
@@ -220,7 +220,7 @@
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/color1"/>
+							  android:foreground = "@color/black"/>
 
 						<!--Descrizione-->
 						<TextView style = "@style/LabelBold"
@@ -228,7 +228,7 @@
 								  android:layout_height = "wrap_content"
 								  android:layout_marginTop = "20dp"
 								  android:text = "@string/descrizione"
-								  android:textColor = "@color/color2"
+								  android:textColor = "@color/red"
 								  android:textSize = "22sp"/>
 						<EditText style = "@style/LabelRegular"
 								  android:layout_width = "match_parent"
@@ -257,7 +257,7 @@
 			android:id = "@+id/add_post_footer"
 			android:layout_width = "match_parent"
 			android:layout_height = "196dp"
-			android:background = "@color/color3"
+			android:background = "@color/grey"
 			android:elevation = "10dp"
 			android:gravity = "start"
 			android:orientation = "horizontal"
@@ -275,7 +275,7 @@
 													   android:foreground = "@drawable/ripple_white_corner_round"
 													   android:onClickListener = "@{()->viewModel.azzera()}"
 													   android:text = "@string/azzera"
-													   android:textColor = "@color/color1"
+													   android:textColor = "@color/black"
 													   android:textSize = "16sp"/>
 
 			<androidx.appcompat.widget.AppCompatButton android:id = "@+id/add_post_pubblica_button"

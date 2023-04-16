@@ -52,7 +52,7 @@
 			app:icon="@drawable/arrow_dx"
 			app:iconGravity="end"
 			app:iconSize="30dp"
-			app:iconTint="@color/color2"
+			app:iconTint="@color/red"
 			app:iconTintMode="add"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"

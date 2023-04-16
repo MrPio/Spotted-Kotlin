@@ -4,7 +4,7 @@
 	<corners
 		android:radius = "999dp"/>
 	<solid
-		android:color = "@color/color2"/>
+		android:color = "@color/red"/>
 	<padding android:left="16dp"
 			 android:right="16dp"/>
 </shape>

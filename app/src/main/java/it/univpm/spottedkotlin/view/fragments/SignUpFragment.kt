@@ -43,7 +43,6 @@ class SignUpFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = SignupFragmentBinding.inflate(inflater, container, false)
-        binding.strengthButton.visibility=View.INVISIBLE
 
         auth = Firebase.auth
 
@@ -76,15 +75,40 @@ class SignUpFragment : Fragment() {
                 val input : String = binding.RegisterPassword.getText().toString()
 
                 when (pass_strong(input)) {
-                    0 -> binding.strengthButton.visibility=View.INVISIBLE
-                    1 -> {binding.strengthButton.visibility=View.VISIBLE; binding.strengthButton.setBackgroundColor(Color.RED)}
-                    2 -> binding.RegisterPassword.background=
-                        context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }
+                    0 ->{
+                        binding.RegisterPassword.background=
+                            context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_grey) }
+                        binding.strongText.text= ""
+                    }
 
-                    3 -> binding.strengthButton.setBackgroundColor(Color.YELLOW)
-                    4 -> binding.strengthButton.setBackgroundColor(Color.GREEN)
+                    1 ->{
+                        binding.RegisterPassword.background=
+                            context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }
+                        binding.strongText.text= "Weak"
+                    }
+
+                    2 -> {
+                        binding.RegisterPassword.background=
+                            context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_orange) }
+                        binding.strongText.text= "Normal"}
+
+                    3 ->{
+                        binding.RegisterPassword.background=
+                            context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_yellow) }
+                        binding.strongText.text= "Normal"
+                    }
+
+                    4 ->{
+                        binding.RegisterPassword.background=
+                            context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_green) }
+                        binding.strongText.text= "Strong"
+                    }
+
                     else -> { // Note the block
-                        binding.strengthButton.setBackgroundColor(Color.TRANSPARENT)
+                        binding.RegisterPassword.background=
+                            context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_grey) }
+                        binding.strongText.text= ""
+
                     }
                 }
             }
@@ -150,8 +174,31 @@ class SignUpFragment : Fragment() {
             if (!checkNumber){if(caratteri[i] in number) {checkNumber=true; strong++}}
             if (!checkSpecial){if(caratteri[i] in special) {checkSpecial=true; strong++}}
         }
-        Toast.makeText(context, strong.toString(),
-            Toast.LENGTH_SHORT).show()
+
+        if(checkChar){
+            binding.requirement1Text.setTextColor(Color.GREEN)
+        }
+        else{
+            binding.requirement1Text.setTextColor(Color.GRAY)
+        }
+        if(checkCharUp){
+            binding.requirement2Text.setTextColor(Color.GREEN)
+        }
+        else{
+            binding.requirement2Text.setTextColor(Color.GRAY)
+        }
+        if(checkSpecial){
+            binding.requirement3Text.setTextColor(Color.GREEN)
+        }
+        else{
+            binding.requirement3Text.setTextColor(Color.GRAY)
+        }
+        if(checkNumber){
+            binding.requirement4Text.setTextColor(Color.GREEN)
+        }
+        else{
+            binding.requirement4Text.setTextColor(Color.GRAY)
+        }
         return strong
     }
 

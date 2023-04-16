@@ -24,6 +24,12 @@
     <string name="repeat_password">Ripeti password:</string>
     <string name="already_registered">Sei già registrato?</string>
     <string name="do_login"><u>Effettua il Login</u></string>
+    <string name="contain">La password deve contenere almeno un:</string>
+    <string name="requirement1">- Carattere minuscolo</string>
+    <string name="requirement2">- Carattere maiuscolo</string>
+    <string name="requirement3">- Carattere speciale</string>
+    <string name="requirement4">- Numero</string>
+
 
     <string name="luogo">Luogo</string>
     <string name="todo">TODO</string>

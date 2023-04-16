@@ -23,7 +23,7 @@
 			android:layout_height = "wrap_content"
 			android:fontFamily = "@font/material_design_icons"
 			android:text = "@{model.icon}"
-			android:textColor = "@{viewModel.selected?@color/color4:@color/color1}"
+			android:textColor = "@{viewModel.selected?@color/white:@color/black}"
 			android:textSize = "18sp"/>
 
 		<TextView
@@ -34,6 +34,6 @@
 			android:layout_marginStart = "2dp"
 			android:text = "@{model.name}"
 			android:textAlignment = "center"
-			android:textColor = "@{viewModel.selected?@color/color4:@color/color1}"/>
+			android:textColor = "@{viewModel.selected?@color/white:@color/black}"/>
 	</LinearLayout>
 </layout>

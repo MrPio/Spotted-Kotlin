@@ -4,7 +4,7 @@
 
 <!--    <item android:target="border_color" android:value="@color/color3"/>-->
 
-    <stroke android:color="@color/grey"
+    <stroke android:color="@color/green"
         android:width="2dp"/>
 
     <corners  android:topRightRadius="10dp"

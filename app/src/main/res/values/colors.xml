@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color1">#303030</color>
-    <color name="color2">#f15450</color>
-    <color name="color3">#efefef</color>
-    <color name="color4">#ffffff</color>
+    <color name="black">#303030</color>
+    <color name="red">#f15450</color>
+    <color name="grey">#efefef</color>
+    <color name="white">#ffffff</color>
+
+    <color name="green">#00FF00</color>
+    <color name="yellow">#FFEA00</color>
+    <color name="orange">#ffa500</color>
+
     <color name = "overlay">#60000000</color>
     <color name="transparent">#00000000</color>
 </resources>

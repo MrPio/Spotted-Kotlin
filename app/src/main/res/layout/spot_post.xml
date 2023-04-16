@@ -73,7 +73,7 @@
 						android:layout_marginStart = "20dp"
 						android:background = "@drawable/border_rounded_red_small"
 						android:text = '@{model.percentage+"%"}'
-						android:textColor = "@color/color4"
+						android:textColor = "@color/white"
 						app:layout_constraintStart_toStartOf = "parent"
 						app:layout_constraintTop_toTopOf = "parent"/>
 					<!--TimeLabel-->
@@ -85,7 +85,7 @@
 						android:layout_marginStart = "6dp"
 						android:background = "@drawable/border_rounded_black_small"
 						android:text = "@{view.dataPost}"
-						android:textColor = "@color/color4"
+						android:textColor = "@color/white"
 						app:layout_constraintStart_toEndOf = "@id/percentage_label"
 						app:layout_constraintTop_toTopOf = "parent"/>
 
@@ -128,7 +128,7 @@
 							android:layout_marginEnd = "8dp"
 							android:text = "@{model.location.title}"
 							android:textAlignment = "center"
-							android:textColor = "@color/color4"/>
+							android:textColor = "@color/white"/>
 					</LinearLayout>
 					<!--Row 0 Column 1-->
 					<LinearLayout android:layout_width = "wrap_content"
@@ -164,7 +164,7 @@
 							android:layout_marginEnd = "8dp"
 							android:text = "@{model.dateStr}"
 							android:textAlignment = "center"
-							android:textColor = "@color/color4"/>
+							android:textColor = "@color/white"/>
 
 						<!--TimeIcon-->
 						<TextView
@@ -178,7 +178,7 @@
 							android:layout_marginEnd = "8dp"
 							android:text = "@{model.timeStr}"
 							android:textAlignment = "center"
-							android:textColor = "@color/color4"/>
+							android:textColor = "@color/white"/>
 					</LinearLayout>
 					<!--Row 1 Column 1-->
 					<LinearLayout android:id = "@+id/comment_follow_layout"
@@ -200,7 +200,7 @@
 							android:layout_marginEnd = "8dp"
 							android:text = "@{String.valueOf(model.comments.size())}"
 							android:textAlignment = "center"
-							android:textColor = "@color/color4"/>
+							android:textColor = "@color/white"/>
 
 						<!--FollowIcon-->
 						<TextView
@@ -213,7 +213,7 @@
 							android:layout_marginStart = "2dp"
 							android:text = "@{String.valueOf(model.followers.size())}"
 							android:textAlignment = "center"
-							android:textColor = "@color/color4"/>
+							android:textColor = "@color/white"/>
 					</LinearLayout>
 
 					<!--Tags-->

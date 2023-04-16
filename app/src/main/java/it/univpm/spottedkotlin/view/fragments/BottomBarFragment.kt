@@ -58,7 +58,7 @@ class BottomBarFragment : Fragment() {
 			if (i != to)
 				pair.first.visibility = View.INVISIBLE
 			pair.second.setTextColor(
-				activity.getColor(if (i == to) R.color.color1 else R.color.color4)
+				activity.getColor(if (i == to) R.color.black else R.color.white)
 			)
 		}
 

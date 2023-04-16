@@ -42,7 +42,7 @@
 						  android:layout_height = "wrap_content"
 						  android:layout_marginStart = "8dp"
 						  android:text = "@string/ClockOutline"
-						  android:textColor = "@color/color1"
+						  android:textColor = "@color/black"
 						  android:textSize = "18sp"/>
 				<TextView style = "@style/LabelRegular"
 						  android:layout_width = "wrap_content"
@@ -53,12 +53,12 @@
 			<FrameLayout android:layout_width = "match_parent"
 						 android:layout_height = "wrap_content"
 						 android:background="@drawable/comment_border_left"
-						 android:backgroundTint = "@{viewModel.author?@color/color2:viewModel.me?@color/color1:@color/color3}">
+						 android:backgroundTint = "@{viewModel.author?@color/red:viewModel.me?@color/black:@color/grey}">
 				<TextView style = "@style/LabelLight"
 						  markdown = "@{viewModel.comment.text}"
 						  android:layout_width = "wrap_content"
 						  android:layout_height = "wrap_content"
-						  android:textColor = "@{viewModel.author?@color/color4:viewModel.me?@color/color4:@color/color1}"
+						  android:textColor = "@{viewModel.author?@color/white:viewModel.me?@color/white:@color/black}"
 						  android:textSize = "16sp"/>
 			</FrameLayout>
 		</LinearLayout>
