@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 	val viewModel: MainViewModel by viewModels()
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		DeviceManager.displayMetrics = this.metrics()
 
 		binding = ActivityMainBinding.inflate(layoutInflater)
 		setContentView(binding.root)

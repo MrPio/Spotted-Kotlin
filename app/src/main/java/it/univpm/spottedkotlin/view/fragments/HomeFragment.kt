@@ -5,22 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.adapter.HomePostsAdapter
 import it.univpm.spottedkotlin.databinding.HomeFragmentBinding
 import it.univpm.spottedkotlin.enums.TimesInterpolator
 import it.univpm.spottedkotlin.extension.function.getActivity
-import it.univpm.spottedkotlin.extension.function.runUI
 import it.univpm.spottedkotlin.extension.function.setHeight
 import it.univpm.spottedkotlin.extension.function.toDp
 import it.univpm.spottedkotlin.managers.AnimationManager
 import it.univpm.spottedkotlin.managers.DataManager
-import it.univpm.spottedkotlin.model.Filter
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.HomeViewModel
@@ -63,7 +59,8 @@ class HomeFragment : Fragment() {
 		binding.postsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 			override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
 				super.onScrollStateChanged(recyclerView, newState)
-				if (layoutManager.itemCount == layoutManager.findLastVisibleItemPosition() + 1) recyclerLoadMore()
+				if (layoutManager.itemCount == layoutManager.findLastVisibleItemPosition() + 1)
+					recyclerLoadMore()
 			}
 
 			override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -75,7 +72,7 @@ class HomeFragment : Fragment() {
 		binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {
 			DataManager.fetchData(requireContext())
-			context?.runUI {
+			activity?.runOnUiThread {
 				reload()
 				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
 			}
@@ -147,7 +144,7 @@ class HomeFragment : Fragment() {
 		binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {
 			delay(400)
-			context?.runUI {
+			activity?.runOnUiThread {
 				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
 			}
 		}
@@ -157,6 +154,7 @@ class HomeFragment : Fragment() {
 		adapter.loaded = 0
 		DataManager.sort()
 		posts = DataManager.filteredPosts(viewModel.filter)
+		adapter.posts= listOf()
 		recyclerLoadMore()
 	}
 }
