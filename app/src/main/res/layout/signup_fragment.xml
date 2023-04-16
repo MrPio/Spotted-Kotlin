@@ -4,8 +4,9 @@
 	xmlns:tools="http://schemas.android.com/tools">
 
 	<data>
-
-		<import type="it.univpm.spottedkotlin.enums.RemoteImages" />
+		<import type="it.univpm.spottedkotlin.enums.RemoteImages"/>
+		<variable name = "viewModel"
+			type = "it.univpm.spottedkotlin.viewmodel.SignUpViewModel"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +47,7 @@
 							android:layout_width="match_parent"
 							android:layout_height="40dp"
 							android:fontFamily="@font/lato_bold"
-							android:text="@string/sign_in"
+							android:text="@string/sign_up"
 							android:textAlignment="center"
 							android:textColor="@color/black"
 							android:textSize="28sp"
@@ -74,7 +75,7 @@
 							android:cursorVisible="true"
 							android:ems="10"
 							android:inputType="textEmailAddress"
-							android:text="admin@admin.com"
+							android:text="@={viewModel.email}"
 							android:background="@drawable/text_view_border_grey"
 							android:padding="10dp"
 							app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +104,7 @@
 							android:ems="10"
 							android:inputType="textPassword"
 							android:padding="10dp"
-							android:text=""
+							android:text="@={viewModel.password}"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintHorizontal_bias="0.0"
 							app:layout_constraintStart_toStartOf="parent"
@@ -116,6 +117,7 @@
 							android:layout_marginTop="12dp"
 							android:text="@string/registrati"
 							app:cornerRadius="60dp"
+							android:onClickListener="@{()->viewModel.signUp()}"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintHorizontal_bias="0.0"
 							app:layout_constraintStart_toStartOf="parent"
@@ -198,6 +200,7 @@
 							android:background="@drawable/text_view_border_grey"
 							android:ems="10"
 							android:inputType="textPassword"
+							android:text="@={viewModel.repeat_password}"
 							android:padding="10dp"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintHorizontal_bias="0.0"
