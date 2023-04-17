@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,13 +26,12 @@ import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
-import org.osmdroid.views.CustomZoomButtonsController.OnZoomListener
-import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.ItemizedIconOverlay
 import org.osmdroid.views.overlay.ItemizedIconOverlay.OnItemGestureListener
 import org.osmdroid.views.overlay.OverlayItem
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 import kotlin.concurrent.thread
+import kotlin.coroutines.coroutineContext
 
 
 class MapFragment : Fragment() {
@@ -62,24 +62,53 @@ class MapFragment : Fragment() {
 		val startPoint = GeoPoint(43.6100, 13.5134)
 
 		val items = ItemizedIconOverlay(
-			requireContext(), loadMarkers(),object : OnItemGestureListener<OverlayItem> {
+			requireContext(), loadMarkers(), object : OnItemGestureListener<OverlayItem> {
 				override fun onItemSingleTapUp(index: Int, item: OverlayItem?): Boolean {
 					Toast.makeText(context, "$index", Toast.LENGTH_SHORT).show()
 					return true
 				}
+
 				override fun onItemLongPress(index: Int, item: OverlayItem?): Boolean = true
 			}
 		)
 
+		val startZoom = 14.0
 		map.overlays.add(items)
 		mapController.setCenter(startPoint)
-		mapController.animateTo(startPoint, 14.0, 1200)
-
+		mapController.animateTo(startPoint, startZoom, 1200)
+		val startTime = System.currentTimeMillis()
 		map.overlays.add(MyLocationNewOverlay(map))
 
 		map.setOnPanAndZoomListener(object : OnPanAndZoomListener {
+			override fun onDraw(geo: GeoPoint) {
+				if (System.currentTimeMillis() - startTime < 2000)
+					return
+				val halfWidth = map.longitudeSpanDouble / 2
+				val left = geo.longitude - map.longitudeSpanDouble / 2
+				val right = geo.longitude + map.longitudeSpanDouble / 2
+				val minLeft = startPoint.longitude - 0.12 / 2
+				val maxRight = startPoint.longitude + 0.12 / 2
+
+				if (left < minLeft) {
+					mapController.stopAnimation(false)
+					mapController.animateTo(
+						GeoPoint(
+							geo.latitude,
+							minLeft + halfWidth
+						), map.zoomLevelDouble, 250
+					)
+				} else if (right > maxRight) {
+					mapController.stopAnimation(false)
+					mapController.animateTo(
+						GeoPoint(
+							geo.latitude,
+							maxRight - halfWidth
+						), map.zoomLevelDouble, 250
+					)
+				}
+			}
+
 			override fun onPan(geo: GeoPoint) {
-				// USE map.latitudeSpanDouble TO ANIMATE THE RETURN TO THE BOUND LIMIT
 			}
 
 			override fun onZoom(zoom: Int) {
@@ -93,7 +122,11 @@ class MapFragment : Fragment() {
 		val markers = mutableListOf<OverlayItem>()
 		for (i in 0..9) {
 			markers.add(
-				OverlayItem("Tizio", "Tizio", GeoPoint(43.6100+Math.random()*0.025, 13.5134+Math.random()*0.025)).apply {
+				OverlayItem(
+					"Tizio",
+					"Tizio",
+					GeoPoint(43.6100 + Math.random() * 0.025, 13.5134 + Math.random() * 0.025)
+				).apply {
 					val marker =
 						requireContext().loadDrawable(R.drawable.map_marker) as BitmapDrawable
 					setMarker(
@@ -101,6 +134,7 @@ class MapFragment : Fragment() {
 							resources, Bitmap.createScaledBitmap(marker.bitmap, 55, 55, true)
 						)
 					)
+
 					thread {
 						val bitmap = BitmapManager.overlay(
 							RemoteImages.MAP_MARKER.load(),
