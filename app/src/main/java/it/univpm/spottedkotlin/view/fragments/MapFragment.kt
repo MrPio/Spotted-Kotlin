@@ -15,14 +15,17 @@ import androidx.fragment.app.viewModels
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.MapFragmentBinding
 import it.univpm.spottedkotlin.enums.RemoteImages
+import it.univpm.spottedkotlin.extension.MyMapView
 import it.univpm.spottedkotlin.extension.function.checkAndAskPermission
 import it.univpm.spottedkotlin.extension.function.loadDrawable
+import it.univpm.spottedkotlin.interfaces.OnPanAndZoomListener
 import it.univpm.spottedkotlin.managers.BitmapManager
 import it.univpm.spottedkotlin.viewmodel.MapViewModel
 import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.CustomZoomButtonsController.OnZoomListener
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.ItemizedIconOverlay
 import org.osmdroid.views.overlay.ItemizedIconOverlay.OnItemGestureListener
@@ -34,7 +37,7 @@ import kotlin.concurrent.thread
 class MapFragment : Fragment() {
 	private lateinit var binding: MapFragmentBinding
 	private val viewModel: MapViewModel by viewModels()
-	private lateinit var map: MapView
+	private lateinit var map: MyMapView
 	private lateinit var mapController: IMapController
 
 	override fun onCreateView(
@@ -73,6 +76,15 @@ class MapFragment : Fragment() {
 		mapController.animateTo(startPoint, 14.0, 1200)
 
 		map.overlays.add(MyLocationNewOverlay(map))
+
+		map.setOnPanAndZoomListener(object : OnPanAndZoomListener {
+			override fun onPan(geo: GeoPoint) {
+				// USE map.latitudeSpanDouble TO ANIMATE THE RETURN TO THE BOUND LIMIT
+			}
+
+			override fun onZoom(zoom: Int) {
+			}
+		})
 
 		return binding.root
 	}
