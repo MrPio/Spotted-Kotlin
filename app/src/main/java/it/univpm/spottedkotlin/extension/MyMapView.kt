@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.Toast
+import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.interfaces.OnPanAndZoomListener
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -26,7 +27,7 @@ class MyMapView(context: Context?, attrs: AttributeSet?) : MapView(context, attr
 			overlays.add(markers)
 		}
 
-	fun loadMarkers(context: Context?, markers: List<OverlayItem>, onTap: ((Int) -> Unit)? = null) {
+	fun showMarkers(context: Context?, markers: List<OverlayItem>, onTap: ((Int) -> Unit)? = null) {
 		this.markers = ItemizedIconOverlay(context, markers,
 			object : ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
 				override fun onItemSingleTapUp(index: Int, item: OverlayItem?): Boolean {

@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.MapFragmentBinding
 import it.univpm.spottedkotlin.enums.RemoteImages
+import it.univpm.spottedkotlin.extension.MultiOverlayItem
 import it.univpm.spottedkotlin.extension.MyMapView
 import it.univpm.spottedkotlin.extension.function.checkAndAskPermission
 import it.univpm.spottedkotlin.extension.function.loadDrawable
@@ -39,8 +40,11 @@ class MapFragment : Fragment() {
 	private lateinit var binding: MapFragmentBinding
 	private val viewModel: MapViewModel by viewModels()
 	private lateinit var markers: List<OverlayItem>
+	private val multiItems: MutableList<OverlayItem> = mutableListOf()
 	private lateinit var map: MyMapView
 	private lateinit var mapController: IMapController
+	private lateinit var markerPlaceholder: BitmapDrawable
+
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -51,21 +55,28 @@ class MapFragment : Fragment() {
 		binding = MapFragmentBinding.inflate(inflater, container, false)
 
 		map = binding.mapMap
-		markers = loadMarkers()
+		mapController = map.controller
+		markerPlaceholder = BitmapDrawable(
+			resources,
+			Bitmap.createScaledBitmap(
+				(requireContext().loadDrawable(R.drawable.map_marker) as BitmapDrawable).bitmap,
+				55,
+				55,
+				true
+			)
+		)
+
+		loadMarkers()
 		map.setTileSource(TileSourceFactory.MAPNIK)
 		map.setBuiltInZoomControls(false)
 		map.setMultiTouchControls(true)
 
 		map.minZoomLevel = 13.0
-		map.maxZoomLevel = 16.0
-		mapController = map.controller
+		map.maxZoomLevel = 19.0
 		mapController.setZoom(13.0)
 		val startPoint = GeoPoint(43.6100, 13.5134)
 
-		map.loadMarkers(context, markers) {
-			// MARKER - OnClickListener
-			Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
-		}
+//		map.showMarkers(context, markers, ::onMarkerClick)
 
 		val startZoom = 14.0
 		mapController.setCenter(startPoint)
@@ -128,27 +139,76 @@ class MapFragment : Fragment() {
 			}
 
 			override fun onZoom(zoom: Int) {
-				val zooms = mapOf(13 to 1500, 14 to 1000, 15 to 600, 16 to 0)
+				val zooms = mapOf(
+					13 to 1000,
+					14 to 1000,
+					15 to 600,
+					16 to 400,
+					17 to 200,
+					18 to 100,
+					19 to 0
+				)
 				if (markers.size < 2) return
+
+				multiItems.clear()
+				val scanned: MutableList<OverlayItem> = mutableListOf()
 				for (first in markers) {
+					if (first in scanned)
+						continue
+					val nearby: MutableSet<OverlayItem> = mutableSetOf()
 					for (second in markers) {
-						if (first == second) continue
 						val distance = (first.point as GeoPoint).distanceToAsDouble(second.point)
-						if (distance < (zooms[zoom] ?: 0)) {
-							//MULTI OVERLAY ITEM HERE
-						}
+						if (distance < (zooms[zoom] ?: 0))
+							nearby.add(second)
+					}
+					if (nearby.size > 1) {
+						multiItems.add(
+							MultiOverlayItem(first.title, first.snippet, nearby, markerPlaceholder)
+						)
+						scanned.addAll(nearby)
 					}
 				}
+				multiItems.addAll(markers.filter { !scanned.contains(it) })
+
+				thread {
+					val whiteCircleBitmap = RemoteImages.CIRCLE_WHITE.load()
+					val markerBitmap = RemoteImages.MAP_MARKER.load()
+					try {
+						for (item in multiItems) {
+							if (item !is MultiOverlayItem)
+								continue
+							val bitmap = BitmapManager.overlay(
+								markerBitmap,
+								whiteCircleBitmap,
+								RemoteImages.AVATAR_20.load(),
+							)
+							item.setMarker(
+								BitmapDrawable(
+									resources, Bitmap.createScaledBitmap(bitmap, 160, 160, true)
+								)
+							)
+						}
+					} catch (_: ConcurrentModificationException) { }
+					map.invalidate()
+				}
+				map.showMarkers(context, multiItems, ::onMultiMarkerClick)
 			}
 		})
 
 		return binding.root
 	}
 
-	private fun loadMarkers(): MutableList<OverlayItem> {
+	private fun onMarkerClick(index: Int) {
+		Toast.makeText(context, "$index", Toast.LENGTH_SHORT).show()
+	}
+
+	private fun onMultiMarkerClick(index: Int) {
+		Toast.makeText(context, "$index", Toast.LENGTH_SHORT).show()
+	}
+
+	private fun loadMarkers() {
 		val markers = mutableListOf<OverlayItem>()
 		//Il drawable del segnalino
-		val marker = requireContext().loadDrawable(R.drawable.map_marker) as BitmapDrawable
 		for (i in 0..49) {
 			val item = OverlayItem(
 				"Tizio",
@@ -157,11 +217,7 @@ class MapFragment : Fragment() {
 			)
 
 			// Setto il placeholder del segnalino
-			item.setMarker(
-				BitmapDrawable(
-					resources, Bitmap.createScaledBitmap(marker.bitmap, 55, 55, true)
-				)
-			)
+			item.setMarker(markerPlaceholder)
 			markers.add(item)
 		}
 		thread {
@@ -180,7 +236,7 @@ class MapFragment : Fragment() {
 				)
 			}
 		}
-		return markers
+		this.markers = markers
 	}
 
 	override fun onResume() {
