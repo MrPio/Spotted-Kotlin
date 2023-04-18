@@ -14,8 +14,11 @@ import kotlin.concurrent.thread
 
 object BitmapManager {
 	fun load(img: RemoteImages): Bitmap =
-//		Picasso.get().load(img.url).get()
-		Picasso.get().load(img.url).noFade().noPlaceholder().get()
+		try {
+			Picasso.get().load(img.url).networkPolicy(NetworkPolicy.OFFLINE).get()
+		} catch (e: Exception) {
+			Picasso.get().load(img.url).get()
+		}
 
 	fun overlay(marker: Bitmap, circle: Bitmap, avatar: Bitmap): Bitmap {
 		val bmOverlay = Bitmap.createBitmap(marker.width, marker.height, marker.config)

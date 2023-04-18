@@ -41,9 +41,7 @@ class MapFragment : Fragment() {
 	private lateinit var mapController: IMapController
 
 	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 	): View {
 		requireActivity().checkAndAskPermission(WRITE_EXTERNAL_STORAGE, ACCESS_FINE_LOCATION)
 		Configuration.getInstance()
@@ -61,19 +59,12 @@ class MapFragment : Fragment() {
 		mapController.setZoom(13.0)
 		val startPoint = GeoPoint(43.6100, 13.5134)
 
-		val items = ItemizedIconOverlay(
-			requireContext(), loadMarkers(), object : OnItemGestureListener<OverlayItem> {
-				override fun onItemSingleTapUp(index: Int, item: OverlayItem?): Boolean {
-					Toast.makeText(context, "$index", Toast.LENGTH_SHORT).show()
-					return true
-				}
-
-				override fun onItemLongPress(index: Int, item: OverlayItem?): Boolean = true
-			}
-		)
+		map.loadMarkers(context,loadMarkers()){
+			// MARKER - OnClickListener
+			Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+		}
 
 		val startZoom = 14.0
-		map.overlays.add(items)
 		mapController.setCenter(startPoint)
 		mapController.animateTo(startPoint, startZoom, 1200)
 		val startTime = System.currentTimeMillis()
@@ -81,29 +72,53 @@ class MapFragment : Fragment() {
 
 		map.setOnPanAndZoomListener(object : OnPanAndZoomListener {
 			override fun onDraw(geo: GeoPoint) {
-				if (System.currentTimeMillis() - startTime < 2000)
-					return
-				val halfWidth = map.longitudeSpanDouble / 2
-				val left = geo.longitude - map.longitudeSpanDouble / 2
-				val right = geo.longitude + map.longitudeSpanDouble / 2
-				val minLeft = startPoint.longitude - 0.12 / 2
-				val maxRight = startPoint.longitude + 0.12 / 2
+				if (System.currentTimeMillis() - startTime < 2000) return
+				val longitudeSpan = 0.12
+				val latitudeSpan = 0.15
 
+				val halfWidth = map.longitudeSpanDouble / 2
+				val left = geo.longitude - halfWidth
+				val right = geo.longitude + halfWidth
+				val minLeft = startPoint.longitude - longitudeSpan / 2
+				val maxRight = startPoint.longitude + longitudeSpan / 2
+
+				val halfHeight = map.latitudeSpanDouble / 2
+				val top = geo.latitude + halfHeight
+				val bottom = geo.latitude - halfHeight
+				val minBottom = startPoint.latitude - latitudeSpan / 2
+				val maxTop = startPoint.latitude + latitudeSpan / 2
+
+				// HORIZONTAL constraints
 				if (left < minLeft) {
-					mapController.stopAnimation(false)
+					Log.d("MY1","LEFT")
 					mapController.animateTo(
 						GeoPoint(
-							geo.latitude,
-							minLeft + halfWidth
-						), map.zoomLevelDouble, 250
+							geo.latitude, minLeft + halfWidth
+						), map.zoomLevelDouble, 200
 					)
 				} else if (right > maxRight) {
-					mapController.stopAnimation(false)
+					Log.d("MY1","RIGHT")
 					mapController.animateTo(
 						GeoPoint(
-							geo.latitude,
-							maxRight - halfWidth
-						), map.zoomLevelDouble, 250
+							geo.latitude, maxRight - halfWidth
+						), map.zoomLevelDouble, 200
+					)
+				}
+
+				// VERTICAL constraints
+				if (bottom < minBottom) {
+					Log.d("MY1","BOTTOM")
+					mapController.animateTo(
+						GeoPoint(
+							minBottom + halfHeight, geo.longitude
+						), map.zoomLevelDouble, 200
+					)
+				} else if (top > maxTop) {
+					Log.d("MY1","TOP")
+					mapController.animateTo(
+						GeoPoint(
+							maxTop - halfHeight, geo.longitude
+						), map.zoomLevelDouble, 200
 					)
 				}
 			}
@@ -112,6 +127,8 @@ class MapFragment : Fragment() {
 			}
 
 			override fun onZoom(zoom: Int) {
+				val zooms= listOf(13,14,15,16)
+
 			}
 		})
 
@@ -120,35 +137,38 @@ class MapFragment : Fragment() {
 
 	private fun loadMarkers(): MutableList<OverlayItem> {
 		val markers = mutableListOf<OverlayItem>()
-		for (i in 0..9) {
-			markers.add(
-				OverlayItem(
-					"Tizio",
-					"Tizio",
-					GeoPoint(43.6100 + Math.random() * 0.025, 13.5134 + Math.random() * 0.025)
-				).apply {
-					val marker =
-						requireContext().loadDrawable(R.drawable.map_marker) as BitmapDrawable
-					setMarker(
-						BitmapDrawable(
-							resources, Bitmap.createScaledBitmap(marker.bitmap, 55, 55, true)
-						)
-					)
+		//Il drawable del segnalino
+		val marker = requireContext().loadDrawable(R.drawable.map_marker) as BitmapDrawable
+		for (i in 0..49) {
+			val item = OverlayItem(
+				"Tizio",
+				"Tizio",
+				GeoPoint(43.6100 + Math.random() * 0.025, 13.5134 + Math.random() * 0.025)
+			)
 
-					thread {
-						val bitmap = BitmapManager.overlay(
-							RemoteImages.MAP_MARKER.load(),
-							RemoteImages.CIRCLE_WHITE.load(),
-							RemoteImages.AVATAR_23.load(),
-						)
-						setMarker(
-							BitmapDrawable(
-								resources,
-								Bitmap.createScaledBitmap(bitmap, 160, 160, true)
-							)
-						)
-					}
-				})
+			// Setto il placeholder del segnalino
+			item.setMarker(
+				BitmapDrawable(
+					resources, Bitmap.createScaledBitmap(marker.bitmap, 55, 55, true)
+				)
+			)
+			markers.add(item)
+		}
+		thread {
+			val whiteCircleBitmap = RemoteImages.CIRCLE_WHITE.load()
+			val markerBitmap = RemoteImages.MAP_MARKER.load()
+			for (item in markers) {
+				val bitmap = BitmapManager.overlay(
+					markerBitmap,
+					whiteCircleBitmap,
+					RemoteImages.AVATAR_22.load(),
+				)
+				item.setMarker(
+					BitmapDrawable(
+						resources, Bitmap.createScaledBitmap(bitmap, 160, 160, true)
+					)
+				)
+			}
 		}
 		return markers
 	}
