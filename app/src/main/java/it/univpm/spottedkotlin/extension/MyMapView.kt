@@ -18,14 +18,8 @@ class MyMapView(context: Context?, attrs: AttributeSet?) : MapView(context, attr
 	private var mListener: OnPanAndZoomListener? = null
 	private var lastDrawCall = System.currentTimeMillis()
 	private var down = false
+
 	var markers: ItemizedIconOverlay<OverlayItem>? = null
-		set(value) {
-			field = value
-			overlays.clear()
-			overlays.add(markers)
-		}
-	//PASSARE A MUTABLE SET
-	var multiMarkers: ItemizedIconOverlay<OverlayItem>? = null
 		set(value) {
 			field = value
 			overlays.clear()

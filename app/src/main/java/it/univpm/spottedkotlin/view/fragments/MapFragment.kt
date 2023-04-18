@@ -19,6 +19,7 @@ import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.MyMapView
 import it.univpm.spottedkotlin.extension.function.checkAndAskPermission
 import it.univpm.spottedkotlin.extension.function.loadDrawable
+import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.interfaces.OnPanAndZoomListener
 import it.univpm.spottedkotlin.managers.BitmapManager
 import it.univpm.spottedkotlin.viewmodel.MapViewModel
@@ -37,6 +38,7 @@ import kotlin.coroutines.coroutineContext
 class MapFragment : Fragment() {
 	private lateinit var binding: MapFragmentBinding
 	private val viewModel: MapViewModel by viewModels()
+	private lateinit var markers: List<OverlayItem>
 	private lateinit var map: MyMapView
 	private lateinit var mapController: IMapController
 
@@ -49,6 +51,7 @@ class MapFragment : Fragment() {
 		binding = MapFragmentBinding.inflate(inflater, container, false)
 
 		map = binding.mapMap
+		markers = loadMarkers()
 		map.setTileSource(TileSourceFactory.MAPNIK)
 		map.setBuiltInZoomControls(false)
 		map.setMultiTouchControls(true)
@@ -59,7 +62,7 @@ class MapFragment : Fragment() {
 		mapController.setZoom(13.0)
 		val startPoint = GeoPoint(43.6100, 13.5134)
 
-		map.loadMarkers(context,loadMarkers()){
+		map.loadMarkers(context, markers) {
 			// MARKER - OnClickListener
 			Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
 		}
@@ -72,9 +75,11 @@ class MapFragment : Fragment() {
 
 		map.setOnPanAndZoomListener(object : OnPanAndZoomListener {
 			override fun onDraw(geo: GeoPoint) {
+				// BOUNDARY CONSTRAINT
 				if (System.currentTimeMillis() - startTime < 2000) return
-				val longitudeSpan = 0.12
-				val latitudeSpan = 0.15
+				map.minZoomLevel = startZoom
+				val longitudeSpan = 0.14
+				val latitudeSpan = 0.17
 
 				val halfWidth = map.longitudeSpanDouble / 2
 				val left = geo.longitude - halfWidth
@@ -90,14 +95,12 @@ class MapFragment : Fragment() {
 
 				// HORIZONTAL constraints
 				if (left < minLeft) {
-					Log.d("MY1","LEFT")
 					mapController.animateTo(
 						GeoPoint(
 							geo.latitude, minLeft + halfWidth
 						), map.zoomLevelDouble, 200
 					)
 				} else if (right > maxRight) {
-					Log.d("MY1","RIGHT")
 					mapController.animateTo(
 						GeoPoint(
 							geo.latitude, maxRight - halfWidth
@@ -107,14 +110,12 @@ class MapFragment : Fragment() {
 
 				// VERTICAL constraints
 				if (bottom < minBottom) {
-					Log.d("MY1","BOTTOM")
 					mapController.animateTo(
 						GeoPoint(
 							minBottom + halfHeight, geo.longitude
 						), map.zoomLevelDouble, 200
 					)
 				} else if (top > maxTop) {
-					Log.d("MY1","TOP")
 					mapController.animateTo(
 						GeoPoint(
 							maxTop - halfHeight, geo.longitude
@@ -127,8 +128,17 @@ class MapFragment : Fragment() {
 			}
 
 			override fun onZoom(zoom: Int) {
-				val zooms= listOf(13,14,15,16)
-
+				val zooms = mapOf(13 to 1500, 14 to 1000, 15 to 600, 16 to 0)
+				if (markers.size < 2) return
+				for (first in markers) {
+					for (second in markers) {
+						if (first == second) continue
+						val distance = (first.point as GeoPoint).distanceToAsDouble(second.point)
+						if (distance < (zooms[zoom] ?: 0)) {
+							//MULTI OVERLAY ITEM HERE
+						}
+					}
+				}
 			}
 		})
 
