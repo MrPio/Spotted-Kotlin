@@ -4,7 +4,11 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.firebase.auth.FirebaseAuth
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import it.univpm.spottedkotlin.enums.RemoteImages
@@ -13,72 +17,71 @@ import kotlinx.coroutines.tasks.await
 
 
 object AccountManager {
-	private lateinit var auth : FirebaseAuth
+	private val auth=Firebase.auth
 	lateinit var oneTapClient: SignInClient
 	lateinit var signInRequest: BeginSignInRequest
 
-	/*lateinit*/ var user: User= User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply { uid = "Lj1dlqZAREdLnzjsJ6mM2F08SnUc" }
+	var user: User = User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply {
+		uid = "Lj1dlqZAREdLnzjsJ6mM2F08SnUc"
+	}
 
 	//SALVARE IN MEMORIA L'ID (MANAGER I/O con chiave valore e chiave uid)
 
 	fun cacheLogin(): User? = null
 
-
-	suspend fun login(email:String, password: String) {
-		auth = Firebase.auth
-		val authresult  = auth.signInWithEmailAndPassword(email, password).await()
-		if (authresult != null) {
-			// Sign in success, update UI with the signed-in user's information
-			user = DatabaseManager.get("users/${auth.currentUser?.uid}")!!
+	private suspend fun handleAuthResult(authResult: AuthResult?) {
+		if (authResult != null) {
+			println(authResult.user?.uid)
+			val user: User? = DatabaseManager.get("users/${authResult.user?.uid}")
+			if (user != null) {
+				this.user = user
+			} else {
+				// Utente NON trovato in FirebaseRealtimeDatabase
+				throw Exception("user not found in database")
+			}
+		} else {
+			throw Exception("user not found in auth")
+			// Utente NON trovato in FirebaseAuth
 		}
+	}
 
-		else {
-			// If sign in fails, display a message to the user.
-			//TODO(user non loggato == MESSAGGIO DI ERRORE)
-
-			/*3 casi  ERRORE SPECIFICO
-			-trovato
-			-trovato ma non nel database
-			-non trovato*/
-			}
+	suspend fun login(email: String, password: String) {
+		val authResult = auth.signInWithEmailAndPassword(email,password).await()
+		handleAuthResult(authResult)
+	}
+	suspend fun login(account: GoogleSignInAccount) {
+		val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+		val authResult = auth.signInWithCredential(credential).await()
+		handleAuthResult(authResult)
 	}
 
 
-
-	fun signup(email:String, password: String){
-
-		auth = Firebase.auth
-
-
+	fun signup(email: String, password: String) {
 		auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener() { task ->
-				if (task.isSuccessful) {
-					// Sign in success, update UI with the signed-in user's information
+			if (task.isSuccessful) {
+				// Sign in success, update UI with the signed-in user's information
 
-					//Creo un nuovo utente  TODO(mettere più info e nome vero)
-					val newUser = User("Dario","Second")
-					newUser.uid = auth.currentUser?.uid
+				//Creo un nuovo utente  TODO(mettere più info e nome vero)
+				val newUser = User("Dario", "Second")
+				newUser.uid = auth.currentUser?.uid
 
-					//Lo metto nel Database
-					DatabaseManager.put("users/${newUser.uid}", newUser)
+				//Lo metto nel Database
+				DatabaseManager.put("users/${newUser.uid}", newUser)
 
-					//Imposto lo user corrente come nuovo User
-					user=newUser
+				//Imposto lo user corrente come nuovo User
+				user = newUser
 
-					//Invio una mail per la verifica
-					auth.currentUser!!.sendEmailVerification()
-						.addOnCompleteListener { task ->
-							if (task.isSuccessful) {
-								Log.d(TAG, "Email sent.")
-							}
+				//Invio una mail per la verifica
+				auth.currentUser!!.sendEmailVerification()
+					.addOnCompleteListener { task ->
+						if (task.isSuccessful) {
+							Log.d(TAG, "Email sent.")
 						}
-				} else {
-
-
-
-				}
+					}
+			} else {
 			}
+		}
 	}
-
 
 
 	suspend fun google_login() {
