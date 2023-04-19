@@ -12,6 +12,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -54,6 +57,10 @@ class SignUpFragment : Fragment() {
 
         binding.doLoginText.setOnClickListener {
             binding.root.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
+
+        binding.googleSignupButton.setOnClickListener {
+          //google button
         }
 
         return binding.root
@@ -141,6 +148,8 @@ class SignUpFragment : Fragment() {
             }
         }
     }
+
+
 
 
 }

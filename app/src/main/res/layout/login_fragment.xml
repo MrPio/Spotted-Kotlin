@@ -74,11 +74,11 @@
 							android:layout_width = "match_parent"
 							android:layout_height = "50dp"
 							android:layout_marginTop = "4dp"
-							android:background = "@drawable/text_view_border_grey"
 							android:ems = "10"
 							android:inputType = "textEmailAddress"
-							android:padding = "10dp"
+							android:padding="10dp"
 							android:text = "@={viewModel.email}"
+							android:background="@drawable/text_view_border_grey"
 							app:layout_constraintEnd_toEndOf = "parent"
 							app:layout_constraintHorizontal_bias = "0.0"
 							app:layout_constraintStart_toStartOf = "parent"
@@ -103,11 +103,11 @@
 							android:layout_width = "match_parent"
 							android:layout_height = "50dp"
 							android:layout_marginTop = "36dp"
-							android:background = "@drawable/text_view_border_grey"
 							android:ems = "10"
 							android:inputType = "textPassword"
-							android:padding = "10dp"
 							android:text = "@={viewModel.password}"
+							android:padding="10dp"
+							android:background="@drawable/text_view_border_grey"
 							app:layout_constraintEnd_toEndOf = "parent"
 							app:layout_constraintHorizontal_bias = "0.0"
 							app:layout_constraintStart_toStartOf = "parent"
@@ -118,13 +118,13 @@
 							android:layout_width = "match_parent"
 							android:layout_height = "wrap_content"
 							android:layout_marginTop = "20dp"
-							android:onClickListener = "@{()->viewModel.login()}"
 							android:text = "@string/login"
 							app:cornerRadius = "60dp"
 							app:layout_constraintEnd_toEndOf = "parent"
 							app:layout_constraintStart_toStartOf = "parent"
-							app:layout_constraintTop_toBottomOf = "@+id/TextPassword"/>
-						<!--   SAM sigle abstract method	-->
+							app:layout_constraintTop_toBottomOf = "@+id/TextPassword"
+							android:onClickListener="@{()->viewModel.login()}"/>
+							<!--   SAM sigle abstract method	-->
 						<View
 							android:id = "@+id/divider"
 							android:layout_width = "match_parent"
@@ -159,7 +159,7 @@
 							app:layout_constraintEnd_toEndOf = "parent"
 							app:layout_constraintHorizontal_bias = "0.0"
 							app:layout_constraintStart_toStartOf = "parent"
-							app:layout_constraintTop_toBottomOf = "@+id/button3"/>
+							app:layout_constraintTop_toBottomOf = "@+id/google_login_button"/>
 
 						<TextView
 							android:id = "@+id/register_text"
@@ -178,10 +178,8 @@
 							app:layout_constraintTop_toBottomOf = "@+id/not_registred"
 							app:layout_constraintVertical_bias = "0.636"/>
 
-
-
 						<Button
-							android:id = "@+id/login_google"
+							android:id = "@+id/google_login_button"
 							android:layout_width = "50dp"
 							android:layout_height = "60dp"
 							android:layout_marginTop = "8dp"
