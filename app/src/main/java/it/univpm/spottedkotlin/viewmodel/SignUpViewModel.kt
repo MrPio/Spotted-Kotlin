@@ -2,6 +2,8 @@ package it.univpm.spottedkotlin.viewmodel
 
 import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.managers.AccountManager
+import it.univpm.spottedkotlin.managers.DataManager
+import it.univpm.spottedkotlin.managers.DatabaseManager
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
@@ -16,9 +18,9 @@ class SignUpViewModel : ViewModel() {
     //Almost 6 character
     private val MIN_LENGHT : Int = 6
 
-    var email:String =""
-    var password : String =""
-    var repeat_password : String =""
+    var email:String ="secondario69@gmail.com"
+    var password : String ="aA0%aa"
+    var repeat_password : String ="aA0%aa"
     lateinit var goToMainActivityCallback : ()->Unit
 
 
@@ -78,4 +80,8 @@ class SignUpViewModel : ViewModel() {
         catch (/*mia eccezione*/ e:Exception){}
 
     }
+
+
+
+
 }

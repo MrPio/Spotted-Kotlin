@@ -7,10 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.Plexuses
+import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.model.Filter
 
 class HomeViewModel() : ViewModel() {
 	lateinit var reloadCallback: () -> Unit
+
+	var name : String? = AccountManager.user.name
+
 	private val subtitles = listOf(
 		R.string.home_ingegneria_subtitle,
 		R.string.home_agraria_subtitle,

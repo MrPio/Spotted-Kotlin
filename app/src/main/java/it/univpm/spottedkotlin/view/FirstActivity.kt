@@ -8,7 +8,6 @@ import it.univpm.spottedkotlin.extension.function.metrics
 import it.univpm.spottedkotlin.managers.DeviceManager
 import it.univpm.spottedkotlin.viewmodel.FirstActivityViewModel
 
-
 class FirstActivity : AppCompatActivity() {
 
     lateinit var binding: FirstActivityBinding
@@ -21,12 +20,7 @@ class FirstActivity : AppCompatActivity() {
         binding = FirstActivityBinding.inflate(layoutInflater)
 
         //TODO() transizione a MainActivity se utente già loggato
-
         setContentView(binding.root)
         binding.viewModel = viewModel
     }
-
-
-
-
 }
