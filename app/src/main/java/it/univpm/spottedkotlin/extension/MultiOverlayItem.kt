@@ -9,8 +9,8 @@ import org.osmdroid.views.overlay.OverlayItem
 class MultiOverlayItem(
 	title: String,
 	snippet: String,
-	markers: MutableSet<OverlayItem>,
-	drawable: BitmapDrawable
+	val markers: MutableSet<OverlayItem>,
+	val drawable: BitmapDrawable
 ) :
 	OverlayItem(
 		title,
@@ -21,7 +21,6 @@ class MultiOverlayItem(
 	) {
 
 	init {
-		//LOAD DRAWABLE AND CLICK LISTENER HERE
 		setMarker(drawable)
 	}
 }

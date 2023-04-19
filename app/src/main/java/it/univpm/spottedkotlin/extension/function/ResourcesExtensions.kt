@@ -1,6 +1,8 @@
 package it.univpm.spottedkotlin.extension.function
 
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import java.io.InputStream
 
 fun Resources.loadTxt(res: Int): String? {
@@ -13,3 +15,6 @@ fun Resources.loadTxt(res: Int): String? {
 		null
 	}
 }
+
+fun Resources.loadBitmap(img: Int): Bitmap =
+	BitmapFactory.decodeResource(this, img);

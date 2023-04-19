@@ -6,7 +6,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +14,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.MapFragmentBinding
+import it.univpm.spottedkotlin.enums.Numbers
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.MultiOverlayItem
 import it.univpm.spottedkotlin.extension.MyMapView
 import it.univpm.spottedkotlin.extension.function.checkAndAskPermission
+import it.univpm.spottedkotlin.extension.function.loadBitmap
 import it.univpm.spottedkotlin.extension.function.loadDrawable
-import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.interfaces.OnPanAndZoomListener
 import it.univpm.spottedkotlin.managers.BitmapManager
 import it.univpm.spottedkotlin.viewmodel.MapViewModel
@@ -28,12 +28,9 @@ import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
-import org.osmdroid.views.overlay.ItemizedIconOverlay
-import org.osmdroid.views.overlay.ItemizedIconOverlay.OnItemGestureListener
 import org.osmdroid.views.overlay.OverlayItem
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 import kotlin.concurrent.thread
-import kotlin.coroutines.coroutineContext
 
 
 class MapFragment : Fragment() {
@@ -75,9 +72,6 @@ class MapFragment : Fragment() {
 		map.maxZoomLevel = 19.0
 		mapController.setZoom(13.0)
 		val startPoint = GeoPoint(43.6100, 13.5134)
-
-//		map.showMarkers(context, markers, ::onMarkerClick)
-
 		val startZoom = 14.0
 		mapController.setCenter(startPoint)
 		mapController.animateTo(startPoint, startZoom, 1200)
@@ -142,10 +136,10 @@ class MapFragment : Fragment() {
 				val zooms = mapOf(
 					13 to 1000,
 					14 to 1000,
-					15 to 600,
-					16 to 400,
-					17 to 200,
-					18 to 100,
+					15 to 500,
+					16 to 350,
+					17 to 150,
+					18 to 0,
 					19 to 0
 				)
 				if (markers.size < 2) return
@@ -177,10 +171,12 @@ class MapFragment : Fragment() {
 						for (item in multiItems) {
 							if (item !is MultiOverlayItem)
 								continue
+							val size = item.markers.size
 							val bitmap = BitmapManager.overlay(
 								markerBitmap,
 								whiteCircleBitmap,
-								RemoteImages.AVATAR_20.load(),
+								resources.loadBitmap(Numbers.values()[(size / 10) % 10].res),
+								resources.loadBitmap(Numbers.values()[size % 10].res)
 							)
 							item.setMarker(
 								BitmapDrawable(
@@ -188,10 +184,11 @@ class MapFragment : Fragment() {
 								)
 							)
 						}
-					} catch (_: ConcurrentModificationException) { }
+					} catch (_: ConcurrentModificationException) {
+					}
 					map.invalidate()
 				}
-				map.showMarkers(context, multiItems, ::onMultiMarkerClick)
+				map.showMarkers(context, multiItems, ::onMarkerClick)
 			}
 		})
 
@@ -199,11 +196,9 @@ class MapFragment : Fragment() {
 	}
 
 	private fun onMarkerClick(index: Int) {
-		Toast.makeText(context, "$index", Toast.LENGTH_SHORT).show()
-	}
-
-	private fun onMultiMarkerClick(index: Int) {
-		Toast.makeText(context, "$index", Toast.LENGTH_SHORT).show()
+		val item = multiItems[index]
+		if (item is MultiOverlayItem)
+			mapController.animateTo(item.point, map.zoomLevelDouble + 1.0, 400)
 	}
 
 	private fun loadMarkers() {
