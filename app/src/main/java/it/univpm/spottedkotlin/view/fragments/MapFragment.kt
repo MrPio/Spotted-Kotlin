@@ -14,9 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.MapFragmentBinding
+import it.univpm.spottedkotlin.enums.Numbers
 import it.univpm.spottedkotlin.enums.RemoteImages
+import it.univpm.spottedkotlin.extension.MultiOverlayItem
 import it.univpm.spottedkotlin.extension.MyMapView
 import it.univpm.spottedkotlin.extension.function.checkAndAskPermission
+import it.univpm.spottedkotlin.extension.function.loadBitmap
 import it.univpm.spottedkotlin.extension.function.loadDrawable
 import it.univpm.spottedkotlin.interfaces.OnPanAndZoomListener
 import it.univpm.spottedkotlin.managers.BitmapManager
@@ -25,10 +28,6 @@ import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
-import org.osmdroid.views.CustomZoomButtonsController.OnZoomListener
-import org.osmdroid.views.MapView
-import org.osmdroid.views.overlay.ItemizedIconOverlay
-import org.osmdroid.views.overlay.ItemizedIconOverlay.OnItemGestureListener
 import org.osmdroid.views.overlay.OverlayItem
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 import kotlin.concurrent.thread
@@ -37,13 +36,15 @@ import kotlin.concurrent.thread
 class MapFragment : Fragment() {
 	private lateinit var binding: MapFragmentBinding
 	private val viewModel: MapViewModel by viewModels()
+	private lateinit var markers: List<OverlayItem>
+	private val multiItems: MutableList<OverlayItem> = mutableListOf()
 	private lateinit var map: MyMapView
 	private lateinit var mapController: IMapController
+	private lateinit var markerPlaceholder: BitmapDrawable
+
 
 	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 	): View {
 		requireActivity().checkAndAskPermission(WRITE_EXTERNAL_STORAGE, ACCESS_FINE_LOCATION)
 		Configuration.getInstance()
@@ -51,72 +52,186 @@ class MapFragment : Fragment() {
 		binding = MapFragmentBinding.inflate(inflater, container, false)
 
 		map = binding.mapMap
+		mapController = map.controller
+		markerPlaceholder = BitmapDrawable(
+			resources,
+			Bitmap.createScaledBitmap(
+				(requireContext().loadDrawable(R.drawable.map_marker) as BitmapDrawable).bitmap,
+				55,
+				55,
+				true
+			)
+		)
+
+		loadMarkers()
 		map.setTileSource(TileSourceFactory.MAPNIK)
 		map.setBuiltInZoomControls(false)
 		map.setMultiTouchControls(true)
 
 		map.minZoomLevel = 13.0
-		map.maxZoomLevel = 16.0
-		mapController = map.controller
+		map.maxZoomLevel = 19.0
 		mapController.setZoom(13.0)
 		val startPoint = GeoPoint(43.6100, 13.5134)
-
-		val items = ItemizedIconOverlay(
-			requireContext(), loadMarkers(),object : OnItemGestureListener<OverlayItem> {
-				override fun onItemSingleTapUp(index: Int, item: OverlayItem?): Boolean {
-					Toast.makeText(context, "$index", Toast.LENGTH_SHORT).show()
-					return true
-				}
-				override fun onItemLongPress(index: Int, item: OverlayItem?): Boolean = true
-			}
-		)
-
-		map.overlays.add(items)
+		val startZoom = 14.0
 		mapController.setCenter(startPoint)
-		mapController.animateTo(startPoint, 14.0, 1200)
-
+		mapController.animateTo(startPoint, startZoom, 1200)
+		val startTime = System.currentTimeMillis()
 		map.overlays.add(MyLocationNewOverlay(map))
 
 		map.setOnPanAndZoomListener(object : OnPanAndZoomListener {
+			override fun onDraw(geo: GeoPoint) {
+				// BOUNDARY CONSTRAINT
+				if (System.currentTimeMillis() - startTime < 2000) return
+				map.minZoomLevel = startZoom
+				val longitudeSpan = 0.14
+				val latitudeSpan = 0.17
+
+				val halfWidth = map.longitudeSpanDouble / 2
+				val left = geo.longitude - halfWidth
+				val right = geo.longitude + halfWidth
+				val minLeft = startPoint.longitude - longitudeSpan / 2
+				val maxRight = startPoint.longitude + longitudeSpan / 2
+
+				val halfHeight = map.latitudeSpanDouble / 2
+				val top = geo.latitude + halfHeight
+				val bottom = geo.latitude - halfHeight
+				val minBottom = startPoint.latitude - latitudeSpan / 2
+				val maxTop = startPoint.latitude + latitudeSpan / 2
+
+				// HORIZONTAL constraints
+				if (left < minLeft) {
+					mapController.animateTo(
+						GeoPoint(
+							geo.latitude, minLeft + halfWidth
+						), map.zoomLevelDouble, 200
+					)
+				} else if (right > maxRight) {
+					mapController.animateTo(
+						GeoPoint(
+							geo.latitude, maxRight - halfWidth
+						), map.zoomLevelDouble, 200
+					)
+				}
+
+				// VERTICAL constraints
+				if (bottom < minBottom) {
+					mapController.animateTo(
+						GeoPoint(
+							minBottom + halfHeight, geo.longitude
+						), map.zoomLevelDouble, 200
+					)
+				} else if (top > maxTop) {
+					mapController.animateTo(
+						GeoPoint(
+							maxTop - halfHeight, geo.longitude
+						), map.zoomLevelDouble, 200
+					)
+				}
+			}
+
 			override fun onPan(geo: GeoPoint) {
-				// USE map.latitudeSpanDouble TO ANIMATE THE RETURN TO THE BOUND LIMIT
 			}
 
 			override fun onZoom(zoom: Int) {
+				val zooms = mapOf(
+					13 to 1000,
+					14 to 1000,
+					15 to 500,
+					16 to 350,
+					17 to 150,
+					18 to 0,
+					19 to 0
+				)
+				if (markers.size < 2) return
+
+				multiItems.clear()
+				val scanned: MutableList<OverlayItem> = mutableListOf()
+				for (first in markers) {
+					if (first in scanned)
+						continue
+					val nearby: MutableSet<OverlayItem> = mutableSetOf()
+					for (second in markers) {
+						val distance = (first.point as GeoPoint).distanceToAsDouble(second.point)
+						if (distance < (zooms[zoom] ?: 0))
+							nearby.add(second)
+					}
+					if (nearby.size > 1) {
+						multiItems.add(
+							MultiOverlayItem(first.title, first.snippet, nearby, markerPlaceholder)
+						)
+						scanned.addAll(nearby)
+					}
+				}
+				multiItems.addAll(markers.filter { !scanned.contains(it) })
+
+				thread {
+					val whiteCircleBitmap = RemoteImages.CIRCLE_WHITE.load()
+					val markerBitmap = RemoteImages.MAP_MARKER.load()
+					try {
+						for (item in multiItems) {
+							if (item !is MultiOverlayItem)
+								continue
+							val size = item.markers.size
+							val bitmap = BitmapManager.overlay(
+								markerBitmap,
+								whiteCircleBitmap,
+								resources.loadBitmap(Numbers.values()[(size / 10) % 10].res),
+								resources.loadBitmap(Numbers.values()[size % 10].res)
+							)
+							item.setMarker(
+								BitmapDrawable(
+									resources, Bitmap.createScaledBitmap(bitmap, 160, 160, true)
+								)
+							)
+						}
+					} catch (_: ConcurrentModificationException) {
+					}
+					map.invalidate()
+				}
+				map.showMarkers(context, multiItems, ::onMarkerClick)
 			}
 		})
 
 		return binding.root
 	}
 
-	private fun loadMarkers(): MutableList<OverlayItem> {
+	private fun onMarkerClick(index: Int) {
+		val item = multiItems[index]
+		if (item is MultiOverlayItem)
+			mapController.animateTo(item.point, map.zoomLevelDouble + 1.0, 400)
+	}
+
+	private fun loadMarkers() {
 		val markers = mutableListOf<OverlayItem>()
-		for (i in 0..9) {
-			markers.add(
-				OverlayItem("Tizio", "Tizio", GeoPoint(43.6100+Math.random()*0.025, 13.5134+Math.random()*0.025)).apply {
-					val marker =
-						requireContext().loadDrawable(R.drawable.map_marker) as BitmapDrawable
-					setMarker(
-						BitmapDrawable(
-							resources, Bitmap.createScaledBitmap(marker.bitmap, 55, 55, true)
-						)
-					)
-					thread {
-						val bitmap = BitmapManager.overlay(
-							RemoteImages.MAP_MARKER.load(),
-							RemoteImages.CIRCLE_WHITE.load(),
-							RemoteImages.AVATAR_23.load(),
-						)
-						setMarker(
-							BitmapDrawable(
-								resources,
-								Bitmap.createScaledBitmap(bitmap, 160, 160, true)
-							)
-						)
-					}
-				})
+		//Il drawable del segnalino
+		for (i in 0..49) {
+			val item = OverlayItem(
+				"Tizio",
+				"Tizio",
+				GeoPoint(43.6100 + Math.random() * 0.025, 13.5134 + Math.random() * 0.025)
+			)
+
+			// Setto il placeholder del segnalino
+			item.setMarker(markerPlaceholder)
+			markers.add(item)
 		}
-		return markers
+		thread {
+			val whiteCircleBitmap = RemoteImages.CIRCLE_WHITE.load()
+			val markerBitmap = RemoteImages.MAP_MARKER.load()
+			for (item in markers) {
+				val bitmap = BitmapManager.overlay(
+					markerBitmap,
+					whiteCircleBitmap,
+					RemoteImages.AVATAR_22.load(),
+				)
+				item.setMarker(
+					BitmapDrawable(
+						resources, Bitmap.createScaledBitmap(bitmap, 160, 160, true)
+					)
+				)
+			}
+		}
+		this.markers = markers
 	}
 
 	override fun onResume() {
