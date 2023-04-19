@@ -25,12 +25,21 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment() {
 	private lateinit var binding: LoginFragmentBinding
 	private val viewModel: LoginViewModel by viewModels()
+	private lateinit var googleSignInClient: GoogleSignInClient
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View {
+		googleSignInClient = GoogleSignIn.getClient(
+			requireActivity(),
+			GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+				.requestIdToken(getString(R.string.default_web_client_id))
+				.requestEmail()
+				.build()
+		)
+
 		//ActivityResult for Google sign-in activity
 		val resultLauncher =
 			registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -65,14 +74,7 @@ class LoginFragment : Fragment() {
 		}
 
 		binding.loginGoogleButton.setOnClickListener {
-			val mGoogleSignInClient = GoogleSignIn.getClient(
-				requireActivity(),
-				GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-					.requestIdToken(getString(R.string.default_web_client_id))
-					.requestEmail()
-					.build()
-			)
-			resultLauncher.launch(mGoogleSignInClient.signInIntent)
+			resultLauncher.launch(googleSignInClient.signInIntent)
 		}
 		return binding.root
 	}
