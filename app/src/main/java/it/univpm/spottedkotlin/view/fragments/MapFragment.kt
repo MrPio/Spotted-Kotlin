@@ -102,13 +102,13 @@ class MapFragment : Fragment() {
 				if (left < minLeft) {
 					mapController.animateTo(
 						GeoPoint(
-							geo.latitude, minLeft + halfWidth
+							geo.latitude, minLeft + halfWidth*1.1
 						), map.zoomLevelDouble, 200
 					)
 				} else if (right > maxRight) {
 					mapController.animateTo(
 						GeoPoint(
-							geo.latitude, maxRight - halfWidth
+							geo.latitude, maxRight - halfWidth*1.1
 						), map.zoomLevelDouble, 200
 					)
 				}
@@ -117,13 +117,13 @@ class MapFragment : Fragment() {
 				if (bottom < minBottom) {
 					mapController.animateTo(
 						GeoPoint(
-							minBottom + halfHeight, geo.longitude
+							minBottom + halfHeight*1.1, geo.longitude
 						), map.zoomLevelDouble, 200
 					)
 				} else if (top > maxTop) {
 					mapController.animateTo(
 						GeoPoint(
-							maxTop - halfHeight, geo.longitude
+							maxTop - halfHeight*1.1, geo.longitude
 						), map.zoomLevelDouble, 200
 					)
 				}
@@ -175,7 +175,7 @@ class MapFragment : Fragment() {
 							val bitmap = BitmapManager.overlay(
 								markerBitmap,
 								whiteCircleBitmap,
-								resources.loadBitmap(Numbers.values()[(size / 10) % 10].res),
+								if ((size / 10) % 10 == 0) null else resources.loadBitmap(Numbers.values()[(size / 10) % 10].res),
 								resources.loadBitmap(Numbers.values()[size % 10].res)
 							)
 							item.setMarker(
