@@ -6,7 +6,7 @@
 	<data>
 		<import type="it.univpm.spottedkotlin.enums.RemoteImages"/>
 		<variable name = "viewModel"
-			type = "it.univpm.spottedkotlin.viewmodel.SignUpGeneralViewModel"/>
+			type = "it.univpm.spottedkotlin.viewmodel.SignUpViewModel"/>
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -70,7 +70,7 @@
 							app:layout_constraintTop_toBottomOf="@+id/signup_text" />
 
 						<EditText
-							android:id="@+id/RegisterEmailAddress"
+							android:id="@+id/name"
 							android:layout_width="match_parent"
 							android:layout_height="50dp"
 							android:background="@drawable/text_view_border_grey"
@@ -78,6 +78,7 @@
 							android:ems="10"
 							android:padding="10dp"
 							android:text="@={viewModel.name}"
+							android:textCursorDrawable="@drawable/black_cursor"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/name_text" />
@@ -93,7 +94,7 @@
 							app:layout_constraintEnd_toStartOf="@+id/strong_text"
 							app:layout_constraintHorizontal_bias="0.0"
 							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/RegisterEmailAddress" />
+							app:layout_constraintTop_toBottomOf="@+id/name" />
 
 						<EditText
 							android:id="@+id/surname"
@@ -103,12 +104,12 @@
 							android:ems="10"
 							android:padding="10dp"
 							android:text="@={viewModel.surname}"
+							android:textCursorDrawable="@drawable/black_cursor"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintHorizontal_bias="1.0"
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/surname_text" />
 
-						<!--android:onClickListener="@{()->viewModel.signUp()}"-->
 						<Button
 							android:id="@+id/continue_button"
 							android:layout_width="match_parent"
@@ -185,10 +186,10 @@
 							android:layout_marginTop="16dp"
 							android:fontFamily="@font/lato_light"
 							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/RegisterEmailAddress" />
+							app:layout_constraintTop_toBottomOf="@+id/name" />
 
 						<TextView
-							android:id="@+id/textView2"
+							android:id="@+id/gender_text"
 							android:layout_width="0dp"
 							android:layout_height="20dp"
 							android:layout_marginTop="12dp"
@@ -218,27 +219,29 @@
 							android:layout_width="match_parent"
 							android:layout_height="50dp"
 							android:background="@drawable/text_view_border_grey"
-							android:cursorVisible="true"
 							android:ems="10"
 							android:padding="10dp"
+							android:text="@={viewModel.instaUrl}"
+							android:textCursorDrawable="@drawable/black_cursor"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/textInstaUrl" />
 
-						<LinearLayout
+						<RadioGroup
 							android:id="@+id/gender_layout"
 							android:layout_width="298dp"
 							android:layout_height="29dp"
 							android:orientation="horizontal"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/textView2">
+							app:layout_constraintTop_toBottomOf="@+id/gender_text">
 
 							<RadioButton
 								android:id="@+id/male"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_weight="1"
+								android:buttonTint="@color/black"
 								android:fontFamily="@font/lato_regular"
 								android:text="@string/male" />
 
@@ -247,6 +250,7 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_weight="1"
+								android:buttonTint="@color/black"
 								android:fontFamily="@font/lato_regular"
 								android:text="@string/female" />
 
@@ -255,9 +259,10 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_weight="1"
+								android:buttonTint="@color/black"
 								android:fontFamily="@font/lato_regular"
 								android:text="@string/other" />
-						</LinearLayout>
+						</RadioGroup>
 
 						<TextView
 							android:id="@+id/optional_fields_text"

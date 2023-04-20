@@ -1,35 +1,27 @@
 package it.univpm.spottedkotlin.view.fragments
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import androidx.core.content.ContextCompat
+import androidx.core.view.iterator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import it.univpm.spottedkotlin.R
-import it.univpm.spottedkotlin.databinding.SignupFragmentBinding
 import it.univpm.spottedkotlin.databinding.SignupGeneralFragmentBinding
-import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.view.MainActivity
-import it.univpm.spottedkotlin.viewmodel.SignUpGeneralViewModel
 import it.univpm.spottedkotlin.viewmodel.SignUpViewModel
 
 
 class SignUpGeneralFragment : Fragment() {
     private lateinit var binding: SignupGeneralFragmentBinding
-    private val viewModel: SignUpGeneralViewModel by viewModels()
+    private val viewModel: SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +33,9 @@ class SignUpGeneralFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = SignupGeneralFragmentBinding.inflate(inflater, container, false)
-        //viewModel.goToMainActivityCallback = ::goToMainActivity
         binding.viewModel=viewModel
+        //viewModel.goToMainActivityCallback = ::goToMainActivity
+
 
 
 
@@ -51,7 +44,27 @@ class SignUpGeneralFragment : Fragment() {
         }
 
         binding.continueButton.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_signUpGeneralFragment_to_signUpFragment)
+            if (binding.name.text.isEmpty()){
+                binding.name.background=
+                    context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }
+                binding.optionalFieldsText.setTextColor(Color.RED)
+                binding.optionalFieldsText.text="Campi obbligatori"
+            }
+            else binding.name.background=
+                context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_grey) }
+            if (binding.surname.text.isEmpty()){
+                binding.surname.background=
+                    context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }
+                binding.optionalFieldsText.setTextColor(Color.RED)
+                binding.optionalFieldsText.text="Campi obbligatori"
+            }
+            else binding.surname.background=
+                context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_grey) }
+
+            if (!binding.name.text.isEmpty() && !binding.surname.text.isEmpty()) {
+                binding.root.findNavController().navigate(R.id.action_signUpGeneralFragment_to_signUpFragment)
+            }
+
         }
 
         binding.googleSignupButton.setOnClickListener {
@@ -61,8 +74,29 @@ class SignUpGeneralFragment : Fragment() {
         return binding.root
     }
 
+
+
+
+
+//                binding.male ->
+//                    if (checked) {
+//                        view.setBackgroundColor(Color.RED)
+//                    }
+//                    else view.setBackgroundColor(Color.BLACK)
+//                binding.female ->
+//                    if (checked) {
+//                        view.setBackgroundColor(Color.RED)
+//                    }
+//                    else view.setBackgroundColor(Color.BLACK)
+//                binding.other ->
+//                    if (checked) {
+//                        view.setBackgroundColor(Color.RED)
+//                    }
+//                    else view.setBackgroundColor(Color.BLACK)
+
+
     private fun goToMainActivity(){
-        //TODO(rivedere il graph)
+
         //binding.root.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         requireActivity().runOnUiThread { startActivity(Intent(activity, MainActivity::class.java)) }
     }

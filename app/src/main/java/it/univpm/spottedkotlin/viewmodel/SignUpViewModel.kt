@@ -2,8 +2,6 @@ package it.univpm.spottedkotlin.viewmodel
 
 import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.managers.AccountManager
-import it.univpm.spottedkotlin.managers.DataManager
-import it.univpm.spottedkotlin.managers.DatabaseManager
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
@@ -17,6 +15,10 @@ class SignUpViewModel : ViewModel() {
 
     //Almost 6 character
     private val MIN_LENGHT : Int = 6
+
+    var name: String =""
+    var surname: String = ""
+    var instaUrl: String = "instagram.com"
 
     var email:String ="secondario69@gmail.com"
     var password : String ="aA0%aa"
@@ -45,7 +47,6 @@ class SignUpViewModel : ViewModel() {
     4-VeryStrong
     */
     fun pass_strong(): List<Boolean> {
-        println("\n\n\n"+password)
 
         val caratteri = password.toCharArray()
 
@@ -70,14 +71,15 @@ class SignUpViewModel : ViewModel() {
         try {
             if (validation()) {
                 MainScope().launch {
-                    AccountManager.signup(email, password)
+                    println(name+surname)
+                    AccountManager.signup(name, surname, email, password)
                     goToMainActivityCallback()
                 }
             }
             else {}
 
         }
-        catch (/*mia eccezione*/ e:Exception){}
+        catch (/*mia eccezione*/ _:Exception){}
 
     }
 
