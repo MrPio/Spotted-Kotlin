@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "332232184670",
+    "firebase_url": "https://spotted-f3589-default-rtdb.firebaseio.com",
     "project_id": "spotted-f3589",
     "storage_bucket": "spotted-f3589.appspot.com"
   },
@@ -9,12 +10,57 @@
       "client_info": {
         "mobilesdk_app_id": "1:332232184670:android:0ba84de43f33fb7d7ff5cf",
         "android_client_info": {
+          "package_name": "it.univpm.spotted"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "332232184670-9og8q4qtm7fr9dqbf3mpdok876nkq46r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.univpm.spotted",
+            "certificate_hash": "dd2784d2e998f98b0bde9c59c50b25f88dc93b60"
+          }
+        },
+        {
+          "client_id": "332232184670-ovphbpahm551vrpdvon5ijlbpen712if.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy21VNSLjLNB7cA4c0D-edNU8Vgh212CQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "332232184670-lqpm8eggqaj5rfmep9mmjkt21qsm97fv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332232184670:android:913cc6f3edfae0e47ff5cf",
+        "android_client_info": {
           "package_name": "it.univpm.spottedkotlin"
         }
       },
       "oauth_client": [
         {
-          "client_id": "332232184670-lqpm8eggqaj5rfmep9mmjkt21qsm97fv.apps.googleusercontent.com",
+          "client_id": "332232184670-icbmcpijsd7vr3nbsueft4g7ug7l2t0m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.univpm.spottedkotlin",
+            "certificate_hash": "dd2784d2e998f98b0bde9c59c50b25f88dc93b60"
+          }
+        },
+        {
+          "client_id": "332232184670-ovphbpahm551vrpdvon5ijlbpen712if.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

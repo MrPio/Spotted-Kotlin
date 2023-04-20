@@ -18,10 +18,7 @@ class LoginViewModel : ViewModel() {
                 AccountManager.login(email,password)
                 goToMainActivityCallback()
             }
-
-
         }
-        catch (/*mia eccezione*/ e:Exception){}
-
+        catch (/*mia eccezione*/ _:Exception){}
     }
 }
