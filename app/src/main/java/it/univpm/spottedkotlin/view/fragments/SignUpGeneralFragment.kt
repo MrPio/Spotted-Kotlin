@@ -41,13 +41,17 @@ class SignUpGeneralFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = SignupGeneralFragmentBinding.inflate(inflater, container, false)
-        viewModel.goToMainActivityCallback = ::goToMainActivity
+        //viewModel.goToMainActivityCallback = ::goToMainActivity
         binding.viewModel=viewModel
 
 
 
         binding.doLoginText.setOnClickListener {
-            //binding.root.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            binding.root.findNavController().navigate(R.id.action_signUpGeneralFragment_to_loginFragment)
+        }
+
+        binding.continueButton.setOnClickListener {
+            binding.root.findNavController().navigate(R.id.action_signUpGeneralFragment_to_signUpFragment)
         }
 
         binding.googleSignupButton.setOnClickListener {

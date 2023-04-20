@@ -46,27 +46,26 @@
 							android:id="@+id/signup_text"
 							android:layout_width="match_parent"
 							android:layout_height="0dp"
-							android:layout_marginBottom="336dp"
 							android:fontFamily="@font/lato_bold"
 							android:text="@string/sign_up"
 							android:textAlignment="center"
 							android:textColor="@color/black"
 							android:textSize="28sp"
 							android:textStyle="bold"
-							app:layout_constraintBottom_toTopOf="@+id/continue_button"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toTopOf="parent" />
 
 						<TextView
-							android:id="@+id/name"
+							android:id="@+id/name_text"
 							android:layout_width="match_parent"
 							android:layout_height="20dp"
-							android:layout_marginTop="8dp"
+							android:layout_marginTop="4dp"
 							android:fontFamily="@font/lato_bold"
 							android:text="@string/name"
 							android:textColor="@color/black"
 							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintHorizontal_bias="1.0"
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/signup_text" />
 
@@ -81,49 +80,46 @@
 							android:text="@={viewModel.name}"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/name" />
+							app:layout_constraintTop_toBottomOf="@+id/name_text" />
 
 						<TextView
-							android:id="@+id/Surname"
+							android:id="@+id/surname_text"
 							android:layout_width="0dp"
 							android:layout_height="20dp"
+							android:layout_marginTop="16dp"
 							android:fontFamily="@font/lato_bold"
 							android:text="@string/surname"
 							android:textColor="@color/black"
-							app:layout_constraintBottom_toTopOf="@+id/RegisterPassword"
 							app:layout_constraintEnd_toStartOf="@+id/strong_text"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/RegisterEmailAddress"
-							app:layout_constraintVertical_bias="1.0" />
-
-						<EditText
-							android:id="@+id/RegisterPassword"
-							android:layout_width="match_parent"
-							android:layout_height="50dp"
-							android:layout_marginTop="36dp"
-							android:background="@drawable/text_view_border_grey"
-							android:ems="10"
-							android:inputType="textPassword"
-							android:padding="10dp"
-							android:text="@={viewModel.password}"
-							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintHorizontal_bias="0.0"
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/RegisterEmailAddress" />
 
+						<EditText
+							android:id="@+id/surname"
+							android:layout_width="match_parent"
+							android:layout_height="50dp"
+							android:background="@drawable/text_view_border_grey"
+							android:ems="10"
+							android:padding="10dp"
+							android:text="@={viewModel.surname}"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintHorizontal_bias="1.0"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/surname_text" />
+
+						<!--android:onClickListener="@{()->viewModel.signUp()}"-->
 						<Button
 							android:id="@+id/continue_button"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginBottom="132dp"
-							android:onClickListener="@{()->viewModel.signUp()}"
+							android:layout_marginTop="4dp"
 							android:text="@string/continua"
 							app:cornerRadius="60dp"
-							app:layout_constraintBottom_toBottomOf="parent"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintHorizontal_bias="0.0"
 							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/signup_text" />
+							app:layout_constraintTop_toBottomOf="@+id/optional_fields_text" />
 
 						<TextView
 							android:id="@+id/or_text"
@@ -194,36 +190,28 @@
 						<TextView
 							android:id="@+id/textView2"
 							android:layout_width="0dp"
-							android:layout_height="25dp"
+							android:layout_height="20dp"
 							android:layout_marginTop="12dp"
 							android:fontFamily="@font/lato_bold"
-							android:paddingVertical="5dp"
 							android:text="@string/gender"
 							android:textColor="@color/black"
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintHorizontal_bias="0.0"
 							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/RegisterPassword" />
+							app:layout_constraintTop_toBottomOf="@+id/instaTextView" />
 
 						<TextView
 							android:id="@+id/textInstaUrl"
 							android:layout_width="0dp"
-							android:layout_height="27dp"
+							android:layout_height="20dp"
+							android:layout_marginTop="12dp"
 							android:fontFamily="@font/lato_bold"
-							android:paddingVertical="5dp"
 							android:text="@string/insta"
 							android:textColor="@color/black"
 							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintHorizontal_bias="0.0"
 							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/genderRadioGroup" />
-
-						<RadioGroup
-							android:id="@+id/genderRadioGroup"
-							android:layout_width="0dp"
-							android:layout_height="30dp"
-							app:layout_constraintEnd_toEndOf="parent"
-							app:layout_constraintStart_toStartOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/textView2" />
+							app:layout_constraintTop_toBottomOf="@+id/surname" />
 
 						<TextView
 							android:id="@+id/instaTextView"
@@ -236,6 +224,53 @@
 							app:layout_constraintEnd_toEndOf="parent"
 							app:layout_constraintStart_toStartOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/textInstaUrl" />
+
+						<LinearLayout
+							android:id="@+id/gender_layout"
+							android:layout_width="298dp"
+							android:layout_height="29dp"
+							android:orientation="horizontal"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+							<RadioButton
+								android:id="@+id/male"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:fontFamily="@font/lato_regular"
+								android:text="@string/male" />
+
+							<RadioButton
+								android:id="@+id/female"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:fontFamily="@font/lato_regular"
+								android:text="@string/female" />
+
+							<RadioButton
+								android:id="@+id/other"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:fontFamily="@font/lato_regular"
+								android:text="@string/other" />
+						</LinearLayout>
+
+						<TextView
+							android:id="@+id/optional_fields_text"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="12dp"
+							android:fontFamily="@font/lato_regular"
+							android:text="@string/optional_fields"
+							android:textSize="10sp"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintHorizontal_bias="0.0"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/gender_layout" />
 
 					</androidx.constraintlayout.widget.ConstraintLayout>
 

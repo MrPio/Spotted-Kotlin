@@ -70,7 +70,7 @@ class LoginFragment : Fragment() {
 
 		binding.registerText.setOnClickListener {
 			binding.root.findNavController()
-				.navigate(R.id.action_loginFragment_to_registerFragment)
+				.navigate(R.id.action_loginFragment_to_signUpGeneralFragment)
 		}
 
 		binding.loginGoogleButton.setOnClickListener {

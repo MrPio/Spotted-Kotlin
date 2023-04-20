@@ -7,6 +7,6 @@ class SignUpGeneralViewModel : ViewModel() {
 
     var name:String =""
     var surname : String =""
-    lateinit var goToMainActivityCallback : ()->Unit
+    //lateinit var goToMainActivityCallback : ()->Unit
 
 }

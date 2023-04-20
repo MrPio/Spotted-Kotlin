@@ -32,9 +32,13 @@
     <string name="ClienId">todo</string>
     <string name="name">Nome:</string>
     <string name="surname">Cognome:</string>
-    <string name="gender">Genere<sup>*</sup>:</string>
-    <string name="insta">Instagram link<sup>*</sup>:</string>
+    <string name="gender">Genere: *</string>
+    <string name="insta">Instagram link: *</string>
     <string name="continua">Continua</string>
+    <string name="male">Maschio</string>
+    <string name="female">Femmina</string>
+    <string name="other">Altro</string>
+    <string name="optional_fields"> * Campi opzionali (potrai inserirli sempre in seguito)</string>
 
 
 

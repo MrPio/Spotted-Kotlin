@@ -79,6 +79,8 @@ object AccountManager {
 						}
 					}
 			} else {
+				// Utente già registrato
+				throw Exception("The email address is already in use by another account.")
 			}
 		}
 	}

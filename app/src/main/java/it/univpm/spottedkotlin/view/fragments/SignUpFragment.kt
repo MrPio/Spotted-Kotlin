@@ -56,7 +56,7 @@ class SignUpFragment : Fragment() {
         })
 
         binding.doLoginText.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            binding.root.findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
         }
 
         binding.googleSignupButton.setOnClickListener {
