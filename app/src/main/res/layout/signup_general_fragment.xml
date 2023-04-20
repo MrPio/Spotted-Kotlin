@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+		<import type="it.univpm.spottedkotlin.enums.RemoteImages"/>
+		<variable name = "viewModel"
+			type = "it.univpm.spottedkotlin.viewmodel.SignUpGeneralViewModel"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<androidx.cardview.widget.CardView
+			android:id="@+id/register_card"
+			android:layout_width="350dp"
+			android:layout_height="600dp"
+			app:cardBackgroundColor="#FFFFFF"
+			app:cardCornerRadius="36dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="596dp">
+
+				<androidx.cardview.widget.CardView
+					android:layout_width="300dp"
+					android:layout_height="550dp"
+					app:cardCornerRadius="0dp"
+					app:cardElevation="0dp"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent">
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent">
+
+						<TextView
+							android:id="@+id/signup_text"
+							android:layout_width="match_parent"
+							android:layout_height="0dp"
+							android:layout_marginBottom="336dp"
+							android:fontFamily="@font/lato_bold"
+							android:text="@string/sign_up"
+							android:textAlignment="center"
+							android:textColor="@color/black"
+							android:textSize="28sp"
+							android:textStyle="bold"
+							app:layout_constraintBottom_toTopOf="@+id/continue_button"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent" />
+
+						<TextView
+							android:id="@+id/name"
+							android:layout_width="match_parent"
+							android:layout_height="20dp"
+							android:layout_marginTop="8dp"
+							android:fontFamily="@font/lato_bold"
+							android:text="@string/name"
+							android:textColor="@color/black"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/signup_text" />
+
+						<EditText
+							android:id="@+id/RegisterEmailAddress"
+							android:layout_width="match_parent"
+							android:layout_height="50dp"
+							android:background="@drawable/text_view_border_grey"
+							android:cursorVisible="true"
+							android:ems="10"
+							android:padding="10dp"
+							android:text="@={viewModel.name}"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/name" />
+
+						<TextView
+							android:id="@+id/Surname"
+							android:layout_width="0dp"
+							android:layout_height="20dp"
+							android:fontFamily="@font/lato_bold"
+							android:text="@string/surname"
+							android:textColor="@color/black"
+							app:layout_constraintBottom_toTopOf="@+id/RegisterPassword"
+							app:layout_constraintEnd_toStartOf="@+id/strong_text"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/RegisterEmailAddress"
+							app:layout_constraintVertical_bias="1.0" />
+
+						<EditText
+							android:id="@+id/RegisterPassword"
+							android:layout_width="match_parent"
+							android:layout_height="50dp"
+							android:layout_marginTop="36dp"
+							android:background="@drawable/text_view_border_grey"
+							android:ems="10"
+							android:inputType="textPassword"
+							android:padding="10dp"
+							android:text="@={viewModel.password}"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintHorizontal_bias="0.0"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/RegisterEmailAddress" />
+
+						<Button
+							android:id="@+id/continue_button"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="132dp"
+							android:onClickListener="@{()->viewModel.signUp()}"
+							android:text="@string/continua"
+							app:cornerRadius="60dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintHorizontal_bias="0.0"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/signup_text" />
+
+						<TextView
+							android:id="@+id/or_text"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="4dp"
+							android:text="@string/oppure"
+							android:textAlignment="center"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintHorizontal_bias="0.0"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/continue_button" />
+
+						<TextView
+							android:id="@+id/already_registred"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:text="@string/already_registered"
+							android:textAlignment="center"
+							android:textColor="@color/black"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintHorizontal_bias="0.0"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/google_signup_button"
+							app:layout_constraintVertical_bias="0.344" />
+
+						<TextView
+							android:id="@+id/do_login_text"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:text="@string/do_login"
+							android:textAlignment="center"
+							android:textColor="@color/black"
+							android:textStyle="bold"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintHorizontal_bias="0.0"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/already_registred"
+							app:layout_constraintVertical_bias="1.0" />
+
+						<Button
+							android:id="@+id/google_signup_button"
+							android:layout_width="50dp"
+							android:layout_height="60dp"
+							android:layout_marginTop="4dp"
+							android:backgroundTint="#FFFFFF"
+							app:cornerRadius="120dp"
+							app:icon="@drawable/google"
+							app:iconGravity="textStart"
+							app:iconPadding="0dp"
+							app:iconSize="35dp"
+							app:iconTintMode="multiply"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/or_text" />
+
+						<TextView
+							android:id="@+id/strong_text"
+							android:layout_width="wrap_content"
+							android:layout_height="20dp"
+							android:layout_marginTop="16dp"
+							android:fontFamily="@font/lato_light"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/RegisterEmailAddress" />
+
+						<TextView
+							android:id="@+id/textView2"
+							android:layout_width="0dp"
+							android:layout_height="25dp"
+							android:layout_marginTop="12dp"
+							android:fontFamily="@font/lato_bold"
+							android:paddingVertical="5dp"
+							android:text="@string/gender"
+							android:textColor="@color/black"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintHorizontal_bias="0.0"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/RegisterPassword" />
+
+						<TextView
+							android:id="@+id/textInstaUrl"
+							android:layout_width="0dp"
+							android:layout_height="27dp"
+							android:fontFamily="@font/lato_bold"
+							android:paddingVertical="5dp"
+							android:text="@string/insta"
+							android:textColor="@color/black"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/genderRadioGroup" />
+
+						<RadioGroup
+							android:id="@+id/genderRadioGroup"
+							android:layout_width="0dp"
+							android:layout_height="30dp"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+						<TextView
+							android:id="@+id/instaTextView"
+							android:layout_width="match_parent"
+							android:layout_height="50dp"
+							android:background="@drawable/text_view_border_grey"
+							android:cursorVisible="true"
+							android:ems="10"
+							android:padding="10dp"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/textInstaUrl" />
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+				</androidx.cardview.widget.CardView>
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</androidx.cardview.widget.CardView>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

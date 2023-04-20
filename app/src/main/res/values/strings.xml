@@ -30,6 +30,12 @@
     <string name="requirement3">- Carattere speciale</string>
     <string name="requirement4">- Numero</string>
     <string name="ClienId">todo</string>
+    <string name="name">Nome:</string>
+    <string name="surname">Cognome:</string>
+    <string name="gender">Genere<sup>*</sup>:</string>
+    <string name="insta">Instagram link<sup>*</sup>:</string>
+    <string name="continua">Continua</string>
+
 
 
     <string name="luogo">Luogo</string>
