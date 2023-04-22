@@ -18,6 +18,10 @@ object AccountManager {
 
 	lateinit var user: User
 
+	private var name:String=""
+	private var surname:String=""
+
+
 	//SALVARE IN MEMORIA L'ID (MANAGER I/O con chiave valore e chiave uid)
 
 	fun cacheLogin(): User? = null
@@ -49,7 +53,7 @@ object AccountManager {
 	}
 
 
-	suspend fun signup(name: String, surname: String, email: String, password: String, instaUrl: String? = null, gender: Gender? = null) {
+	suspend fun signup(email: String, password: String, instaUrl: String? = null, gender: Gender? = null) {
 		val authResult = auth.createUserWithEmailAndPassword(email, password).await()
 		var newUser = User(name, surname, instagramNickname = instaUrl, gender = gender)
 		signUpHandleAuthResult(authResult,newUser)
@@ -59,11 +63,17 @@ object AccountManager {
 	private suspend fun signUpHandleAuthResult(authResult: AuthResult?, newUser: User) {
 		if (authResult != null) {
 			newUser.uid = authResult.user?.uid
-			//DatabaseManager.put("users/${newUser.uid}", newUser)
+			DatabaseManager.put("users/${newUser.uid}", newUser)
 			user = newUser
 
 		} else {
 			throw Exception("The email address is already in use by another account.")
 		}
+	}
+
+
+	fun setInfo(name: String, surname: String){
+		this.name=name
+		this.surname=surname
 	}
 }

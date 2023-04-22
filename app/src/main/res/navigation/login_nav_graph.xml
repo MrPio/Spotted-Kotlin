@@ -30,6 +30,12 @@
         <action
             android:id="@+id/action_signUpGeneralFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="surname"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"

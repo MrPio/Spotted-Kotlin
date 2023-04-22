@@ -16,16 +16,21 @@ class SignUpViewModel : ViewModel() {
     //Almost 6 character
     private val MIN_LENGHT : Int = 6
 
-    var name: String =""
-    var surname: String = ""
+    var name: String = "Mattia"
+    var surname: String = "Sbattella"
     var instaUrl: String = "instagram.com"
 
     var email:String ="secondario69@gmail.com"
     var password : String ="aA0%aa"
     var repeat_password : String ="aA0%aa"
     lateinit var goToMainActivityCallback : ()->Unit
+    lateinit var goToSignUpFragmentCallback : ()->Unit
 
 
+    fun setInfo(){
+        AccountManager.setInfo(name, surname)
+        goToSignUpFragmentCallback()
+    }
 
     //Validazione della password
     fun validation(): Boolean {
@@ -71,8 +76,8 @@ class SignUpViewModel : ViewModel() {
         try {
             if (validation()) {
                 MainScope().launch {
-                    println(name+surname)
-                    AccountManager.signup(name, surname, email, password)
+                    println("\n\n\n\n\n\n\n"+ name+"se è vuoto =Null")
+                    AccountManager.signup(email, password)
                     goToMainActivityCallback()
                 }
             }
