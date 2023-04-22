@@ -20,9 +20,8 @@ object AccountManager {
 
 	private var name:String=""
 	private var surname:String=""
-
-
-	//SALVARE IN MEMORIA L'ID (MANAGER I/O con chiave valore e chiave uid)
+	private var instaUrl: String? = null
+	private var gender: Gender? = null
 
 	fun cacheLogin(): User? = null
 
@@ -53,7 +52,7 @@ object AccountManager {
 	}
 
 
-	suspend fun signup(email: String, password: String, instaUrl: String? = null, gender: Gender? = null) {
+	suspend fun signup(email: String, password: String) {
 		val authResult = auth.createUserWithEmailAndPassword(email, password).await()
 		var newUser = User(name, surname, instagramNickname = instaUrl, gender = gender)
 		signUpHandleAuthResult(authResult,newUser)
@@ -72,8 +71,10 @@ object AccountManager {
 	}
 
 
-	fun setInfo(name: String, surname: String){
+	fun setInfo(name: String, surname: String, instaUrl:String?, gender: Gender?){
 		this.name=name
 		this.surname=surname
+		this.instaUrl=instaUrl
+		this.gender=gender
 	}
 }

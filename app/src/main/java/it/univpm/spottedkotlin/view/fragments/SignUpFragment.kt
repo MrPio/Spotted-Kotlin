@@ -71,9 +71,6 @@ class SignUpFragment : Fragment() {
         requireActivity().runOnUiThread { startActivity(Intent(activity, MainActivity::class.java)) }
     }
 
-
-
-
     /*
      0-No input
      1-Weak
@@ -149,8 +146,4 @@ class SignUpFragment : Fragment() {
             }
         }
     }
-
-
-
-
 }

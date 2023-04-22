@@ -1,6 +1,7 @@
 package it.univpm.spottedkotlin.viewmodel
 
 import androidx.lifecycle.ViewModel
+import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.managers.AccountManager
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ class SignUpViewModel : ViewModel() {
     var name: String = "Mattia"
     var surname: String = "Sbattella"
     var instaUrl: String = "instagram.com"
+    var gender: Gender? =null
 
     var email:String ="secondario69@gmail.com"
     var password : String ="aA0%aa"
@@ -28,9 +30,12 @@ class SignUpViewModel : ViewModel() {
 
 
     fun setInfo(){
-        AccountManager.setInfo(name, surname)
+        println("\n\n\n"+gender.toString()+"null? \n\n\n")
+        AccountManager.setInfo(name, surname, instaUrl, gender)
         goToSignUpFragmentCallback()
     }
+
+
 
     //Validazione della password
     fun validation(): Boolean {
@@ -76,7 +81,6 @@ class SignUpViewModel : ViewModel() {
         try {
             if (validation()) {
                 MainScope().launch {
-                    println("\n\n\n\n\n\n\n"+ name+"se è vuoto =Null")
                     AccountManager.signup(email, password)
                     goToMainActivityCallback()
                 }
