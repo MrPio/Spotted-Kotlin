@@ -5,59 +5,59 @@
 	<data>
 		<import type = "it.univpm.spottedkotlin.enums.RemoteImages"/>
 	</data>
+
 	<androidx.constraintlayout.widget.ConstraintLayout
-		android:layout_width = "match_parent"
-													   android:layout_height = "match_parent">
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
 
-		<TextView
-			android:id = "@+id/second_fragment"
-			style = "@style/Widget.AppCompat.TextView"
-			android:layout_width = "360dp"
-			android:layout_height = "45dp"
-			android:layout_marginBottom = "112dp"
-			android:fontFamily = "@font/lato_light"
-			android:text = "@string/intro_subtitle"
-			android:textAlignment = "textStart"
-			android:textColor = "#FFFFFF"
-			android:textSize = "16sp"
-			android:textStyle = "bold"
-			app:layout_constraintBottom_toBottomOf = "parent"
-			app:layout_constraintEnd_toEndOf = "parent"
-			app:layout_constraintStart_toStartOf = "parent"/>
-
-		<TextView
-			android:id = "@+id/first_fragment"
-			style = "@style/Widget.AppCompat.TextView"
-			android:layout_width = "360dp"
-			android:layout_height = "80dp"
-			android:layout_marginBottom = "172dp"
-			android:fontFamily = "@font/lato_black"
-			android:text = "@string/intro_title"
-			android:textAlignment = "textStart"
-			android:textColor = "#FFFFFF"
-			android:textSize = "34sp"
-			android:textStyle = "bold"
-			app:layout_constraintBottom_toBottomOf = "parent"
-			app:layout_constraintEnd_toEndOf = "parent"
-			app:layout_constraintStart_toStartOf = "parent"/>
-
-		<Button
-			android:id="@+id/start_button"
-			android:layout_width="360dp"
-			android:layout_height="50dp"
-			android:layout_marginBottom="52dp"
-			android:fontFamily="@font/lato_bold"
-			android:text="@string/start_button"
-			app:cornerRadius="999dp"
-			app:icon="@drawable/arrow_dx"
-			app:iconGravity="end"
-			app:iconSize="30dp"
-			app:iconTint="@color/red"
-			app:iconTintMode="add"
+		<LinearLayout
+			android:id="@+id/linearLayout2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="10dp"
+			android:layout_marginEnd="10dp"
+			android:orientation="vertical"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.49"
-			app:layout_constraintStart_toStartOf="parent" />
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<TextView
+				android:id="@+id/second_fragment"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start"
+				android:fontFamily="@font/lato_light"
+
+				android:text="@string/intro_subtitle"
+				android:textColor="@color/white"
+				android:textSize="16sp"
+				android:textStyle="bold" />
+
+			<TextView
+				android:id="@+id/first_fragment"
+				style="@style/Widget.AppCompat.TextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:fontFamily="@font/lato_black"
+				android:text="@string/intro_title"
+				android:textColor="@color/white"
+				android:textSize="34sp"
+				android:textStyle="bold" />
+
+			<Button
+				android:id="@+id/start_button"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_gravity="center"
+				android:fontFamily="@font/lato_bold"
+				android:text="@string/start_button"
+				app:cornerRadius="999dp"
+				app:icon="@drawable/arrow_dx"
+				app:iconGravity="end"
+				app:iconSize="30dp" />
+		</LinearLayout>
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,11 +13,15 @@ class AccountFragment : Fragment() {
 	private lateinit var binding: AccountFragmentBinding
 	private val viewModel: AccountViewModel by viewModels()
 
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+	}
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View {
 		binding = AccountFragmentBinding.inflate(inflater, container, false)
+		binding.viewModel=viewModel
 		return binding.root
 	}
 }
