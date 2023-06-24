@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import it.univpm.spottedkotlin.R
@@ -21,6 +20,7 @@ import it.univpm.spottedkotlin.extension.MyMapView
 import it.univpm.spottedkotlin.extension.function.checkAndAskPermission
 import it.univpm.spottedkotlin.extension.function.loadBitmap
 import it.univpm.spottedkotlin.extension.function.loadDrawable
+import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.interfaces.OnPanAndZoomListener
 import it.univpm.spottedkotlin.managers.BitmapManager
 import it.univpm.spottedkotlin.viewmodel.MapViewModel
@@ -42,6 +42,7 @@ class MapFragment : Fragment() {
 	private lateinit var mapController: IMapController
 	private lateinit var markerPlaceholder: BitmapDrawable
 
+	//TODO: MOVE LOGIC TO VIEWMODEL
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -102,13 +103,13 @@ class MapFragment : Fragment() {
 				if (left < minLeft) {
 					mapController.animateTo(
 						GeoPoint(
-							geo.latitude, minLeft + halfWidth*1.1
+							geo.latitude, minLeft + halfWidth * 1.1
 						), map.zoomLevelDouble, 200
 					)
 				} else if (right > maxRight) {
 					mapController.animateTo(
 						GeoPoint(
-							geo.latitude, maxRight - halfWidth*1.1
+							geo.latitude, maxRight - halfWidth * 1.1
 						), map.zoomLevelDouble, 200
 					)
 				}
@@ -117,13 +118,13 @@ class MapFragment : Fragment() {
 				if (bottom < minBottom) {
 					mapController.animateTo(
 						GeoPoint(
-							minBottom + halfHeight*1.1, geo.longitude
+							minBottom + halfHeight * 1.1, geo.longitude
 						), map.zoomLevelDouble, 200
 					)
 				} else if (top > maxTop) {
 					mapController.animateTo(
 						GeoPoint(
-							maxTop - halfHeight*1.1, geo.longitude
+							maxTop - halfHeight * 1.1, geo.longitude
 						), map.zoomLevelDouble, 200
 					)
 				}
@@ -178,11 +179,13 @@ class MapFragment : Fragment() {
 								if ((size / 10) % 10 == 0) null else resources.loadBitmap(Numbers.values()[(size / 10) % 10].res),
 								resources.loadBitmap(Numbers.values()[size % 10].res)
 							)
-							item.setMarker(
-								BitmapDrawable(
-									resources, Bitmap.createScaledBitmap(bitmap, 160, 160, true)
+							try {
+								item.setMarker(
+									BitmapDrawable(
+										resources, Bitmap.createScaledBitmap(bitmap, 160, 160, true)
+									)
 								)
-							)
+							} catch (_ :Exception){break}
 						}
 					} catch (_: ConcurrentModificationException) {
 					}
@@ -224,11 +227,13 @@ class MapFragment : Fragment() {
 					whiteCircleBitmap,
 					RemoteImages.AVATAR_22.load(),
 				)
-				item.setMarker(
-					BitmapDrawable(
-						resources, Bitmap.createScaledBitmap(bitmap, 160, 160, true)
+				try {
+					item.setMarker(
+						BitmapDrawable(
+							resources, Bitmap.createScaledBitmap(bitmap, 160, 160, true)
+						)
 					)
-				)
+				} catch (_ :Exception){break}
 			}
 		}
 		this.markers = markers

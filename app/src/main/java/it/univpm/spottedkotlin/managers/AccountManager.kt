@@ -6,6 +6,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import it.univpm.spottedkotlin.enums.Gender
+import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.model.User
 import kotlinx.coroutines.tasks.await
 
@@ -13,10 +14,10 @@ import kotlinx.coroutines.tasks.await
 object AccountManager {
 	private val auth=Firebase.auth
 
-//	var user: User = User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply {
-//		uid = "Lj1dlqZAREdLnzjsJ6mM2F08SnUc"}
+	var user: User = User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply {
+		uid = "Lj1dlqZAREdLnzjsJ6mM2F08SnUc"}
 
-	lateinit var user: User
+			//lateinit var user: User
 
 	private var name:String=""
 	private var surname:String=""

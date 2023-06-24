@@ -87,5 +87,6 @@
 	<string name = "type_altri">Altri</string>
 	<string name = "type_medicina">Medicina</string>
 	<string name = "type_scienze">Scienze</string>
+	<string name = "modalit_anonima">Modalità anonima</string>
 
 </resources>

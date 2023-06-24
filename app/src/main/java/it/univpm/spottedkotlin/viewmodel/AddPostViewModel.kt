@@ -1,6 +1,7 @@
 package it.univpm.spottedkotlin.viewmodel
 
 import androidx.databinding.Bindable
+import androidx.lifecycle.LiveData
 import it.univpm.spottedkotlin.BR
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
@@ -67,6 +68,13 @@ class AddPostViewModel : ObservableViewModel() {
 			notifyPropertyChanged(BR.currentGender)
 		}
 
+	@get:Bindable
+	val autori: List<String?>
+		get() = listOf(AccountManager.user.instagramNickname, "Anonimo")
+
+	@get:Bindable
+	var autore: Int = 0
+
 	fun azzera() {
 		currentPlesso = Plexuses.INGEGNERIA
 		currentZona = Locations.QT_140
@@ -77,6 +85,8 @@ class AddPostViewModel : ObservableViewModel() {
 	}
 
 	fun pubblica() {
+		if (autore == 1)
+			nuovoPost.authorUID = null
 		nuovoPost.uid = DatabaseManager.post("posts", nuovoPost)
 		DataManager.posts?.add(nuovoPost)
 		azzera()
