@@ -2,6 +2,7 @@ package it.univpm.spottedkotlin.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import it.univpm.spottedkotlin.databinding.FirstActivityBinding
@@ -38,8 +39,12 @@ class FirstActivity : AppCompatActivity() {
 
 	override fun onStart() {
 		super.onStart()
+		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {
 			if (AccountManager.cacheLogin()) goToMainActivity()
+			runOnUiThread {
+				binding.firstLoadingView.loadingViewRoot.visibility = View.GONE
+			}
 		}
 	}
 }

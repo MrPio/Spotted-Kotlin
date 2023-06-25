@@ -62,8 +62,9 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 		get() = post.lastFollowers.map { it?.avatar ?: RemoteImages.ANONNYMOUS.url }
 
 	@get:Bindable
-	val following: Boolean get() =
-		AccountManager.user.following.contains(post.uid)
+	val following: Boolean
+		get() =
+			AccountManager.user.following.contains(post.uid)
 
 	suspend fun initialize() {
 
@@ -81,17 +82,15 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 			post.lastFollowers.add(DataManager.loadUser(post.followers[post.followers.size - i]))
 
 		notifyChange()
-//		following.toString().log()
-//		"${AccountManager.user.following.toString()}  ---  ${post.uid}".log()
 	}
 
 	fun follow() {
-		val user = AccountManager.user
-		post.followers.toggle(user.uid)
-		user.following.toggle(post.uid)
-
-		DataManager.save(post, user)
-
+		post.followers.toggle(AccountManager.user.uid)
+		AccountManager.user.following.toggle(post.uid)
 		MainScope().launch { initialize() }
+	}
+
+	fun save() {
+		DataManager.save(post, AccountManager.user)
 	}
 }

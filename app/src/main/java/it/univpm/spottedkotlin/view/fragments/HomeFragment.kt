@@ -13,6 +13,7 @@ import it.univpm.spottedkotlin.adapter.HomePostsAdapter
 import it.univpm.spottedkotlin.databinding.HomeFragmentBinding
 import it.univpm.spottedkotlin.enums.TimesInterpolator
 import it.univpm.spottedkotlin.extension.function.getActivity
+import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.extension.function.setHeight
 import it.univpm.spottedkotlin.extension.function.toDp
 import it.univpm.spottedkotlin.managers.AnimationManager
@@ -29,7 +30,7 @@ class HomeFragment : Fragment() {
 	private lateinit var binding: HomeFragmentBinding
 	private val viewModel: HomeViewModel by viewModels()
 	private var posts: List<Post> = DataManager.posts?.toList() ?: listOf()
-	private val adapter = HomePostsAdapter(listOf())
+	private val adapter = HomePostsAdapter(mutableListOf())
 	private lateinit var layoutManager: LinearLayoutManager
 	private var scaffoldHeight: Int = 0
 	private var topExpanded: Boolean? = false
@@ -137,7 +138,8 @@ class HomeFragment : Fragment() {
 		if (posts.size == adapter.posts.size) return
 		adapter.posts = posts.subList(
 			0, min(posts.size, adapter.LOADING_STEP * ++adapter.loaded)
-		).toList()
+		).toMutableList()
+		adapter.posts.add(null)
 		adapter.notifyDataSetChanged()
 
 		//loadingView
@@ -154,7 +156,7 @@ class HomeFragment : Fragment() {
 		adapter.loaded = 0
 		DataManager.sort()
 		posts = DataManager.filteredPosts(viewModel.filter)
-		adapter.posts= listOf()
+		adapter.posts= mutableListOf()
 		recyclerLoadMore()
 	}
 

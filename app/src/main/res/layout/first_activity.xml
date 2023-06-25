@@ -1,65 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android = "http://schemas.android.com/apk/res/android"
+		xmlns:app = "http://schemas.android.com/apk/res-auto"
+		xmlns:tools = "http://schemas.android.com/tools">
 
 	<data>
 		<variable name = "viewModel"
-			type = "it.univpm.spottedkotlin.viewmodel.FirstActivityViewModel"/>
-		<import type="it.univpm.spottedkotlin.enums.RemoteImages" />
+				  type = "it.univpm.spottedkotlin.viewmodel.FirstActivityViewModel"/>
+		<import type = "it.univpm.spottedkotlin.enums.RemoteImages"/>
 	</data>
 
-
 	<androidx.constraintlayout.widget.ConstraintLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:background="@drawable/first_access">
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent"
+		android:background = "@drawable/first_access">
 
 		<ImageView
-			android:id="@+id/background"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			android:layout_marginTop="200dp"
-			android:alpha="0.95"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="1.0"
-			app:srcCompat="@drawable/gradient_linear_black" />
+			android:id = "@+id/background"
+			android:layout_width = "0dp"
+			android:layout_height = "0dp"
+			android:layout_marginTop = "200dp"
+			android:alpha = "0.95"
+			app:layout_constraintBottom_toBottomOf = "parent"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintHorizontal_bias = "0.0"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toTopOf = "parent"
+			app:layout_constraintVertical_bias = "1.0"
+			app:srcCompat = "@drawable/gradient_linear_black"/>
 
 		<androidx.fragment.app.FragmentContainerView
-			android:id="@+id/title_container"
-			android:name="androidx.navigation.fragment.NavHostFragment"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			app:defaultNavHost="true"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.49"
-			app:layout_constraintStart_toStartOf="parent"
+			android:id = "@+id/title_container"
+			android:name = "androidx.navigation.fragment.NavHostFragment"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			app:defaultNavHost = "true"
+			app:layout_constraintBottom_toBottomOf = "parent"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintHorizontal_bias = "0.49"
+			app:layout_constraintStart_toStartOf = "parent"
 
-			app:layout_constraintTop_toBottomOf="@+id/first_access_title"
-			app:layout_constraintVertical_bias="0.872"
-			app:navGraph="@navigation/login_nav_graph"
-			tools:layout="@layout/first_fragment" />
+			app:layout_constraintTop_toBottomOf = "@+id/first_access_title"
+			app:layout_constraintVertical_bias = "0.872"
+			app:navGraph = "@navigation/login_nav_graph"
+			tools:layout = "@layout/first_fragment"/>
 
 		<TextView
-			android:id="@+id/first_access_title"
-			style="@style/LabelTitle"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="56dp"
-			android:fontFamily="@font/clicker_script_regular"
-			android:text="@string/app_title"
-			android:textAlignment="center"
-			android:textColor="#FFFFFF"
-			android:textSize="52sp"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			android:id = "@+id/first_access_title"
+			style = "@style/LabelTitle"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:layout_marginTop = "56dp"
+			android:fontFamily = "@font/clicker_script_regular"
+			android:text = "@string/app_title"
+			android:textAlignment = "center"
+			android:textColor = "#FFFFFF"
+			android:textSize = "52sp"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintHorizontal_bias = "0.0"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toTopOf = "parent"/>
+
+		<include android:id = "@+id/first_loading_view"
+				 layout = "@layout/loading_view"
+				 android:visibility = "gone"
+				 app:layout_constraintBottom_toBottomOf = "parent"
+				 app:layout_constraintEnd_toEndOf = "parent"
+				 app:layout_constraintStart_toStartOf = "parent"
+				 app:layout_constraintTop_toTopOf = "parent"/>
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

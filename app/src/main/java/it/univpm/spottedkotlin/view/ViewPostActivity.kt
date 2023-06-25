@@ -71,4 +71,9 @@ class ViewPostActivity : AppCompatActivity() {
 		}
 	}
 
+	override fun onDestroy() {
+		super.onDestroy()
+		viewModel.save()
+	}
+
 }

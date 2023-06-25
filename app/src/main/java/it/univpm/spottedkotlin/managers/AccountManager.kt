@@ -27,23 +27,18 @@ object AccountManager {
 
 	suspend fun cacheLogin(): Boolean {
 		val uid = auth.currentUser?.uid
-			DatabaseManager.get<User>("users/${uid}")?.let { user = it }
-		return uid != null
+		DatabaseManager.get<User>("users/${uid}")?.let { user = it; user.uid = uid }
+		return ::user.isInitialized
 	}
 
 	private suspend fun loginHandleAuthResult(authResult: AuthResult?) {
 		if (authResult != null) {
-			println(authResult.user?.uid)
-			val user: User? = DatabaseManager.get("users/${authResult.user?.uid}")
-			if (user != null) {
-				this.user = user
-			} else {
-				// Utente NON trovato in FirebaseRealtimeDatabase
+			val uid=authResult.user?.uid
+			DatabaseManager.get<User>("users/${uid}")?.let { user = it; user.uid = uid }
+			if (!::user.isInitialized)
 				throw Exception("user not found in database")
-			}
 		} else {
 			throw Exception("user not found in auth")
-			// Utente NON trovato in FirebaseAuth
 		}
 	}
 
