@@ -11,15 +11,13 @@ import androidx.fragment.app.commit
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.ActivityMainBinding
 import it.univpm.spottedkotlin.extension.function.metrics
-import it.univpm.spottedkotlin.managers.DataManager
-import it.univpm.spottedkotlin.managers.DatabaseManager
-import it.univpm.spottedkotlin.managers.DeviceManager
-import it.univpm.spottedkotlin.managers.DummyManager
+import it.univpm.spottedkotlin.managers.*
 import it.univpm.spottedkotlin.model.Comment
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.viewmodel.MainViewModel
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 

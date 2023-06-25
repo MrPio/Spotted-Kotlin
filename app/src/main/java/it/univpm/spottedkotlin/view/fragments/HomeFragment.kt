@@ -157,4 +157,9 @@ class HomeFragment : Fragment() {
 		adapter.posts= listOf()
 		recyclerLoadMore()
 	}
+
+	override fun onResume() {
+		super.onResume()
+		reload()
+	}
 }

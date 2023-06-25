@@ -7,24 +7,29 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.RemoteImages
+import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.model.User
 import kotlinx.coroutines.tasks.await
 
 
 object AccountManager {
-	private val auth=Firebase.auth
+	private val auth = Firebase.auth
 
-	var user: User = User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply {
-		uid = "Lj1dlqZAREdLnzjsJ6mM2F08SnUc"}
+//	var user: User = User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply {
+//		uid = "rPg4dSvpc3dJO6Re3WLk4exxBWa2"}
 
-			//lateinit var user: User
+	lateinit var user: User
 
-	private var name:String=""
-	private var surname:String=""
+	private var name: String = ""
+	private var surname: String = ""
 	private var instaUrl: String? = null
 	private var gender: Gender? = null
 
-	fun cacheLogin(): User? = null
+	suspend fun cacheLogin(): Boolean {
+		val uid = auth.currentUser?.uid
+			DatabaseManager.get<User>("users/${uid}")?.let { user = it }
+		return uid != null
+	}
 
 	private suspend fun loginHandleAuthResult(authResult: AuthResult?) {
 		if (authResult != null) {
@@ -43,9 +48,10 @@ object AccountManager {
 	}
 
 	suspend fun login(email: String, password: String) {
-		val authResult = auth.signInWithEmailAndPassword(email,password).await()
+		val authResult = auth.signInWithEmailAndPassword(email, password).await()
 		loginHandleAuthResult(authResult)
 	}
+
 	suspend fun login(account: GoogleSignInAccount) {
 		val credential = GoogleAuthProvider.getCredential(account.idToken, null)
 		val authResult = auth.signInWithCredential(credential).await()
@@ -56,7 +62,7 @@ object AccountManager {
 	suspend fun signup(email: String, password: String) {
 		val authResult = auth.createUserWithEmailAndPassword(email, password).await()
 		var newUser = User(name, surname, instagramNickname = instaUrl, gender = gender)
-		signUpHandleAuthResult(authResult,newUser)
+		signUpHandleAuthResult(authResult, newUser)
 	}
 
 
@@ -72,10 +78,10 @@ object AccountManager {
 	}
 
 
-	fun setInfo(name: String, surname: String, instaUrl:String?, gender: Gender?){
-		this.name=name
-		this.surname=surname
-		this.instaUrl=instaUrl
-		this.gender=gender
+	fun setInfo(name: String, surname: String, instaUrl: String?, gender: Gender?) {
+		this.name = name
+		this.surname = surname
+		this.instaUrl = instaUrl
+		this.gender = gender
 	}
 }

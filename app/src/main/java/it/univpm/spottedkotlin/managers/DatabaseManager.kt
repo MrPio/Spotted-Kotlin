@@ -16,6 +16,8 @@ import kotlin.reflect.typeOf
 object DatabaseManager {
 	private const val tag = "FIREBASE"
 	private val database = Firebase.database.reference
+
+	// Retrieve a child from a given path string
 	fun getChild(
 		path: String,
 		database: DatabaseReference = this.database
@@ -28,9 +30,11 @@ object DatabaseManager {
 		)
 	}
 
+	// PUT -- store or replace an object at a given location
 	fun put(path: String, res: Any) =
 		getChild(path).setValue(res)
 
+	// POST -- store new object at a given location
 	fun post(path: String, res: Any): String? {
 		val child = getChild(path)
 		val key = child.push().key
@@ -42,6 +46,7 @@ object DatabaseManager {
 		return key
 	}
 
+	// Asynchronous fun to get a list of object
 	suspend inline fun <reified T> getList(
 		path: String,
 		limit: Int = 99,
@@ -54,15 +59,18 @@ object DatabaseManager {
 		return map.values.toList()
 	}
 
+	// Asynchronous fun to get a single object
 	suspend inline fun <reified T> get(path: String): T? =
 		getChild(path).get().await().getValue(T::class.java)
 
+	// Synchronous fun to get a single object
 	fun <T> get(path: String, success: (it: T) -> Unit) {
 		getChild(path).get().addOnSuccessListener {
 			success(it.value as T)
 		}
 	}
 
+	//single function to observe a single object
 	fun <T> observe(path: String, observer: (it: T) -> Unit) =
 		getChild(path).addValueEventListener(object : ValueEventListener {
 			override fun onDataChange(dataSnapshot: DataSnapshot) =

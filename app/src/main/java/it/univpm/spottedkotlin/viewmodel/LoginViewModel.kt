@@ -8,8 +8,8 @@ import kotlinx.coroutines.launch
 
 
 class LoginViewModel : ViewModel() {
-    var email:String ="admin@admin.com"
-    var password : String ="admin%"
+    var email:String ="valeriomorelli50@gmail.com"
+    var password : String ="password"
     lateinit var goToMainActivityCallback : ()->Unit
 
     fun login(){

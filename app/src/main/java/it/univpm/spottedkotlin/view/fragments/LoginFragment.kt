@@ -17,6 +17,7 @@ import com.google.android.gms.common.api.ApiException
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.LoginFragmentBinding
 import it.univpm.spottedkotlin.managers.AccountManager
+import it.univpm.spottedkotlin.view.FirstActivity
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.LoginViewModel
 import kotlinx.coroutines.MainScope
@@ -67,7 +68,6 @@ class LoginFragment : Fragment() {
 		viewModel.goToMainActivityCallback = ::goToMainActivity
 		binding.viewModel = viewModel
 
-
 		binding.registerText.setOnClickListener {
 			binding.root.findNavController()
 				.navigate(R.id.action_loginFragment_to_signUpGeneralFragment)
@@ -80,26 +80,6 @@ class LoginFragment : Fragment() {
 	}
 
 	private fun goToMainActivity() {
-		requireActivity().runOnUiThread {
-			startActivity(
-				Intent(
-					activity,
-					MainActivity::class.java
-				)
-			)
-		}
+		(activity as FirstActivity).goToMainActivity()
 	}
-
-
 }
-
-
-//TODO()Quando l'utente avvia l'applicazione si controlla se è loggato
-/*public override fun onStart() {
-	super.onStart()
-	// Check if user is signed in (non-null) and update UI accordingly.
-	val currentUser = auth.currentUser
-	if(currentUser != null){
-		reload()
-	}
-}*/

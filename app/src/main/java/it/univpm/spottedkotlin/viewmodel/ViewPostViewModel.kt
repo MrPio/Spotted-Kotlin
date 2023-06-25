@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.BR
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.ObservableViewModel
+import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.extension.function.toDateStr
+import it.univpm.spottedkotlin.extension.function.toggle
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
@@ -60,27 +62,36 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 		get() = post.lastFollowers.map { it?.avatar ?: RemoteImages.ANONNYMOUS.url }
 
 	@get:Bindable
-	val following: Boolean get() = AccountManager.user.following.contains(post.uid)
+	val following: Boolean get() =
+		AccountManager.user.following.contains(post.uid)
 
 	suspend fun initialize() {
-		post.author = post.authorUID?.let { DataManager.loadUser(it) }
-		for (comment in post.comments) if (comment.user == null) comment.user =
-			comment.authorUID?.let { DataManager.loadUser(it) }
+
+		// Carico l'autore del post
+		post.author = DataManager.loadUser(post.authorUID)
+
+		// Carico gli autori dei commenti
+		for (comment in post.comments)
+			if (comment.user == null)
+				comment.user = DataManager.loadUser(comment.authorUID)
+
+		// Carico gli ultimi 3 followers
 		post.lastFollowers.clear()
 		for (i in 1..min(3, post.followers.size))
 			post.lastFollowers.add(DataManager.loadUser(post.followers[post.followers.size - i]))
+
 		notifyChange()
+//		following.toString().log()
+//		"${AccountManager.user.following.toString()}  ---  ${post.uid}".log()
 	}
 
 	fun follow() {
 		val user = AccountManager.user
-		if (following) {
-			post.followers.remove(user.uid)
-			user.following.remove(post.uid)
-		} else {
-			post.followers.add(user.uid ?: "noneUser")
-			user.following.add(post.uid ?: "noUID")
-		}
+		post.followers.toggle(user.uid)
+		user.following.toggle(post.uid)
+
+		DataManager.save(post, user)
+
 		MainScope().launch { initialize() }
 	}
 }

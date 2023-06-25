@@ -70,4 +70,5 @@ class ViewPostActivity : AppCompatActivity() {
 			grid.addViewLast(tagBinding.root)
 		}
 	}
+
 }

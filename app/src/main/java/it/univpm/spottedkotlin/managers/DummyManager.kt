@@ -377,6 +377,7 @@ object DummyManager {
 					"Guendalina Gundelinda").split(' ')
 	}
 
+	// Random generate posts and authors
 	fun generatePosts(limit: Int = 5) {
 		val posts = mutableListOf<Post>()
 		val users = mutableListOf<User>()
@@ -408,6 +409,7 @@ object DummyManager {
 		posts.forEach { DatabaseManager.post("posts", it) }
 	}
 
+	// Populate the tags with a predefined set
 	fun generateTags(context: Context): Set<Tag> {
 		return setOf(
 

@@ -21,7 +21,7 @@ class CommentItemViewModel(val comment: Comment) : ObservableViewModel() {
 
 	suspend fun initialize() {
 		if (comment.user == null)
-			comment.user = comment.authorUID?.let { DataManager.loadUser(it) }
+			comment.user = DataManager.loadUser(comment.authorUID)
 		notifyChange()
 	}
 }
