@@ -18,7 +18,6 @@ class HomePostsAdapter(var posts: MutableList<Post?>, var loaded: Int = 0) : Ada
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
 		if (viewType == 0)
 			SpotPostViewHolder(parent.context.inflate(R.layout.spot_post))
-//			object : ViewHolder(parent.context.inflate<VSpaceBinding>(R.layout.v_space).root){}
 		else
 			object : ViewHolder(parent.context.inflate<VSpaceBinding>(R.layout.v_space).root){}
 

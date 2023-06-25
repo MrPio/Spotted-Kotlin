@@ -135,7 +135,7 @@ class HomeFragment : Fragment() {
 	}
 
 	private fun recyclerLoadMore() {
-		if (posts.size == adapter.posts.size) return
+		if (posts.size == adapter.posts.size-1) return
 		adapter.posts = posts.subList(
 			0, min(posts.size, adapter.LOADING_STEP * ++adapter.loaded)
 		).toMutableList()

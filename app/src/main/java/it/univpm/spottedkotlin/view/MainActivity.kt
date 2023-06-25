@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		DeviceManager.displayMetrics = this.metrics()
 
+//		AccountManager.user.tags.addAll(DummyManager.generateTags(this).toList().subList(0, 5))
+//		DataManager.save(AccountManager.user)
+
 		binding = ActivityMainBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 		binding.viewModel = viewModel

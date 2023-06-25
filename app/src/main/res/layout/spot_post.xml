@@ -2,6 +2,10 @@
 <layout xmlns:android = "http://schemas.android.com/apk/res/android"
 		xmlns:app = "http://schemas.android.com/apk/res-auto">
 	<data>
+		<variable name = "percentage"
+				  type = "Integer"/>
+		<variable name = "avatar"
+				  type = "String"/>
 		<variable
 			name = "model"
 			type = "it.univpm.spottedkotlin.model.Post"/>
@@ -72,7 +76,7 @@
 						android:layout_height = "wrap_content"
 						android:layout_marginStart = "20dp"
 						android:background = "@drawable/border_rounded_red_small"
-						android:text = '@{model.percentage+"%"}'
+						android:text = '@{String.valueOf(percentage)+"%"}'
 						android:textColor = "@color/white"
 						app:layout_constraintStart_toStartOf = "parent"
 						app:layout_constraintTop_toTopOf = "parent"/>
@@ -100,11 +104,11 @@
 						app:layout_constraintTop_toTopOf = "parent">
 
 						<ImageView
+							imageUrl = "@{avatar}"
 							android:layout_width = "34dp"
 							android:layout_height = "34dp"
 							android:layout_margin = "2dp"
-							android:contentDescription = "@string/todo"
-							android:src = "@drawable/anonymous"/>
+							android:contentDescription = "@string/todo"/>
 					</androidx.cardview.widget.CardView>
 
 					<!--===== Bottom =================================-->
@@ -122,7 +126,7 @@
 							android:textSize = "24sp"/>
 						<!--LocationText-->
 						<TextView
-							android:id="@+id/spot_post_location"
+							android:id = "@+id/spot_post_location"
 							style = "@style/LabelBold"
 							android:layout_marginStart = "4dp"
 							android:layout_marginEnd = "8dp"

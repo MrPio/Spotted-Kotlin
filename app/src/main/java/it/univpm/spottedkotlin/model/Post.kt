@@ -20,10 +20,14 @@ data class Post(
 	val comments: MutableList<Comment> = mutableListOf(),
 ) : Serializable {
 	var uid: String? = null
-	var percentage: Int = 0
 	var author: User? = null
 	var lastFollowers: MutableList<User?> = mutableListOf()
 
 	fun dateStr() = date.toDateStr()
 	fun timeStr() = date.toTimeStr()
+	fun calculateRelevance(tags: List<Tag>): Int =
+		if (tags.isEmpty())
+			0
+		else
+			(tags.count { tag -> this.tags.any { tag == it } } * 100f / tags.size).toInt()
 }
