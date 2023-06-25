@@ -13,7 +13,8 @@ import it.univpm.spottedkotlin.model.Filter
 class HomeViewModel() : ViewModel() {
 	lateinit var reloadCallback: () -> Unit
 
-	var name : String? = AccountManager.user.name
+	var name: String? = AccountManager.user.name
+	val avatar: String = AccountManager.user.avatar
 
 	private val subtitles = listOf(
 		R.string.home_ingegneria_subtitle,
@@ -40,14 +41,14 @@ class HomeViewModel() : ViewModel() {
 		Plexuses.ALTRI,
 	)
 	val subtitle = MutableLiveData(subtitles[0])
-	var filter=Filter(plexus = Plexuses.INGEGNERIA)
+	var filter = Filter(plexus = Plexuses.INGEGNERIA)
 	fun onRadioCheckedChanged(group: RadioGroup, checkedId: Int) {
 		val index = radios.indexOf(checkedId)
 		val isChecked: Boolean =
 			(group.findViewById(checkedId) as RadioButton).isChecked
 		if (isChecked)
 			subtitle.value = subtitles[index]
-		filter=Filter(plexus = plexuses[index])
+		filter = Filter(plexus = plexuses[index])
 		reloadCallback()
 	}
 }

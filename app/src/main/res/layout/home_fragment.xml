@@ -84,11 +84,11 @@
 						app:cardCornerRadius = "999dp">
 
 						<ImageView
+							imageUrl = "@{viewModel.avatar}"
 							android:layout_width = "48dp"
 							android:layout_height = "48dp"
 							android:layout_margin = "2dp"
-							android:contentDescription = "@string/todo"
-							android:src = "@drawable/anonymous"/>
+							android:contentDescription = "@string/todo"/>
 					</androidx.cardview.widget.CardView>
 				</RelativeLayout>
 			</LinearLayout>
