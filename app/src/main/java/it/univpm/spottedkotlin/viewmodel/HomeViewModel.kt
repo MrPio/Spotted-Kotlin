@@ -10,7 +10,7 @@ import it.univpm.spottedkotlin.enums.Plexuses
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.model.Filter
 
-class HomeViewModel() : ViewModel() {
+class HomeViewModel : ViewModel() {
 	lateinit var reloadCallback: () -> Unit
 
 	var name: String? = AccountManager.user.name
@@ -48,7 +48,7 @@ class HomeViewModel() : ViewModel() {
 			(group.findViewById(checkedId) as RadioButton).isChecked
 		if (isChecked)
 			subtitle.value = subtitles[index]
-		filter = Filter(plexus = plexuses[index])
+		filter = Filter(plexus = plexuses[index]).apply { orderBy=filter.orderBy }
 		reloadCallback()
 	}
 }

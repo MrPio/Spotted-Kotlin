@@ -26,8 +26,7 @@ class MainActivity : AppCompatActivity() {
 	val viewModel: MainViewModel by viewModels()
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		DeviceManager.displayMetrics = this.metrics()
-
+// DEBUG
 //		AccountManager.user.tags.addAll(DummyManager.generateTags(this).toList().subList(0, 5))
 //		DataManager.save(AccountManager.user)
 

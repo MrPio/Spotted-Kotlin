@@ -89,5 +89,7 @@
 	<string name = "type_scienze">Scienze</string>
 	<string name = "modalit_anonima">Modalità anonima</string>
 	<string name = "fine_dei_post">Fine dei post</string>
+	<string name = "rilevanza">Rilevanza</string>
+	<string name = "data">Data</string>
 
 </resources>

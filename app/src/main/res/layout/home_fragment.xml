@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:android = "http://schemas.android.com/apk/res/android">
+<layout xmlns:android = "http://schemas.android.com/apk/res/android"
+		xmlns:app = "http://schemas.android.com/apk/res-auto"
+		xmlns:tools = "http://schemas.android.com/tools">
 	<data>
 		<import type = "it.univpm.spottedkotlin.R"/>
 		<import type = "it.univpm.spottedkotlin.enums.RemoteImages"/>
@@ -38,10 +38,11 @@
 						  android:paddingBottom = "16dp">
 
 				<!--MenuIcon-->
-				<RelativeLayout android:layout_width = "0dp"
-								android:layout_height = "match_parent"
-								android:layout_weight = "1"
-								android:gravity = "center">
+				<RelativeLayout
+					android:layout_width = "0dp"
+					android:layout_height = "match_parent"
+					android:layout_weight = "1"
+					android:gravity = "center">
 
 					<TextView style = "@style/LabelIcon"
 							  android:layout_width = "match_parent"
@@ -51,7 +52,8 @@
 							  android:textColor = "@color/black"
 							  android:textSize = "28sp"/>
 
-					<include layout = "@layout/highlight_view"
+					<include android:id = "@+id/home_menu"
+							 layout = "@layout/highlight_view"
 							 android:layout_width = "match_parent"
 							 android:layout_height = "match_parent"
 							 android:gravity = "center"
@@ -77,6 +79,7 @@
 								android:layout_weight = "1"
 								android:gravity = "center">
 					<androidx.cardview.widget.CardView
+						android:id = "@+id/home_avatar"
 						android:layout_width = "wrap_content"
 						android:layout_height = "wrap_content"
 						android:layout_gravity = "center"
@@ -93,30 +96,69 @@
 				</RelativeLayout>
 			</LinearLayout>
 
-			<!--Title-->
-			<TextView style = "@style/LabelBlack"
-					  android:layout_width = "wrap_content"
-					  android:layout_height = "wrap_content"
-					  android:layout_marginTop = "20dp"
-					  android:paddingStart = "30dp"
-					  android:paddingEnd = "30dp"
-					  app:parameter = '@{viewModel.name}'
-					  app:text = '@{R.string.home_title}'/>
-			<!--Subtitle-->
-			<TextView android:id = "@+id/home_subtitle"
-					  style = "@style/LabelRegular"
-					  android:layout_width = "wrap_content"
-					  android:layout_height = "wrap_content"
-					  android:paddingStart = "30dp"
-					  android:paddingEnd = "30dp"
-					  android:text = "@string/home_persone_subtitle"
-					  android:textSize = "16sp"/>
+			<LinearLayout android:layout_width = "match_parent"
+						  android:layout_height = "wrap_content"
+						  android:orientation = "horizontal">
+				<LinearLayout android:layout_width = "0dp"
+							  android:layout_weight="1"
+							  android:layout_height = "wrap_content"
+							  android:orientation = "vertical">
+
+					<!--Title-->
+					<TextView style = "@style/LabelBlack"
+							  android:layout_width = "wrap_content"
+							  android:layout_height = "wrap_content"
+							  android:layout_marginTop = "20dp"
+							  android:textSize="24dp"
+							  android:paddingStart = "30dp"
+							  android:paddingEnd = "10dp"
+							  app:parameter = '@{viewModel.name}'
+							  app:text = '@{R.string.home_title}'/>
+					<!--Subtitle-->
+					<TextView android:id = "@+id/home_subtitle"
+							  style = "@style/LabelRegular"
+							  android:layout_width = "wrap_content"
+							  android:layout_height = "wrap_content"
+							  android:paddingStart = "30dp"
+							  android:paddingEnd = "10dp"
+							  android:text = "@string/home_persone_subtitle"
+							  android:textSize = "14sp"/>
+				</LinearLayout>
+
+				<!--OrderByIcon-->
+				<RelativeLayout
+					android:layout_width = "96dp"
+					android:layout_height = "50dp"
+					android:layout_marginTop = "20dp"
+					android:paddingStart="10dp"
+					android:paddingEnd = "30dp"
+					android:gravity = "center">
+
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "match_parent"
+							  android:layout_height = "match_parent"
+							  android:gravity = "center"
+							  android:text = "@string/SortDescending"
+							  android:textColor = "@color/black"
+							  android:background="@drawable/corner_radius_fill_white"
+							  android:textSize = "28sp"/>
+
+					<include android:id = "@+id/home_orderby"
+							 layout = "@layout/highlight_view"
+							 android:layout_width = "match_parent"
+							 android:layout_height = "match_parent"
+							 android:gravity = "center"
+							 app:foreground = "@{@drawable/ripple_black_round}">
+					</include>
+				</RelativeLayout>
+			</LinearLayout>
 
 			<!--SpotTypes-->
 			<HorizontalScrollView android:layout_width = "match_parent"
 								  android:layout_height = "wrap_content"
 								  android:paddingStart = "30dp"
-								  android:paddingTop = "16dp">
+								  android:paddingTop = "16dp"
+								  android:scrollbars = "none">
 				<RadioGroup android:layout_width = "wrap_content"
 							android:layout_height = "wrap_content"
 							android:onCheckedChanged = "@{(group,checkedId)->viewModel.onRadioCheckedChanged(group,checkedId)}"
@@ -152,20 +194,19 @@
 		</LinearLayout>
 
 		<!--SpotPosts-->
+		<androidx.recyclerview.widget.RecyclerView
+			android:id = "@+id/posts_recycler"
+			android:layout_width = "match_parent"
+			android:layout_height = "0dp"
+			android:adapter = "@{home_posts_adapter}"
+			android:scrollbars = "none"
+			app:layout_constraintBottom_toBottomOf = "parent"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toTopOf = "parent"
+			app:layout_constraintVertical_bias = "0.0"
+			tools:listitem = "@layout/spot_post"/>
 
 		<!--LoadingView-->
-
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/posts_recycler"
-			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			android:adapter="@{home_posts_adapter}"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.0"
-			tools:listitem="@layout/spot_post" />
-
 		<include android:id = "@+id/home_loading_view"
 				 layout = "@layout/loading_view"
 				 android:visibility = "gone"/>

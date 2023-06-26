@@ -13,11 +13,20 @@ class Filter(
 	private val gender: Gender? = null,
 	private val minPercentage: Int = 0
 ) {
-	fun postFilter(posts: List<Post>) =
-		posts.filter {
+	enum class OrderBy { RELEVANCE, DATE }
+
+	var orderBy: OrderBy? = OrderBy.DATE
+	fun postFilter(posts: List<Post>): List<Post> {
+		val filtered = posts.filter {
 			it.date.after(minDate) && it.date.before(maxDate) &&
 					(plexus == null || it.location?.plexus == plexus) &&
 					(gender == null || it.gender == gender) &&
 					it.calculateRelevance(AccountManager.user.tags) >= minPercentage
 		}
+		return when (orderBy) {
+			OrderBy.RELEVANCE -> filtered.sortedByDescending { it.calculateRelevance(AccountManager.user.tags) }
+			OrderBy.DATE -> filtered.sortedByDescending { it.date }
+			else -> filtered
+		}
+	}
 }

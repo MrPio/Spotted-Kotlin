@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.univpm.spottedkotlin.adapter.HomePostsAdapter
+import it.univpm.spottedkotlin.adapter.TagsAdapter
 import it.univpm.spottedkotlin.databinding.HomeFragmentBinding
+import it.univpm.spottedkotlin.databinding.OrderbyPopupBinding
+import it.univpm.spottedkotlin.databinding.SelectTagPopupBinding
 import it.univpm.spottedkotlin.enums.TimesInterpolator
 import it.univpm.spottedkotlin.extension.function.getActivity
 import it.univpm.spottedkotlin.extension.function.log
@@ -18,6 +22,7 @@ import it.univpm.spottedkotlin.extension.function.setHeight
 import it.univpm.spottedkotlin.extension.function.toDp
 import it.univpm.spottedkotlin.managers.AnimationManager
 import it.univpm.spottedkotlin.managers.DataManager
+import it.univpm.spottedkotlin.model.Filter
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.HomeViewModel
@@ -40,6 +45,17 @@ class HomeFragment : Fragment() {
 	): View {
 		binding = HomeFragmentBinding.inflate(inflater, container, false)
 		layoutManager = LinearLayoutManager(context)
+		binding.apply {
+			homeAvatar.setOnClickListener {
+				(requireActivity() as MainActivity).viewModel.currentFragment.value = 3
+			}
+			homeMenu.setOnClickListener {
+				(requireActivity() as MainActivity).viewModel.currentFragment.value = 4
+			}
+			homeOrderby.setOnClickListener {
+				orderBy()
+			}
+		}
 		return binding.root
 	}
 
@@ -135,7 +151,7 @@ class HomeFragment : Fragment() {
 	}
 
 	private fun recyclerLoadMore() {
-		if (posts.size == adapter.posts.size-1) return
+		if (posts.size == adapter.posts.size - 1) return
 		adapter.posts = posts.subList(
 			0, min(posts.size, adapter.LOADING_STEP * ++adapter.loaded)
 		).toMutableList()
@@ -156,12 +172,37 @@ class HomeFragment : Fragment() {
 		adapter.loaded = 0
 		DataManager.sort()
 		posts = DataManager.filteredPosts(viewModel.filter)
-		adapter.posts= mutableListOf()
+		adapter.posts = mutableListOf()
 		recyclerLoadMore()
 	}
 
 	override fun onResume() {
 		super.onResume()
 		reload()
+	}
+
+	private fun orderBy() {
+		val popupBinding =
+			OrderbyPopupBinding.inflate(layoutInflater, null, false)
+		when (viewModel.filter.orderBy) {
+			Filter.OrderBy.DATE -> popupBinding.orderbyDate.isChecked = true
+			Filter.OrderBy.RELEVANCE -> popupBinding.orderbyRelevance.isChecked = true
+			else -> {}
+		}
+
+		val builder = AlertDialog.Builder(requireContext())
+		builder.setTitle("Scegli la modalità di ordinamento dei post")
+		builder.setView(popupBinding.root)
+		builder.setPositiveButton("Conferma") { _, _ ->
+			if (popupBinding.orderbyRelevance.isChecked)
+				viewModel.filter.orderBy = Filter.OrderBy.RELEVANCE
+			else if (popupBinding.orderbyDate.isChecked)
+				viewModel.filter.orderBy = Filter.OrderBy.DATE
+			reload()
+		}
+
+
+		val dialog = builder.create()
+		dialog.show()
 	}
 }
