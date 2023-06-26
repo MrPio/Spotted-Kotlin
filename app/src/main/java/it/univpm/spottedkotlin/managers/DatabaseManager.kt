@@ -1,6 +1,10 @@
 package it.univpm.spottedkotlin.managers
 
+import android.net.Uri
 import android.util.Log
+import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -8,14 +12,18 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import it.univpm.spottedkotlin.model.Post
 import kotlinx.coroutines.tasks.await
+import java.io.File
 import kotlin.reflect.typeOf
 
 
 object DatabaseManager {
 	private const val tag = "FIREBASE"
 	private val database = Firebase.database.reference
+	val storage= FirebaseStorage.getInstance().reference
+
 
 	// Retrieve a child from a given path string
 	fun getChild(
@@ -81,4 +89,17 @@ object DatabaseManager {
 			}
 		})
 
+	fun loadImg(localUrl: Uri) {
+		val riversRef = storage.child("images/account_${AccountManager.user.uid}")
+		val uploadTask = riversRef.putFile(localUrl)
+
+		//TODO mettere le eccezioni
+// Register observers to listen for when the download is done or if it fails
+//        uploadTask.addOnFailureListener {
+//            // Handle unsuccessful uploads
+//        }.addOnSuccessListener { taskSnapshot ->
+//            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+//            // ...
+//        }
+	}
 }

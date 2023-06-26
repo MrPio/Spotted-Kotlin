@@ -7,6 +7,11 @@
         <variable
             name="viewModel"
             type="it.univpm.spottedkotlin.viewmodel.AccountViewModel" />
+        <variable name = "avatar"
+            type = "String"/>
+        <variable
+            name = "model"
+            type = "it.univpm.spottedkotlin.model.User"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,10 +76,13 @@
 
 
                     <ImageView
+                        android:id="@+id/account_imageView"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:contentDescription="@string/todo"
-                        android:src="@drawable/anonymous" />
+                        android:src = "@drawable/anonymous"/>
+<!--                        app:imageUrl = "@{model.avatar}" -->
+
 
                 </androidx.cardview.widget.CardView>
 

@@ -11,6 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import it.univpm.spottedkotlin.databinding.AccountFragmentBinding
+import it.univpm.spottedkotlin.enums.RemoteImages
+import it.univpm.spottedkotlin.managers.AccountManager
+import it.univpm.spottedkotlin.managers.BitmapManager
+import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.viewmodel.AccountViewModel
 
 class AccountFragment : Fragment() {
@@ -47,8 +51,11 @@ class AccountFragment : Fragment() {
 
 		if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
 			val selectedImageUri: Uri? = data.data
-			// Utilizza l'URI dell'immagine selezionata per fare ulteriori operazioni
-			// come visualizzarla o caricarla in un'ImageView
+			binding.accountImageView.setImageURI(selectedImageUri)
+			//DatabaseManager.put("users/${AccountManager.user.uid}/avatar", comment)
+			if (selectedImageUri != null) {
+				DatabaseManager.loadImg(selectedImageUri)
+			}
 		}
 	}
 }
