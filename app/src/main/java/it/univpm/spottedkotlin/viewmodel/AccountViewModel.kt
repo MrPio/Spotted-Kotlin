@@ -10,6 +10,8 @@ import okhttp3.internal.wait
 
 class AccountViewModel : ViewModel() {
 
+    val PICK_IMAGE_REQUEST = 1
+
     var name: String = AccountManager.user.name +" "+ AccountManager.user.surname
     var nameInsta:String=setNameInsta()
     var numPost:String=setNumPost()
