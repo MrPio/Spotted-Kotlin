@@ -120,13 +120,19 @@ class AddPostFragment : Fragment() {
 	}
 
 	private fun pubblica() {
-		AlertDialog.Builder(requireContext())
-			.setTitle("Tutto ok")
-			.setMessage("Post pubblicato correttamente!")
-			.setPositiveButton("Ok") { _, _ -> }
-			.create()
-			.show()
-		viewModel.pubblica()
-		requireContext().getActivity<MainActivity>()?.viewModel?.currentFragment?.value = 0
+		if (viewModel.pubblica()) {
+			AlertDialog.Builder(requireContext())
+				.setTitle("Tutto ok")
+				.setMessage("Post pubblicato correttamente!")
+				.setPositiveButton("Ok") { _, _ -> }
+				.create()
+				.show()
+			requireContext().getActivity<MainActivity>()?.viewModel?.currentFragment?.value = 0
+		} else {
+			binding.addPostScrollview.smoothScrollTo(
+				0,
+				binding.addPostScrollview.getChildAt(0).height - binding.addPostScrollview.height
+			)
+		}
 	}
 }

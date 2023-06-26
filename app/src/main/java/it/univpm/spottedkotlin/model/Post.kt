@@ -5,6 +5,7 @@ import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
 import it.univpm.spottedkotlin.extension.function.toDateStr
 import it.univpm.spottedkotlin.extension.function.toTimeStr
+import it.univpm.spottedkotlin.interfaces.Validable
 import java.io.Serializable
 import java.util.*
 
@@ -18,7 +19,7 @@ data class Post(
 	val tags: MutableList<Tag> = mutableListOf(),
 	val followers: MutableList<String> = mutableListOf(),
 	val comments: MutableList<Comment> = mutableListOf(),
-) : Serializable {
+) : Serializable, Validable {
 	var uid: String? = null
 	var author: User? = null
 	var lastFollowers: MutableList<User?> = mutableListOf()
@@ -30,4 +31,15 @@ data class Post(
 			0
 		else
 			(tags.count { tag -> this.tags.any { tag == it } } * 100f / tags.size).toInt()
+
+	override fun validate(): List<String> {
+		val errors = mutableListOf<String>()
+		if (location == null)
+			errors.add("Il luogo del post deve essere specificato.")
+		if (description.length < 6 || description.length > 1000)
+			errors.add("La descrizione deve essere presente e non più lunga di 1000 caratteri.")
+		if (tags.size < 3)
+			errors.add("Specifica almeno 3 tags")
+		return errors.toList()
+	}
 }

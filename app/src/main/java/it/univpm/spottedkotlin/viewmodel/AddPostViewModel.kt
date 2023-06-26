@@ -75,20 +75,33 @@ class AddPostViewModel : ObservableViewModel() {
 	@get:Bindable
 	var autore: Int = 0
 
+	@get:Bindable
+	var errors: String = ""
 	fun azzera() {
 		currentPlesso = Plexuses.INGEGNERIA
 		currentZona = Locations.QT_140
 		currentGender = Gender.FEMALE
 		nuovoPost = Post().apply { location = Locations.QT_140 }
+		this.errors = ""
 		notifyChange()
 		loadTagsCallback()
 	}
 
-	fun pubblica() {
+	fun pubblica(): Boolean {
+		this.errors = ""
+
+		// Check if posting in anonymously
 		if (autore == 1)
 			nuovoPost.authorUID = null
-		nuovoPost.uid = DatabaseManager.post("posts", nuovoPost)
-		DataManager.posts?.add(nuovoPost)
-		azzera()
+
+		// Validate the model and print any error
+		val errors = nuovoPost.validate()
+		if (errors.isEmpty()) {
+			DataManager.save(nuovoPost, mode = DataManager.SaveMode.POST)
+			azzera()
+		} else
+			this.errors = errors.joinToString(separator = "\n") { "• $it" }
+		notifyPropertyChanged(BR.errors)
+		return errors.isEmpty()
 	}
 }

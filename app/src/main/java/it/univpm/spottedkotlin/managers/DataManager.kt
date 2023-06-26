@@ -7,6 +7,8 @@ import it.univpm.spottedkotlin.extension.function.randomList
 import it.univpm.spottedkotlin.model.*
 
 object DataManager {
+	enum class SaveMode { POST, PUT }
+
 	var posts: MutableList<Post>? = null
 	var tags: Set<Tag>? = null
 	val anonymous: User = User(
@@ -62,15 +64,22 @@ object DataManager {
 	fun filteredPosts(filter: Filter) =
 		filter.postFilter(posts?.toList() ?: listOf())
 
-	fun save(vararg model: Any) {
+	// Save model objects
+	fun save(vararg model: Any,mode: SaveMode = SaveMode.PUT) {
 		model.forEach {
 			var path: String? = null
 			when (it) {
-				is User -> path = "users/${it.uid}"
-				is Post -> path = "posts/${it.uid}"
+				is User -> path = "users/" + if (mode == SaveMode.PUT) it.uid else ""
+				is Post -> {
+					path = "posts/" + if (mode == SaveMode.PUT) it.uid else ""
+					if (mode == SaveMode.POST)
+						posts?.add(it)
+				}
 			}
 			if (path != null)
-				DatabaseManager.put(path, it)
+				DatabaseManager.apply {
+					if (mode == SaveMode.PUT) put(path, it) else post(path, it)
+				}
 		}
 	}
 }
