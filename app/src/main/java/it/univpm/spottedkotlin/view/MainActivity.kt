@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 				binding.bottomBarContainer.id, viewModel.bottomBarFragment
 			)
 		}
-		SharedPreferencesManager.save(this,AccountManager.user.uid.toString())
+		SharedPreferencesManager.save(applicationContext,AccountManager.user.uid.toString())
 		observe()
 	}
 

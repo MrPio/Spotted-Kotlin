@@ -54,7 +54,7 @@ class FirstActivity : AppCompatActivity() {
 		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
 		MainScope().launch {
-			if (AccountManager.cacheLogin(this@FirstActivity)) goToMainActivity()
+			if (AccountManager.cacheLogin(applicationContext)) goToMainActivity()
 			runOnUiThread {
 				binding.firstLoadingView.loadingViewRoot.visibility = View.GONE
 			}
