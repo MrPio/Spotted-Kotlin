@@ -1,20 +1,12 @@
 package it.univpm.spottedkotlin.managers
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Matrix
-import android.net.Uri
 import androidx.core.graphics.scale
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import it.univpm.spottedkotlin.enums.RemoteImages
-import it.univpm.spottedkotlin.extension.function.loadUrl
-import java.io.File
-import kotlin.concurrent.thread
 
 
 object BitmapManager {

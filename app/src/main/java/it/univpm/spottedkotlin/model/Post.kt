@@ -23,6 +23,7 @@ data class Post(
 	var uid: String? = null
 	var author: User? = null
 	var lastFollowers: MutableList<User?> = mutableListOf()
+	val timestamp: Long get() = date.time
 
 	fun dateStr() = date.toDateStr()
 	fun timeStr() = date.toTimeStr()

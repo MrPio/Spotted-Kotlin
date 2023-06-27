@@ -26,9 +26,6 @@ class MainActivity : AppCompatActivity() {
 	val viewModel: MainViewModel by viewModels()
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-// DEBUG
-//		AccountManager.user.tags.addAll(DummyManager.generateTags(this).toList().subList(0, 5))
-//		DataManager.save(AccountManager.user)
 
 		binding = ActivityMainBinding.inflate(layoutInflater)
 		setContentView(binding.root)

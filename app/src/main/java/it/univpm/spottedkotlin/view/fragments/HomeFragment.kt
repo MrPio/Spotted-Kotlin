@@ -1,6 +1,7 @@
 package it.univpm.spottedkotlin.view.fragments
 
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +35,6 @@ import kotlin.math.min
 class HomeFragment : Fragment() {
 	private lateinit var binding: HomeFragmentBinding
 	private val viewModel: HomeViewModel by viewModels()
-	private var posts: List<Post> = DataManager.posts?.toList() ?: listOf()
 	private val adapter = HomePostsAdapter(mutableListOf())
 	private lateinit var layoutManager: LinearLayoutManager
 	private var scaffoldHeight: Int = 0
@@ -73,11 +73,13 @@ class HomeFragment : Fragment() {
 		viewModel.reloadCallback = ::reload
 		binding.viewModel = viewModel
 		binding.homePostsAdapter = adapter
+
+		// Load more posts on scroll
 		binding.postsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 			override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
 				super.onScrollStateChanged(recyclerView, newState)
 				if (layoutManager.itemCount == layoutManager.findLastVisibleItemPosition() + 1)
-					recyclerLoadMore()
+					MainScope().launch { recyclerLoadMore() }
 			}
 
 			override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -86,23 +88,17 @@ class HomeFragment : Fragment() {
 			}
 		})
 
-		binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
-		MainScope().launch {
-			DataManager.fetchData(requireContext())
-			activity?.runOnUiThread {
-				reload()
-				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
-			}
-		}
 		observe()
 	}
 
+	// Observe the subtitle MutableLiveData
 	private fun observe() {
 		viewModel.subtitle.observe(viewLifecycleOwner) {
 			binding.homeSubtitle.text = requireContext().getString(it)
 		}
 	}
 
+	// Expand UI on scroll
 	private fun onRecyclerScroll() {
 		val y = binding.postsRecycler.computeVerticalScrollOffset()
 
@@ -150,37 +146,43 @@ class HomeFragment : Fragment() {
 		else if (topExpanded == true && lastScrollY - y < -500) lastScrollY = y - 500
 	}
 
-	private fun recyclerLoadMore() {
-		if (posts.size == adapter.posts.size - 1) return
-		adapter.posts = posts.subList(
-			0, min(posts.size, adapter.LOADING_STEP * ++adapter.loaded)
-		).toMutableList()
-		adapter.posts.add(null)
-		adapter.notifyDataSetChanged()
+	// Load another posts' page to the db if available
+	private suspend fun recyclerLoadMore() {
+		requireActivity().runOnUiThread {
+			binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
+		}
 
-		//loadingView
-		binding.homeLoadingView.loadingViewRoot.visibility = View.VISIBLE
-		MainScope().launch {
-			delay(400)
-			activity?.runOnUiThread {
-				binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
-			}
+		viewModel.requestMorePosts()
+		if (viewModel.posts.size != adapter.posts.size - 1) {
+			adapter.posts = viewModel.posts.subList(
+				0, min(viewModel.posts.size, DataManager.pageSize * ++adapter.loaded)
+			).toMutableList()
+			adapter.posts.add(null)
+			adapter.notifyDataSetChanged()
+		}
+		requireActivity().runOnUiThread {
+			binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
 		}
 	}
 
-	private fun reload() {
+	// Reset the adapter pointer, reload the posts from the db and display them from scratch
+	private suspend fun reload() {
 		adapter.loaded = 0
-		DataManager.sort()
-		posts = DataManager.filteredPosts(viewModel.filter)
 		adapter.posts = mutableListOf()
+		viewModel.reloadPosts()
+		DataManager.filterPosts(viewModel.filter)
 		recyclerLoadMore()
 	}
 
+	// Reload on resume
 	override fun onResume() {
 		super.onResume()
-		reload()
+		MainScope().launch {
+			reload()
+		}
 	}
 
+	// Display the OrderByPopup, change the filter and reload data
 	private fun orderBy() {
 		val popupBinding =
 			OrderbyPopupBinding.inflate(layoutInflater, null, false)
@@ -198,9 +200,10 @@ class HomeFragment : Fragment() {
 				viewModel.filter.orderBy = Filter.OrderBy.RELEVANCE
 			else if (popupBinding.orderbyDate.isChecked)
 				viewModel.filter.orderBy = Filter.OrderBy.DATE
-			reload()
+			MainScope().launch {
+				reload()
+			}
 		}
-
 
 		val dialog = builder.create()
 		dialog.show()

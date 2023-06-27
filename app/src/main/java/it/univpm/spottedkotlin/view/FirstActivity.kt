@@ -6,11 +6,13 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import it.univpm.spottedkotlin.databinding.FirstActivityBinding
+import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.extension.function.metrics
-import it.univpm.spottedkotlin.managers.AccountManager
-import it.univpm.spottedkotlin.managers.DeviceManager
+import it.univpm.spottedkotlin.managers.*
+import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.viewmodel.FirstActivityViewModel
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class FirstActivity : AppCompatActivity() {
@@ -21,6 +23,9 @@ class FirstActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		DeviceManager.displayMetrics = this.metrics()
+		MainScope().launch {
+			DataManager.fetchData();
+		}
 
 		binding = FirstActivityBinding.inflate(layoutInflater)
 
@@ -39,6 +44,15 @@ class FirstActivity : AppCompatActivity() {
 	override fun onStart() {
 		super.onStart()
 		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE
+
+		// ======= DEBUG ZONE ========
+		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
+
+//		SeederManager.seed(applicationContext)
+//		return
+
+		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
+
 		MainScope().launch {
 			if (AccountManager.cacheLogin()) goToMainActivity()
 			runOnUiThread {

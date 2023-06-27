@@ -10,11 +10,11 @@ import it.univpm.spottedkotlin.databinding.SpotPostBinding
 import it.univpm.spottedkotlin.databinding.VSpaceBinding
 import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.extension.function.log
+import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.view.holders.SpotPostViewHolder
 
 class HomePostsAdapter(var posts: MutableList<Post?>, var loaded: Int = 0) : Adapter<ViewHolder>() {
-	val LOADING_STEP = 8
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
 		if (viewType == 0)
 			SpotPostViewHolder(parent.context.inflate(R.layout.spot_post))
@@ -24,7 +24,6 @@ class HomePostsAdapter(var posts: MutableList<Post?>, var loaded: Int = 0) : Ada
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		if (holder is SpotPostViewHolder)
 			holder.bind(posts[position]!!)
-		position.toString().log()
 	}
 
 	override fun getItemCount(): Int = posts.size

@@ -4,6 +4,7 @@ import android.content.Context
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
+import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.function.addDays
 import it.univpm.spottedkotlin.extension.function.randomList
 import it.univpm.spottedkotlin.model.Post
@@ -12,7 +13,7 @@ import it.univpm.spottedkotlin.model.User
 import java.util.*
 import kotlin.random.Random
 
-object DummyManager {
+object SeederManager {
 	object names {
 
 		val names: List<String>
@@ -378,10 +379,10 @@ object DummyManager {
 	}
 
 	// Random generate posts and authors
-	fun generatePosts(limit: Int = 5) {
+	private fun generatePosts(limit: Int = 5,context: Context) {
 		val posts = mutableListOf<Post>()
 		val users = mutableListOf<User>()
-		val tags = DataManager.tags?.toList()?: listOf()
+		val tags = generateTags(context).toList()
 		for (i in 1..limit) {
 			val user = User(
 				name = names.names.random(),
@@ -406,11 +407,17 @@ object DummyManager {
 			}
 		}
 		users.forEach { DatabaseManager.put("users/${it.uid}", it) }
-		posts.forEach { DatabaseManager.post("posts", it) }
+		posts.sortedBy { it.date }.forEach { DatabaseManager.post("posts", it) }
+
+		val defaultUser = User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply {
+			uid = "rPg4dSvpc3dJO6Re3WLk4exxBWa2"
+			this.tags.addAll(tags.randomList(5).toMutableList())
+		}
+		DatabaseManager.put("users/${defaultUser.uid}", defaultUser)
 	}
 
 	// Populate the tags with a predefined set
-	fun generateTags(context: Context): Set<Tag> {
+	private fun generateTags(context: Context): Set<Tag> {
 		return setOf(
 
 			//Height
@@ -429,5 +436,10 @@ object DummyManager {
 			Tag("Da vista", context.getString(R.string.Sunglasses)),
 			Tag("Da sole", context.getString(R.string.Sunglasses)),
 		)
+	}
+
+	fun seed(context: Context){
+		generatePosts(200,context)
+		generateTags(context).forEach { DatabaseManager.post("tags", it) }
 	}
 }

@@ -15,11 +15,7 @@ import kotlinx.coroutines.tasks.await
 object AccountManager {
 	private val auth = Firebase.auth
 
-//	var user: User = User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply {
-//		uid = "rPg4dSvpc3dJO6Re3WLk4exxBWa2"}
-
 	lateinit var user: User
-
 	private var name: String = ""
 	private var surname: String = ""
 	private var instaUrl: String? = null
@@ -33,7 +29,7 @@ object AccountManager {
 
 	private suspend fun loginHandleAuthResult(authResult: AuthResult?) {
 		if (authResult != null) {
-			val uid=authResult.user?.uid
+			val uid = authResult.user?.uid
 			DatabaseManager.get<User>("users/${uid}")?.let { user = it; user.uid = uid }
 			if (!::user.isInitialized)
 				throw Exception("user not found in database")

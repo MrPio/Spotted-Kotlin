@@ -33,7 +33,7 @@ class ViewPostActivity : AppCompatActivity() {
 		setContentView(binding.root)
 
 		val postUID = intent.getStringExtra("postUID")
-		val post = DataManager.posts?.find { it.uid == postUID }
+		val post = DataManager.posts.find { it.uid == postUID }
 		viewModel = ViewPostViewModel(post ?: Post())
 		initialize()
 	}
