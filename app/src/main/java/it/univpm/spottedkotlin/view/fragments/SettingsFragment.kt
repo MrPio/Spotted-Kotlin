@@ -24,7 +24,8 @@ class SettingsFragment : Fragment() {
 		savedInstanceState: Bundle?
 	): View {
 		binding = SettingsFragmentBinding.inflate(inflater, container, false)
-		binding.viewModel=viewModel
+		binding.viewModel = viewModel
+		viewModel.gotoFirstActivityCallback = ::gotoFirstActivity
 		binding.logoutButton.setOnClickListener {
 			val alertDialog = AlertDialog.Builder(context)
 			alertDialog.setTitle("Logout")
@@ -32,15 +33,20 @@ class SettingsFragment : Fragment() {
 
 
 			alertDialog.setPositiveButton(
-				"Si", DialogInterface.OnClickListener { dialog, which ->
-					val intent = Intent(requireContext(), FirstActivity::class.java)
-					startActivity(intent)
-				})
+				"Si"
+			) { _, _ ->
+				viewModel.logout()
+			}
 			alertDialog.setNegativeButton(
 				"Annulla", DialogInterface.OnClickListener { dialog, which ->
 				})
 			alertDialog.show()
 		}
 		return binding.root
+	}
+
+	fun gotoFirstActivity() {
+		val intent = Intent(requireContext(), FirstActivity::class.java)
+		startActivity(intent)
 	}
 }

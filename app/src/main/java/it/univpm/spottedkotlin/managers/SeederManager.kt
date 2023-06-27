@@ -7,6 +7,7 @@ import it.univpm.spottedkotlin.enums.Locations
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.function.addDays
 import it.univpm.spottedkotlin.extension.function.randomList
+import it.univpm.spottedkotlin.extension.function.toShortDateStr
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.model.User
@@ -395,13 +396,19 @@ object SeederManager {
 			user.uid = RandomManager.getRandomString(28)
 			users.add(user)
 			for (j in 1..Random.nextInt(4)) {
+				val randLocation=Locations.values().random()
+				val randTags=tags.randomList(6).toMutableList()
+				val randDate=Calendar.getInstance().time.addDays((-355..0).random())
 				posts.add(
 					Post(
 						authorUID = user.uid,
-						location = Locations.values().random(),
+						location = randLocation,
 						gender = Gender.values().random(),
-						tags = tags.randomList(8).toMutableList(),
-						date = Calendar.getInstance().time.addDays((-355..0).random())
+						tags = randTags,
+						date = randDate,
+						description="Cerco ragazza/o ${randTags.first().name} e ${randTags.last().name}. " +
+								"L'ho visto l'ultima volta il ${randDate.toShortDateStr()} " +
+								"presso ${randLocation.name}. Grazie a tutti."
 					)
 				)
 			}

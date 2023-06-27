@@ -109,6 +109,9 @@ object DatabaseManager {
 		val riversRef = storage.child("images/account_${AccountManager.user.uid}")
 		val uploadTask = riversRef.putFile(localUrl)
 
+		AccountManager.user.avatar=""
+		DataManager.save(AccountManager.user)
+
 		//TODO mettere le eccezioni
 // Register observers to listen for when the download is done or if it fails
 //        uploadTask.addOnFailureListener {

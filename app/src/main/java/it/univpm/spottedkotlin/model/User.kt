@@ -9,7 +9,7 @@ import java.util.*
 data class User(
 	val name: String? = null,
 	val surname: String? = null,
-	val avatar: String = RemoteImages.ANONNYMOUS.url,
+	var avatar: String = RemoteImages.ANONNYMOUS.url,
 	val regDate: Date = Calendar.getInstance().time,
 	val gender: Gender? = null,
 	val tags: MutableList<Tag> = mutableListOf(),

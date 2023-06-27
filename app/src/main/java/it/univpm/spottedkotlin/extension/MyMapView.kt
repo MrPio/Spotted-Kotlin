@@ -12,6 +12,7 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.ItemizedIconOverlay
 import org.osmdroid.views.overlay.OverlayItem
 
+// Custom MapView needed to trigger custom events and gain more control over the map
 class MyMapView(context: Context?, attrs: AttributeSet?) : MapView(context, attrs) {
 	private var oldZoomLevel = -1
 	private var oldPos = GeoPoint(0.0, 0.0)
@@ -27,6 +28,7 @@ class MyMapView(context: Context?, attrs: AttributeSet?) : MapView(context, attr
 			overlays.add(markers)
 		}
 
+	// Itemize and show markers, register onTap event
 	fun showMarkers(context: Context?, markers: List<OverlayItem>, onTap: ((Int) -> Unit)? = null) {
 		this.markers = ItemizedIconOverlay(context, markers,
 			object : ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
@@ -43,20 +45,21 @@ class MyMapView(context: Context?, attrs: AttributeSet?) : MapView(context, attr
 		mListener = listener
 	}
 
+	// Custom onPan event
 	override fun onTouchEvent(ev: MotionEvent): Boolean {
 		if (ev.action == MotionEvent.ACTION_DOWN)
 			down = true
 		if (ev.action == MotionEvent.ACTION_UP) {
 			down = false
 			val centerGeoPoint: GeoPoint = this.mapCenter as GeoPoint
-			if (oldCenterGeoPoint == null || oldCenterGeoPoint!!.latitudeE6 != centerGeoPoint.latitudeE6 || oldCenterGeoPoint!!.longitudeE6 != centerGeoPoint.longitudeE6) {
+			if (oldCenterGeoPoint == null || oldCenterGeoPoint!!.latitudeE6 != centerGeoPoint.latitudeE6 || oldCenterGeoPoint!!.longitudeE6 != centerGeoPoint.longitudeE6)
 				mListener?.onPan(centerGeoPoint)
-			}
 			oldCenterGeoPoint = this.mapCenter as GeoPoint
 		}
 		return super.onTouchEvent(ev)
 	}
 
+	// Custom onDraw and onZoom event
 	override fun dispatchDraw(canvas: Canvas) {
 		super.dispatchDraw(canvas)
 		val center = this.mapCenter as GeoPoint

@@ -10,7 +10,7 @@ import java.io.Serializable
 import java.util.*
 
 @IgnoreExtraProperties
-data class Post(
+open class Post(
 	var authorUID: String? = null,
 	var location: Locations? = null,
 	var gender: Gender = Gender.FEMALE,

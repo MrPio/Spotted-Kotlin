@@ -31,6 +31,7 @@ object DataManager {
 	suspend fun loadMore() {
 		posts.addAll(DatabaseManager.getList("posts", pageSize = pageSize) ?: listOf())
 		"loadMore(), posts=${posts.size}, paginateKeys=${DatabaseManager.paginateKeys}".log()
+//		MapPost()
 	}
 
 	suspend fun reloadPaginatedData(){

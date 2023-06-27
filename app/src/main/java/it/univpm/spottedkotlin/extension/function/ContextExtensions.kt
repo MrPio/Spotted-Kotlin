@@ -1,20 +1,18 @@
 package it.univpm.spottedkotlin.extension.function
 
-import android.Manifest
 import android.content.Context
 import android.content.ContextWrapper
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.PermissionChecker
 import androidx.databinding.DataBindingUtil
 import it.univpm.spottedkotlin.R
-import it.univpm.spottedkotlin.view.FirstActivity
-import it.univpm.spottedkotlin.view.MainActivity
 
 fun Context.loadColor(res: Int) = this.resources.getColor(res, theme)
-fun Context.loadDrawable(res:Int)=AppCompatResources.getDrawable(this,res)
+fun Context.loadDrawable(res: Int) = AppCompatResources.getDrawable(this, res)
 inline fun <reified T> Context.getActivity(): T? {
 	var context = this
 	while (context is ContextWrapper) {
@@ -24,9 +22,6 @@ inline fun <reified T> Context.getActivity(): T? {
 	}
 	return null
 }
-
-//inline fun <reified T : AppCompatActivity> Context.runUI(noinline callback: () -> Unit) =
-//	this.getActivity<T>()?.runOnUiThread(callback)
 
 fun <T> Context.inflate(layout: Int, parent: ViewGroup? = null, attachToParent: Boolean = false) =
 	DataBindingUtil.inflate(
@@ -40,3 +35,20 @@ fun Context.checkPermission(vararg permission: String): Boolean =
 	permission.all {
 		PermissionChecker.checkSelfPermission(this, it) == PermissionChecker.PERMISSION_GRANTED
 	}
+
+fun Context.loadBitmapDrawable(res: Int, width: Int, height: Int) =
+	BitmapDrawable(
+		this.resources,
+		Bitmap.createScaledBitmap(
+			(this.loadDrawable(res) as BitmapDrawable).bitmap,
+			width,
+			height,
+			true
+		)
+	)
+
+fun Context.loadBitmapDrawable(res: Bitmap, width: Int, height: Int) =
+	BitmapDrawable(
+		this.resources,
+		Bitmap.createScaledBitmap(res, width, height, true)
+	)
