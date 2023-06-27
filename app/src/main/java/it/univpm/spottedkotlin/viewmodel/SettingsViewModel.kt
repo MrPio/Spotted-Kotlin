@@ -1,17 +1,16 @@
 package it.univpm.spottedkotlin.viewmodel
 
-import android.app.AlertDialog
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import it.univpm.spottedkotlin.managers.AccountManager
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import it.univpm.spottedkotlin.managers.SharedPreferencesManager
 
 class SettingsViewModel : ViewModel() {
     lateinit var gotoFirstActivityCallback: () -> Unit
 
-    fun logout(){
-        AccountManager.logout()
+    fun logout(context: Context){
+        AccountManager.logout(context)
         gotoFirstActivityCallback.invoke()
     }
 	// TODO: Implement the ViewModel

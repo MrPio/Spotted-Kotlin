@@ -35,10 +35,10 @@ class SettingsFragment : Fragment() {
 			alertDialog.setPositiveButton(
 				"Si"
 			) { _, _ ->
-				viewModel.logout()
+				viewModel.logout(requireContext())
 			}
 			alertDialog.setNegativeButton(
-				"Annulla", DialogInterface.OnClickListener { dialog, which ->
+				"Annulla", DialogInterface.OnClickListener { _, _ ->
 				})
 			alertDialog.show()
 		}

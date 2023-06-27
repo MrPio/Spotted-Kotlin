@@ -1,5 +1,6 @@
 package it.univpm.spottedkotlin.managers
 
+import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -11,7 +12,7 @@ import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.model.User
 import kotlinx.coroutines.tasks.await
-import okhttp3.internal.wait
+
 
 
 object AccountManager {
@@ -23,13 +24,15 @@ object AccountManager {
 	private var instaUrl: String? = null
 	private var gender: Gender? = null
 
-	suspend fun cacheLogin(): Boolean {
-		val uid = auth.currentUser?.uid
+	suspend fun cacheLogin(context:Context): Boolean {
+		val uid = SharedPreferencesManager.read(context)
+		print("\n\n\n\n\n"+uid+"\n\n\n\n\n")
 		DatabaseManager.get<User>("users/${uid}")?.let { user = it; user.uid = uid }
 		return ::user.isInitialized
 	}
 
-	fun logout() {
+	fun logout(context: Context) {
+		SharedPreferencesManager.remove(context)
 		auth.signOut()
 	}
 
