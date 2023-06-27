@@ -83,8 +83,8 @@ class MapFragment : Fragment() {
 				// BOUNDARY CONSTRAINT
 				if (System.currentTimeMillis() - startTime < 2000) return
 				map.minZoomLevel = startZoom
-				val longitudeSpan = 0.14
-				val latitudeSpan = 0.17
+				val longitudeSpan = 0.145
+				val latitudeSpan = 0.175
 
 				val halfWidth = map.longitudeSpanDouble / 2
 				val left = geo.longitude - halfWidth
@@ -211,6 +211,10 @@ class MapFragment : Fragment() {
 				}
 
 				map.showMarkers(context, multiItems, ::onMarkerClick)
+			}
+
+			override fun onClick(geo: GeoPoint) {
+				geo.toString().log()
 			}
 		})
 	}

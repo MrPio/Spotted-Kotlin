@@ -8,7 +8,7 @@ import it.univpm.spottedkotlin.model.*
 object DataManager {
 	enum class SaveMode { POST, PUT }
 
-	const val pageSize = 16
+	const val pageSize = 50
 
 	var posts: MutableList<Post> = mutableListOf()
 	var tags: Set<Tag>? = null
@@ -63,11 +63,6 @@ object DataManager {
 			cachedUsers.add(user)
 		}
 		return user
-	}
-
-	// Sort all the app data
-	fun sort() {
-		posts.sortByDescending { it.date }
 	}
 
 	// Apply a given filter to the posts

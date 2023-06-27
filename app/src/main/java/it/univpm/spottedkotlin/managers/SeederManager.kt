@@ -380,7 +380,7 @@ object SeederManager {
 	}
 
 	// Random generate posts and authors
-	private fun generatePosts(limit: Int = 5,context: Context) {
+	private fun generatePosts(limit: Int = 5, context: Context) {
 		val posts = mutableListOf<Post>()
 		val users = mutableListOf<User>()
 		val tags = generateTags(context).toList()
@@ -396,9 +396,9 @@ object SeederManager {
 			user.uid = RandomManager.getRandomString(28)
 			users.add(user)
 			for (j in 1..Random.nextInt(4)) {
-				val randLocation=Locations.values().random()
-				val randTags=tags.randomList(6).toMutableList()
-				val randDate=Calendar.getInstance().time.addDays((-355..0).random())
+				val randLocation = Locations.values().random()
+				val randTags = tags.randomList(6).toMutableList()
+				val randDate = Calendar.getInstance().time.addDays((-355..0).random())
 				posts.add(
 					Post(
 						authorUID = user.uid,
@@ -406,7 +406,7 @@ object SeederManager {
 						gender = Gender.values().random(),
 						tags = randTags,
 						date = randDate,
-						description="Cerco ragazza/o ${randTags.first().name} e ${randTags.last().name}. " +
+						description = "Cerco ragazza/o ${randTags.first().name} e ${randTags.last().name}. " +
 								"L'ho visto l'ultima volta il ${randDate.toShortDateStr()} " +
 								"presso ${randLocation.name}. Grazie a tutti."
 					)
@@ -416,7 +416,9 @@ object SeederManager {
 		users.forEach { DatabaseManager.put("users/${it.uid}", it) }
 		posts.sortedBy { it.date }.forEach { DatabaseManager.post("posts", it) }
 
-		val defaultUser = User("Valerio", "Morelli", RemoteImages.AVATAR.url).apply {
+		val defaultUser = User(
+			"Valerio", "Morelli", RemoteImages.AVATAR.url, instagramNickname = "valeriomorelli5"
+		).apply {
 			uid = "rPg4dSvpc3dJO6Re3WLk4exxBWa2"
 			this.tags.addAll(tags.randomList(5).toMutableList())
 		}
@@ -445,8 +447,8 @@ object SeederManager {
 		)
 	}
 
-	fun seed(context: Context){
-		generatePosts(200,context)
+	fun seed(context: Context) {
+		generatePosts(200, context)
 		generateTags(context).forEach { DatabaseManager.post("tags", it) }
 	}
 }

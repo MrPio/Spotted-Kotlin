@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android = "http://schemas.android.com/apk/res/android">
 	<data>
+		<import type = "it.univpm.spottedkotlin.enums.RemoteImages"/>
 		<import type = "it.univpm.spottedkotlin.extension.MyMapView"/>
 	</data>
 	<FrameLayout
-		xmlns:android = "http://schemas.android.com/apk/res/android"
 		xmlns:tools = "http://schemas.android.com/tools"
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
@@ -16,6 +16,11 @@
 			android:layout_height = "match_parent"
 			android:clickable = "true"
 			android:focusable = "true"/>
-
+		<ImageView imageUrl = "@{RemoteImages.CROSSHAIR.url}"
+				   android:layout_width = "70dp"
+				   android:alpha="0.5"
+				   android:layout_height = "70dp"
+				   android:layout_gravity = "center"
+				   android:contentDescription = "crosshair"/>
 	</FrameLayout>
 </layout>

@@ -6,4 +6,6 @@ interface OnPanAndZoomListener {
 	fun onPan(geo:GeoPoint)
 	fun onZoom(zoom:Int)
 	fun onDraw(geo:GeoPoint)
+
+	fun onClick(geo:GeoPoint)
 }

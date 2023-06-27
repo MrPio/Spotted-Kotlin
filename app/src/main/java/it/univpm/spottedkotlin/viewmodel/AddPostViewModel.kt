@@ -36,6 +36,7 @@ class AddPostViewModel : ObservableViewModel() {
 			currentZona = currentPlesso.locations[0]
 			nuovoPost.location = currentZona
 			notifyPropertyChanged(BR.zone)
+			notifyPropertyChanged(BR.zona)
 			notifyPropertyChanged(BR.image)
 			notifyPropertyChanged(BR.plesso)
 		}

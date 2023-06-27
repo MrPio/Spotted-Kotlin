@@ -10,7 +10,7 @@ import java.io.Serializable
 import java.util.*
 
 @IgnoreExtraProperties
-open class Post(
+data class Post(
 	var authorUID: String? = null,
 	var location: Locations? = null,
 	var gender: Gender = Gender.FEMALE,
@@ -23,7 +23,6 @@ open class Post(
 	var uid: String? = null
 	var author: User? = null
 	var lastFollowers: MutableList<User?> = mutableListOf()
-	val timestamp: Long get() = date.time
 
 	fun dateStr() = date.toDateStr()
 	fun timeStr() = date.toTimeStr()

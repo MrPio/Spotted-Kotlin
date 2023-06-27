@@ -4,8 +4,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.widget.Toast
-import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.interfaces.OnPanAndZoomListener
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -55,8 +53,14 @@ class MyMapView(context: Context?, attrs: AttributeSet?) : MapView(context, attr
 			if (oldCenterGeoPoint == null || oldCenterGeoPoint!!.latitudeE6 != centerGeoPoint.latitudeE6 || oldCenterGeoPoint!!.longitudeE6 != centerGeoPoint.longitudeE6)
 				mListener?.onPan(centerGeoPoint)
 			oldCenterGeoPoint = this.mapCenter as GeoPoint
+			performClick();
 		}
 		return super.onTouchEvent(ev)
+	}
+	override fun performClick(): Boolean {
+		super.performClick()
+		mListener?.onClick(this.mapCenter as GeoPoint)
+		return true
 	}
 
 	// Custom onDraw and onZoom event
