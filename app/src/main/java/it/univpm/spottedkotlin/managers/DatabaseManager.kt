@@ -109,16 +109,17 @@ object DatabaseManager {
 		val riversRef = storage.child("images/account_${AccountManager.user.uid}")
 		val uploadTask = riversRef.putFile(localUrl)
 
-		AccountManager.user.avatar=""
-		DataManager.save(AccountManager.user)
+		uploadTask.addOnSuccessListener { taskSnapshot ->
+			// Ottieni l'URL dell'immagine caricata
+			taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
+				val uploadedImageUrl = uri.toString()
 
-		//TODO mettere le eccezioni
-// Register observers to listen for when the download is done or if it fails
-//        uploadTask.addOnFailureListener {
-//            // Handle unsuccessful uploads
-//        }.addOnSuccessListener { taskSnapshot ->
-//            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-//            // ...
-//        }
+				// Imposta l'URL come valore di AccountManager.user.avatar
+				AccountManager.user.avatar = uploadedImageUrl
+
+				// Salva l'oggetto AccountManager.user nel database
+				DataManager.save(AccountManager.user)
+			}
+		}
 	}
 }

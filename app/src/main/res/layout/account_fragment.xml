@@ -81,7 +81,6 @@
                         android:layout_height="100dp"
                         android:contentDescription="@string/todo"
                         android:src = "@drawable/anonymous"/>
-<!--                        app:imageUrl = "@{model.avatar}" -->
 
 
                 </androidx.cardview.widget.CardView>
