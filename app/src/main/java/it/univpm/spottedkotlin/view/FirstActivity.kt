@@ -2,6 +2,7 @@ package it.univpm.spottedkotlin.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -40,7 +41,6 @@ class FirstActivity : AppCompatActivity() {
 			finish()
 		}
 	}
-
 	override fun onStart() {
 		super.onStart()
 		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE

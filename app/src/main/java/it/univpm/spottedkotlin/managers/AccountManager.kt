@@ -2,6 +2,7 @@ package it.univpm.spottedkotlin.managers
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -10,6 +11,7 @@ import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.model.User
 import kotlinx.coroutines.tasks.await
+import okhttp3.internal.wait
 
 
 object AccountManager {
@@ -25,6 +27,10 @@ object AccountManager {
 		val uid = auth.currentUser?.uid
 		DatabaseManager.get<User>("users/${uid}")?.let { user = it; user.uid = uid }
 		return ::user.isInitialized
+	}
+
+	fun logout() {
+		auth.signOut()
 	}
 
 	private suspend fun loginHandleAuthResult(authResult: AuthResult?) {
