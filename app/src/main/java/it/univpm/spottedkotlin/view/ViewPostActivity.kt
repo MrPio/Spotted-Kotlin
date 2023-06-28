@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.TagItemBinding
 import it.univpm.spottedkotlin.databinding.ViewPostActivityBinding
+import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.function.addViewLast
 import it.univpm.spottedkotlin.extension.function.getActivity
 import it.univpm.spottedkotlin.extension.function.inflate
@@ -18,6 +19,10 @@ import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import it.univpm.spottedkotlin.viewmodel.ViewPostViewModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlin.math.cos
+import kotlin.math.ln
+import kotlin.math.pow
+import kotlin.math.tan
 
 class ViewPostActivity : AppCompatActivity() {
 	companion object {
@@ -35,7 +40,6 @@ class ViewPostActivity : AppCompatActivity() {
 		val postUID = intent.getStringExtra("postUID")
 		val post = DataManager.posts.find { it.uid == postUID }
 		viewModel = ViewPostViewModel(post ?: Post())
-		initialize()
 	}
 
 	override fun onResume() {
@@ -46,7 +50,21 @@ class ViewPostActivity : AppCompatActivity() {
 	private fun initialize() {
 		binding.viewPostImage.transitionName = TRANSITION_IMAGE
 		binding.viewModel = viewModel
-		viewModel.post.location?.imageUrl?.let { binding.viewPostImage.loadUrl(it) }
+
+		val imageUrl = viewModel.post.location?.imageUrl
+//		if (imageUrl == null && viewModel.post.latitude != null && viewModel.post.longitude != null) {
+//			val latitude = viewModel.post.latitude!!
+//			val longitude = viewModel.post.longitude!!
+//			val zoomLevel = 12
+//
+//			val x = ((longitude + 180) / 360 * 2.0.pow(zoomLevel.toDouble())).toInt()
+//			val latRad = Math.toRadians(latitude)
+//			val y =
+//				((1 - ln(tan(latRad) + 1 / cos(latRad)) / Math.PI) / 2 * 2.0.pow(zoomLevel.toDouble())).toInt()
+//
+//			imageUrl = "https://tile.openstreetmap.org/$zoomLevel/$x/$y.png"
+//		}
+		binding.viewPostImage.loadUrl(imageUrl?:RemoteImages.ANCONA.url)
 		binding.exitOnClick = View.OnClickListener { finishAfterTransition() }
 		binding.commentsOnClick = View.OnClickListener {
 			val intent = Intent(this, CommentsActivity::class.java)

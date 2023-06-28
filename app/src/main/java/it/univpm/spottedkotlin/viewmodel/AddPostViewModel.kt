@@ -11,6 +11,7 @@ import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.model.Post
+import org.osmdroid.util.GeoPoint
 
 class AddPostViewModel : ObservableViewModel() {
 	lateinit var loadTagsCallback: () -> Unit
@@ -78,6 +79,12 @@ class AddPostViewModel : ObservableViewModel() {
 
 	@get:Bindable
 	var errors: String = ""
+
+	@get:Bindable
+	var latitude: Double? = null
+
+	@get:Bindable
+	var longitude: Double? = null
 	fun azzera() {
 		currentPlesso = Plexuses.INGEGNERIA
 		currentZona = Locations.QT_140
@@ -98,6 +105,11 @@ class AddPostViewModel : ObservableViewModel() {
 		// Validate the model and print any error
 		val errors = nuovoPost.validate()
 		if (errors.isEmpty()) {
+			if (latitude != null && longitude != null) {
+				nuovoPost.location = null
+				nuovoPost.latitude = latitude
+				nuovoPost.longitude = longitude
+			}
 			DataManager.save(nuovoPost, mode = DataManager.SaveMode.POST)
 			azzera()
 		} else

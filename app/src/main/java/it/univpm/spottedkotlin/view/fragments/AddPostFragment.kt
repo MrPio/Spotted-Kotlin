@@ -29,7 +29,9 @@ import kotlin.math.max
 
 class AddPostFragment : Fragment() {
 	private lateinit var binding: AddPostFragmentBinding
-	private val viewModel: AddPostViewModel by viewModels()
+	var latitude: Double? = null
+	var longitude: Double? = null
+	val viewModel: AddPostViewModel by viewModels()
 	private var footerHeight = 0
 
 	override fun onCreateView(
@@ -39,6 +41,8 @@ class AddPostFragment : Fragment() {
 		viewModel.loadTagsCallback = ::loadTags
 		binding = AddPostFragmentBinding.inflate(inflater, container, false)
 		binding.viewModel = viewModel
+		viewModel.latitude = latitude
+		viewModel.longitude = longitude
 		return binding.root
 	}
 
@@ -127,12 +131,19 @@ class AddPostFragment : Fragment() {
 				.setPositiveButton("Ok") { _, _ -> }
 				.create()
 				.show()
-			requireContext().getActivity<MainActivity>()?.viewModel?.currentFragment?.value = 0
+			requireContext().getActivity<MainActivity>()?.viewModel?.currentFragment?.value =
+				if (latitude != null && longitude != null) 1 else 0
 		} else {
 			binding.addPostScrollview.smoothScrollTo(
 				0,
 				binding.addPostScrollview.getChildAt(0).height - binding.addPostScrollview.height
 			)
 		}
+	}
+
+	override fun onStop() {
+		super.onStop()
+		viewModel.latitude = null;
+		viewModel.longitude = null;
 	}
 }

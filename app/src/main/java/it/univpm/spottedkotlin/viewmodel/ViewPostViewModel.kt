@@ -66,6 +66,10 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 		get() =
 			AccountManager.user.following.contains(post.uid)
 
+	@get:Bindable
+	val relevance: Int
+		get() = post.calculateRelevance(AccountManager.user.tags)
+
 	suspend fun initialize() {
 
 		// Carico l'autore del post

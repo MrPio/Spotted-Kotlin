@@ -11,6 +11,8 @@
 				  type = "android.view.View.OnClickListener"/>
 		<variable name = "commentsOnClick"
 				  type = "android.view.View.OnClickListener"/>
+		<variable name = "view"
+				  type = "android.view.View"/>
 	</data>
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width = "match_parent"
@@ -32,7 +34,7 @@
 					  android:layout_height = "wrap_content"
 					  android:paddingHorizontal = "30dp"
 					  android:paddingVertical = "10dp"
-					  android:text = "63%"
+					  android:text = '@{String.valueOf(viewModel.relevance)+"%"}'
 					  android:textColor = "@color/white"/>
 		</FrameLayout>
 
@@ -118,9 +120,16 @@
 									  style = "@style/LabelBlack"
 									  android:layout_width = "wrap_content"
 									  android:layout_height = "wrap_content"
-									  android:text = "@{viewModel.post.location.title}"
+									  android:text = '@{viewModel.post.location==null?"Città di Ancona":viewModel.post.location.title}'
 									  android:textColor = "@color/black"
 									  android:textSize = "32sp"/>
+
+							<!--Coordinate-->
+							<TextView style = "@style/LabelRegular"
+									  android:layout_width = "match_parent"
+									  android:layout_height = "wrap_content"
+									  android:text = '@{viewModel.post.latitude != null ? "Coordinate: "+String.valueOf(viewModel.post.latitude).substring(0,8)+" - "+String.valueOf(viewModel.post.longitude).substring(0,8):""}'
+									  android:visibility = "@{viewModel.post.latitude==null?view.GONE:view.VISIBLE}"/>
 
 							<!--AvatarImage-->
 							<LinearLayout android:layout_width = "match_parent"
@@ -233,10 +242,10 @@
 			android:background = "@drawable/corner_radius_top"
 			android:backgroundTint = "@color/grey"
 			android:clickable = "true"
-			android:onClickListener="@{commentsOnClick}"
 			android:elevation = "10dp"
 			android:foreground = "@drawable/ripple_black_corner_round_light"
 			android:gravity = "start"
+			android:onClickListener = "@{commentsOnClick}"
 			android:orientation = "vertical"
 			android:paddingHorizontal = "30dp"
 			android:paddingTop = "20dp"
@@ -303,8 +312,8 @@
 					  markdown = "@{viewModel.lastComment}"
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
-					  android:visibility = "@{viewModel.lastComment.empty?View.GONE:View.VISIBLE}"
-					  android:layout_marginTop = "10dp"/>
+					  android:layout_marginTop = "10dp"
+					  android:visibility = "@{viewModel.lastComment.empty?View.GONE:View.VISIBLE}"/>
 			<TextView style = "@style/LabelLight"
 					  markdown = "@{viewModel.penultimateComment}"
 					  android:layout_width = "wrap_content"

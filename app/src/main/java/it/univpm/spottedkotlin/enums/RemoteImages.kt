@@ -53,5 +53,5 @@ enum class RemoteImages(private val _url: String = "") {
 		get() = "https://firebasestorage.googleapis.com/v0/b/spotted-f3589.appspot.com/o/src%2F" +
 				"${_url.ifEmpty { this.name.lowercase() + if (this.name.contains("AVATAR")) ".png" else ".jpg" }}?alt=media"
 
-	fun load(): Bitmap = BitmapManager.load(this)
+	fun load(): Bitmap = BitmapManager.load(this.url)
 }

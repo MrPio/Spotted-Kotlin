@@ -26,7 +26,9 @@ class HomeViewModel : ViewModel() {
 		R.string.home_agraria_subtitle,
 		R.string.home_scienze_subtitle,
 		R.string.home_economia_subtitle,
-		R.string.home_medicina_subtitle,
+		R.string.home_medicina_murri_subtitle,
+		R.string.home_medicina_eustacchio_subtitle,
+		R.string.home_ancona_subtitle,
 		R.string.home_altri_subtitle,
 	)
 	private val radios = listOf(

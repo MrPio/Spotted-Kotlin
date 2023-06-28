@@ -2,7 +2,9 @@ package it.univpm.spottedkotlin.view.fragments
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -20,7 +22,11 @@ import it.univpm.spottedkotlin.extension.MyMapView
 import it.univpm.spottedkotlin.extension.function.*
 import it.univpm.spottedkotlin.interfaces.OnPanAndZoomListener
 import it.univpm.spottedkotlin.managers.BitmapManager
+import it.univpm.spottedkotlin.view.MainActivity
+import it.univpm.spottedkotlin.view.ViewPostActivity
 import it.univpm.spottedkotlin.viewmodel.MapViewModel
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
@@ -39,8 +45,6 @@ class MapFragment : Fragment() {
 	private lateinit var mapController: IMapController
 	private lateinit var markerPlaceholder: BitmapDrawable
 
-	//TODO: MOVE LOGIC TO VIEWMODEL
-
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 	): View {
@@ -54,9 +58,23 @@ class MapFragment : Fragment() {
 		map = binding.mapMap
 		mapController = map.controller
 		markerPlaceholder = requireContext().loadBitmapDrawable(R.drawable.map_marker, 55, 55)
+		binding.mapAddPost.setOnClickListener {
+			val mainActivity=(requireActivity() as MainActivity)
+			mainActivity.viewModel.currentFragment.value = 2
+			(mainActivity.viewModel.fragments[2] as AddPostFragment).apply {
+				latitude=(map.mapCenter as GeoPoint).latitude
+				longitude=(map.mapCenter as GeoPoint).longitude
+			}
+		}
 
-		markers = viewModel.loadOverlayItems(requireContext())
-		initializeMap()
+		binding.mapLoadingView.loadingViewRoot.visibility = View.VISIBLE
+		MainScope().launch {
+			markers = viewModel.loadOverlayItems(requireContext())
+			initializeMap()
+			requireActivity().runOnUiThread {
+				binding.mapLoadingView.loadingViewRoot.visibility = View.GONE
+			}
+		}
 
 		return binding.root
 	}
@@ -68,7 +86,7 @@ class MapFragment : Fragment() {
 		map.setMultiTouchControls(true)
 
 		map.minZoomLevel = 13.0
-		map.maxZoomLevel = 19.0
+		map.maxZoomLevel = 20.0
 		mapController.setZoom(13.0)
 		val startPoint = GeoPoint(43.6100, 13.5134)
 		val startZoom = 14.0
@@ -83,8 +101,8 @@ class MapFragment : Fragment() {
 				// BOUNDARY CONSTRAINT
 				if (System.currentTimeMillis() - startTime < 2000) return
 				map.minZoomLevel = startZoom
-				val longitudeSpan = 0.145
-				val latitudeSpan = 0.175
+				val longitudeSpan = 0.25
+				val latitudeSpan = 0.3
 
 				val halfWidth = map.longitudeSpanDouble / 2
 				val left = geo.longitude - halfWidth
@@ -187,11 +205,24 @@ class MapFragment : Fragment() {
 
 							// Render the MultiMarker number image
 							val size = item.markers.size
+							val ten =
+								if (size < 100)
+									if ((size / 10) % 10 == 0)
+										null
+									else
+										resources.loadBitmap(Numbers.values()[(size / 10) % 10].res)
+								else
+									resources.loadBitmap(Numbers._9.res)
+							val unity =
+								if (size < 100)
+									resources.loadBitmap(Numbers.values()[size % 10].res)
+								else
+									resources.loadBitmap(Numbers._9.res)
 							val bitmap = BitmapManager.overlay(
 								markerBitmap,
 								whiteCircleBitmap,
-								if ((size / 10) % 10 == 0) null else resources.loadBitmap(Numbers.values()[(size / 10) % 10].res),
-								resources.loadBitmap(Numbers.values()[size % 10].res)
+								ten,
+								unity,
 							)
 
 							// Set the rendered image
@@ -225,7 +256,9 @@ class MapFragment : Fragment() {
 		if (item is MultiOverlayItem)
 			mapController.animateTo(item.point, map.zoomLevelDouble + 1.0, 400)
 		else {
-			item.title
+			val intent = Intent(requireActivity(), ViewPostActivity::class.java)
+			intent.putExtra("postUID", item.uid)
+			requireActivity().startActivity(intent)
 		}
 	}
 

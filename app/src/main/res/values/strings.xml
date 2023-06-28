@@ -63,7 +63,9 @@
 	<string name="home_agraria_subtitle">Univpm - Plesso Monte Dago</string>
 	<string name="home_scienze_subtitle">Univpm - Dipartimento di Scienze della Vita e dell’Ambiente</string>
 	<string name="home_economia_subtitle">Univpm - Facoltà di Economia "Giorgio Fuà"</string>
-	<string name="home_medicina_subtitle">Univpm - Polo Universitario Torrette </string>
+	<string name="home_medicina_murri_subtitle">Univpm - Polo Universitario Torrette </string>
+	<string name="home_medicina_eustacchio_subtitle">Univpm - Polo Universitario Torrette </string>
+	<string name="home_ancona_subtitle">Città di Ancona </string>
 	<string name="home_altri_subtitle">Mensa, luoghi di Ancona e altro ancora</string>
 
 	<string name="home_title">Ciao, %1$s! </string>
@@ -83,10 +85,12 @@
 	<string name = "credo_proprio_di_essere_io">Credo proprio di essere io!</string>
 	<string name = "type_ingegneria">Ingegneria</string>
 	<string name = "type_agraria">Agraria</string>
-	<string name = "type_economia">Economia</string>
-	<string name = "type_altri">Altri</string>
-	<string name = "type_medicina">Medicina</string>
 	<string name = "type_scienze">Scienze</string>
+	<string name = "type_economia">Economia</string>
+	<string name = "type_medicina_murri">Medicina Murri</string>
+	<string name = "type_medicina_eustacchio">Medicina Eustacchio</string>
+	<string name = "type_ancona">Ancona</string>
+	<string name = "type_altri">Altri</string>
 	<string name = "modalit_anonima">Modalità anonima</string>
 	<string name = "fine_dei_post">Fine dei post</string>
 	<string name = "rilevanza">Rilevanza</string>

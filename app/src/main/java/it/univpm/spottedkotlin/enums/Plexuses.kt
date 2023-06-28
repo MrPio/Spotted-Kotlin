@@ -1,7 +1,5 @@
 package it.univpm.spottedkotlin.enums
 
-import android.location.Location
-
 enum class Plexuses(
 	val title: String? = null,
 	val locations: List<Locations> = listOf(),

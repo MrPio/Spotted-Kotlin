@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android = "http://schemas.android.com/apk/res/android">
+<layout xmlns:android = "http://schemas.android.com/apk/res/android"
+		xmlns:app = "http://schemas.android.com/apk/res-auto">
 	<data>
 		<import type = "it.univpm.spottedkotlin.enums.RemoteImages"/>
 		<import type = "it.univpm.spottedkotlin.extension.MyMapView"/>
@@ -18,9 +19,51 @@
 			android:focusable = "true"/>
 		<ImageView imageUrl = "@{RemoteImages.CROSSHAIR.url}"
 				   android:layout_width = "70dp"
-				   android:alpha="0.5"
 				   android:layout_height = "70dp"
 				   android:layout_gravity = "center"
+				   android:alpha = "0.5"
 				   android:contentDescription = "crosshair"/>
+
+		<!--Add Post FAB-->
+		<androidx.constraintlayout.widget.ConstraintLayout android:layout_width = "match_parent"
+														   android:layout_height = "match_parent">
+			<RelativeLayout android:layout_width = "wrap_content"
+							android:layout_height = "wrap_content"
+							android:layout_marginEnd = "30dp"
+							android:layout_marginBottom = "100dp"
+							android:clickable = "true"
+							app:layout_constraintBottom_toBottomOf = "parent"
+							app:layout_constraintEnd_toEndOf = "parent">
+				<androidx.cardview.widget.CardView android:id = "@+id/map_add_post"
+												   android:layout_width = "68dp"
+												   android:layout_height = "68dp"
+												   android:layout_marginBottom = "28dp"
+												   android:clickable = "true"
+												   app:cardBackgroundColor = "@color/red"
+												   app:cardCornerRadius = "999dp"
+												   app:cardElevation = "8dp">
+
+					<LinearLayout android:layout_width = "68dp"
+								  android:layout_height = "68dp"
+								  android:gravity = "center">
+
+						<TextView
+							android:id = "@+id/home_icon"
+							style = "@style/LabelIcon"
+							android:layout_width = "wrap_content"
+							android:layout_height = "wrap_content"
+							android:gravity = "center"
+							android:text = "@string/Plus"
+							android:textColor = "@color/white"
+							android:textSize = "34sp"/>
+					</LinearLayout>
+				</androidx.cardview.widget.CardView>
+			</RelativeLayout>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<!--LoadingView-->
+		<include android:id = "@+id/map_loading_view"
+				 layout = "@layout/loading_view"
+				 android:visibility = "gone"/>
 	</FrameLayout>
 </layout>

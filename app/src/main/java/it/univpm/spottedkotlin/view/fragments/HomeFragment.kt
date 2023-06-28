@@ -160,7 +160,7 @@ class HomeFragment : Fragment() {
 			adapter.posts.add(null)
 			adapter.notifyDataSetChanged()
 		}
-		requireActivity().runOnUiThread {
+		activity?.runOnUiThread {
 			binding.homeLoadingView.loadingViewRoot.visibility = View.GONE
 		}
 	}

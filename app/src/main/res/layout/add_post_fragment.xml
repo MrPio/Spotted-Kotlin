@@ -110,14 +110,24 @@
 								 android:theme = "@style/SpinnerTheme"
 								 android:tooltipText = "Autore"/>
 
+						<!--HLine-->
+						<View android:layout_width = "match_parent"
+							  android:layout_height = "0.5dp"
+							  android:layout_marginTop = "10dp"
+							  android:layout_marginEnd = "-30dp"
+							  android:alpha = "0.125"
+							  android:foreground = "@color/black"
+							  android:visibility = "@{viewModel.latitude!=null?view.GONE:view.VISIBLE}"/>
+
 						<!--Plesso-->
 						<TextView style = "@style/LabelBold"
 								  android:layout_width = "wrap_content"
 								  android:layout_height = "wrap_content"
-								  android:layout_marginTop = "6dp"
+								  android:layout_marginTop = "20dp"
 								  android:text = "@string/plesso"
 								  android:textColor = "@color/red"
-								  android:textSize = "22sp"/>
+								  android:textSize = "22sp"
+								  android:visibility = "@{viewModel.latitude!=null?view.GONE:view.VISIBLE}"/>
 						<Spinner android:id = "@+id/plesso_spinner"
 								 android:layout_width = "match_parent"
 								 android:layout_height = "48dp"
@@ -129,6 +139,7 @@
 								 android:selectedItemPosition = "@={viewModel.plesso}"
 								 android:theme = "@style/SpinnerTheme"
 								 android:tooltipText = "Plesso"
+								 android:visibility = "@{viewModel.latitude!=null?view.GONE:view.VISIBLE}"
 								 tools:visibility = "gone"/>
 
 						<!--HLine-->
@@ -137,7 +148,8 @@
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/black"/>
+							  android:foreground = "@color/black"
+							  android:visibility = "@{(viewModel.zone.size()&lt;=1 || viewModel.latitude!=null)?view.GONE:view.VISIBLE}"/>
 
 						<!--Zona-->
 						<TextView style = "@style/LabelBold"
@@ -147,7 +159,7 @@
 								  android:text = "@string/zona"
 								  android:textColor = "@color/red"
 								  android:textSize = "22sp"
-								  android:visibility = "@{viewModel.zone.size()&lt;=1?view.GONE:view.VISIBLE}"/>
+								  android:visibility = "@{(viewModel.zone.size()&lt;=1 || viewModel.latitude!=null)?view.GONE:view.VISIBLE}"/>
 						<Spinner android:id = "@+id/zona_spinner"
 								 android:layout_width = "match_parent"
 								 android:layout_height = "48dp"
@@ -159,8 +171,54 @@
 								 android:selectedItemPosition = "@={viewModel.zona}"
 								 android:theme = "@style/SpinnerTheme"
 								 android:tooltipText = "Plesso"
-								 android:visibility = "@{viewModel.zone.size()&lt;=1?view.GONE:view.VISIBLE}"
+								 android:visibility = "@{(viewModel.zone.size()&lt;=1 || viewModel.latitude!=null)?view.GONE:view.VISIBLE}"
 								 tools:visibility = "gone"/>
+
+						<!--HLine-->
+						<View android:layout_width = "match_parent"
+							  android:layout_height = "0.5dp"
+							  android:layout_marginTop = "10dp"
+							  android:layout_marginEnd = "-30dp"
+							  android:alpha = "0.125"
+							  android:foreground = "@color/black"
+							  android:visibility = "@{viewModel.latitude!=null?view.GONE:view.VISIBLE}"/>
+
+						<!--Coordinate-->
+						<TextView style = "@style/LabelBold"
+								  android:layout_width = "wrap_content"
+								  android:layout_height = "wrap_content"
+								  android:layout_marginTop = "20dp"
+								  android:text = "Coordinate"
+								  android:textColor = "@color/red"
+								  android:textSize = "22sp"
+								  android:visibility = "@{viewModel.latitude==null?view.GONE:view.VISIBLE}"/>
+						<LinearLayout android:layout_width = "match_parent"
+									  android:layout_height = "wrap_content"
+									  android:layout_marginHorizontal = "10dp"
+									  android:layout_marginTop = "10dp"
+									  android:orientation = "horizontal"
+									  android:visibility = "@{viewModel.latitude==null?view.GONE:view.VISIBLE}">
+							<TextView style = "@style/LabelRegular"
+									  android:layout_width = "match_parent"
+									  android:layout_height = "wrap_content"
+									  android:textAlignment="center"
+									  android:layout_marginEnd = "10dp"
+									  android:layout_weight = "1"
+									  android:background = "@drawable/border_rounded_red_small"
+									  android:padding = "10dp"
+									  android:text = '@{viewModel.latitude != null ? String.valueOf(viewModel.latitude).substring(0,8):""}'
+									  android:textColor = "@color/white"/>
+							<TextView style = "@style/LabelRegular"
+									  android:layout_width = "match_parent"
+									  android:layout_height = "wrap_content"
+									  android:layout_marginStart = "10dp"
+									  android:textAlignment="center"
+									  android:layout_weight = "1"
+									  android:background = "@drawable/border_rounded_red_small"
+									  android:padding = "10dp"
+									  android:text = '@{viewModel.longitude != null ? String.valueOf(viewModel.longitude).substring(0,8):""}'
+									  android:textColor = "@color/white"/>
+						</LinearLayout>
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"

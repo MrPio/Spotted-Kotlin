@@ -19,6 +19,8 @@ data class Post(
 	val tags: MutableList<Tag> = mutableListOf(),
 	val followers: MutableList<String> = mutableListOf(),
 	val comments: MutableList<Comment> = mutableListOf(),
+	var latitude: Double? = null,
+	var longitude: Double? = null,
 ) : Serializable, Validable {
 	var uid: String? = null
 	var author: User? = null
