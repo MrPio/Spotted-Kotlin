@@ -34,17 +34,12 @@ class HomeViewModel : ViewModel() {
 		R.id.radio_agraria,
 		R.id.radio_scienze,
 		R.id.radio_economia,
-		R.id.radio_medicina,
+		R.id.radio_medicina_murri,
+		R.id.radio_medicina_eustacchio,
+		R.id.radio_ancona,
 		R.id.radio_altri,
 	)
-	private val plexuses = listOf(
-		Plexuses.INGEGNERIA,
-		Plexuses.AGRARIA,
-		Plexuses.SCIENZE,
-		Plexuses.ECONOMIA,
-		Plexuses.MEDICINA,
-		Plexuses.ALTRI,
-	)
+	private val plexuses = Plexuses.values().toList()
 	val subtitle = MutableLiveData(subtitles[0])
 	var filter = Filter(plexus = Plexuses.INGEGNERIA)
 

@@ -181,9 +181,17 @@
 						style = "@style/RadioButton"
 						android:text = "@string/type_economia"/>
 					<RadioButton
-						android:id = "@+id/radio_medicina"
+						android:id = "@+id/radio_medicina_murri"
 						style = "@style/RadioButton"
-						android:text = "@string/type_medicina"/>
+						android:text = "Medicina Murri"/>
+					<RadioButton
+						android:id = "@+id/radio_medicina_eustacchio"
+						style = "@style/RadioButton"
+						android:text = "Medicina Eustacchio"/>
+					<RadioButton
+						android:id = "@+id/radio_ancona"
+						style = "@style/RadioButton"
+						android:text = "Ancona"/>
 					<RadioButton
 						android:id = "@+id/radio_altri"
 						style = "@style/RadioButton"

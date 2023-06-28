@@ -52,6 +52,37 @@ enum class Plexuses(
 			Locations.ECONOMIA_SEGRETERIA_STUDENTI
 		)
 	),
+
+	MEDICINA_MURRI(
+		"Univpm - Medicina Murri",
+		listOf(
+			Locations.MEDICINA_MURRI,
+			Locations.MEDICINA_MURRI_AULA_P1,
+			Locations.MEDICINA_MURRI_AULA_R,
+			Locations.MEDICINA_MURRI_PIANO_1,
+			Locations.MEDICINA_MURRI_PIANO_2,
+			Locations.MEDICINA_MURRI_PIANO_3,
+			Locations.MEDICINA_MURRI_PIANO_4,
+			Locations.MEDICINA_MURRI_PIANO_TERRA
+
+
+		)
+	),
+	MEDICINA_EUSTACCHIO(
+		"Univpm - Medicina Eustacchio",
+		listOf(
+			Locations.MEDICINA_EUSTACCHIO,
+			Locations.MEDICINA_EUSTACCHIO_ATELIER,
+			Locations.MEDICINA_EUSTACCHIO_AULA_D,
+			Locations.MEDICINA_EUSTACCHIO_AULE_STUDIO,
+			Locations.MEDICINA_EUSTACCHIO_BIBLIOTECA,
+			Locations.MEDICINA_EUSTACCHIO_LAURE_TRIENNALI,
+			Locations.MEDICINA_EUSTACCHIO_PIANO_1,
+			Locations.MEDICINA_EUSTACCHIO_PIANO_2,
+			Locations.MEDICINA_EUSTACCHIO_PIANO_TERRA,
+			Locations.MEDICINA_EUSTACCHIO_SEGRETERIA,
+		)
+	),
 	ANCONA(
 		"Ancona",
 		listOf(
@@ -66,7 +97,6 @@ enum class Plexuses(
 			Locations.ANCONA_UGO_BASSI
 		)
 	),
-	MEDICINA("Univpm - Medicina", listOf(Locations.MEDICINA)),
 	ALTRI(
 		"Altri",
 		listOf(

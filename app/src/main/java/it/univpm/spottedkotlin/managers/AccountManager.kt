@@ -34,7 +34,7 @@ object AccountManager {
     fun logout(context: Context) {
         SharedPreferencesManager.remove(context)
         val uid = SharedPreferencesManager.read(context)
-        auth.signOut() //non serve...ma per sicurezza
+        auth.signOut()
     }
 
     private suspend fun loginHandleAuthResult(authResult: AuthResult?) {
