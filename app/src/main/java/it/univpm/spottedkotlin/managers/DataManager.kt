@@ -91,10 +91,8 @@ object DataManager {
                     else {
                         var post_uid = post(path, it)
                         if (post_uid != null) {
-                            DatabaseManager.apply {
-								post(path_post, post_uid)
-                            }
 							AccountManager.user.posts.add(post_uid)
+                            save(AccountManager.user)
                         }
                     }
                 }
