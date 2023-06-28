@@ -124,6 +124,7 @@
 									  android:textColor = "@color/black"
 									  android:textSize = "32sp"/>
 
+
 							<!--Coordinate-->
 							<TextView style = "@style/LabelRegular"
 									  android:layout_width = "match_parent"

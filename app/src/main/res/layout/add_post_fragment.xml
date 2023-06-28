@@ -184,14 +184,31 @@
 							  android:visibility = "@{viewModel.latitude!=null?view.GONE:view.VISIBLE}"/>
 
 						<!--Coordinate-->
-						<TextView style = "@style/LabelBold"
-								  android:layout_width = "wrap_content"
-								  android:layout_height = "wrap_content"
-								  android:layout_marginTop = "20dp"
-								  android:text = "Coordinate"
-								  android:textColor = "@color/red"
-								  android:textSize = "22sp"
-								  android:visibility = "@{viewModel.latitude==null?view.GONE:view.VISIBLE}"/>
+						<LinearLayout android:layout_width = "match_parent"
+									  android:layout_height = "wrap_content"
+									  android:orientation="horizontal"
+									  android:visibility = "@{viewModel.latitude==null?view.GONE:view.VISIBLE}">
+
+							<TextView style = "@style/LabelBold"
+									  android:layout_width = "wrap_content"
+									  android:layout_height = "wrap_content"
+									  android:layout_marginTop = "20dp"
+									  android:text = "Coordinate"
+									  android:textColor = "@color/red"
+									  android:textSize = "22sp"/>
+
+							<TextView
+								style = "@style/LabelRegular"
+								android:layout_marginStart="8dp"
+								android:layout_marginTop = "20dp"
+								android:layout_width = "wrap_content"
+								android:layout_height = "wrap_content"
+								android:onClickListener="@{()->viewModel.removeCoordinates()}"
+								android:text = "@string/rimuovi_coordinate"
+								android:textAlignment="center"
+								android:textSize = "16sp"/>
+						</LinearLayout>
+
 						<LinearLayout android:layout_width = "match_parent"
 									  android:layout_height = "wrap_content"
 									  android:layout_marginHorizontal = "10dp"

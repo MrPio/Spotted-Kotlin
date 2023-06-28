@@ -25,6 +25,7 @@ import it.univpm.spottedkotlin.managers.BitmapManager
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.view.ViewPostActivity
 import it.univpm.spottedkotlin.viewmodel.MapViewModel
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.osmdroid.api.IMapController
@@ -191,7 +192,7 @@ class MapFragment : Fragment() {
 				multiItems.addAll(markers.filter { !scanned.contains(it) })
 
 				//Load and set MultiMarkers images
-				thread {
+				GlobalScope.launch {
 
 					// Load image assets
 					val whiteCircleBitmap = RemoteImages.CIRCLE_WHITE.load()

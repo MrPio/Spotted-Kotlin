@@ -6,6 +6,7 @@ import it.univpm.spottedkotlin.BR
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
 import it.univpm.spottedkotlin.enums.Plexuses
+import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.ObservableViewModel
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
@@ -27,7 +28,11 @@ class AddPostViewModel : ObservableViewModel() {
 
 	@get:Bindable
 	val image: String
-		get() = currentPlesso.locations[zona].imageUrl
+		get() =
+			if (latitude == null)
+				currentPlesso.locations[zona].imageUrl
+			else
+				RemoteImages.ANCONA.url
 
 	@get:Bindable
 	var plesso: Int
@@ -116,5 +121,11 @@ class AddPostViewModel : ObservableViewModel() {
 			this.errors = errors.joinToString(separator = "\n") { "• $it" }
 		notifyPropertyChanged(BR.errors)
 		return errors.isEmpty()
+	}
+
+	fun removeCoordinates() {
+		latitude = null
+		longitude = null
+		notifyChange()
 	}
 }

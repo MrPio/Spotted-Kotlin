@@ -391,6 +391,7 @@ object SeederManager {
 				gender = Gender.values().random(),
 				cellNumber = RandomManager.getRandomCellNumber(),
 				instagramNickname = RandomManager.getRandomString(8),
+				avatar = RemoteImages.valueOf("AVATAR_" + (Random.nextInt(31) + 1)).url,
 				tags = tags.randomList(4).toMutableList(),
 			)
 			user.uid = RandomManager.getRandomString(28)
