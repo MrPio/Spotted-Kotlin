@@ -22,8 +22,7 @@ import it.univpm.spottedkotlin.viewmodel.AccountViewModel
 class AccountFragment : Fragment() {
 	private lateinit var binding: AccountFragmentBinding
 	private val viewModel: AccountViewModel by viewModels()
-
-	val PICK_IMAGE_REQUEST = 1
+	private val PICK_IMAGE_REQUEST = 1
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)

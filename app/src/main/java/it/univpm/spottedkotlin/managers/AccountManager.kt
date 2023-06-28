@@ -33,7 +33,6 @@ object AccountManager {
 
     fun logout(context: Context) {
         SharedPreferencesManager.remove(context)
-        val uid = SharedPreferencesManager.read(context)
         auth.signOut()
     }
 
