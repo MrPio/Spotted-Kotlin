@@ -71,6 +71,7 @@
 	<string name="home_title">Ciao, %1$s! </string>
 	<string name = "nuovo_spot">Nuovo Spot</string>
 	<string name = "tags">Tags</string>
+    <string name = "my_tags">I miei tag</string>
     <string name = "zona">Zona</string>
     <string name = "plesso">Plesso</string>
 	<string name = "descrizione">Descrizione</string>

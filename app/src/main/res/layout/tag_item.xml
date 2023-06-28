@@ -18,13 +18,14 @@
 		android:orientation = "horizontal">
 
 		<TextView
-			style = "@style/LabelIcon"
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:fontFamily = "@font/material_design_icons"
-			android:text = "@{model.icon}"
-			android:textColor = "@{viewModel.selected?@color/white:@color/black}"
-			android:textSize = "18sp"/>
+			android:id="@+id/tagname"
+			style="@style/LabelIcon"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:fontFamily="@font/material_design_icons"
+			android:text="@{model.icon}"
+			android:textColor="@{viewModel.selected?@color/white:@color/black}"
+			android:textSize="18sp" />
 
 		<TextView
 			android:id = "@+id/percentage_label"
