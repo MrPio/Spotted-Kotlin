@@ -38,7 +38,7 @@
     <string name="male">Maschio</string>
     <string name="female">Femmina</string>
     <string name="other">Altro</string>
-    <string name="optional_fields"> * Campi opzionali (potrai inserirli sempre in seguito)</string>
+    <string name="optional_fields"> * Campi opzionali</string>
     <string name="profilo">Profilo</string>
     <string name="messaggia">Messaggia</string>
     <string name="chiama">Chiama</string>
@@ -97,5 +97,6 @@
 	<string name = "rilevanza">Rilevanza</string>
 	<string name = "data">Data</string>
 	<string name = "rimuovi_coordinate">- <u>Rimuovi</u></string>
+	<string name = "registrati2">Registrati</string>
 
 </resources>

@@ -43,6 +43,8 @@ class FirstActivity : AppCompatActivity() {
 	}
 	override fun onStart() {
 		super.onStart()
+
+		return
 		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE
 
 		// ======= DEBUG ZONE ========
