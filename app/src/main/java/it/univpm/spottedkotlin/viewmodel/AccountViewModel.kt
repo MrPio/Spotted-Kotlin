@@ -4,36 +4,21 @@ import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.model.Post
+import it.univpm.spottedkotlin.model.Tag
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import okhttp3.internal.wait
 
 class AccountViewModel : ViewModel() {
+    var user= AccountManager.user
 
-    var name: String = AccountManager.user.name +" "+ AccountManager.user.surname
-    var nameInsta:String=setNameInsta()
-    var numPost:String=setNumPost()
-    var numFollowing:String=setNumFollowing()
-    var numComment:String=setNumComment()
+    var name: String = user.name +" "+ user.surname
+    var nameInsta: String? = user.instagramNickname
+    var posts: MutableList<String> = user.posts
+    var numPost:String= posts.size.toString()
+    var numFollowing:String = user.following.size.toString()
+    var numComment:String= user.comments.size.toString()
+    var tags: MutableList<Tag> = user.tags
 
-    fun setNameInsta(): String{
-        if(AccountManager.user.instagramNickname != null){
-            return AccountManager.user.instagramNickname!!
-        }
-        else return ""
-    }
 
-    fun setNumPost():String{
-        return AccountManager.user.posts.size.toString()
-    }
-
-    fun setNumFollowing(): String {
-        return AccountManager.user.following.size.toString()
-    }
-
-    fun setNumComment(): String {
-        return AccountManager.user.comments.size.toString()
-    }
-
-    // TODO: Implement the ViewModel
 }
