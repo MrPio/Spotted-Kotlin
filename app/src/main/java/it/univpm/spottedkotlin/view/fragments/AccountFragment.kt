@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import it.univpm.spottedkotlin.R
@@ -23,15 +22,13 @@ import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.viewmodel.AccountViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
-import kotlinx.coroutines.launch
-
 
 class AccountFragment : Fragment() {
 	private lateinit var binding: AccountFragmentBinding
 	private val viewModel: AccountViewModel by viewModels()
 
 	private lateinit var layoutManager: LinearLayoutManager
-	private lateinit var postsAdapter: PostsAdapter
+	private var postsAdapter: PostsAdapter = PostsAdapter(mutableListOf())
 
 	private val PICK_IMAGE_REQUEST = 1
 
@@ -44,15 +41,15 @@ class AccountFragment : Fragment() {
 	): View {
 		binding = AccountFragmentBinding.inflate(inflater, container, false)
 		binding.viewModel=viewModel
-
-		addTags()
-		lifecycleScope.launch {
-			addPosts()
-		}
-
 		binding.modifyImage.setOnClickListener{ view ->
 			openGallery()
 		}
+
+		layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+		binding.postsRecyclerView.layoutManager = layoutManager
+		binding.postsAdapter = postsAdapter
+
 		return binding.root
 	}
 
@@ -65,11 +62,10 @@ class AccountFragment : Fragment() {
 			.error(R.drawable.anonymous)
 			.into(binding.accountImageView)
 
+		addTags()
+		addPosts()
+
 		print(viewModel.userPost+"\n\n\n\n\n")
-		layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-		binding.postsRecycler.layoutManager = layoutManager
-		postsAdapter = PostsAdapter(viewModel.userPost)
-		binding.postsRecycler.adapter = postsAdapter
 	}
 
 
@@ -104,13 +100,7 @@ class AccountFragment : Fragment() {
 		binding.addAccountTagsGrid.addView(tagBinding.root)
 	}
 
-	suspend fun addPosts(){
-		//viewModel.requestMorePosts()
-		viewModel.getUserPost()
-		viewModel.postsRequestCompleted.await()
+	 fun addPosts(){
 		postsAdapter.updatePosts(viewModel.userPost)
-
-
 	}
-
 }

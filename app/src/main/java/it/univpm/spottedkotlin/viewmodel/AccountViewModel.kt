@@ -14,8 +14,6 @@ import okhttp3.internal.wait
 
 class AccountViewModel : ViewModel() {
     var user= AccountManager.user
-    val filter = Filter(userId = user.uid)
-    val postsRequestCompleted = CompletableDeferred<Unit>()
 
     var name: String = user.name +" "+ user.surname
     var nameInsta: String? = user.instagramNickname
@@ -25,20 +23,5 @@ class AccountViewModel : ViewModel() {
     var numComment:String= user.comments.size.toString()
     var tags: MutableList<Tag> = user.tags
 
-    val userPost: MutableList<Post> = mutableListOf()
-
-
-    suspend fun requestMorePosts() {
-        DataManager.loadMore()
-        DataManager.filterPosts(filter)
-    }
-
-    suspend fun getUserPost(){
-        for (Uid in postsUid){
-            DatabaseManager.get<Post>("posts/"+Uid)?.let { userPost.add(it) }
-        }
-        postsRequestCompleted.complete(Unit)
-        //print(userPost+"\n\n\n\n\n") funziona
-    }
-
+    val userPost: MutableList<Post> = AccountManager.userPost
 }

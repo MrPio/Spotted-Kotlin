@@ -10,6 +10,7 @@ import com.google.firebase.ktx.Firebase
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.function.log
+import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.User
 import kotlinx.coroutines.tasks.await
 
@@ -23,10 +24,19 @@ object AccountManager {
     private var instaUrl: String? = null
     private var gender: Gender? = null
 
+    val userPost: MutableList<Post> = mutableListOf()
+
     suspend fun cacheLogin(context: Context): Boolean {
         val uid = SharedPreferencesManager.read(context)
         if (uid != "none") {
-            DatabaseManager.get<User>("users/${uid}")?.let { user = it; user.uid = uid }
+            DatabaseManager.get<User>("users/${uid}")?.let {
+                user = it;
+                user.uid = uid
+                for (Uid in user.posts){
+                    DatabaseManager.get<Post>("posts/"+Uid)?.let { userPost.add(it) }
+                }
+            }
+
             return ::user.isInitialized
         } else return false
     }
@@ -39,7 +49,13 @@ object AccountManager {
     private suspend fun loginHandleAuthResult(authResult: AuthResult?) {
         if (authResult != null) {
             val uid = authResult.user?.uid
-            DatabaseManager.get<User>("users/${uid}")?.let { user = it; user.uid = uid }
+            DatabaseManager.get<User>("users/${uid}")?.let {
+                user = it;
+                user.uid = uid
+                for (Uid in user.posts){
+                    DatabaseManager.get<Post>("posts/"+Uid)?.let { userPost.add(it) }
+                }
+            }
             if (!::user.isInitialized)
                 throw Exception("user not found in database")
         } else {
