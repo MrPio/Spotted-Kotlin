@@ -11,7 +11,8 @@ class Filter(
 	private val maxDate: Date = Date(Long.MAX_VALUE),
 	private val plexus: Plexuses? = null,
 	private val gender: Gender? = null,
-	private val minPercentage: Int = 0
+	private val minPercentage: Int = 0,
+	private val userId: String? = null
 ) {
 	enum class OrderBy { RELEVANCE, DATE }
 
@@ -21,7 +22,8 @@ class Filter(
 			it.date.after(minDate) && it.date.before(maxDate) &&
 					(plexus == null || it.location?.plexus == plexus) &&
 					(gender == null || it.gender == gender) &&
-					it.calculateRelevance(AccountManager.user.tags) >= minPercentage
+					it.calculateRelevance(AccountManager.user.tags) >= minPercentage &&
+					(userId == null || it.authorUID == userId)
 		}
 		return when (orderBy) {
 			OrderBy.RELEVANCE -> filtered.sortedByDescending { it.calculateRelevance(AccountManager.user.tags) }
