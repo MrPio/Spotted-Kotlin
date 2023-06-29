@@ -44,9 +44,6 @@ class FirstActivity : AppCompatActivity() {
 	override fun onStart() {
 		super.onStart()
 
-		return
-		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE
-
 		// ======= DEBUG ZONE ========
 		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
@@ -55,6 +52,7 @@ class FirstActivity : AppCompatActivity() {
 
 		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
+		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {
 			if (AccountManager.cacheLogin(applicationContext)) goToMainActivity()
 			runOnUiThread {
