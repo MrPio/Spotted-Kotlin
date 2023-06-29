@@ -27,18 +27,18 @@ object DataManager {
 
 	// Fetch all the application's needed start data
 	suspend fun fetchData() {
-		tags= DatabaseManager.getList<Tag>("tags", pageSize = 999)?.toSet()
-		cachedUsers= DatabaseManager.getList<User>("users",9999)?.toMutableSet() ?: mutableSetOf()
+		tags = DatabaseManager.getList<Tag>("tags", pageSize = 999)?.toSet()
+		cachedUsers = DatabaseManager.getList<User>("users", 9999)?.toMutableSet() ?: mutableSetOf()
 	}
 
 	// Request a new page for paginated data
-	suspend fun loadMore(pageSize:Int=this.pageSize) {
+	suspend fun loadMore(pageSize: Int = this.pageSize) {
 		posts.addAll(DatabaseManager.getList("posts", pageSize = pageSize) ?: listOf())
 	}
 
 	// Remove the last page pointer of paginated data
-	fun reloadPaginatedData(){
-		posts= mutableListOf()
+	fun reloadPaginatedData() {
+		posts = mutableListOf()
 		DatabaseManager.paginateKeys.clear()
 	}
 
@@ -65,7 +65,7 @@ object DataManager {
 			user.uid = uid
 			cachedUsers.add(user)
 		}
-		return user?: anonymous
+		return user ?: anonymous
 	}
 
 	// Apply a given filter to the posts
@@ -73,33 +73,29 @@ object DataManager {
 		posts = filter.postFilter(posts).toMutableList()
 	}
 
-    // Save model objects
-    fun save(vararg model: Any, mode: SaveMode = SaveMode.PUT) {
-        model.forEach {
-            var path: String? = null
-            var path_post: String =
-                "users/" + AccountManager.user.uid + "/posts/"
-            when (it) {
-                is User -> path = "users/" + if (mode == SaveMode.PUT) it.uid else ""
-                is Post -> {
-                    path = "posts/" + if (mode == SaveMode.PUT) it.uid else ""
-                    if (mode == SaveMode.POST) {
-                        posts?.add(it)
-                    }
-                }
-            }
-            if (path != null)
-                DatabaseManager.apply {
-                    if (mode == SaveMode.PUT) put(path, it)
-                    else {
-                        var post_uid = post(path, it)
-                        if (post_uid != null) {
-							AccountManager.user.posts.add(post_uid)
-                            save(AccountManager.user)
-                        }
-                    }
-                }
+	// Save Model objects
+	fun save(vararg model: Any, mode: SaveMode = SaveMode.PUT) {
+		model.forEach { model ->
+			var path: String? = null
+			path = when (model) {
+				is User -> "users/" + if (mode == SaveMode.PUT) model.uid else ""
+				is Post -> "posts/" + if (mode == SaveMode.PUT) model.uid else ""
+				else -> return
+			}
 
-        }
-    }
+			// Query DB
+			if (mode == SaveMode.PUT)
+				DatabaseManager.put(path, model)
+			else
+				DatabaseManager.post(path, model)?.let { uid ->
+					when (model) {
+						is Post -> {
+							posts.add(model)
+							AccountManager.user.posts.add(uid)
+							save(AccountManager.user)
+						}
+					}
+				}
+		}
+	}
 }
