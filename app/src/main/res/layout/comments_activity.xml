@@ -93,6 +93,7 @@
 					  android:paddingHorizontal = "30dp"
 					  android:paddingTop = "20dp"
 					  android:paddingBottom = "20dp"
+					  android:visibility="@{viewModel.post.spotted?View.GONE:View.VISIBLE}"
 					  app:layout_constraintBottom_toBottomOf = "parent"
 					  app:layout_constraintStart_toStartOf = "parent">
 			<EditText android:layout_width = "match_parent"
