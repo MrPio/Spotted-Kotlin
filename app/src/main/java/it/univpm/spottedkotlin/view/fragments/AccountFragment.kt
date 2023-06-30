@@ -74,8 +74,6 @@ class AccountFragment : Fragment() {
 		print(viewModel.userPost+"\n\n\n"+viewModel.userPost.size+"\n\n")
 	}
 
-
-
 	// Metodo per avviare l'intent della galleria
 	private fun openGallery() {
 		val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

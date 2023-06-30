@@ -1,6 +1,5 @@
 package it.univpm.spottedkotlin.view
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -10,7 +9,6 @@ import it.univpm.spottedkotlin.databinding.TagItemBinding
 import it.univpm.spottedkotlin.databinding.ViewPostActivityBinding
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.function.addViewLast
-import it.univpm.spottedkotlin.extension.function.getActivity
 import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.extension.function.loadUrl
 import it.univpm.spottedkotlin.managers.DataManager
@@ -19,10 +17,6 @@ import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import it.univpm.spottedkotlin.viewmodel.ViewPostViewModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import kotlin.math.cos
-import kotlin.math.ln
-import kotlin.math.pow
-import kotlin.math.tan
 
 class ViewPostActivity : AppCompatActivity() {
 	companion object {

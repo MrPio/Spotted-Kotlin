@@ -34,7 +34,7 @@
 					  android:layout_height = "wrap_content"
 					  android:paddingHorizontal = "30dp"
 					  android:paddingVertical = "10dp"
-					  android:text = '@{String.valueOf(viewModel.relevance)+"%"}'
+					  android:text = '@{viewModel.isMine?"Tuo post":String.valueOf(viewModel.relevance)+"%"}'
 					  android:textColor = "@color/white"/>
 		</FrameLayout>
 

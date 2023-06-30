@@ -62,5 +62,5 @@ class HomeViewModel : ViewModel() {
 		DataManager.filterPosts(filter)
 	}
 
-	suspend fun reloadPosts() = DataManager.reloadPaginatedData()
+	fun reloadPosts() = DataManager.reloadPaginatedData()
 }

@@ -59,6 +59,7 @@
     <string name="home_feste_subtitle">Pronto a festeggiare? Questi party aspettano solo te!</string>
     <string name="home_sport_subtitle">Hai voglia di fare un po\' di sport? Controlla i seguenti spot.</string>
 
+	<string name="home_tutti_subtitle">Tutti i post</string>
 	<string name="home_ingegneria_subtitle">Univpm - Plesso Monte Dago</string>
 	<string name="home_agraria_subtitle">Univpm - Plesso Monte Dago</string>
 	<string name="home_scienze_subtitle">Univpm - Dipartimento di Scienze della Vita e dell’Ambiente</string>
@@ -84,6 +85,7 @@
 	<string name = "seguito_da">Seguito da </string>
 	<string name = "e"> e</string>
 	<string name = "credo_proprio_di_essere_io">Credo proprio di essere io!</string>
+	<string name = "type_tutti">Tutti</string>
 	<string name = "type_ingegneria">Ingegneria</string>
 	<string name = "type_agraria">Agraria</string>
 	<string name = "type_scienze">Scienze</string>

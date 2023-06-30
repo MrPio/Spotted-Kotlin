@@ -1,17 +1,12 @@
 package it.univpm.spottedkotlin.viewmodel
 
-import android.provider.ContactsContract.Data
 import androidx.databinding.Bindable
-import androidx.lifecycle.ViewModel
-import it.univpm.spottedkotlin.BR
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.ObservableViewModel
-import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.extension.function.toDateStr
 import it.univpm.spottedkotlin.extension.function.toggle
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
-import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.User
 import kotlinx.coroutines.MainScope
@@ -70,6 +65,10 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 	@get:Bindable
 	val relevance: Int
 		get() = post.calculateRelevance(AccountManager.user.tags)
+
+	@get:Bindable
+	val isMine: Boolean
+		get() = post.authorUID==AccountManager.user.uid
 
 	suspend fun initialize() {
 
