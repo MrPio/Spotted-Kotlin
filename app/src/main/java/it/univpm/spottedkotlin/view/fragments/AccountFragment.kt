@@ -65,7 +65,13 @@ class AccountFragment : Fragment() {
 		addTags()
 		addPosts()
 
-		print(viewModel.userPost+"\n\n\n\n\n")
+		if(viewModel.nameInsta == " " || viewModel.nameInsta == null) binding.instaName.visibility= View.INVISIBLE
+		if(viewModel.userPost.isEmpty()){
+			binding.postsRecyclerView.visibility= View.GONE
+			binding.noPost.visibility= View.VISIBLE
+		}
+
+		print(viewModel.userPost+"\n\n\n"+viewModel.userPost.size+"\n\n")
 	}
 
 

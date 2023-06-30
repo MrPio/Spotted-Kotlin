@@ -19,64 +19,67 @@
         android:scrollbars="none">
 
 
-        <ScrollView
-            android:id="@+id/postScrollView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="@drawable/corner_radius_up_white"
-            android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/LabelBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/my_tags"
+                android:textColor="@color/red"
+                android:textSize="22sp" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    style="@style/LabelBold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/my_tags"
-                    android:textColor="@color/red"
-                    android:textSize="22sp" />
+            <GridLayout
+                android:id="@+id/add_account_tags_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:columnCount="3"
+                android:numColumns="3"
+                android:paddingStart="30dp"
+                android:useDefaultMargins="true" >
 
-                <GridLayout
-                    android:id="@+id/add_account_tags_grid"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:columnCount="3"
-                    android:numColumns="3"
-                    android:paddingStart="30dp"
-                    android:useDefaultMargins="true" />
+            </GridLayout>
 
-                <HorizontalScrollView
-                    android:id="@+id/postsScrollView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="none">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/postsRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:adapter="@{posts_adapter}"
+                android:orientation="horizontal"
+                android:scrollbars="none"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/postsRecyclerView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:adapter="@{posts_adapter}"
-                        android:orientation="horizontal"
-                        android:scrollbars="none"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:listitem="@layout/spot_post" />
-                </HorizontalScrollView>
-            </LinearLayout>
-        </ScrollView>
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/no_post"
+                style="@style/LabelBlack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:alpha="0.4"
+                android:gravity="center_vertical"
+                android:text="@string/ancora_nessun_post"
+                android:textAlignment="center"
+                android:visibility="gone">
+
+            </TextView>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -134,19 +137,32 @@
 
             <TextView
                 android:id="@+id/nome"
+                style="@style/LabelBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="@{viewModel.name}"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
 
-            <TextView
-                android:id="@+id/instaName"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.nameInsta}"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/instaName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/instagram_icon"
+                    android:gravity="center"
+                    android:text="@{viewModel.nameInsta}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -86,6 +86,7 @@ object AccountManager {
         if (authResult != null) {
             newUser.uid = authResult.user?.uid
             DatabaseManager.put("users/${newUser.uid}", newUser)
+            userPost.clear()
             user = newUser
 
         } else {

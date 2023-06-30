@@ -94,6 +94,7 @@
 	<string name = "type_altri">Altri</string>
 	<string name = "modalit_anonima">Modalità anonima</string>
 	<string name = "fine_dei_post">Fine dei post</string>
+    <string name = "ancora_nessun_post">Ancora nessun post</string>
 	<string name = "rilevanza">Rilevanza</string>
 	<string name = "data">Data</string>
 	<string name = "rimuovi_coordinate">- <u>Rimuovi</u></string>
