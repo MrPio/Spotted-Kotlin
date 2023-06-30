@@ -17,14 +17,13 @@ class SignUpViewModel : ViewModel() {
     //Almost 6 character
     private val MIN_LENGHT : Int = 6
 
-    var name: String = "Mattia"
-    var surname: String = "Sbattella"
-    var instaUrl: String = "instagram.com"
+    var name: String = ""
+    var surname: String = ""
+    var instaUrl: String = ""
     var gender: Gender? =null
-
-    var email:String ="secondario69@gmail.com"
-    var password : String ="aA0%aa"
-    var repeat_password : String ="aA0%aa"
+    var email:String =""
+    var password : String =""
+    var repeat_password : String =""
     lateinit var goToMainActivityCallback : ()->Unit
     lateinit var goToSignUpFragmentCallback : ()->Unit
 
