@@ -342,6 +342,7 @@
 												   app:layout_constraintBottom_toBottomOf="parent"
 												   android:layout_marginBottom="36dp"
 												   app:layout_constraintStart_toStartOf="parent"
+												   android:visibility="@{viewModel.isMine?View.VISIBLE:View.GONE}"
 												   android:textSize = "16sp"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

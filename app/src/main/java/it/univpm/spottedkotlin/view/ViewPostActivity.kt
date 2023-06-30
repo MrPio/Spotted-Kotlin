@@ -3,6 +3,7 @@ package it.univpm.spottedkotlin.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.TagItemBinding
@@ -34,6 +35,7 @@ class ViewPostActivity : AppCompatActivity() {
 		val postUID = intent.getStringExtra("postUID")
 		val post = DataManager.posts.find { it.uid == postUID }
 		viewModel = ViewPostViewModel(post ?: Post())
+		binding.viewPostSpotted.setOnClickListener { spotted() }
 		initialize()
 	}
 
@@ -59,7 +61,7 @@ class ViewPostActivity : AppCompatActivity() {
 //
 //			imageUrl = "https://tile.openstreetmap.org/$zoomLevel/$x/$y.png"
 //		}
-		binding.viewPostImage.loadUrl(imageUrl?:RemoteImages.ANCONA.url)
+		binding.viewPostImage.loadUrl(imageUrl ?: RemoteImages.ANCONA.url)
 		binding.exitOnClick = View.OnClickListener { finishAfterTransition() }
 		binding.commentsOnClick = View.OnClickListener {
 			val intent = Intent(this, CommentsActivity::class.java)
@@ -87,6 +89,16 @@ class ViewPostActivity : AppCompatActivity() {
 	override fun onDestroy() {
 		super.onDestroy()
 		viewModel.save()
+	}
+
+	private fun spotted() {
+		AlertDialog.Builder(this)
+			.setTitle("Persona spottata")
+			.setMessage("Sei sicuro di aver spottato la persona del tuo post? In caso affermativo il post verrà archiviato.")
+			.setNegativeButton("No") { _, _ -> }
+			.setPositiveButton("Si") { _, _ -> viewModel.spotted() }
+			.create()
+			.show()
 	}
 
 }

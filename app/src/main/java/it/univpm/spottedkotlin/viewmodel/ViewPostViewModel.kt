@@ -1,5 +1,6 @@
 package it.univpm.spottedkotlin.viewmodel
 
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.Bindable
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.ObservableViewModel
@@ -68,7 +69,7 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 
 	@get:Bindable
 	val isMine: Boolean
-		get() = post.authorUID==AccountManager.user.uid
+		get() = post.authorUID == AccountManager.user.uid
 
 	suspend fun initialize() {
 
@@ -100,5 +101,10 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 
 	fun save() {
 		DataManager.save(post, AccountManager.user)
+	}
+
+	fun spotted() {
+		post.spotted = true
+		DataManager.save(post)
 	}
 }

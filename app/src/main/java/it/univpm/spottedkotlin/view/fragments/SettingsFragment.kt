@@ -38,8 +38,9 @@ class SettingsFragment : Fragment() {
 				viewModel.logout(requireContext().applicationContext)
 			}
 			alertDialog.setNegativeButton(
-				"Annulla", DialogInterface.OnClickListener { _, _ ->
-				})
+				"Annulla"
+			) { _, _ ->
+			}
 			alertDialog.show()
 		}
 		return binding.root

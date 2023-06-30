@@ -21,7 +21,8 @@ data class Post(
 	val comments: MutableList<Comment> = mutableListOf(),
 	var latitude: Double? = null,
 	var longitude: Double? = null,
-	var anonymous: Boolean = false
+	var anonymous: Boolean = false,
+	var spotted:Boolean=false,
 ) : Serializable, Validable {
 	var uid: String? = null
 	var author: User? = null
