@@ -1,12 +1,12 @@
 package it.univpm.spottedkotlin.view
 
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import it.univpm.spottedkotlin.R
-import it.univpm.spottedkotlin.BR
 import it.univpm.spottedkotlin.adapter.CommentsAdapter
 import it.univpm.spottedkotlin.databinding.CommentsActivityBinding
 import it.univpm.spottedkotlin.databinding.EmojiItemBinding
@@ -36,6 +36,15 @@ class CommentsActivity : AppCompatActivity() {
 			LinearLayoutManager(this).apply { reverseLayout = true; stackFromEnd = true }
 		commentsAdapter = CommentsAdapter(viewModel.post.comments, post?.authorUID ?: "")
 		binding.commentsRecycler.adapter = commentsAdapter
+		binding.commentsBack.setOnClickListener { finish() }
+		binding.commentsInfo.setOnClickListener {
+			 AlertDialog.Builder(this)
+			.setTitle("Info post")
+			.setMessage("Post del ${viewModel.post.dateStr()}, " +
+					"con ${viewModel.post.comments.size} commenti")
+			.create()
+			.show()
+		}
 
 		if (binding.commentsEmojiGrid.childCount < 1)
 			loadEmoji()
@@ -46,7 +55,7 @@ class CommentsActivity : AppCompatActivity() {
 		for (comment in comments.reversed())
 			if (!commentsAdapter.comments.contains(comment))
 				commentsAdapter.comments.add(0, comment)
-		commentsAdapter.notifyItemRangeInserted(0, 1)
+		commentsAdapter.notifyDataSetChanged()
 	}
 
 	private fun loadEmoji(type: Int = 0) {

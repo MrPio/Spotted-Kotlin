@@ -15,7 +15,7 @@ import it.univpm.spottedkotlin.model.Post
 import kotlinx.coroutines.tasks.await
 
 object DatabaseManager {
-	private const val tag = "FIREBASE"
+	const val tag = "FIREBASE"
 	private val database = Firebase.database.reference
 	private val storage = FirebaseStorage.getInstance().reference
 	val paginateKeys: HashMap<String, String?> = hashMapOf()
@@ -93,11 +93,12 @@ object DatabaseManager {
 		}
 	}
 
-	// Sync -- observe a single object
-	fun <T> observe(path: String, observer: (it: T) -> Unit) =
+	// Sync -- observe a list of objects
+	inline fun <reified T> observeList(path: String, crossinline observer: (it: List<T?>) -> Unit) =
 		getChild(path).addValueEventListener(object : ValueEventListener {
-			override fun onDataChange(dataSnapshot: DataSnapshot) =
-				observer(dataSnapshot.value as T)
+			override fun onDataChange(dataSnapshot: DataSnapshot) {
+				observer(dataSnapshot.children.map { it.getValue(T::class.java) })
+			}
 
 			override fun onCancelled(error: DatabaseError) {
 				Log.w(tag, "Failed to read value.", error.toException())

@@ -40,6 +40,7 @@ class ViewPostActivity : AppCompatActivity() {
 		val postUID = intent.getStringExtra("postUID")
 		val post = DataManager.posts.find { it.uid == postUID }
 		viewModel = ViewPostViewModel(post ?: Post())
+		initialize()
 	}
 
 	override fun onResume() {

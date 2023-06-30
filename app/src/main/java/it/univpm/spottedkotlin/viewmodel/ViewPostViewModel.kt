@@ -1,5 +1,6 @@
 package it.univpm.spottedkotlin.viewmodel
 
+import android.provider.ContactsContract.Data
 import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.BR
@@ -73,7 +74,11 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 	suspend fun initialize() {
 
 		// Carico l'autore del post
-		post.author = DataManager.loadUser(post.authorUID)
+		post.author =
+			if (post.anonymous)
+				DataManager.anonymous
+			else
+				DataManager.loadUser(post.authorUID)
 
 		// Carico gli autori dei commenti
 		for (comment in post.comments)

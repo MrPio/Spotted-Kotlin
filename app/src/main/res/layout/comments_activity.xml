@@ -9,6 +9,9 @@
 													   xmlns:app = "http://schemas.android.com/apk/res-auto"
 													   android:layout_width = "match_parent"
 													   android:layout_height = "match_parent">
+
+
+
 		<!--Header-->
 		<LinearLayout android:id = "@+id/comments_header"
 					  android:layout_width = "match_parent"
@@ -37,11 +40,27 @@
 					  android:textColor = "@color/white"/>
 		</LinearLayout>
 
-		<!--InfoIcon-->
-		<TextView style = "@style/LabelIcon"
+		<!--BackIcon-->
+		<TextView android:id="@+id/comments_back"
+				  style = "@style/LabelIcon"
 				  android:layout_width = "wrap_content"
 				  android:layout_height = "wrap_content"
-				  android:layout_marginEnd = "20dp"
+				  android:layout_marginStart = "12dp"
+				  android:layout_marginBottom = "10dp"
+				  android:clickable = "true"
+				  android:foreground = "@drawable/ripple_white_corner_round"
+				  android:padding = "20dp"
+				  android:text = "@string/ChevronLeft"
+				  android:textSize = "28sp"
+				  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
+				  app:layout_constraintStart_toStartOf = "parent"/>
+
+		<!--InfoIcon-->
+		<TextView android:id="@+id/comments_info"
+				  style = "@style/LabelIcon"
+				  android:layout_width = "wrap_content"
+				  android:layout_height = "wrap_content"
+				  android:layout_marginEnd = "12dp"
 				  android:layout_marginBottom = "10dp"
 				  android:clickable = "true"
 				  android:foreground = "@drawable/ripple_white_corner_round"

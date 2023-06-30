@@ -37,7 +37,11 @@ class SpotPostViewHolder(val binding: SpotPostBinding) : ViewHolder(binding.root
 
 		// Carico l'autore del post
 		MainScope().launch {
-			post.author = DataManager.loadUser(post.authorUID)
+			post.author =
+				if (post.anonymous)
+					DataManager.anonymous
+				else
+					DataManager.loadUser(post.authorUID)
 			binding.avatar = post.author?.avatar
 		}
 	}

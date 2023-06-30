@@ -11,13 +11,32 @@ import it.univpm.spottedkotlin.model.Post
 
 class CommentsViewModel(
 	val post: Post,
-	val nuovoCommentoCallback: () -> Unit,
+	val loadCommentsCallback: () -> Unit,
 	val emojiToggleCallback: () -> Unit,
 	val loadEmojiCallback: (Int) -> Unit,
 ) :
 	ObservableViewModel() {
 	init {
 		post.comments.sortByDescending { it.date }
+		DatabaseManager.observeList<Comment>(
+			"posts/${post.uid}/comments",
+			observer = { comments ->
+				for (comment in comments) {
+					if (comment == null)
+						continue
+					val oldComment = post.comments.find { it.date.time == comment.date.time }
+
+					// Remove the already existing comment in order to replace with the new one
+					if (oldComment != null)
+						post.comments.remove(oldComment)
+					post.comments.add(comment)
+				}
+
+				// Update UI
+				post.comments.sortByDescending { it.date }
+				loadCommentsCallback()
+			}
+		)
 	}
 
 	@get:Bindable
@@ -31,6 +50,7 @@ class CommentsViewModel(
 	var newComment: String = ""
 
 	private var currentType = 0
+
 	fun commenta() {
 		if (newComment.isEmpty()) return
 		val comment = Comment(
@@ -40,7 +60,7 @@ class CommentsViewModel(
 		DatabaseManager.put("posts/${post.uid}/comments/${post.comments.size - 1}", comment)
 		newComment = ""
 		notifyChange()
-		nuovoCommentoCallback()
+		loadCommentsCallback()
 		if (emojiVisible)
 			emojiToggleCallback()
 	}

@@ -104,8 +104,7 @@ class AddPostViewModel : ObservableViewModel() {
 		this.errors = ""
 
 		// Check if posting in anonymously
-		if (autore == 1)
-			nuovoPost.authorUID = null
+		nuovoPost.anonymous = autore == 1
 
 		// Validate the model and print any error
 		val errors = nuovoPost.validate()

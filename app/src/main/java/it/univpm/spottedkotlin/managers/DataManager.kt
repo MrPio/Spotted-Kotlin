@@ -13,7 +13,7 @@ object DataManager {
 
 	var posts: MutableList<Post> = mutableListOf()
 	var tags: Set<Tag>? = null
-	private val anonymous: User = User(
+	val anonymous: User = User(
 		name = "Anonimo",
 		surname = "",
 		gender = Gender.OTHER,
