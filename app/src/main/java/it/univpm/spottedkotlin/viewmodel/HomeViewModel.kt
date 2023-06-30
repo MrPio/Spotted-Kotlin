@@ -43,7 +43,7 @@ class HomeViewModel : ViewModel() {
 	)
 	private val plexuses = Plexuses.values().toList()
 	val subtitle = MutableLiveData(subtitles[0])
-	var filter = Filter(plexus = Plexuses.INGEGNERIA)
+	var filter = Filter(plexus = Plexuses.INGEGNERIA, exceptUsers = listOf(AccountManager.user.uid?:""))
 
 	fun onRadioCheckedChanged(group: RadioGroup, checkedId: Int) {
 		val index = radios.indexOf(checkedId)
@@ -51,7 +51,10 @@ class HomeViewModel : ViewModel() {
 			(group.findViewById(checkedId) as RadioButton).isChecked
 		if (isChecked)
 			subtitle.value = subtitles[index]
-		filter = Filter(plexus = plexuses[index]).apply { orderBy = filter.orderBy }
+		filter.apply {
+			plexus = plexuses[index]
+			orderBy = filter.orderBy
+		}
 		MainScope().launch {
 			reloadCallback()
 		}

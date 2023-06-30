@@ -101,5 +101,6 @@
 	<string name = "data">Data</string>
 	<string name = "rimuovi_coordinate">- <u>Rimuovi</u></string>
 	<string name = "registrati2">Registrati</string>
+	<string name = "spotted">Spotted</string>
 
 </resources>

@@ -9,7 +9,7 @@ import it.univpm.spottedkotlin.model.*
 object DataManager {
 	enum class SaveMode { POST, PUT }
 
-	const val pageSize = 60
+	const val pageSize = 100
 
 	var posts: MutableList<Post> = mutableListOf()
 	var tags: Set<Tag>? = null

@@ -7,13 +7,13 @@ import java.time.Instant
 import java.util.*
 
 class Filter(
-	private val minDate: Date = Date(Long.MIN_VALUE),
-	private val maxDate: Date = Date(Long.MAX_VALUE),
-	val plexus: Plexuses? = null,
-	private val gender: Gender? = null,
-	private val minPercentage: Int = 0,
-	private val exceptUsers: List<String>? = null,
-	private val onlyUsers: List<String>? = null
+	var minDate: Date = Date(Long.MIN_VALUE),
+	var maxDate: Date = Date(Long.MAX_VALUE),
+	var plexus: Plexuses? = null,
+	var gender: Gender? = null,
+	var minPercentage: Int = 0,
+	var exceptUsers: List<String>? = null,
+	var onlyUsers: List<String>? = null
 ) {
 	enum class OrderBy { RELEVANCE, DATE }
 
@@ -24,8 +24,8 @@ class Filter(
 					(plexus == null || it.location?.plexus == plexus) &&
 					(gender == null || it.gender == gender) &&
 					it.calculateRelevance(AccountManager.user.tags) >= minPercentage &&
-					(exceptUsers == null || !exceptUsers.contains(it.authorUID)) &&
-					(onlyUsers == null || onlyUsers.contains(it.authorUID))
+					(exceptUsers == null || !exceptUsers!!.contains(it.authorUID)) &&
+					(onlyUsers == null || onlyUsers!!.contains(it.authorUID))
 		}
 		return when (orderBy) {
 			OrderBy.RELEVANCE -> filtered.sortedByDescending { it.calculateRelevance(AccountManager.user.tags) }
