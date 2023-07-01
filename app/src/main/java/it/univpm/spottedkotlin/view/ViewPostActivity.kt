@@ -76,7 +76,6 @@ class ViewPostActivity : AppCompatActivity() {
 
 		binding.userAccount.setOnClickListener{
 			val intent = Intent(this, AccountActivity::class.java)
-			print("\n\n\nAAAAAAA\n\n")
 			startActivity(intent)
 		}
 		MainScope().launch {
