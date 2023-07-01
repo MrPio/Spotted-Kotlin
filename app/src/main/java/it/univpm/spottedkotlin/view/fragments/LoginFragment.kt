@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -76,6 +77,12 @@ class LoginFragment : Fragment() {
 		binding.loginGoogleButton.setOnClickListener {
 			resultLauncher.launch(googleSignInClient.signInIntent)
 		}
+		binding.TextPassword.setOnEditorActionListener { _, actionId, _ ->
+			if (actionId == EditorInfo.IME_ACTION_DONE)
+				binding.loginButton.performClick()
+			return@setOnEditorActionListener true
+		}
+
 		return binding.root
 	}
 

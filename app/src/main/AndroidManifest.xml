@@ -47,7 +47,8 @@
         <activity
             android:name=".view.FirstActivity"
             android:exported="true"
-            android:theme="@style/Theme.SpottedKotlin.NoActionBar">
+            android:theme="@style/Theme.SpottedKotlin.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

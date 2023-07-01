@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -56,12 +57,14 @@ class SignUpFragment : Fragment() {
             }
         })
 
-        binding.doLoginText.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
-        }
+//        binding.doLoginText.setOnClickListener {
+//            binding.root.findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
+//        }
 
-        binding.googleSignupButton.setOnClickListener {
-          //google button
+        binding.ControlPassword.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE)
+                binding.singupSignupButton.performClick()
+            return@setOnEditorActionListener true
         }
 
         return binding.root

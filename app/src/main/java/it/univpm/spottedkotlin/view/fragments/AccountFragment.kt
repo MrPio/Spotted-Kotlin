@@ -103,6 +103,7 @@ class AccountFragment : Fragment() {
             .error(R.drawable.anonymous)
             .into(binding.accountImageView)
 
+
         addTags()
         addPosts()
 

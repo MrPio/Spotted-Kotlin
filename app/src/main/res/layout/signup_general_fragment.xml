@@ -61,11 +61,12 @@
 					<EditText
 						android:id = "@+id/name"
 						style = "@style/LabelRegular"
-
+						android:imeOptions="flagNavigateNext"
 						android:layout_width = "match_parent"
 						android:layout_height = "46dp"
 						android:background = "@drawable/text_view_border_grey"
 						android:cursorVisible = "true"
+						android:inputType = "textPersonName"
 						android:layout_marginTop = "10dp"
 						android:padding = "10dp"
 						android:text = "@={viewModel.name}"
@@ -83,9 +84,10 @@
 					<EditText
 						android:id = "@+id/surname"
 						android:layout_width = "match_parent"
+						android:inputType = "textPersonName"
 						android:layout_height = "46dp"
 						style = "@style/LabelRegular"
-
+						android:imeOptions="flagNavigateNext"
 						android:background = "@drawable/text_view_border_grey"
 						android:layout_marginTop = "16dp"
 						android:padding = "10dp"
@@ -127,7 +129,6 @@
 							android:layout_height = "wrap_content"
 							android:layout_weight = "1"
 							style="@style/LabelRegular"
-
 							android:text = "@string/male"/>
 
 						<RadioButton
@@ -144,6 +145,7 @@
 							android:layout_height = "wrap_content"
 							android:layout_weight = "1"
 							style="@style/LabelRegular"
+							android:checked="true"
 							android:text = "@string/other"/>
 					</RadioGroup>
 
@@ -160,7 +162,8 @@
 						android:id = "@+id/instaTextView"
 						android:layout_width = "match_parent"
 						style = "@style/LabelRegular"
-
+						android:imeOptions="actionDone"
+						android:inputType = "text"
 						android:layout_height = "46dp"
 						android:layout_marginTop="10dp"
 						android:background = "@drawable/text_view_border_grey"

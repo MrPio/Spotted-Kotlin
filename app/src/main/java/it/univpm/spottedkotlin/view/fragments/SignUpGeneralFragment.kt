@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.RadioButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -17,71 +18,76 @@ import it.univpm.spottedkotlin.viewmodel.SignUpViewModel
 
 
 class SignUpGeneralFragment : Fragment() {
-    private lateinit var binding: SignupGeneralFragmentBinding
-    private val viewModel: SignUpViewModel by viewModels()
+	private lateinit var binding: SignupGeneralFragmentBinding
+	private val viewModel: SignUpViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+	}
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = SignupGeneralFragmentBinding.inflate(inflater, container, false)
-        viewModel.goToSignUpFragmentCallback = ::goToSignUpFragmentCallback
-        binding.viewModel= viewModel
-
-
-        binding.doLoginText.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_signUpGeneralFragment_to_loginFragment)
-        }
-
-        binding.googleSignupButton.setOnClickListener {
-          //google button
-        }
-
-        binding.male.setOnClickListener(){
-            viewModel.gender = Gender.MALE
-        }
-
-        binding.female.setOnClickListener(){
-            viewModel.gender = Gender.FEMALE
-        }
-
-        binding.other.setOnClickListener(){
-            viewModel.gender = Gender.OTHER
-        }
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View? {
+		binding = SignupGeneralFragmentBinding.inflate(inflater, container, false)
+		viewModel.goToSignUpFragmentCallback = ::goToSignUpFragmentCallback
+		binding.viewModel = viewModel
 
 
+		binding.doLoginText.setOnClickListener {
+			binding.root.findNavController()
+				.navigate(R.id.action_signUpGeneralFragment_to_loginFragment)
+		}
+
+		binding.googleSignupButton.setOnClickListener {
+			//google button
+		}
+
+		binding.male.setOnClickListener() {
+			viewModel.gender = Gender.MALE
+		}
+
+		binding.female.setOnClickListener() {
+			viewModel.gender = Gender.FEMALE
+		}
+
+		binding.other.setOnClickListener() {
+			viewModel.gender = Gender.OTHER
+		}
+
+		binding.instaTextView.setOnEditorActionListener { _, actionId, _ ->
+			if (actionId == EditorInfo.IME_ACTION_DONE)
+				binding.continueButton.performClick()
+			return@setOnEditorActionListener true
+		}
 
 
 
-        return binding.root
-    }
 
-    private fun goToSignUpFragmentCallback(){
-        if (binding.name.text.isEmpty()){
-            binding.name.background=
-                context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }
-            binding.optionalFieldsText.setTextColor(Color.RED)
-            binding.optionalFieldsText.text="Campi obbligatori"
-        }
-        else binding.name.background=
-            context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_grey) }
-        if (binding.surname.text.isEmpty()){
-            binding.surname.background=
-                context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }
-            binding.optionalFieldsText.setTextColor(Color.RED)
-            binding.optionalFieldsText.text="Campi obbligatori"
-        }
-        else binding.surname.background=
-            context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_grey) }
+		return binding.root
+	}
 
-        if (!binding.name.text.isEmpty() && !binding.surname.text.isEmpty()) {
-            binding.root.findNavController().navigate(R.id.action_signUpGeneralFragment_to_signUpFragment)
-        }
+	private fun goToSignUpFragmentCallback() {
+		if (binding.name.text.isEmpty()) {
+			binding.name.background =
+				context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }
+			binding.optionalFieldsText.setTextColor(Color.RED)
+			binding.optionalFieldsText.text = "Campi obbligatori"
+		} else binding.name.background =
+			context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_grey) }
+		if (binding.surname.text.isEmpty()) {
+			binding.surname.background =
+				context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }
+			binding.optionalFieldsText.setTextColor(Color.RED)
+			binding.optionalFieldsText.text = "Campi obbligatori"
+		} else binding.surname.background =
+			context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_grey) }
 
-    }
+		if (!binding.name.text.isEmpty() && !binding.surname.text.isEmpty()) {
+			binding.root.findNavController()
+				.navigate(R.id.action_signUpGeneralFragment_to_signUpFragment)
+		}
+
+	}
 }

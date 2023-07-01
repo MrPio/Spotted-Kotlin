@@ -62,7 +62,7 @@
 						style = "@style/LabelRegular"
 						android:layout_width = "match_parent"
 						android:layout_height = "46dp"
-
+						android:imeOptions="flagNavigateNext"
 						android:layout_marginTop = "10dp"
 						android:background = "@drawable/text_view_border_grey"
 						android:cursorVisible = "true"
@@ -85,9 +85,9 @@
 						android:layout_width = "match_parent"
 						android:layout_height = "46dp"
 						android:layout_marginTop = "10dp"
-
 						android:background = "@drawable/text_view_border_grey"
 						android:inputType = "textPassword"
+						android:imeOptions="flagNavigateNext"
 						android:padding = "10dp"
 						android:text = "@={viewModel.password}"/>
 
@@ -105,10 +105,11 @@
 						style = "@style/LabelRegular"
 						android:layout_width = "match_parent"
 						android:layout_height = "46dp"
+						android:layout_marginTop = "10dp"
 						android:background = "@drawable/text_view_border_grey"
 						android:inputType = "textPassword"
 						android:padding = "10dp"
-
+						android:imeOptions="actionDone"
 						android:text = "@={viewModel.repeat_password}"
 						android:textCursorDrawable = "@drawable/black_cursor"
 						app:layout_constraintEnd_toEndOf = "parent"/>
@@ -159,6 +160,7 @@
 						android:text = "@string/requirement4"/>
 
 					<Button
+						android:id="@+id/singup_signup_button"
 						android:layout_width = "match_parent"
 						android:layout_height = "54dp"
 						android:layout_marginTop = "30dp"
@@ -166,62 +168,62 @@
 						android:text = "@string/registrati2"
 						app:cornerRadius = "999dp"/>
 
-					<!--HLine-->
-					<View android:layout_width = "match_parent"
-						  android:layout_height = "0.65dp"
-						  android:layout_marginTop = "20dp"
-						  android:alpha = "0.125"
-						  android:foreground = "@color/black"/>
+<!--					&lt;!&ndash;HLine&ndash;&gt;-->
+<!--					<View android:layout_width = "match_parent"-->
+<!--						  android:layout_height = "0.65dp"-->
+<!--						  android:layout_marginTop = "20dp"-->
+<!--						  android:alpha = "0.125"-->
+<!--						  android:foreground = "@color/black"/>-->
 
-					<TextView
-						android:id = "@+id/or_text"
-						android:layout_width = "match_parent"
-						android:layout_height = "wrap_content"
-						android:layout_marginTop = "4dp"
-						android:text = "@string/oppure"
-						android:textAlignment = "center"/>
+<!--					<TextView-->
+<!--						android:id = "@+id/or_text"-->
+<!--						android:layout_width = "match_parent"-->
+<!--						android:layout_height = "wrap_content"-->
+<!--						android:layout_marginTop = "4dp"-->
+<!--						android:text = "@string/oppure"-->
+<!--						android:textAlignment = "center"/>-->
 
-					<Button
-						android:id = "@+id/google_signup_button"
-						android:layout_width = "match_parent"
-						android:layout_height = "60dp"
-						android:layout_marginTop = "4dp"
-						android:backgroundTint = "#FFFFFF"
-						app:cornerRadius = "120dp"
-						app:icon = "@drawable/google"
-						app:iconGravity = "textStart"
-						app:iconPadding = "0dp"
-						app:iconSize = "35dp"
-						app:iconTintMode = "multiply"/>
+<!--					<Button-->
+<!--						android:id = "@+id/google_signup_button"-->
+<!--						android:layout_width = "match_parent"-->
+<!--						android:layout_height = "60dp"-->
+<!--						android:layout_marginTop = "4dp"-->
+<!--						android:backgroundTint = "#FFFFFF"-->
+<!--						app:cornerRadius = "120dp"-->
+<!--						app:icon = "@drawable/google"-->
+<!--						app:iconGravity = "textStart"-->
+<!--						app:iconPadding = "0dp"-->
+<!--						app:iconSize = "35dp"-->
+<!--						app:iconTintMode = "multiply"/>-->
 
-					<TextView
-						android:id = "@+id/already_registred"
-						android:layout_width = "match_parent"
-						android:layout_height = "wrap_content"
-						android:text = "@string/already_registered"
-						android:textAlignment = "center"
-						android:textColor = "@color/black"
-						app:layout_constraintBottom_toBottomOf = "parent"
-						app:layout_constraintEnd_toEndOf = "parent"
-						app:layout_constraintHorizontal_bias = "0.0"
-						app:layout_constraintStart_toStartOf = "parent"
-						app:layout_constraintTop_toBottomOf = "@+id/google_signup_button"
-						app:layout_constraintVertical_bias = "0.344"/>
+<!--					<TextView-->
+<!--						android:id = "@+id/already_registred"-->
+<!--						android:layout_width = "match_parent"-->
+<!--						android:layout_height = "wrap_content"-->
+<!--						android:text = "@string/already_registered"-->
+<!--						android:textAlignment = "center"-->
+<!--						android:textColor = "@color/black"-->
+<!--						app:layout_constraintBottom_toBottomOf = "parent"-->
+<!--						app:layout_constraintEnd_toEndOf = "parent"-->
+<!--						app:layout_constraintHorizontal_bias = "0.0"-->
+<!--						app:layout_constraintStart_toStartOf = "parent"-->
+<!--						app:layout_constraintTop_toBottomOf = "@+id/google_signup_button"-->
+<!--						app:layout_constraintVertical_bias = "0.344"/>-->
 
-					<TextView
-						android:id = "@+id/do_login_text"
-						android:layout_width = "match_parent"
-						android:layout_height = "wrap_content"
-						android:text = "@string/do_login"
-						android:textAlignment = "center"
-						android:textColor = "@color/black"
-						android:textStyle = "bold"
-						app:layout_constraintBottom_toBottomOf = "parent"
-						app:layout_constraintEnd_toEndOf = "parent"
-						app:layout_constraintHorizontal_bias = "0.0"
-						app:layout_constraintStart_toStartOf = "parent"
-						app:layout_constraintTop_toBottomOf = "@+id/already_registred"
-						app:layout_constraintVertical_bias = "1.0"/>
+<!--					<TextView-->
+<!--						android:id = "@+id/do_login_text"-->
+<!--						android:layout_width = "match_parent"-->
+<!--						android:layout_height = "wrap_content"-->
+<!--						android:text = "@string/do_login"-->
+<!--						android:textAlignment = "center"-->
+<!--						android:textColor = "@color/black"-->
+<!--						android:textStyle = "bold"-->
+<!--						app:layout_constraintBottom_toBottomOf = "parent"-->
+<!--						app:layout_constraintEnd_toEndOf = "parent"-->
+<!--						app:layout_constraintHorizontal_bias = "0.0"-->
+<!--						app:layout_constraintStart_toStartOf = "parent"-->
+<!--						app:layout_constraintTop_toBottomOf = "@+id/already_registred"-->
+<!--						app:layout_constraintVertical_bias = "1.0"/>-->
 
 				</LinearLayout>
 			</ScrollView>

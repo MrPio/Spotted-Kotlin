@@ -110,5 +110,4 @@ class ViewPostActivity : AppCompatActivity() {
 			.create()
 			.show()
 	}
-
 }
