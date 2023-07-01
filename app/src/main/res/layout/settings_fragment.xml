@@ -8,19 +8,370 @@
 			type = "it.univpm.spottedkotlin.viewmodel.SettingsViewModel"/>
 	</data>
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:layout_width = "match_parent"
-		android:layout_height = "match_parent">
+	<LinearLayout android:layout_width = "match_parent"
+				  android:layout_height = "match_parent"
+				  android:background = "@color/black"
+				  android:orientation = "vertical"
+		>
 
-		<Button
-			android:id = "@+id/settings_logout_button"
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:text = "LOGOUT"
-			app:layout_constraintBottom_toBottomOf = "parent"
-			app:layout_constraintEnd_toEndOf = "parent"
-			app:layout_constraintStart_toStartOf = "parent"
-			app:layout_constraintTop_toTopOf = "parent"/>
-	</androidx.constraintlayout.widget.ConstraintLayout>
+		<!--InfoIcon-->
+		<TextView android:id = "@+id/settings_info"
+				  style = "@style/LabelIcon"
+				  android:layout_width = "wrap_content"
+				  android:layout_height = "wrap_content"
+				  android:layout_gravity = "end"
+				  android:layout_marginTop = "10dp"
+				  android:layout_marginEnd = "10dp"
+				  android:clickable = "true"
+				  android:foreground = "@drawable/ripple_white_corner_round"
+				  android:padding = "20dp"
+				  android:text = "@string/InformationOutline"
+				  android:textSize = "28sp"/>
 
+		<ScrollView android:layout_width = "match_parent"
+					android:layout_height = "wrap_content">
+			<LinearLayout android:layout_width = "match_parent"
+						  android:layout_height = "wrap_content"
+						  android:orientation = "vertical">
+				<!--Title-->
+				<TextView
+					style = "@style/LabelBold"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:layout_marginTop = "34dp"
+					android:clickable = "true"
+					android:paddingHorizontal = "20dp"
+					android:paddingVertical = "12dp"
+					android:text = "Impostazioni"
+					android:textColor = "@color/white"
+					android:textSize = "28sp"/>
+
+				<!--Filtri Post-->
+				<LinearLayout android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:clickable = "true"
+							  android:foreground = "@drawable/ripple_white_dim"
+							  android:orientation = "horizontal"
+							  android:paddingHorizontal = "20dp"
+							  android:paddingVertical = "12dp">
+
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "28sp"
+							  android:layout_height = "wrap_content"
+							  android:layout_gravity = "center"
+							  android:layout_marginStart = "6dp"
+							  android:layout_marginEnd = "20dp"
+							  android:text = "@string/HomeOutline"
+							  android:textSize = "28sp"/>
+
+					<LinearLayout android:layout_width = "0dp"
+								  android:layout_height = "wrap_content"
+								  android:layout_weight = "1"
+								  android:orientation = "vertical">
+
+						<TextView
+							style = "@style/LabelBold"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Filtri dei post"
+							android:textColor = "@color/white"
+							android:textSize = "18sp"/>
+						<TextView
+							style = "@style/LabelLight"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Modifica i filtri dei post da visualizzare"
+							android:textColor = "@color/white"
+							android:textSize = "16sp"/>
+					</LinearLayout>
+				</LinearLayout>
+
+				<!--Chat-->
+				<LinearLayout android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:clickable = "true"
+							  android:foreground = "@drawable/ripple_white_dim"
+							  android:orientation = "horizontal"
+							  android:paddingHorizontal = "20dp"
+							  android:paddingVertical = "12dp">
+
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "28sp"
+							  android:layout_height = "wrap_content"
+							  android:layout_gravity = "center"
+							  android:layout_marginStart = "6dp"
+							  android:layout_marginEnd = "20dp"
+							  android:text = "@string/ChatOutline"
+							  android:textSize = "28sp"/>
+
+					<LinearLayout android:layout_width = "0dp"
+								  android:layout_height = "wrap_content"
+								  android:layout_weight = "1"
+								  android:orientation = "vertical">
+
+						<TextView
+							style = "@style/LabelBold"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Preferenze chat"
+							android:textColor = "@color/white"
+							android:textSize = "18sp"/>
+						<TextView
+							style = "@style/LabelLight"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Modifica il comportamento delle chat"
+							android:textColor = "@color/white"
+							android:textSize = "16sp"/>
+					</LinearLayout>
+				</LinearLayout>
+
+				<!--Mappa-->
+				<LinearLayout android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:clickable = "true"
+							  android:foreground = "@drawable/ripple_white_dim"
+							  android:orientation = "horizontal"
+							  android:paddingHorizontal = "20dp"
+							  android:paddingVertical = "12dp">
+
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "28sp"
+							  android:layout_height = "wrap_content"
+							  android:layout_gravity = "center"
+							  android:layout_marginStart = "6dp"
+							  android:layout_marginEnd = "20dp"
+							  android:text = "@string/MapOutline"
+							  android:textSize = "28sp"/>
+
+					<LinearLayout android:layout_width = "0dp"
+								  android:layout_height = "wrap_content"
+								  android:layout_weight = "1"
+								  android:orientation = "vertical">
+
+						<TextView
+							style = "@style/LabelBold"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Preferenze mappa"
+							android:textColor = "@color/white"
+							android:textSize = "18sp"/>
+						<TextView
+							style = "@style/LabelLight"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Personalizza il comportamento della mappa"
+							android:textColor = "@color/white"
+							android:textSize = "16sp"/>
+					</LinearLayout>
+				</LinearLayout>
+
+				<!--Sicurezza-->
+				<LinearLayout android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:clickable = "true"
+							  android:foreground = "@drawable/ripple_white_dim"
+							  android:orientation = "horizontal"
+							  android:paddingHorizontal = "20dp"
+							  android:paddingVertical = "12dp">
+
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "28sp"
+							  android:layout_height = "wrap_content"
+							  android:layout_gravity = "center"
+							  android:layout_marginStart = "6dp"
+							  android:layout_marginEnd = "20dp"
+							  android:text = "@string/ShieldOutline"
+							  android:textSize = "28sp"/>
+
+					<LinearLayout android:layout_width = "0dp"
+								  android:layout_height = "wrap_content"
+								  android:layout_weight = "1"
+								  android:orientation = "vertical">
+
+						<TextView
+							style = "@style/LabelBold"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Sicurezza"
+							android:textColor = "@color/white"
+							android:textSize = "18sp"/>
+						<TextView
+							style = "@style/LabelLight"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Reimposta la tua password di accesso"
+							android:textColor = "@color/white"
+							android:textSize = "16sp"/>
+					</LinearLayout>
+				</LinearLayout>
+
+				<!--Statistiche-->
+				<LinearLayout android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:clickable = "true"
+							  android:foreground = "@drawable/ripple_white_dim"
+							  android:orientation = "horizontal"
+							  android:paddingHorizontal = "20dp"
+							  android:paddingVertical = "12dp">
+
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "28sp"
+							  android:layout_height = "wrap_content"
+							  android:layout_gravity = "center"
+							  android:layout_marginStart = "6dp"
+							  android:layout_marginEnd = "20dp"
+							  android:text = "@string/ChartBoxOutline"
+							  android:textSize = "28sp"/>
+
+					<LinearLayout android:layout_width = "0dp"
+								  android:layout_height = "wrap_content"
+								  android:layout_weight = "1"
+								  android:orientation = "vertical">
+
+						<TextView
+							style = "@style/LabelBold"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Statistiche"
+							android:textColor = "@color/white"
+							android:textSize = "18sp"/>
+						<TextView
+							style = "@style/LabelLight"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Visualizza le tue statistiche su Spotted!"
+							android:textColor = "@color/white"
+							android:textSize = "16sp"/>
+					</LinearLayout>
+				</LinearLayout>
+
+				<!--Valutaci-->
+				<LinearLayout android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:clickable = "true"
+							  android:foreground = "@drawable/ripple_white_dim"
+							  android:orientation = "horizontal"
+							  android:paddingHorizontal = "20dp"
+							  android:paddingVertical = "12dp">
+
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "28sp"
+							  android:layout_height = "wrap_content"
+							  android:layout_gravity = "center"
+							  android:layout_marginStart = "6dp"
+							  android:layout_marginEnd = "20dp"
+							  android:text = "@string/StarOutline"
+							  android:textSize = "28sp"/>
+
+					<LinearLayout android:layout_width = "0dp"
+								  android:layout_height = "wrap_content"
+								  android:layout_weight = "1"
+								  android:orientation = "vertical">
+
+						<TextView
+							style = "@style/LabelBold"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Valutaci"
+							android:textColor = "@color/white"
+							android:textSize = "18sp"/>
+						<TextView
+							style = "@style/LabelLight"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Dacci la tua opinione!"
+							android:textColor = "@color/white"
+							android:textSize = "16sp"/>
+					</LinearLayout>
+				</LinearLayout>
+
+				<!--Aggiornamenti-->
+				<LinearLayout android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:clickable = "true"
+							  android:foreground = "@drawable/ripple_white_dim"
+							  android:orientation = "horizontal"
+							  android:paddingHorizontal = "20dp"
+							  android:paddingVertical = "12dp">
+
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "28sp"
+							  android:layout_height = "wrap_content"
+							  android:layout_gravity = "center"
+							  android:layout_marginStart = "6dp"
+							  android:layout_marginEnd = "20dp"
+							  android:text = "@string/CellphoneArrowDown"
+							  android:textSize = "28sp"/>
+
+					<LinearLayout android:layout_width = "0dp"
+								  android:layout_height = "wrap_content"
+								  android:layout_weight = "1"
+								  android:orientation = "vertical">
+
+						<TextView
+							style = "@style/LabelBold"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Aggiornamenti"
+							android:textColor = "@color/white"
+							android:textSize = "18sp"/>
+						<TextView
+							style = "@style/LabelLight"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Controlla la disponobilità di aggiornamenti"
+							android:textColor = "@color/white"
+							android:textSize = "16sp"/>
+					</LinearLayout>
+
+				</LinearLayout>
+
+				<!--Logout-->
+				<LinearLayout android:id = "@+id/settings_logout_button"
+							  android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:clickable = "true"
+							  android:foreground = "@drawable/ripple_white_dim"
+							  android:orientation = "horizontal"
+							  android:paddingHorizontal = "20dp"
+							  android:paddingVertical = "12dp">
+
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "28sp"
+							  android:layout_height = "wrap_content"
+							  android:layout_gravity = "center"
+							  android:layout_marginStart = "6dp"
+							  android:layout_marginEnd = "20dp"
+							  android:text = "@string/LogoutVariant"
+							  android:textSize = "28sp"/>
+
+					<LinearLayout android:layout_width = "0dp"
+								  android:layout_height = "wrap_content"
+								  android:layout_weight = "1"
+								  android:orientation = "vertical">
+
+						<TextView
+							style = "@style/LabelBold"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Logout"
+							android:textColor = "@color/white"
+							android:textSize = "18sp"/>
+						<TextView
+							style = "@style/LabelLight"
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:text = "Effettua il logout dall'account"
+							android:textColor = "@color/white"
+							android:textSize = "16sp"/>
+					</LinearLayout>
+
+				</LinearLayout>
+
+				<View android:layout_width = "match_parent"
+					  android:layout_height = "160dp"/>
+			</LinearLayout>
+		</ScrollView>
+	</LinearLayout>
 </layout>
