@@ -13,11 +13,10 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import okhttp3.internal.wait
 
-class AccountViewModel : ViewModel() {
+class AccountViewModel(val user: User = AccountManager.user) : ViewModel() {
     //lateinit var user: User
     //lateinit var userPosts: MutableList<Post>
 
-    var user:User = AccountManager.user
     var userPosts: MutableList<Post> = AccountManager.userPosts
 
     var name: String = user.name +" "+ user.surname
@@ -29,10 +28,17 @@ class AccountViewModel : ViewModel() {
     var tags: MutableList<Tag> = user.tags
 
 
-
-    suspend fun setUser (uid: String){
-        user=DataManager.loadUser(uid)
-        userPosts= DataManager.loadUserPost(uid)
-    }
+//    suspend fun setUser (user: User){
+//        if(user==AccountManager.user) {
+//            this.user = AccountManager.user
+//            this.userPosts = AccountManager.userPosts
+//        }
+//        else {
+//            //this.user = DataManager.loadUser(uid)
+//            //userPosts = DataManager.loadUserPost(uid)
+//            this.user = user
+//            this.userPosts = DataManager.loadUserPost(user.uid)
+//        }
+//    }
 }
 

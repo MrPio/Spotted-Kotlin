@@ -19,6 +19,7 @@ import it.univpm.spottedkotlin.databinding.TagItemAddBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
 import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.managers.AccountManager
+import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.viewmodel.AccountViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
@@ -43,17 +44,21 @@ class AccountFragment : Fragment() {
 	): View {
 
 		binding = AccountFragmentBinding.inflate(inflater, container, false)
-		binding.viewModel=viewModel
+		//binding.viewModel=viewModel
 		binding.modifyImage.setOnClickListener{ view ->
 			openGallery()
 		}
 
-//		val uid = arguments?.getString("uid")
-//		MainScope().launch {
-//			if (uid != null) {
-//				viewModel.setUser(uid)
-//			}
-//		}
+		val uid = arguments?.getString("uid")
+		print(uid + "\n\n\n\n\n\n")
+
+		MainScope().launch {
+			if (uid != null) {
+				val user = DataManager.loadUser(uid)
+				binding.viewModel = AccountViewModel(user)
+			}
+			else binding.viewModel = viewModel
+		}
 
 		layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
@@ -76,12 +81,11 @@ class AccountFragment : Fragment() {
 		addPosts()
 
 		if(viewModel.nameInsta == " " || viewModel.nameInsta == null) binding.instaName.visibility= View.INVISIBLE
+		if(viewModel.user.uid != AccountManager.user.uid) binding.modifyImage.visibility= View.GONE
 		if(viewModel.userPosts.isEmpty()){
 			binding.postsRecyclerView.visibility= View.GONE
 			binding.noPost.visibility= View.VISIBLE
 		}
-
-		print(viewModel.userPosts+"\n\n\n"+viewModel.userPosts.size+"\n\n")
 	}
 
 	// Metodo per avviare l'intent della galleria
@@ -117,4 +121,17 @@ class AccountFragment : Fragment() {
 	 fun addPosts(){
 		postsAdapter.updatePosts(viewModel.userPosts)
 	}
+
+
+	companion object {
+		fun newInstance(uid: String): AccountFragment {
+			val fragment = AccountFragment()
+			val args = Bundle().apply {
+				putString("uid", uid)
+			}
+			fragment.arguments = args
+			return fragment
+		}
+	}
 }
+

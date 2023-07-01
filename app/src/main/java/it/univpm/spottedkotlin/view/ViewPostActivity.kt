@@ -65,6 +65,7 @@ class ViewPostActivity : AppCompatActivity() {
 
 		binding.accountOnClick = View.OnClickListener {
 			val intent = Intent(this, AccountActivity::class.java)
+			intent.putExtra("userUID", viewModel.post.authorUID)
 			this.startActivity(intent)
 		}
 		binding.commentsOnClick = View.OnClickListener {
