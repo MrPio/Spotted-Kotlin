@@ -15,7 +15,7 @@ object AccountManager {
 	private val auth = Firebase.auth
 	lateinit var user: User
 	val userPosts: MutableList<Post> = mutableListOf()
-
+	val isUserInitialized get() = ::user.isInitialized
 
 	// Register new FirebaseAuth account and create new User object
 	suspend fun signup(email: String, password: String, newUser: User) {
@@ -35,7 +35,7 @@ object AccountManager {
 
 	// Perform an automated login fetching the user's uid from the local storage
 	suspend fun cacheLogin(): Boolean {
-		IOManager.readKey("user_uid")?.let {uid->
+		IOManager.readKey("user_uid")?.let { uid ->
 			user = DataManager.loadUser(uid)
 			DataManager.loadUserPosts(user)
 			return user != DataManager.anonymous

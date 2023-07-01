@@ -414,8 +414,12 @@ object SeederManager {
 				)
 			}
 		}
+		posts.sortedBy { it.date }.forEach {
+			DatabaseManager.post("posts", it)?.let { postUID ->
+				users.find { user -> it.authorUID == user.uid }?.postsUIDs?.add(postUID)
+			}
+		}
 		users.forEach { DatabaseManager.put("users/${it.uid}", it) }
-		posts.sortedBy { it.date }.forEach { DatabaseManager.post("posts", it) }
 
 		val defaultUser = User(
 			"Valerio", "Morelli", RemoteImages.AVATAR.url, instagramNickname = "valeriomorelli5"

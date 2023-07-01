@@ -53,7 +53,7 @@ object DataManager {
 		cachedUsers.find { it.uid == uid }?.let { return it }
 
 		// Is current User?
-		if (AccountManager.user.uid == uid)
+		if (AccountManager.isUserInitialized && AccountManager.user.uid == uid)
 			return AccountManager.user
 
 		// Ask the database for the user and caching it
