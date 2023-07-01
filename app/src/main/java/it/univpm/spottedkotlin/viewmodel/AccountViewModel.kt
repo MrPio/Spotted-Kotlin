@@ -13,12 +13,14 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import okhttp3.internal.wait
 
-class AccountViewModel(val user: User = AccountManager.user) : ViewModel() {
+class AccountViewModel(val user: User) : ViewModel() {
     //lateinit var user: User
     //lateinit var userPosts: MutableList<Post>
 
     var userPosts: MutableList<Post> = AccountManager.userPosts
 
+    var uid:String? = user.uid
+    var avatar:String = user.avatar
     var name: String = user.name +" "+ user.surname
     var nameInsta: String? = " " + user.instagramNickname
     val postsUid: MutableList<String> = user.postsUIDs
