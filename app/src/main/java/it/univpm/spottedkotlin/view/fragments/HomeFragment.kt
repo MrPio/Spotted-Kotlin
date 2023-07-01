@@ -17,10 +17,7 @@ import it.univpm.spottedkotlin.databinding.HomeFragmentBinding
 import it.univpm.spottedkotlin.databinding.OrderbyPopupBinding
 import it.univpm.spottedkotlin.databinding.SelectTagPopupBinding
 import it.univpm.spottedkotlin.enums.TimesInterpolator
-import it.univpm.spottedkotlin.extension.function.getActivity
-import it.univpm.spottedkotlin.extension.function.log
-import it.univpm.spottedkotlin.extension.function.setHeight
-import it.univpm.spottedkotlin.extension.function.toDp
+import it.univpm.spottedkotlin.extension.function.*
 import it.univpm.spottedkotlin.managers.AnimationManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.Filter
@@ -78,8 +75,7 @@ class HomeFragment : Fragment() {
 		binding.postsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 			override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
 				super.onScrollStateChanged(recyclerView, newState)
-				if (layoutManager.itemCount == layoutManager.findLastVisibleItemPosition() + 1)
-					MainScope().launch { recyclerLoadMore() }
+				if (layoutManager.itemCount == layoutManager.findLastVisibleItemPosition() + 1) MainScope().launch { recyclerLoadMore() }
 			}
 
 			override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -184,28 +180,25 @@ class HomeFragment : Fragment() {
 
 	// Display the OrderByPopup, change the filter and reload data
 	private fun orderBy() {
-		val popupBinding =
-			OrderbyPopupBinding.inflate(layoutInflater, null, false)
+		val popupBinding = OrderbyPopupBinding.inflate(layoutInflater, null, false)
 		when (viewModel.filter.orderBy) {
 			Filter.OrderBy.DATE -> popupBinding.orderbyDate.isChecked = true
 			Filter.OrderBy.RELEVANCE -> popupBinding.orderbyRelevance.isChecked = true
 			else -> {}
 		}
 
-		val builder = AlertDialog.Builder(requireContext())
-		builder.setTitle("Scegli la modalità di ordinamento dei post")
-		builder.setView(popupBinding.root)
-		builder.setPositiveButton("Conferma") { _, _ ->
-			if (popupBinding.orderbyRelevance.isChecked)
-				viewModel.filter.orderBy = Filter.OrderBy.RELEVANCE
-			else if (popupBinding.orderbyDate.isChecked)
-				viewModel.filter.orderBy = Filter.OrderBy.DATE
-			MainScope().launch {
-				reload()
-			}
-		}
-
-		val dialog = builder.create()
-		dialog.show()
+		context?.showAlertDialog(
+			title = "Scegli la modalità di ordinamento dei post",
+			view = popupBinding.root,
+			positiveText = "Conferma",
+			positiveCallback = {
+				if (popupBinding.orderbyRelevance.isChecked) viewModel.filter.orderBy =
+					Filter.OrderBy.RELEVANCE
+				else if (popupBinding.orderbyDate.isChecked) viewModel.filter.orderBy =
+					Filter.OrderBy.DATE
+				MainScope().launch {
+					reload()
+				}
+			})
 	}
 }

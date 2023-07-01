@@ -90,18 +90,18 @@ class AddPostFragment : Fragment() {
 
 	private fun addTags() {
 
-		// Recupero i tags già aggiunti in precedenza al post
+		// Recover the post's current tags
 		val selectedTags = mutableSetOf<Tag>()
 		viewModel.nuovoPost.tags.let { selectedTags.addAll(it) }
 
-		// Inflate del body del popup
+		// Inflate SelectTagPopupBinding
 		val popupBinding =
 			SelectTagPopupBinding.inflate(layoutInflater, null, false)
 		popupBinding.tagsAdapter = TagsAdapter(
-			tags = DataManager.tags!!.toList(),
+			tags = DataManager.tags.toList(),
 			selectedTags = selectedTags
 		) {
-			//tagClickCallback
+			// TagClickCallback
 				tag, checked ->
 			if (checked)
 				tag?.let { selectedTags.add(it) }
@@ -109,31 +109,31 @@ class AddPostFragment : Fragment() {
 				selectedTags.remove(tag)
 		}
 
-		val builder = AlertDialog.Builder(requireContext())
-		builder.setTitle("Scegli dei tag da aggiungere")
-		builder.setView(popupBinding.root)
-		builder.setPositiveButton("Aggiungi") { dialog, which ->
-			viewModel.nuovoPost.tags.clear()
-			viewModel.nuovoPost.tags.addAll(selectedTags)
-//			adapter.tags = viewModel.nuovoPost.tags.toMutableList()
-			loadTags()
-		}
-
-		val dialog = builder.create()
-		dialog.show()
+		// Show AlertDialog
+		context?.showAlertDialog(
+			title = "Scegli dei tag da aggiungere",
+			view = popupBinding.root,
+			positiveText = "Aggiungi",
+			positiveCallback = {
+				viewModel.nuovoPost.tags.clear()
+				viewModel.nuovoPost.tags.addAll(selectedTags)
+				loadTags()
+			}
+		)
 	}
 
 	private fun pubblica() {
 		if (viewModel.pubblica()) {
-			AlertDialog.Builder(requireContext())
-				.setTitle("Tutto ok")
-				.setMessage("Post pubblicato correttamente!")
-				.setPositiveButton("Ok") { _, _ -> }
-				.create()
-				.show()
+			context?.showAlertDialog(
+				title = "Tutto ok",
+				message = "Post pubblicato correttamente!",
+				neutralCallback = {},
+			)
 			requireContext().getActivity<MainActivity>()?.viewModel?.currentFragment?.value =
 				if (latitude != null && longitude != null) 1 else 0
 		} else {
+
+			// Scroll to the top
 			binding.addPostScrollview.smoothScrollTo(
 				0,
 				binding.addPostScrollview.getChildAt(0).height - binding.addPostScrollview.height

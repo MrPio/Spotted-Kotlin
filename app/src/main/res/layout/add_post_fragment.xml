@@ -106,7 +106,7 @@
 								 android:alpha = "0.75"
 								 android:contentDescription = "@string/plesso"
 								 android:entries = "@{viewModel.autori}"
-								 android:selectedItemPosition = "@={viewModel.autore}"
+								 android:selectedItemPosition = "@={viewModel.author}"
 								 android:theme = "@style/SpinnerTheme"
 								 android:tooltipText = "Autore"/>
 
@@ -181,7 +181,7 @@
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
 							  android:foreground = "@color/black"
-							  android:visibility = "@{viewModel.latitude!=null?view.GONE:view.VISIBLE}"/>
+							  android:visibility = "@{viewModel.latitude==null?view.GONE:view.VISIBLE}"/>
 
 						<!--Coordinate-->
 						<LinearLayout android:layout_width = "match_parent"

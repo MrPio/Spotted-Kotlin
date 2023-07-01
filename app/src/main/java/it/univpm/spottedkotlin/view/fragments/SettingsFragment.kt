@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.SettingsFragmentBinding
+import it.univpm.spottedkotlin.extension.function.showAlertDialog
 import it.univpm.spottedkotlin.view.FirstActivity
 import it.univpm.spottedkotlin.viewmodel.SettingsViewModel
 
@@ -27,20 +28,12 @@ class SettingsFragment : Fragment() {
 		binding.viewModel = viewModel
 		viewModel.gotoFirstActivityCallback = ::gotoFirstActivity
 		binding.settingsLogoutButton.setOnClickListener {
-			val alertDialog = AlertDialog.Builder(context)
-			alertDialog.setTitle("Logout")
-			alertDialog.setMessage("Sicuro di voler effettuare il logout?")
-
-			alertDialog.setPositiveButton(
-				"Si"
-			) { _, _ ->
-				viewModel.logout()
-			}
-			alertDialog.setNegativeButton(
-				"Annulla"
-			) { _, _ ->
-			}
-			alertDialog.show()
+			context?.showAlertDialog(
+				title = "Logout dell'account",
+				message = "Sicuro di voler effettuare il logout?",
+				positiveCallback = viewModel::logout,
+				negativeCallback = {}
+			)
 		}
 		return binding.root
 	}

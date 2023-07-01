@@ -38,14 +38,11 @@ class CommentsActivity : AppCompatActivity() {
 		binding.commentsRecycler.adapter = commentsAdapter
 		binding.commentsBack.setOnClickListener { finish() }
 		binding.commentsInfo.setOnClickListener {
-			 AlertDialog.Builder(this)
-			.setTitle("Info post")
-			.setMessage("Post del ${viewModel.post.dateStr()}, " +
-					"con ${viewModel.post.comments.size} commenti")
-			.create()
-			.show()
+			this.showAlertDialog(
+				title = "Info post",
+				message = "Post del ${viewModel.post.dateStr()}, con ${viewModel.post.comments.size} commenti"
+			)
 		}
-
 		if (binding.commentsEmojiGrid.childCount < 1)
 			loadEmoji()
 	}
@@ -75,7 +72,7 @@ class CommentsActivity : AppCompatActivity() {
 			}
 			grid.addViewLast(emojiView.root)
 		}
-		binding.commentsEmojiScroll.smoothScrollTo(0,0)
+		binding.commentsEmojiScroll.smoothScrollTo(0, 0)
 	}
 
 	private fun emojiToggle() {

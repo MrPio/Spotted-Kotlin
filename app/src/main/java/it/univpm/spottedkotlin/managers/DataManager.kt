@@ -12,7 +12,7 @@ object DataManager {
 
 	const val pageSize = 100
 	var posts: MutableList<Post> = mutableListOf()
-	var tags: Set<Tag>? = null
+	lateinit var tags: Set<Tag>
 	val anonymous: User = User(
 		name = "Anonimo",
 		surname = "",
@@ -27,7 +27,7 @@ object DataManager {
 
 	// Fetch all the application's needed start data
 	suspend fun fetchData() {
-		tags = DatabaseManager.getList<Tag>("tags", pageSize = 999)?.toSet()
+		tags = DatabaseManager.getList<Tag>("tags", pageSize = 999)?.toSet() ?: setOf()
 		cachedUsers = DatabaseManager.getList<User>("users", 9999)?.toMutableSet() ?: mutableSetOf()
 	}
 
@@ -70,7 +70,8 @@ object DataManager {
 	// Load the first 30 posts of a given User
 	suspend fun loadUserPosts(user: User) {
 		for (postUID in user.postsUIDs.reversed().take(30))
-			DatabaseManager.get<Post>("posts/$postUID")?.let { user.posts.add(it) }
+			if (user.posts.find { it.uid == postUID } == null)
+				DatabaseManager.get<Post>("posts/$postUID")?.let { user.posts.add(it) }
 	}
 
 	// Apply a given filter to the posts

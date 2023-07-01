@@ -13,7 +13,8 @@ class Filter(
 	var gender: Gender? = null,
 	var minPercentage: Int = 0,
 	var exceptUsers: List<String>? = null,
-	var onlyUsers: List<String>? = null
+	var onlyUsers: List<String>? = null,
+	var exceptSpotted: Boolean = false
 ) {
 	enum class OrderBy { RELEVANCE, DATE }
 
@@ -25,7 +26,8 @@ class Filter(
 					(gender == null || it.gender == gender) &&
 					it.calculateRelevance(AccountManager.user.tags) >= minPercentage &&
 					(exceptUsers == null || !exceptUsers!!.contains(it.authorUID)) &&
-					(onlyUsers == null || onlyUsers!!.contains(it.authorUID))
+					(onlyUsers == null || onlyUsers!!.contains(it.authorUID)) &&
+					(!exceptSpotted || !it.spotted)
 		}
 		return when (orderBy) {
 			OrderBy.RELEVANCE -> filtered.sortedByDescending { it.calculateRelevance(AccountManager.user.tags) }

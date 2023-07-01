@@ -30,7 +30,6 @@ class AccountActivity : AppCompatActivity() {
 				binding.accountContainer.id, fragment
 			)
 		}
-
 	}
 }
 

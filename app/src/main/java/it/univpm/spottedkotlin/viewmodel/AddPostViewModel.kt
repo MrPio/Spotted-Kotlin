@@ -1,7 +1,6 @@
 package it.univpm.spottedkotlin.viewmodel
 
 import androidx.databinding.Bindable
-import androidx.lifecycle.LiveData
 import it.univpm.spottedkotlin.BR
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
@@ -10,9 +9,7 @@ import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.ObservableViewModel
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
-import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.model.Post
-import org.osmdroid.util.GeoPoint
 
 class AddPostViewModel : ObservableViewModel() {
 	lateinit var loadTagsCallback: () -> Unit
@@ -80,7 +77,7 @@ class AddPostViewModel : ObservableViewModel() {
 		get() = listOf(AccountManager.user.instagramNickname, "Anonimo")
 
 	@get:Bindable
-	var autore: Int = 0
+	var author: Int = 0
 
 	@get:Bindable
 	var errors: String = ""
@@ -91,6 +88,7 @@ class AddPostViewModel : ObservableViewModel() {
 	@get:Bindable
 	var longitude: Double? = null
 	fun azzera() {
+		author=0
 		currentPlesso = Plexuses.INGEGNERIA
 		currentZona = Locations.QT_140
 		currentGender = Gender.FEMALE
@@ -104,7 +102,7 @@ class AddPostViewModel : ObservableViewModel() {
 		this.errors = ""
 
 		// Check if posting in anonymously
-		nuovoPost.anonymous = autore == 1
+		nuovoPost.anonymous = author == 1
 
 		// Validate the model and print any error
 		val errors = nuovoPost.validate()

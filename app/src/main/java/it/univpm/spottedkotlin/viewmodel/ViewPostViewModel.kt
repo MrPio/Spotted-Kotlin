@@ -105,6 +105,7 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 
 	fun spotted() {
 		post.spotted = true
+		notifyChange()
 		DataManager.save(post)
 	}
 }

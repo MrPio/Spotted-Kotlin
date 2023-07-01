@@ -12,6 +12,7 @@ import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.function.addViewLast
 import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.extension.function.loadUrl
+import it.univpm.spottedkotlin.extension.function.showAlertDialog
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
@@ -74,7 +75,7 @@ class ViewPostActivity : AppCompatActivity() {
 			this.startActivity(intent)
 		}
 
-		binding.userAccount.setOnClickListener{
+		binding.userAccount.setOnClickListener {
 			val intent = Intent(this, AccountActivity::class.java)
 			startActivity(intent)
 		}
@@ -102,12 +103,11 @@ class ViewPostActivity : AppCompatActivity() {
 	}
 
 	private fun spotted() {
-		AlertDialog.Builder(this)
-			.setTitle("Persona spottata")
-			.setMessage("Sei sicuro di aver spottato la persona del tuo post? In caso affermativo il post verrà archiviato.")
-			.setNegativeButton("No") { _, _ -> }
-			.setPositiveButton("Si") { _, _ -> viewModel.spotted() }
-			.create()
-			.show()
+		this.showAlertDialog(
+			title = "Persona spottata",
+			message = "Sei sicuro di aver spottato la persona del tuo post? In caso affermativo il post verrà archiviato. Attenzione, l'operazione è irreversibile",
+			negativeCallback = {},
+			positiveCallback = viewModel::spotted
+		)
 	}
 }

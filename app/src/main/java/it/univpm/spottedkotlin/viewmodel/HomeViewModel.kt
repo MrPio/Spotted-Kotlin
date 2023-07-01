@@ -43,7 +43,11 @@ class HomeViewModel : ViewModel() {
 	)
 	private val plexuses = Plexuses.values().toList()
 	val subtitle = MutableLiveData(subtitles[0])
-	var filter = Filter(plexus = Plexuses.INGEGNERIA, exceptUsers = listOf(AccountManager.user.uid?:""))
+	var filter = Filter(
+		plexus = Plexuses.INGEGNERIA,
+		exceptUsers = listOf(AccountManager.user.uid?:""),
+		exceptSpotted = false
+	)
 
 	fun onRadioCheckedChanged(group: RadioGroup, checkedId: Int) {
 		val index = radios.indexOf(checkedId)
