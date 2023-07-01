@@ -21,7 +21,7 @@ class AccountViewModel(val user: User = AccountManager.user) : ViewModel() {
 
     var name: String = user.name +" "+ user.surname
     var nameInsta: String? = " " + user.instagramNickname
-    val postsUid: MutableList<String> = user.posts
+    val postsUid: MutableList<String> = user.postsUIDs
     var numPost:String= postsUid.size.toString()
     var numFollowing:String = user.following.size.toString()
     var numComment:String= user.comments.size.toString()

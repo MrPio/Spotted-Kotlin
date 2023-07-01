@@ -26,16 +26,15 @@ class SettingsFragment : Fragment() {
 		binding = SettingsFragmentBinding.inflate(inflater, container, false)
 		binding.viewModel = viewModel
 		viewModel.gotoFirstActivityCallback = ::gotoFirstActivity
-		binding.logoutButton.setOnClickListener {
+		binding.settingsLogoutButton.setOnClickListener {
 			val alertDialog = AlertDialog.Builder(context)
 			alertDialog.setTitle("Logout")
 			alertDialog.setMessage("Sicuro di voler effettuare il logout?")
 
-
 			alertDialog.setPositiveButton(
 				"Si"
 			) { _, _ ->
-				viewModel.logout(requireContext().applicationContext)
+				viewModel.logout()
 			}
 			alertDialog.setNegativeButton(
 				"Annulla"
@@ -46,7 +45,7 @@ class SettingsFragment : Fragment() {
 		return binding.root
 	}
 
-	fun gotoFirstActivity() {
+	private fun gotoFirstActivity() {
 		val intent = Intent(requireContext(), FirstActivity::class.java)
 		startActivity(intent)
 	}

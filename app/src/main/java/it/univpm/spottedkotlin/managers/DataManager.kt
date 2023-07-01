@@ -11,7 +11,6 @@ object DataManager {
 	enum class SaveMode { POST, PUT }
 
 	const val pageSize = 100
-
 	var posts: MutableList<Post> = mutableListOf()
 	var tags: Set<Tag>? = null
 	val anonymous: User = User(
@@ -51,44 +50,27 @@ object DataManager {
 			return anonymous
 
 		// Already cached?
-		val cachedUser = cachedUsers.find { it.uid == uid }
-
-		if (cachedUser != null)
-			return cachedUser
+		cachedUsers.find { it.uid == uid }?.let { return it }
 
 		// Is current User?
 		if (AccountManager.user.uid == uid)
 			return AccountManager.user
 
 		// Ask the database for the user and caching it
-		val user = DatabaseManager.get<User>("users/$uid")
-		if (user != null) {
+		DatabaseManager.get<User>("users/$uid")?.let { user ->
 			user.uid = uid
 			cachedUsers.add(user)
+			return user
 		}
-		return user ?: anonymous
+
+		// If everything above failed
+		return anonymous
 	}
 
-
-	suspend fun loadUserPost(uid: String?): MutableList<Post> {
-		val posts = mutableListOf<Post>()
-
-		// Is anonymous?
-		if (uid == null)
-			return posts
-
-		// Is current User?
-		if (AccountManager.user.uid == uid)
-			return AccountManager.userPosts
-
-		// Ask the database for the userPost
-		val user = DatabaseManager.get<User>("users/$uid")
-		if (user != null) {
-			for(post in user.posts){
-				DatabaseManager.get<Post>("posts/"+post)?.let { posts.add(it) }
-			}
-		}
-		return posts
+	// Load the first 30 posts of a given User
+	suspend fun loadUserPosts(user: User) {
+		for (postUID in user.postsUIDs.reversed().take(30))
+			DatabaseManager.get<Post>("posts/$postUID")?.let { user.posts.add(it) }
 	}
 
 	// Apply a given filter to the posts
@@ -97,24 +79,25 @@ object DataManager {
 	}
 
 	// Save Model objects
-	fun save(vararg model: Any, mode: SaveMode = SaveMode.PUT) {
-		model.forEach { model ->
-			var path: String? = null
-			path = when (model) {
+	fun save(vararg models: Any, mode: SaveMode = SaveMode.PUT) {
+		models.forEach { model ->
+			val path = when (model) {
 				is User -> "users/" + if (mode == SaveMode.PUT) model.uid else ""
 				is Post -> "posts/" + if (mode == SaveMode.PUT) model.uid else ""
 				else -> return
 			}
 
-			// Query DB
+			// Query the FirebaseRD
 			if (mode == SaveMode.PUT)
 				DatabaseManager.put(path, model)
 			else
 				DatabaseManager.post(path, model)?.let { uid ->
+					// Any operations to be performed with the retrieved uid
 					when (model) {
 						is Post -> {
+							// Add the newly created post to current user's posts list
 							posts.add(model)
-							AccountManager.user.posts.add(uid)
+							AccountManager.user.postsUIDs.add(uid)
 							save(AccountManager.user)
 						}
 					}

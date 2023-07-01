@@ -13,11 +13,12 @@ data class User(
 	val regDate: Date = Calendar.getInstance().time,
 	val gender: Gender? = null,
 	val tags: MutableList<Tag> = mutableListOf(),
-	val posts: MutableList<String> = mutableListOf(),
+	val postsUIDs: MutableList<String> = mutableListOf(),
 	val comments: MutableList<Comment> = mutableListOf(),
 	val following: MutableList<String> = mutableListOf(),
 	val cellNumber: String? = null,
 	val instagramNickname: String? = null,
 ) {
 	var uid: String? = null
+	val posts: MutableList<Post> = mutableListOf()
 }

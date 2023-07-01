@@ -23,14 +23,18 @@ class FirstActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		DeviceManager.displayMetrics = this.metrics()
-		MainScope().launch {
-			DataManager.fetchData();
-		}
-
+		initializeManagers()
 		binding = FirstActivityBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 		binding.viewModel = viewModel
+	}
+
+	fun initializeManagers() {
+		DeviceManager.displayMetrics = this.metrics()
+		IOManager.initialize(baseContext)
+		MainScope().launch {
+			DataManager.fetchData();
+		}
 	}
 
 	fun goToMainActivity() {
@@ -39,6 +43,7 @@ class FirstActivity : AppCompatActivity() {
 			finish()
 		}
 	}
+
 	override fun onStart() {
 		super.onStart()
 
@@ -52,7 +57,8 @@ class FirstActivity : AppCompatActivity() {
 
 		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {
-			if (AccountManager.cacheLogin(applicationContext)) goToMainActivity()
+			if (AccountManager.cacheLogin())
+				goToMainActivity()
 			runOnUiThread {
 				binding.firstLoadingView.loadingViewRoot.visibility = View.GONE
 			}
