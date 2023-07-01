@@ -39,6 +39,12 @@
         </activity>
 
         <activity
+            android:name=".view.AccountActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SpottedKotlin.NoActionBar">
+        </activity>
+
+        <activity
             android:name=".view.FirstActivity"
             android:exported="true"
             android:theme="@style/Theme.SpottedKotlin.NoActionBar">

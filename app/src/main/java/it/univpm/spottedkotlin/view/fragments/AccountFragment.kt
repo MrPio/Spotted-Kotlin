@@ -22,6 +22,8 @@ import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.viewmodel.AccountViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 class AccountFragment : Fragment() {
 	private lateinit var binding: AccountFragmentBinding
@@ -39,11 +41,19 @@ class AccountFragment : Fragment() {
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View {
+
 		binding = AccountFragmentBinding.inflate(inflater, container, false)
 		binding.viewModel=viewModel
 		binding.modifyImage.setOnClickListener{ view ->
 			openGallery()
 		}
+
+//		val uid = arguments?.getString("uid")
+//		MainScope().launch {
+//			if (uid != null) {
+//				viewModel.setUser(uid)
+//			}
+//		}
 
 		layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
@@ -66,12 +76,12 @@ class AccountFragment : Fragment() {
 		addPosts()
 
 		if(viewModel.nameInsta == " " || viewModel.nameInsta == null) binding.instaName.visibility= View.INVISIBLE
-		if(viewModel.userPost.isEmpty()){
+		if(viewModel.userPosts.isEmpty()){
 			binding.postsRecyclerView.visibility= View.GONE
 			binding.noPost.visibility= View.VISIBLE
 		}
 
-		print(viewModel.userPost+"\n\n\n"+viewModel.userPost.size+"\n\n")
+		print(viewModel.userPosts+"\n\n\n"+viewModel.userPosts.size+"\n\n")
 	}
 
 	// Metodo per avviare l'intent della galleria
@@ -105,6 +115,6 @@ class AccountFragment : Fragment() {
 	}
 
 	 fun addPosts(){
-		postsAdapter.updatePosts(viewModel.userPost)
+		postsAdapter.updatePosts(viewModel.userPosts)
 	}
 }

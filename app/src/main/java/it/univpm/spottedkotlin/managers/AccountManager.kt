@@ -24,7 +24,7 @@ object AccountManager {
     private var instaUrl: String? = null
     private var gender: Gender? = null
 
-    val userPost: MutableList<Post> = mutableListOf()
+    val userPosts: MutableList<Post> = mutableListOf()
 
     suspend fun cacheLogin(context: Context): Boolean {
         val uid = SharedPreferencesManager.read(context)
@@ -33,7 +33,7 @@ object AccountManager {
                 user = it;
                 user.uid = uid
                 for (Uid in user.posts){
-                    DatabaseManager.get<Post>("posts/"+Uid)?.let { userPost.add(it) }
+                    DatabaseManager.get<Post>("posts/"+Uid)?.let { userPosts.add(it) }
                 }
             }
 
@@ -53,7 +53,7 @@ object AccountManager {
                 user = it;
                 user.uid = uid
                 for (Uid in user.posts){
-                    DatabaseManager.get<Post>("posts/"+Uid)?.let { userPost.add(it) }
+                    DatabaseManager.get<Post>("posts/"+Uid)?.let { userPosts.add(it) }
                 }
             }
             if (!::user.isInitialized)
@@ -86,7 +86,7 @@ object AccountManager {
         if (authResult != null) {
             newUser.uid = authResult.user?.uid
             DatabaseManager.put("users/${newUser.uid}", newUser)
-            userPost.clear()
+            userPosts.clear()
             user = newUser
 
         } else {

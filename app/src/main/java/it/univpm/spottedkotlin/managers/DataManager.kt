@@ -5,6 +5,7 @@ import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.model.*
+import java.io.Serializable
 
 object DataManager {
 	enum class SaveMode { POST, PUT }
@@ -66,6 +67,28 @@ object DataManager {
 			cachedUsers.add(user)
 		}
 		return user ?: anonymous
+	}
+
+
+	suspend fun loadUserPost(uid: String?): MutableList<Post> {
+		val posts = mutableListOf<Post>()
+
+		// Is anonymous?
+		if (uid == null)
+			return posts
+
+		// Is current User?
+		if (AccountManager.user.uid == uid)
+			return AccountManager.userPosts
+
+		// Ask the database for the userPost
+		val user = DatabaseManager.get<User>("users/$uid")
+		if (user != null) {
+			for(post in user.posts){
+				DatabaseManager.get<Post>("posts/"+post)?.let { posts.add(it) }
+			}
+		}
+		return posts
 	}
 
 	// Apply a given filter to the posts

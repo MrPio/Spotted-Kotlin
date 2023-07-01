@@ -31,7 +31,6 @@ class ViewPostActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		binding = ViewPostActivityBinding.inflate(layoutInflater)
 		setContentView(binding.root)
-
 		val postUID = intent.getStringExtra("postUID")
 		val post = DataManager.posts.find { it.uid == postUID }
 		viewModel = ViewPostViewModel(post ?: Post())
@@ -63,10 +62,21 @@ class ViewPostActivity : AppCompatActivity() {
 //		}
 		binding.viewPostImage.loadUrl(imageUrl ?: RemoteImages.ANCONA.url)
 		binding.exitOnClick = View.OnClickListener { finishAfterTransition() }
+
+		binding.accountOnClick = View.OnClickListener {
+			val intent = Intent(this, AccountActivity::class.java)
+			this.startActivity(intent)
+		}
 		binding.commentsOnClick = View.OnClickListener {
 			val intent = Intent(this, CommentsActivity::class.java)
 			intent.putExtra("postUID", viewModel.post.uid)
 			this.startActivity(intent)
+		}
+
+		binding.userAccount.setOnClickListener{
+			val intent = Intent(this, AccountActivity::class.java)
+			print("\n\n\nAAAAAAA\n\n")
+			startActivity(intent)
 		}
 		MainScope().launch {
 			viewModel.initialize()

@@ -209,7 +209,8 @@
                     android:layout_weight="1"
                     android:text="@string/post"
                     android:textAlignment="center"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/following"
@@ -218,7 +219,8 @@
                     android:layout_weight="1"
                     android:text="@string/following"
                     android:textAlignment="center"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/comments"
@@ -227,7 +229,8 @@
                     android:layout_weight="1"
                     android:text="@string/comments"
                     android:textAlignment="center"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -241,12 +244,21 @@
                     android:layout_weight="1">
 
                     <Button
-                        android:id="@+id/button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/messaggia_button"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:backgroundTint="@color/white"
                         android:fontFamily="@font/lato_bold"
-                        android:text="Button"
+                        android:text="@string/messaggia"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:cornerRadius="15dp"
+                        app:icon="@drawable/chat"
+                        app:iconTint="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -259,11 +271,17 @@
                     android:layout_weight="1">
 
                     <Button
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/chaima_button"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:text="Button"
+                        android:text="@string/chiama"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        app:cornerRadius="15dp"
+                        app:icon="@drawable/telephone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
