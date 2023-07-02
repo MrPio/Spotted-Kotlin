@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.PermissionChecker
 import androidx.databinding.DataBindingUtil
@@ -75,3 +76,5 @@ fun Context.showAlertDialog(
 			neutralCallback?.let { setNeutralButton(neutralText) { _, _ -> it() } }
 		}.show()
 }
+
+fun Context.toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

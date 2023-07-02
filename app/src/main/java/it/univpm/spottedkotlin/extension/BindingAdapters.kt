@@ -8,6 +8,9 @@ import android.text.style.StyleSpan
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
+import com.google.android.material.slider.Slider
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
@@ -36,4 +39,23 @@ fun loadMarkdown(view: TextView, markdown: String) {
 			str.setSpan(StyleSpan(Typeface.BOLD), str.length-slice.length, str.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 	}
 	view.text = str
+}
+
+@BindingAdapter("sliderValueAttrChanged")
+fun setSliderListeners(slider: Slider, attrChange: InverseBindingListener) {
+	slider.addOnChangeListener { _, value, _ ->
+		attrChange.onChange()
+	}
+}
+
+@InverseBindingAdapter(attribute = "sliderValue")
+fun getSliderValue(slider: Slider): Int {
+	return slider.value.toInt()
+}
+
+@BindingAdapter("sliderValue")
+fun setSliderValue(slider: Slider, value: Int) {
+	if (slider.value.toInt() != value) {
+		slider.value = value.toFloat()
+	}
 }

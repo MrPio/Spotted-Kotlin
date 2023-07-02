@@ -1,24 +1,17 @@
 package it.univpm.spottedkotlin.viewmodel
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.provider.ContactsContract.Data
 import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.enums.Settings
 import it.univpm.spottedkotlin.extension.function.loadBitmapDrawable
-import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.managers.BitmapManager
 import it.univpm.spottedkotlin.managers.DataManager
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.OverlayItem
-import kotlin.concurrent.thread
-import kotlin.system.measureTimeMillis
 
 class MapViewModel : ViewModel() {
 
@@ -69,7 +62,7 @@ class MapViewModel : ViewModel() {
 					whiteCircleBitmap,
 					BitmapManager.load(avatarUrl),
 				)
-				val size = if (Settings.MAP_MARKERS_BIG.bool) 160 else 136
+				val size = Settings.MAP_MARKERS_SIZE.int!! * 15 + 110
 				overlayItem.setMarker(
 					context.loadBitmapDrawable(bitmap, size, size)
 				)

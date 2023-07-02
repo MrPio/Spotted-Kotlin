@@ -1,6 +1,11 @@
 package it.univpm.spottedkotlin.managers
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
@@ -9,6 +14,7 @@ import it.univpm.spottedkotlin.enums.Settings
 import it.univpm.spottedkotlin.extension.function.addDays
 import it.univpm.spottedkotlin.extension.function.randomList
 import it.univpm.spottedkotlin.extension.function.toShortDateStr
+import it.univpm.spottedkotlin.extension.function.toast
 import it.univpm.spottedkotlin.model.*
 import java.util.*
 import kotlin.random.Random
@@ -17,64 +23,7 @@ object SeederManager {
 	object names {
 
 		val names: List<String>
-			get() = ("Abaco Abbondanzio " +
-					"Abbondio Abdone " +
-					"Abelardo Abele " +
-					"Abenzio Abibo " +
-					"Abramio Abramo " +
-					"Acacio Acario " +
-					"Accursio Achille " +
-					"Acilio Aciscolo " +
-					"Acrisio Adalardo " +
-					"Adalberto Adalfredo " +
-					"Adalgiso Adalrico " +
-					"Adamo Addo " +
-					"Adelardo Adelberto " +
-					"Adelchi Adelfo " +
-					"Adelgardo Adelmo " +
-					"Adeodato Adolfo " +
-					"Adone Adriano " +
-					"Adrione Afro " +
-					"Agabio Agamennone " +
-					"Agapito Agazio " +
-					"Agenore Agesilao " +
-					"Agostino Agrippa " +
-					"Aiace Aidano " +
-					"Aimone Aladino " +
-					"Alamanno Alano " +
-					"Alarico Albano " +
-					"Alberico Alberto " +
-					"Albino Alboino " +
-					"Albrico Alceo " +
-					"Alceste Alcibiade " +
-					"Alcide Alcino " +
-					"Aldo Aldobrando " +
-					"Aleandro Aleardo " +
-					"Aleramo Alessandro " +
-					"Alessio Alfio " +
-					"Alfonso Alfredo " +
-					"Algiso Alighiero " +
-					"Almerigo Almiro " +
-					"Aloisio Alvaro " +
-					"Alviero Alvise " +
-					"Amabile Amadeo " +
-					"Amando Amanzio " +
-					"Amaranto Amato " +
-					"Amatore Amauri " +
-					"Ambrogio Ambrosiano " +
-					"Amedeo Amelio " +
-					"Amerigo Amico " +
-					"Amilcare Amintore " +
-					"Amleto Amone " +
-					"Amore Amos " +
-					"Ampelio Anacleto " +
-					"Andrea Angelo " +
-					"Aniceto Aniello " +
-					"Annibale Ansaldo " +
-					"Anselmo Ansovino " +
-					"Antelmo Antero " +
-					"Antimo Antino " +
-					"Antioco Antonello " +
+			get() = ("Abaco Abbondanzio " + "Abbondio Abdone " + "Abelardo Abele " + "Abenzio Abibo " + "Abramio Abramo " + "Acacio Acario " + "Accursio Achille " + "Acilio Aciscolo " + "Acrisio Adalardo " + "Adalberto Adalfredo " + "Adalgiso Adalrico " + "Adamo Addo " + "Adelardo Adelberto " + "Adelchi Adelfo " + "Adelgardo Adelmo " + "Adeodato Adolfo " + "Adone Adriano " + "Adrione Afro " + "Agabio Agamennone " + "Agapito Agazio " + "Agenore Agesilao " + "Agostino Agrippa " + "Aiace Aidano " + "Aimone Aladino " + "Alamanno Alano " + "Alarico Albano " + "Alberico Alberto " + "Albino Alboino " + "Albrico Alceo " + "Alceste Alcibiade " + "Alcide Alcino " + "Aldo Aldobrando " + "Aleandro Aleardo " + "Aleramo Alessandro " + "Alessio Alfio " + "Alfonso Alfredo " + "Algiso Alighiero " + "Almerigo Almiro " + "Aloisio Alvaro " + "Alviero Alvise " + "Amabile Amadeo " + "Amando Amanzio " + "Amaranto Amato " + "Amatore Amauri " + "Ambrogio Ambrosiano " + "Amedeo Amelio " + "Amerigo Amico " + "Amilcare Amintore " + "Amleto Amone " + "Amore Amos " + "Ampelio Anacleto " + "Andrea Angelo " + "Aniceto Aniello " + "Annibale Ansaldo " + "Anselmo Ansovino " + "Antelmo Antero " + "Antimo Antino " + "Antioco Antonello " +
 //					"Antonio Apollinare " +
 //					"Apollo Apuleio " +
 //					"Aquilino Araldo " +
@@ -374,8 +323,7 @@ object SeederManager {
 //					"Godeberta Godiva " +
 //					"Grazia Graziana " +
 //					"Graziella Greta " +
-					"Griselda Guenda " +
-					"Guendalina Gundelinda").split(' ')
+					"Griselda Guenda " + "Guendalina Gundelinda").split(' ')
 	}
 
 	// Random generate posts and authors
@@ -406,9 +354,7 @@ object SeederManager {
 						gender = Gender.values().random(),
 						tags = randTags,
 						date = randDate,
-						description = "Cerco ragazza/o ${randTags.first().name} e ${randTags.last().name}. " +
-								"L'ho visto l'ultima volta il ${randDate.toShortDateStr()} " +
-								"presso ${randLocation.name}. Grazie a tutti."
+						description = "Cerco ragazza/o ${randTags.first().name} e ${randTags.last().name}. " + "L'ho visto l'ultima volta il ${randDate.toShortDateStr()} " + "presso ${randLocation.name}. Grazie a tutti."
 					)
 				)
 			}
@@ -451,97 +397,169 @@ object SeederManager {
 		)
 	}
 
-	fun generateSettings(context: Context): List<SettingMenu> =
-		listOf(
-			SettingMenu(
-				icon = context.getString(R.string.HomeOutline),
-				title = "Filtri dei post",
-				subtitle = "Modifica i filtri dei post da visualizzare",
-				items = listOf(
-					SettingItem(
-						id = Settings.FILTER_SPOTTED.id,
-						title = "Post spottati",
-						subtitle = "Mostra i post spottati nella home",
-						type = SettingType.FLAG,
-					),
-					SettingItem(
-						id = Settings.FILTER_MINE.id,
-						title = "Tuoi post",
-						subtitle = "Mostra i tuoi post nella home",
-						type = SettingType.FLAG,
-					),
+	fun generateSettings(context: Context): List<SettingMenu> = listOf(
+		SettingMenu(
+			icon = context.getString(R.string.HomeOutline),
+			title = "Filtri dei post",
+			subtitle = "Modifica i filtri dei post da visualizzare",
+			items = listOf(
+				SettingItem(
+					id = Settings.FILTER_SPOTTED.id,
+					title = "Post spottati",
+					subtitle = "Mostra i post spottati nella home",
+					type = SettingType.FLAG,
+				),
+				SettingItem(
+					id = Settings.FILTER_MINE.id,
+					title = "Tuoi post",
+					subtitle = "Mostra i tuoi post nella home",
+					type = SettingType.FLAG,
 				),
 			),
-			SettingMenu(
-				icon = context.getString(R.string.ChatOutline),
-				title = "Preferenze chat",
-				subtitle = "Modifica il comportamento delle chat",
-				items = listOf(
-					SettingItem(
-						id = Settings.CHAT_OBSERVE.id,
-						title = "Chat in tempo reale",
-						subtitle = "Aggiorna la chat in tempo reale",
-						type = SettingType.FLAG,
-					),
-					SettingItem(
-						id = Settings.CHAT_EMOJI.id,
-						title = "Emoji",
-						subtitle = "Mostra le emoji nella chat",
-						type = SettingType.FLAG,
-					),
-					SettingItem(
-						id = Settings.CHAT_TIME.id,
-						title = "Data messaggi",
-						subtitle = "Mostra la data dei messaggi",
-						type = SettingType.FLAG,
-					),
+		),
+		SettingMenu(
+			icon = context.getString(R.string.ChatOutline),
+			title = "Preferenze chat",
+			subtitle = "Modifica il comportamento delle chat",
+			items = listOf(
+				SettingItem(
+					id = Settings.CHAT_OBSERVE.id,
+					title = "Chat in tempo reale",
+					subtitle = "Aggiorna la chat in tempo reale",
+					type = SettingType.FLAG,
+				),
+				SettingItem(
+					id = Settings.CHAT_EMOJI.id,
+					title = "Emoji",
+					subtitle = "Mostra le emoji nella chat",
+					type = SettingType.FLAG,
+				),
+				SettingItem(
+					id = Settings.CHAT_TIME.id,
+					title = "Data messaggi",
+					subtitle = "Mostra la data dei messaggi",
+					type = SettingType.FLAG,
 				),
 			),
-			SettingMenu(
-				icon = context.getString(R.string.MapOutline),
-				title = "Preferenze mappa",
-				subtitle = "Personalizza il comportamento della mappa",
-				items = listOf(
-					SettingItem(
-						id = Settings.MAP_BOUNDARY.id,
-						title = "Limita la mappa",
-						subtitle = "Blocca la mappa sulla città di Ancona",
-						type = SettingType.FLAG,
-					),
-					SettingItem(
-						id = Settings.MAP_MARKERS_BIG.id,
-						title = "Segnalini grandi",
-						subtitle = "Ingrandisci i segnalini nella mappa",
-						type = SettingType.FLAG,
-					),
+		),
+		SettingMenu(
+			icon = context.getString(R.string.MapOutline),
+			title = "Preferenze mappa",
+			subtitle = "Personalizza il comportamento della mappa",
+			items = listOf(
+				SettingItem(
+					id = Settings.MAP_BOUNDARY.id,
+					title = "Limita la mappa",
+					subtitle = "Blocca la mappa sulla città di Ancona",
+					type = SettingType.FLAG,
+				),
+				SettingItem(
+					id = Settings.MAP_MARKERS_SIZE.id,
+					title = "Dimensione dei segnalini",
+					subtitle = "Seleziona la dimensione dei segnalini nella mappa",
+					valueFrom = 1,
+					valueTo = 5,
+					type = SettingType.SLIDER,
 				),
 			),
-			SettingMenu(
-				icon = context.getString(R.string.ShieldOutline),
-				title = "Sicurezza",
-				subtitle = "Reimposta la tua password di accesso",
+		),
+		SettingMenu(
+			icon = context.getString(R.string.ShieldOutline),
+			title = "Sicurezza",
+			subtitle = "Cambia le impostazioni di sicurezza",
+			items = listOf(
+				SettingItem(title = "Cambio di password",
+					subtitle = "Reimposta la tua password di accesso",
+					type = SettingType.ALERT_YES_NO,
+					alertMessage = "Confermi di voler ricevere al tuo indirizzo di posta elettronica una email per il ripristino della password del tuo account?",
+					action = {
+						try {
+							AccountManager.sendChangePasswordEmail()
+							context.toast("Email di recupero mandata. Controlla la tua casella di posta.")
+						} catch (e: Exception) {
+							context.toast("Errore generico nell'invio dell'email.")
+						}
+					}),
 			),
-			SettingMenu(
-				icon = context.getString(R.string.ChartBoxOutline),
-				title = "Statistiche",
-				subtitle = "Visualizza le tue statistiche su Spotted",
+		),
+		SettingMenu(
+			icon = context.getString(R.string.ChartBoxOutline),
+			title = "Statistiche",
+			subtitle = "Visualizza le tue statistiche su Spotted",
+			items = listOf(
+				SettingItem(
+					title = "Statistiche sul profilo",
+					subtitle = "Scopri le tue abitudini nell'interazione con l'app.",
+					type = SettingType.ALERT_OK,
+					alertMessage = "Spiacenti, ma questa funzionalità non è stata ancora implementata... Non sarebbe grandioso però?",
+				),
+				SettingItem(
+					title = "Statistiche sui post",
+					subtitle = "Scopri le tue interazioni con i post di Spotted!.",
+					type = SettingType.ALERT_OK,
+					alertMessage = "Spiacenti, ma questa funzionalità non è stata ancora implementata... Non sarebbe grandioso però?",
+				),
+				SettingItem(
+					title = "Statistiche sulla community",
+					subtitle = "Scopri le tue abitudini nell'interazione con la community.",
+					type = SettingType.ALERT_OK,
+					alertMessage = "Spiacenti, ma questa funzionalità non è stata ancora implementata... Non sarebbe grandioso però?",
+				),
 			),
-			SettingMenu(
-				icon = context.getString(R.string.StarOutline),
-				title = "Valutaci",
-				subtitle = "Dacci la tua opinione!",
+		),
+		SettingMenu(
+			icon = context.getString(R.string.StarOutline),
+			title = "Valutaci",
+			subtitle = "Dacci la tua opinione!",
+			items = listOf(
+				SettingItem(
+					title = "Lascia una tua recenzione",
+					subtitle = "Valuta l'applicazione e aiutaci a migliorarla.",
+					type = SettingType.ACTION,
+					action = {
+						try {
+							startActivity(
+								context,
+								Intent(
+									Intent.ACTION_VIEW,
+									Uri.parse("market://details?id=spotted")
+								).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) },
+								null
+							)
+						} catch (e: ActivityNotFoundException) {
+							// Play Store app is not installed, fallback to opening the Play Store website
+							startActivity(
+								context,
+								Intent(
+									Intent.ACTION_VIEW,
+									Uri.parse("https://play.google.com/store/apps/details?id=spotted")
+								).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) },
+								null
+							)
+						}
+					},
+				),
 			),
-			SettingMenu(
-				icon = context.getString(R.string.CellphoneArrowDown),
-				title = "Aggiornamenti",
-				subtitle = "Controlla la disponobilità di aggiornamenti",
+		),
+		SettingMenu(
+			icon = context.getString(R.string.CellphoneArrowDown),
+			title = "Aggiornamenti",
+			subtitle = "Controlla la disponobilità di aggiornamenti",
+			items = listOf(
+				SettingItem(
+					title = "Versione dell'app",
+					subtitle = "Scopri la versione attuale dell'applicazione.",
+					type = SettingType.ALERT_OK,
+					alertMessage = "La versione corrente è 1.0.0"
+				),
 			),
-			SettingMenu(
-				icon = context.getString(R.string.LogoutVariant),
-				title = "Logout",
-				subtitle = "Effettua il logout dall'account",
-			),
-		)
+		),
+		SettingMenu(
+			icon = context.getString(R.string.LogoutVariant),
+			title = "Logout",
+			subtitle = "Effettua il logout dall'account",
+		),
+	)
 
 	fun seed(context: Context) {
 		generatePosts(200, context)

@@ -1,7 +1,9 @@
 package it.univpm.spottedkotlin.managers
 
 import android.content.Context
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
@@ -46,7 +48,7 @@ object AccountManager {
 	// Perform FirebaseAuth login with email and password
 	suspend fun login(email: String, password: String) {
 		val authResult = auth.signInWithEmailAndPassword(email, password).await()
-			loginHandleAuthResult(authResult)
+		loginHandleAuthResult(authResult)
 	}
 
 	// Perform FirebaseAuth login with Google provider
@@ -73,5 +75,15 @@ object AccountManager {
 	fun logout() {
 		IOManager.removeKey("user_uid")
 		auth.signOut()
+	}
+
+	// Send email to change the password
+	fun sendChangePasswordEmail() {
+		if (auth.currentUser == null)
+			throw Exception("User not logged")
+		if (auth.currentUser!!.email == null)
+			throw Exception("No available email")
+
+		auth.sendPasswordResetEmail(auth.currentUser!!.email!!)
 	}
 }

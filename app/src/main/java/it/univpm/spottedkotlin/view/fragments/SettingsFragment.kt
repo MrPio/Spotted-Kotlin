@@ -32,9 +32,18 @@ class SettingsFragment : Fragment() {
 		binding = SettingsFragmentBinding.inflate(inflater, container, false)
 		binding.viewModel = viewModel
 		viewModel.gotoFirstActivityCallback = ::gotoFirstActivity
-		binding.settingsScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-			context?.getActivity<MainActivity>()?.binding?.bottomBarContainer?.translationY =
-				scrollY.toFloat()
+
+		// Hide the BottomBar with scroll
+//		binding.settingsScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+//			context?.getActivity<MainActivity>()?.binding?.bottomBarContainer?.translationY =
+//				scrollY.toFloat()
+//		}
+
+		binding.settingsInfo.setOnClickListener {
+			context?.showAlertDialog(
+				title = "Info sull'applicazione",
+				message = "Spotted! - Applicazione realizzata per il progetto d'esame del corso di Programmazione Mobile del professore Emanuele Storti all'università Politecnica delle Marche (a.a. 2022/2023).\n\nAutori:\n\t• Valerio Morelli\n\t• Mattia Sbatella"
+			)
 		}
 		loadSettings()
 		return binding.root

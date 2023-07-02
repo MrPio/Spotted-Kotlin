@@ -1,8 +1,6 @@
 package it.univpm.spottedkotlin.enums
 
 import it.univpm.spottedkotlin.managers.IOManager
-import it.univpm.spottedkotlin.model.SettingType
-import java.util.*
 
 enum class Settings(
 	private val _id: String? = null,
@@ -16,10 +14,13 @@ enum class Settings(
 	CHAT_TIME(default = true),
 
 	MAP_BOUNDARY(default = true),
-	MAP_MARKERS_BIG;
+	MAP_MARKERS_SIZE(default = 2);
 
 	val id get() = _id ?: name.uppercase()
-	val value get() = IOManager.readKey(id)
+	var value
+		get() = IOManager.readKey(id)
+		set(value) = IOManager.writeKey(id, value)
 	val bool get() = (value ?: default ?: false) as Boolean
 	val string get() = (value as? String) ?: (default as? String)
+	val int get() = (value as? Int) ?: (default as? Int)
 }

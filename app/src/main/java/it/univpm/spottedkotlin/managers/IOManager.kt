@@ -11,7 +11,7 @@ object IOManager {
 		sharedPreferences = context.getSharedPreferences(file, Context.MODE_PRIVATE)
 	}
 
-	fun writeKey(key: String, value: Any) =
+	fun writeKey(key: String, value: Any?) =
 		when (value) {
 			is String -> sharedPreferences.edit().putString(key, value).apply()
 			is Boolean -> sharedPreferences.edit().putBoolean(key, value).apply()
