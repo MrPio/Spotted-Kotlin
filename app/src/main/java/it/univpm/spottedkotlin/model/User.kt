@@ -1,5 +1,6 @@
 package it.univpm.spottedkotlin.model
 
+import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.RemoteImages
@@ -19,6 +20,9 @@ data class User(
 	val cellNumber: String? = null,
 	val instagramNickname: String? = null,
 ) {
+	@Exclude
 	var uid: String? = null
+
+	@Exclude
 	val posts: MutableList<Post> = mutableListOf()
 }

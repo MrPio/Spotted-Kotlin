@@ -1,5 +1,6 @@
 package it.univpm.spottedkotlin.model
 
+import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
@@ -24,8 +25,13 @@ data class Post(
 	var anonymous: Boolean = false,
 	var spotted:Boolean=false,
 ) : Serializable, Validable {
+	@Exclude
 	var uid: String? = null
+
+	@Exclude
 	var author: User? = null
+
+	@Exclude
 	var lastFollowers: MutableList<User?> = mutableListOf()
 
 	fun dateStr() = date.toDateStr()

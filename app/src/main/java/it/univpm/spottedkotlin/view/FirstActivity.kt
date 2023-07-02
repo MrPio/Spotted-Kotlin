@@ -53,7 +53,7 @@ class FirstActivity : AppCompatActivity() {
 //		SeederManager.seed(applicationContext)
 //		return
 
-		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
+//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
 		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {

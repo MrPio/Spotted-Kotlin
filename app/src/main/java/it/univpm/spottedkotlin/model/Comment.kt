@@ -1,5 +1,6 @@
 package it.univpm.spottedkotlin.model
 
+import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 import java.io.Serializable
 import java.util.*
@@ -10,5 +11,7 @@ data class Comment(
 	val text: String = "",
 	val date: Date = Calendar.getInstance().time,
 ) : Serializable{
+
+	@Exclude
 	var user: User? = null
 }
