@@ -7,60 +7,78 @@
 		<variable name = "viewModel"
 				  type = "it.univpm.spottedkotlin.viewmodel.CommentItemViewModel"/>
 	</data>
-	<LinearLayout
-		android:layout_width = "match_parent"
-		android:layout_height = "wrap_content"
-		android:orientation = "horizontal">
-		<!--Avatar-->
-		<ImageView
-			android:layout_width = "34dp"
-			android:layout_height = "34dp"
-			android:layout_margin = "2dp"
-			android:contentDescription = "@string/todo"
-			android:src = "@drawable/anonymous"
-			android:visibility = "@{viewModel.full?View.VISIBLE:View.INVISIBLE}"
-			app:imageUrl = "@{viewModel.comment.user.avatar}"/>
+	<LinearLayout android:layout_width = "match_parent"
+				  android:layout_height = "wrap_content"
+				  android:orientation = "vertical">
+		<View android:layout_width = "match_parent"
+			  android:layout_height = "16dp"
+			  android:visibility = "@{viewModel.full?View.VISIBLE:View.GONE}"/>
 
-		<!--Comment Whole Content	-->
-		<LinearLayout android:layout_width = "match_parent"
-					  android:layout_height = "wrap_content"
-					  android:layout_marginStart = "10dp"
-					  android:layout_marginTop = "2dp"
-					  android:layout_marginBottom = "6dp"
-					  android:orientation = "vertical">
+		<LinearLayout
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "horizontal">
+
+			<!--Avatar-->
+			<LinearLayout android:layout_width = "wrap_content"
+						  android:layout_height = "wrap_content"
+						  android:orientation = "vertical">
+				<View android:layout_width = "0dp"
+					  android:layout_height = "16dp"
+					  android:visibility = "@{viewModel.full?View.VISIBLE:View.GONE}"
+					/>
+				<ImageView
+					android:layout_width = "34dp"
+					android:layout_height = "34dp"
+					android:layout_margin = "2dp"
+					android:contentDescription = "@string/todo"
+					android:src = "@drawable/anonymous"
+					android:visibility = "@{viewModel.full?View.VISIBLE:View.INVISIBLE}"
+					app:imageUrl = "@{viewModel.comment.user.avatar}"/>
+			</LinearLayout>
+
+			<!--Comment Whole Content	-->
 			<LinearLayout android:layout_width = "match_parent"
 						  android:layout_height = "wrap_content"
-						  android:layoutDirection = "ltr"
-						  android:orientation = "horizontal"
-						  android:visibility = "@{viewModel.timeShow &amp;&amp; viewModel.full?View.VISIBLE:View.GONE}">
-				<TextView style = "@style/LabelRegular"
-						  android:layout_width = "wrap_content"
-						  android:layout_height = "wrap_content"
-						  android:text = '@{viewModel.comment.user.name+" "+viewModel.comment.user.surname}'/>
-				<TextView style = "@style/LabelIcon"
-						  android:layout_width = "wrap_content"
-						  android:layout_height = "wrap_content"
-						  android:layout_marginStart = "8dp"
-						  android:text = "@string/ClockOutline"
-						  android:textColor = "@color/black"
-						  android:textSize = "18sp"/>
-				<TextView style = "@style/LabelRegular"
-						  android:layout_width = "wrap_content"
-						  android:layout_height = "wrap_content"
-						  android:layout_marginStart = "4dp"
-						  android:text = "@{viewModel.date}"/>
+						  android:layout_marginStart = "10dp"
+						  android:layout_marginTop = "2dp"
+						  android:layout_marginBottom = "6dp"
+						  android:orientation = "vertical">
+				<LinearLayout android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:layout_marginBottom = "4dp"
+							  android:layoutDirection = "ltr"
+							  android:orientation = "horizontal"
+							  android:visibility = "@{viewModel.timeShow &amp;&amp; viewModel.full?View.VISIBLE:View.GONE}">
+					<TextView style = "@style/LabelRegular"
+							  android:layout_width = "wrap_content"
+							  android:layout_height = "wrap_content"
+							  android:text = '@{viewModel.comment.user.name+" "+viewModel.comment.user.surname}'/>
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "wrap_content"
+							  android:layout_height = "wrap_content"
+							  android:layout_marginStart = "8dp"
+							  android:text = "@string/ClockOutline"
+							  android:textColor = "@color/foreground"
+							  android:textSize = "18sp"/>
+					<TextView style = "@style/LabelRegular"
+							  android:layout_width = "wrap_content"
+							  android:layout_height = "wrap_content"
+							  android:layout_marginStart = "4dp"
+							  android:text = "@{viewModel.date}"/>
+				</LinearLayout>
+				<FrameLayout android:layout_width = "match_parent"
+							 android:layout_height = "wrap_content"
+							 android:background = "@drawable/comment_border_left"
+							 android:backgroundTint = "@{viewModel.author?@color/red:viewModel.me?@color/foreground:@color/background}">
+					<TextView style = "@style/LabelLight"
+							  markdown = "@{viewModel.comment.text}"
+							  android:layout_width = "wrap_content"
+							  android:layout_height = "wrap_content"
+							  android:textColor = "@{viewModel.author?@color/white:viewModel.me?@color/white:@color/black}"
+							  android:textSize = "16sp"/>
+				</FrameLayout>
 			</LinearLayout>
-			<FrameLayout android:layout_width = "match_parent"
-						 android:layout_height = "wrap_content"
-						 android:background="@drawable/comment_border_left"
-						 android:backgroundTint = "@{viewModel.author?@color/red:viewModel.me?@color/black:@color/grey}">
-				<TextView style = "@style/LabelLight"
-						  markdown = "@{viewModel.comment.text}"
-						  android:layout_width = "wrap_content"
-						  android:layout_height = "wrap_content"
-						  android:textColor = "@{viewModel.author?@color/white:viewModel.me?@color/white:@color/black}"
-						  android:textSize = "16sp"/>
-			</FrameLayout>
 		</LinearLayout>
 	</LinearLayout>
 </layout>

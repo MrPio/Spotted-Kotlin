@@ -19,7 +19,7 @@
 			android:layout_height = "0dp"
 			android:layout_marginTop = "150dp"
 			android:layout_marginBottom = "50dp"
-			app:cardBackgroundColor = "@color/white"
+			app:cardBackgroundColor = "@color/inverse"
 			app:cardCornerRadius = "26dp"
 			app:layout_constraintBottom_toBottomOf = "parent"
 			app:layout_constraintEnd_toEndOf = "parent"
@@ -42,7 +42,7 @@
 						android:fontFamily = "@font/lato_bold"
 						android:text = "@string/sign_up"
 						android:textAlignment = "center"
-						android:textColor = "@color/black"
+						android:textColor = "@color/foreground"
 						android:textSize = "28sp"
 						android:textStyle = "bold"
 						app:layout_constraintEnd_toEndOf = "parent"
@@ -51,67 +51,67 @@
 
 					<TextView
 						android:id = "@+id/name_text"
+						style = "@style/LabelBold"
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:layout_marginTop = "4dp"
-						style = "@style/LabelBold"
-						android:textSize = "16sp"
-						android:text = "@string/name"/>
+						android:text = "@string/name"
+						android:textSize = "16sp"/>
 
 					<EditText
 						android:id = "@+id/name"
 						style = "@style/LabelRegular"
-						android:imeOptions="flagNavigateNext"
 						android:layout_width = "match_parent"
 						android:layout_height = "46dp"
+						android:layout_marginTop = "10dp"
 						android:background = "@drawable/text_view_border_grey"
 						android:cursorVisible = "true"
+						android:imeOptions = "flagNavigateNext"
 						android:inputType = "textPersonName"
-						android:layout_marginTop = "10dp"
 						android:padding = "10dp"
 						android:text = "@={viewModel.name}"
 						android:textCursorDrawable = "@drawable/black_cursor"/>
 
 					<TextView
 						android:id = "@+id/surname_text"
+						style = "@style/LabelBold"
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:layout_marginTop = "10dp"
-						style = "@style/LabelBold"
-						android:textSize = "16sp"
-						android:text = "@string/surname"/>
+						android:text = "@string/surname"
+						android:textSize = "16sp"/>
 
 					<EditText
 						android:id = "@+id/surname"
-						android:layout_width = "match_parent"
-						android:inputType = "textPersonName"
-						android:layout_height = "46dp"
 						style = "@style/LabelRegular"
-						android:imeOptions="flagNavigateNext"
-						android:background = "@drawable/text_view_border_grey"
+						android:layout_width = "match_parent"
+						android:layout_height = "46dp"
 						android:layout_marginTop = "16dp"
+						android:background = "@drawable/text_view_border_grey"
+						android:imeOptions = "flagNavigateNext"
+						android:inputType = "textPersonName"
 						android:padding = "10dp"
 						android:text = "@={viewModel.surname}"
 						android:textCursorDrawable = "@drawable/black_cursor"/>
 
-<!--					<TextView-->
-<!--						android:id = "@+id/strong_text"-->
-<!--						android:layout_width = "match_parent"-->
-<!--						android:layout_height = "wrap_content"-->
-<!--						android:layout_marginTop = "16dp"-->
-<!--						android:layout_marginTop = "16dp"-->
-<!--						android:fontFamily = "@font/lato_light"-->
-<!--						app:layout_constraintEnd_toEndOf = "parent"-->
-<!--						app:layout_constraintTop_toBottomOf = "@+id/name"/>-->
+					<!--					<TextView-->
+					<!--						android:id = "@+id/strong_text"-->
+					<!--						android:layout_width = "match_parent"-->
+					<!--						android:layout_height = "wrap_content"-->
+					<!--						android:layout_marginTop = "16dp"-->
+					<!--						android:layout_marginTop = "16dp"-->
+					<!--						android:fontFamily = "@font/lato_light"-->
+					<!--						app:layout_constraintEnd_toEndOf = "parent"-->
+					<!--						app:layout_constraintTop_toBottomOf = "@+id/name"/>-->
 
 					<TextView
 						android:id = "@+id/gender_text"
+						style = "@style/LabelBold"
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:layout_marginTop = "12dp"
 						android:text = "@string/gender"
 						android:textSize = "16sp"
-						style="@style/LabelBold"
 						/>
 
 					<RadioGroup
@@ -125,104 +125,111 @@
 
 						<RadioButton
 							android:id = "@+id/male"
+							style = "@style/LabelRegular"
 							android:layout_width = "wrap_content"
 							android:layout_height = "wrap_content"
 							android:layout_weight = "1"
-							style="@style/LabelRegular"
 							android:text = "@string/male"/>
 
 						<RadioButton
 							android:id = "@+id/female"
+							style = "@style/LabelRegular"
 							android:layout_width = "wrap_content"
 							android:layout_height = "wrap_content"
 							android:layout_weight = "1"
-							style="@style/LabelRegular"
 							android:text = "@string/female"/>
 
 						<RadioButton
 							android:id = "@+id/other"
+							style = "@style/LabelRegular"
 							android:layout_width = "wrap_content"
 							android:layout_height = "wrap_content"
 							android:layout_weight = "1"
-							style="@style/LabelRegular"
-							android:checked="true"
+							android:checked = "true"
 							android:text = "@string/other"/>
 					</RadioGroup>
 
 					<TextView
 						android:id = "@+id/textInstaUrl"
+						style = "@style/LabelBold"
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
+						android:layout_marginTop = "10dp"
 						android:text = "@string/insta"
-						android:textSize = "16sp"
-						style="@style/LabelBold"
-						android:layout_marginTop="10dp"/>
+						android:textSize = "16sp"/>
 
 					<EditText
 						android:id = "@+id/instaTextView"
-						android:layout_width = "match_parent"
 						style = "@style/LabelRegular"
-						android:imeOptions="actionDone"
-						android:inputType = "text"
+						android:layout_width = "match_parent"
 						android:layout_height = "46dp"
-						android:layout_marginTop="10dp"
+						android:layout_marginTop = "10dp"
 						android:background = "@drawable/text_view_border_grey"
+						android:imeOptions = "actionDone"
+						android:inputType = "text"
 						android:padding = "10dp"
 						android:text = "@={viewModel.instaUrl}"
 						android:textCursorDrawable = "@drawable/black_cursor"/>
 
-
-
 					<TextView
 						android:id = "@+id/optional_fields_text"
+						style = "@style/LabelRegular"
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:layout_marginTop = "10dp"
 						android:text = "@string/optional_fields"
-						style="@style/LabelRegular"
 						/>
 
 
-					<Button
-						android:id = "@+id/continue_button"
-						android:layout_width = "match_parent"
-						android:layout_height = "54dp"
-						android:layout_marginTop = "4dp"
-						android:onClickListener = "@{()->viewModel.setInfo()}"
-						android:text = "@string/continua"
-						app:cornerRadius = "60dp"
-						app:layout_constraintEnd_toEndOf = "parent"
-						app:layout_constraintHorizontal_bias = "0.0"
-						app:layout_constraintStart_toStartOf = "parent"
-						app:layout_constraintTop_toBottomOf = "@+id/optional_fields_text"/>
+					<androidx.appcompat.widget.AppCompatButton android:id = "@+id/continue_button"
+															   android:layout_width = "match_parent"
+															   android:layout_height = "48dp"
+															   android:layout_marginTop = "30dp"
+															   android:background = "@drawable/button_selector"
+															   android:elevation = "10dp"
+															   android:fontFamily = "@font/lato_regular"
+															   android:foreground = "@drawable/ripple_white_corner_round"
+															   android:onClickListener = "@{()->viewModel.setInfo()}"
+															   android:text = "@string/continua"
+															   android:textColor = "@drawable/button_text_color_selector"
+															   android:textSize = "15sp"/>
 
-					<TextView
-						android:id = "@+id/or_text"
-						android:layout_width = "match_parent"
-						android:layout_height = "wrap_content"
-						android:layout_marginTop = "4dp"
-						android:text = "@string/oppure"
-						android:textAlignment = "center"
-						app:layout_constraintEnd_toEndOf = "parent"
-						app:layout_constraintHorizontal_bias = "0.0"
-						app:layout_constraintStart_toStartOf = "parent"
-						app:layout_constraintTop_toBottomOf = "@+id/continue_button"/>
+					<!--HLine-->
+					<View android:layout_width = "match_parent"
+						  android:layout_height = "0.65dp"
+						  android:layout_marginTop = "10dp"
+						  android:layout_marginEnd = "-30dp"
+						  android:layout_marginVertical="20dp"
+						  android:alpha = "0.125"
+						  android:foreground = "@color/foreground"/>
 
-					<Button
-						android:id = "@+id/google_signup_button"
-						android:layout_width = "match_parent"
-						android:layout_height = "60dp"
-						android:layout_marginTop = "4dp"
-						android:backgroundTint = "#FFFFFF"
-						app:cornerRadius = "999dp"
-						app:icon = "@drawable/google"
-						app:iconGravity = "textStart"
-						app:iconPadding = "0dp"
-						app:iconSize = "35dp"
-						app:iconTintMode = "multiply"
-						app:layout_constraintEnd_toEndOf = "parent"
-						app:layout_constraintStart_toStartOf = "parent"
-						app:layout_constraintTop_toBottomOf = "@+id/or_text"/>
+<!--					<TextView-->
+<!--						android:id = "@+id/or_text"-->
+<!--						android:layout_width = "match_parent"-->
+<!--						android:layout_height = "wrap_content"-->
+<!--						android:layout_marginTop = "4dp"-->
+<!--						android:text = "@string/oppure"-->
+<!--						android:textAlignment = "center"-->
+<!--						app:layout_constraintEnd_toEndOf = "parent"-->
+<!--						app:layout_constraintHorizontal_bias = "0.0"-->
+<!--						app:layout_constraintStart_toStartOf = "parent"-->
+<!--						app:layout_constraintTop_toBottomOf = "@+id/continue_button"/>-->
+
+<!--					<Button-->
+<!--						android:id = "@+id/google_signup_button"-->
+<!--						android:layout_width = "match_parent"-->
+<!--						android:layout_height = "60dp"-->
+<!--						android:layout_marginTop = "4dp"-->
+<!--						android:backgroundTint = "@color/white"-->
+<!--						app:cornerRadius = "999dp"-->
+<!--						app:icon = "@drawable/google"-->
+<!--						app:iconGravity = "textStart"-->
+<!--						app:iconPadding = "0dp"-->
+<!--						app:iconSize = "35dp"-->
+<!--						app:iconTintMode = "multiply"-->
+<!--						app:layout_constraintEnd_toEndOf = "parent"-->
+<!--						app:layout_constraintStart_toStartOf = "parent"-->
+<!--						app:layout_constraintTop_toBottomOf = "@+id/or_text"/>-->
 
 					<TextView
 						android:id = "@+id/already_registred"
@@ -230,7 +237,7 @@
 						android:layout_height = "wrap_content"
 						android:text = "@string/already_registered"
 						android:textAlignment = "center"
-						android:textColor = "@color/black"
+						android:textColor = "@color/foreground"
 						app:layout_constraintBottom_toBottomOf = "parent"
 						app:layout_constraintEnd_toEndOf = "parent"
 						app:layout_constraintHorizontal_bias = "0.0"
@@ -240,26 +247,15 @@
 
 					<TextView
 						android:id = "@+id/do_login_text"
+						style = "@style/LabelBold"
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:text = "@string/do_login"
 						android:textAlignment = "center"
-						android:textColor = "@color/black"
-						android:textStyle = "bold"
-						app:layout_constraintBottom_toBottomOf = "parent"
-						app:layout_constraintEnd_toEndOf = "parent"
-						app:layout_constraintHorizontal_bias = "0.0"
-						app:layout_constraintStart_toStartOf = "parent"
-						app:layout_constraintTop_toBottomOf = "@+id/already_registred"
-						app:layout_constraintVertical_bias = "1.0"/>
-
-
-
-
+						android:textColor = "@color/foreground"
+						android:textSize = "18sp"/>
 				</LinearLayout>
 			</ScrollView>
-
 		</androidx.cardview.widget.CardView>
-
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -40,9 +40,9 @@ class SignUpGeneralFragment : Fragment() {
 				.navigate(R.id.action_signUpGeneralFragment_to_loginFragment)
 		}
 
-		binding.googleSignupButton.setOnClickListener {
-			//google button
-		}
+//		binding.googleSignupButton.setOnClickListener {
+//			//google button
+//		}
 
 		binding.male.setOnClickListener() {
 			viewModel.gender = Gender.MALE

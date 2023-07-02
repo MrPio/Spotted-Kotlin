@@ -6,6 +6,8 @@ enum class Settings(
 	private val _id: String? = null,
 	private val default: Any? = null,
 ) {
+	APPEARANCE_THEME(default = 0),
+
 	FILTER_SPOTTED,
 	FILTER_MINE,
 

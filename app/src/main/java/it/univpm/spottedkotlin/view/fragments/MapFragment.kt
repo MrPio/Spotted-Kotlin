@@ -73,7 +73,7 @@ class MapFragment : Fragment() {
 		MainScope().launch {
 			markers = viewModel.loadOverlayItems(requireContext())
 			initializeMap()
-			requireActivity().runOnUiThread {
+			activity?.runOnUiThread {
 				binding.mapLoadingView.loadingViewRoot.visibility = View.GONE
 			}
 		}

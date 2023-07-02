@@ -19,14 +19,14 @@
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
-		android:background = "@color/black"
+		android:background = "@color/dark"
 		tools:context = ".view.fragments.AddPostFragment">
 
 		<!--Top Black roundedRectangle-->
 		<FrameLayout android:layout_width = "wrap_content"
 					 android:layout_height = "wrap_content"
 					 android:background = "@drawable/corner_radius_bottom"
-					 android:backgroundTint = "@color/black"
+					 android:backgroundTint = "@color/dark"
 					 android:elevation = "10dp"
 					 app:layout_constraintEnd_toEndOf = "parent"
 					 app:layout_constraintStart_toStartOf = "parent"
@@ -120,7 +120,7 @@
 													   android:layout_width = "match_parent"
 													   android:layout_height = "wrap_content"
 													   android:layout_marginTop = "30dp"
-													   app:cardBackgroundColor = "@color/white"
+													   app:cardBackgroundColor = "@color/inverse"
 													   app:cardCornerRadius = "36dp"
 													   app:layout_constraintStart_toStartOf = "parent"
 													   app:layout_constraintTop_toTopOf = "parent">
@@ -137,14 +137,14 @@
 									  android:layout_width = "wrap_content"
 									  android:layout_height = "wrap_content"
 									  android:text = '@{viewModel.post.location==null?"Città di Ancona":viewModel.post.location.title}'
-									  android:textColor = "@color/black"
+									  android:textColor = "@color/foreground"
 									  android:textSize = "32sp"/>
 
 							<TextView style = "@style/LabelRegular"
 									  android:layout_width = "wrap_content"
 									  android:layout_height = "wrap_content"
 									  android:text = '@string/persona_spottata'
-									  android:textColor = "@color/black"
+									  android:textColor = "@color/foreground"
 									  android:textSize = "20sp"
 									  android:visibility = "@{viewModel.post.spotted?View.VISIBLE:View.GONE}"/>
 
@@ -169,7 +169,7 @@
 									android:layout_height = "wrap_content"
 									android:layout_marginBottom = "1dp"
 									android:foreground = "@drawable/ripple_black_round"
-									app:cardBackgroundColor = "#FFFFFF"
+									app:cardBackgroundColor = "@color/white"
 									app:cardCornerRadius = "999dp"
 
 									app:layout_constraintEnd_toEndOf = "parent"
@@ -210,7 +210,7 @@
 										  android:layout_marginStart = "10dp"
 										  android:alpha = "0.65"
 										  android:text = '@{"- "+viewModel.date}'
-										  android:textColor = "@color/black"
+										  android:textColor = "@color/foreground"
 										  android:textSize = "16sp"/>
 							</LinearLayout>
 
@@ -270,7 +270,7 @@
 			android:layout_width = "match_parent"
 			android:layout_height = "230dp"
 			android:background = "@drawable/corner_radius_top"
-			android:backgroundTint = "@color/grey"
+			android:backgroundTint = "@color/background"
 			android:clickable = "true"
 			android:foreground = "@drawable/ripple_black_corner_round_light"
 			android:gravity = "start"
@@ -342,18 +342,21 @@
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
 					  android:layout_marginTop = "10dp"
+					  android:maxLines="1"
 					  android:visibility = "@{viewModel.lastComment.empty?View.GONE:View.VISIBLE}"/>
 			<TextView style = "@style/LabelLight"
 					  markdown = "@{viewModel.penultimateComment}"
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
 					  android:layout_marginTop = "10dp"
+					  android:maxLines="1"
 					  android:visibility = "@{viewModel.penultimateComment.empty?View.GONE:View.VISIBLE}"/>
 			<TextView style = "@style/LabelRegular"
 					  android:layout_width = "match_parent"
 					  android:layout_height = "wrap_content"
 					  android:layout_marginTop = "12dp"
 					  android:alpha = "0.65"
+					  android:maxLines="1"
 					  android:text = "@{viewModel.bottomText}"/>
 		</LinearLayout>
 

@@ -8,16 +8,15 @@
 	<androidx.constraintlayout.widget.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
 													   xmlns:app = "http://schemas.android.com/apk/res-auto"
 													   android:layout_width = "match_parent"
-													   android:layout_height = "match_parent">
-
-
+													   android:layout_height = "match_parent"
+													   android:background = "@color/inverse">
 
 		<!--Header-->
 		<LinearLayout android:id = "@+id/comments_header"
 					  android:layout_width = "match_parent"
 					  android:layout_height = "wrap_content"
 					  android:background = "@drawable/corner_radius_bottom"
-					  android:backgroundTint = "@color/black"
+					  android:backgroundTint = "@color/dark"
 					  android:orientation = "vertical"
 					  android:paddingHorizontal = "30dp"
 					  android:paddingTop = "30dp"
@@ -41,7 +40,7 @@
 		</LinearLayout>
 
 		<!--BackIcon-->
-		<TextView android:id="@+id/comments_back"
+		<TextView android:id = "@+id/comments_back"
 				  style = "@style/LabelIcon"
 				  android:layout_width = "wrap_content"
 				  android:layout_height = "wrap_content"
@@ -51,13 +50,15 @@
 				  android:foreground = "@drawable/ripple_white_corner_round"
 				  android:padding = "20dp"
 				  android:text = "@string/ChevronLeft"
+				  android:textColor = "@color/white"
 				  android:textSize = "28sp"
 				  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
 				  app:layout_constraintStart_toStartOf = "parent"/>
 
 		<!--InfoIcon-->
-		<TextView android:id="@+id/comments_info"
+		<TextView android:id = "@+id/comments_info"
 				  style = "@style/LabelIcon"
+
 				  android:layout_width = "wrap_content"
 				  android:layout_height = "wrap_content"
 				  android:layout_marginEnd = "12dp"
@@ -66,6 +67,7 @@
 				  android:foreground = "@drawable/ripple_white_corner_round"
 				  android:padding = "20dp"
 				  android:text = "@string/InformationOutline"
+				  android:textColor = "@color/white"
 				  android:textSize = "28sp"
 				  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
 				  app:layout_constraintEnd_toEndOf = "parent"/>
@@ -87,19 +89,19 @@
 		<LinearLayout android:id = "@+id/comments_footer"
 					  android:layout_width = "match_parent"
 					  android:layout_height = "wrap_content"
-					  android:background = "@color/black"
+					  android:background = "@color/dark"
 					  android:clipToPadding = "false"
 					  android:orientation = "vertical"
 					  android:paddingHorizontal = "30dp"
 					  android:paddingTop = "20dp"
 					  android:paddingBottom = "20dp"
-					  android:visibility="@{viewModel.post.spotted?View.GONE:View.VISIBLE}"
+					  android:visibility = "@{viewModel.post.spotted?View.GONE:View.VISIBLE}"
 					  app:layout_constraintBottom_toBottomOf = "parent"
 					  app:layout_constraintStart_toStartOf = "parent">
-			<EditText android:layout_width = "match_parent"
+			<EditText android:id = "@+id/comments_edit"
+					  android:layout_width = "match_parent"
 					  android:layout_height = "wrap_content"
 					  android:autofillHints = "name"
-					  android:id="@+id/comments_edit"
 					  android:backgroundTint = "@color/grey"
 					  android:hint = "@string/credo_proprio_di_essere_io"
 					  android:inputType = "textMultiLine"
@@ -117,27 +119,31 @@
 						  android:layout_height = "wrap_content"
 						  android:layout_weight = "1"
 						  android:clickable = "true"
-						  android:onClickListener="@{()->viewModel.toggleEmoji(0)}"
 						  android:foreground = "@drawable/ripple_white_corner_round"
 						  android:gravity = "center_horizontal"
+						  android:onClickListener = "@{()->viewModel.toggleEmoji(0)}"
 						  android:paddingVertical = "5dp"
 						  android:text = "@string/EmoticonHappyOutline"
-						  android:visibility="@{viewModel.emojiVisibility}"
+						  android:textColor = "@color/white"
+
 						  android:textSize = "24sp"
+						  android:visibility = "@{viewModel.emojiVisibility}"
 						  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
 						  app:layout_constraintEnd_toEndOf = "parent"/>
 				<TextView style = "@style/LabelIcon"
 						  android:layout_width = "wrap_content"
 						  android:layout_height = "wrap_content"
+
 						  android:layout_weight = "1"
 						  android:clickable = "true"
-						  android:onClickListener="@{()->viewModel.toggleEmoji(1)}"
 						  android:foreground = "@drawable/ripple_white_corner_round"
 						  android:gravity = "center_horizontal"
+						  android:onClickListener = "@{()->viewModel.toggleEmoji(1)}"
 						  android:paddingVertical = "5dp"
 						  android:text = "@string/Dog"
-						  android:visibility="@{viewModel.emojiVisibility}"
+						  android:textColor = "@color/white"
 						  android:textSize = "24sp"
+						  android:visibility = "@{viewModel.emojiVisibility}"
 						  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
 						  app:layout_constraintEnd_toEndOf = "parent"/>
 				<TextView style = "@style/LabelIcon"
@@ -145,13 +151,14 @@
 						  android:layout_height = "wrap_content"
 						  android:layout_weight = "1"
 						  android:clickable = "true"
-						  android:onClickListener="@{()->viewModel.toggleEmoji(2)}"
 						  android:foreground = "@drawable/ripple_white_corner_round"
 						  android:gravity = "center_horizontal"
+						  android:onClickListener = "@{()->viewModel.toggleEmoji(2)}"
 						  android:paddingVertical = "5dp"
 						  android:text = "@string/Balloon"
-						  android:visibility="@{viewModel.emojiVisibility}"
+						  android:textColor = "@color/white"
 						  android:textSize = "24sp"
+						  android:visibility = "@{viewModel.emojiVisibility}"
 						  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
 						  app:layout_constraintEnd_toEndOf = "parent"/>
 				<TextView style = "@style/LabelIcon"
@@ -159,13 +166,15 @@
 						  android:layout_height = "wrap_content"
 						  android:layout_weight = "1"
 						  android:clickable = "true"
-						  android:onClickListener="@{()->viewModel.toggleEmoji(3)}"
 						  android:foreground = "@drawable/ripple_white_corner_round"
+
 						  android:gravity = "center_horizontal"
+						  android:onClickListener = "@{()->viewModel.toggleEmoji(3)}"
 						  android:paddingVertical = "5dp"
 						  android:text = "@string/Pizza"
-						  android:visibility="@{viewModel.emojiVisibility}"
+						  android:textColor = "@color/white"
 						  android:textSize = "24sp"
+						  android:visibility = "@{viewModel.emojiVisibility}"
 						  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
 						  app:layout_constraintEnd_toEndOf = "parent"/>
 				<TextView style = "@style/LabelIcon"
@@ -173,13 +182,15 @@
 						  android:layout_height = "wrap_content"
 						  android:layout_weight = "1"
 						  android:clickable = "true"
-						  android:onClickListener="@{()->viewModel.toggleEmoji(4)}"
+
 						  android:foreground = "@drawable/ripple_white_corner_round"
 						  android:gravity = "center_horizontal"
+						  android:onClickListener = "@{()->viewModel.toggleEmoji(4)}"
 						  android:paddingVertical = "5dp"
 						  android:text = "@string/HeartOutline"
-						  android:visibility="@{viewModel.emojiVisibility}"
+						  android:textColor = "@color/white"
 						  android:textSize = "24sp"
+						  android:visibility = "@{viewModel.emojiVisibility}"
 						  app:layout_constraintBottom_toBottomOf = "@+id/comments_header"
 						  app:layout_constraintEnd_toEndOf = "parent"/>
 				<View android:layout_width = "0dp"
@@ -210,7 +221,7 @@
 							android:layout_width = "wrap_content"
 							android:layout_height = "wrap_content"
 							android:layout_gravity = "center_horizontal"
-							android:background = "@color/black"
+							android:background = "@color/dark"
 							android:columnCount = "7"
 							android:useDefaultMargins = "false"/>
 			</ScrollView>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android = "http://schemas.android.com/apk/res/android"
+		xmlns:app = "http://schemas.android.com/apk/res-auto"
 	>
 
 	<data>
@@ -29,19 +30,20 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content"
 					android:text = "@{viewModel.settingItem.title}"
-					android:textColor = "@color/white"
+					android:textColor = "@color/foreground"
 					android:textSize = "18sp"/>
 				<TextView
 					style = "@style/LabelLight"
 					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content"
 					android:text = "@{viewModel.settingItem.subtitle}"
-					android:textColor = "@color/white"
+					android:textColor = "@color/foreground"
 					android:textSize = "16sp"/>
 			</LinearLayout>
 
 			<com.google.android.material.switchmaterial.SwitchMaterial android:layout_width = "wrap_content"
 																	   android:layout_height = "wrap_content"
+																	   app:trackTint="@drawable/switch_track_tint"
 																	   android:checked = "@={viewModel.flag}"
 																	   android:visibility = "@{viewModel.settingItem.type==SettingType.FLAG?View.VISIBLE:View.GONE}"/>
 

@@ -19,7 +19,7 @@
 			android:layout_height = "0dp"
 			android:layout_marginTop = "150dp"
 			android:layout_marginBottom = "50dp"
-			app:cardBackgroundColor = "@color/white"
+			app:cardBackgroundColor = "@color/inverse"
 			app:cardCornerRadius = "26dp"
 			app:layout_constraintBottom_toBottomOf = "parent"
 			app:layout_constraintEnd_toEndOf = "parent"
@@ -46,8 +46,8 @@
 						style = "@style/LabelBold"
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
+						android:layout_marginTop = "10dp"
 						android:text = "@string/email"
-						android:layout_marginTop="10dp"
 						android:textSize = "16sp"/>
 
 					<EditText
@@ -84,21 +84,25 @@
 						android:text = "@={viewModel.password}"
 						android:textCursorDrawable = "@drawable/black_cursor"/>
 
-					<Button
-						android:id = "@+id/login_button"
-						android:layout_width = "match_parent"
-						android:layout_height = "54dp"
-						android:layout_marginTop = "30dp"
-						android:onClickListener = "@{()->viewModel.login()}"
-						android:text = "@string/login"
-						app:cornerRadius = "999dp"/>
+					<androidx.appcompat.widget.AppCompatButton android:id = "@+id/login_button"
+															   android:layout_width = "match_parent"
+															   android:layout_height = "48dp"
+															   android:layout_marginTop = "30dp"
+															   android:background = "@drawable/button_selector"
+															   android:elevation = "10dp"
+															   android:fontFamily = "@font/lato_regular"
+															   android:foreground = "@drawable/ripple_white_corner_round"
+															   android:text = "@string/login"
+															   android:onClickListener = "@{()->viewModel.login()}"
+															   android:textColor = "@drawable/button_text_color_selector"
+															   android:textSize = "15sp"/>
 
 					<!--HLine-->
 					<View android:layout_width = "match_parent"
 						  android:layout_height = "0.65dp"
 						  android:layout_marginTop = "20dp"
 						  android:alpha = "0.125"
-						  android:foreground = "@color/black"/>
+						  android:foreground = "@color/foreground"/>
 
 					<TextView
 						style = "@style/LabelRegular"

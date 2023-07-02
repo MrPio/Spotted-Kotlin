@@ -1,14 +1,21 @@
 package it.univpm.spottedkotlin.view
 
+import android.R
+import android.app.AlertDialog
+import android.bluetooth.BluetoothClass.Device
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import it.univpm.spottedkotlin.databinding.FirstActivityBinding
+import it.univpm.spottedkotlin.enums.Settings
 import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.extension.function.metrics
+import it.univpm.spottedkotlin.extension.function.showAlertDialog
 import it.univpm.spottedkotlin.managers.*
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.viewmodel.FirstActivityViewModel
@@ -35,6 +42,7 @@ class FirstActivity : AppCompatActivity() {
 		MainScope().launch {
 			DataManager.fetchData(applicationContext);
 		}
+		DeviceManager.loadTheme()
 	}
 
 	fun goToMainActivity() {
@@ -51,8 +59,8 @@ class FirstActivity : AppCompatActivity() {
 		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
 //		SeederManager.seed(applicationContext)
-//		return
 
+//		return
 //☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
 		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE

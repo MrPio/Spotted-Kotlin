@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--MAIN-->
+<!--    <color name = "red">#f15450</color>-->
+
+    <!--ORDINAL-->
+    <color name = "primary">@color/grey</color>
+    <color name = "foreground">@color/white</color>
+    <color name = "background">@color/dark_black</color>
+    <color name = "inverse">@color/black</color>
+    <color name = "dark">@color/dark_black</color>
+
+    <!--MISC-->
+    <color name = "overlay">#22ffffff</color>
+</resources>

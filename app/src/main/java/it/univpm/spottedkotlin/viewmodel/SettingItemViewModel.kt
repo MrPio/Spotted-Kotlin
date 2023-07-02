@@ -31,10 +31,11 @@ class SettingItemViewModel(val settingItem: SettingItem) : ObservableViewModel()
 
 	fun onClick(context: Context) {
 		when (settingItem.type) {
-			SettingType.FLAG -> showSliderPopup(context)
+			SettingType.SLIDER -> showSliderPopup(context)
 			SettingType.ALERT_YES_NO -> showAlertYesNoPopup(context)
 			SettingType.ALERT_OK -> showAlertOkPopup(context)
-			SettingType.ACTION->settingItem.action(context)
+			SettingType.ACTION -> settingItem.action(context)
+			SettingType.RADIO -> showRadioPopup(context)
 			else -> {}
 		}
 	}
@@ -74,7 +75,22 @@ class SettingItemViewModel(val settingItem: SettingItem) : ObservableViewModel()
 			title = settingItem.title,
 			message = settingItem.alertMessage,
 			positiveText = "Ok",
-			negativeCallback = {},
+			positiveCallback = {},
+		)
+	}
+
+	// SettingType.RADIO
+	private fun showRadioPopup(context: Context) {
+		val backupValue = settingItem.setting()?.int?:0
+		context.showAlertDialog(
+			title = settingItem.title,
+			options = settingItem.options,
+			checked = backupValue,
+			radioCallback = { i -> settingItem.setting()?.value = i },
+			positiveText = "Conferma",
+			positiveCallback = { settingItem.action(context) },
+			negativeText = "Annulla",
+			negativeCallback = { settingItem.setting()?.value = backupValue }
 		)
 	}
 }

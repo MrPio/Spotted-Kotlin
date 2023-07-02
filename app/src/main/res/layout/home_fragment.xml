@@ -15,7 +15,7 @@
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
-		android:background = "@color/grey"
+		android:background = "@color/background"
 		tools:context = ".view.fragments.HomeFragment">
 
 		<LinearLayout
@@ -32,7 +32,7 @@
 			<LinearLayout android:layout_width = "match_parent"
 						  android:layout_height = "wrap_content"
 						  android:background = "@drawable/corner_radius_bottom"
-						  android:backgroundTint = "@color/white"
+						  android:backgroundTint = "@color/inverse"
 						  android:elevation = "1dp"
 						  android:paddingTop = "20dp"
 						  android:paddingBottom = "16dp">
@@ -49,7 +49,7 @@
 							  android:layout_height = "match_parent"
 							  android:gravity = "center"
 							  android:text = "@string/Menu"
-							  android:textColor = "@color/black"
+							  android:textColor = "@color/foreground"
 							  android:textSize = "28sp"/>
 
 					<include android:id = "@+id/home_menu"
@@ -140,7 +140,7 @@
 							  android:background = "@drawable/corner_radius_fill_white"
 							  android:gravity = "center"
 							  android:text = "@string/SortDescending"
-							  android:textColor = "@color/black"
+							  android:textColor = "@color/foreground"
 							  android:textSize = "28sp"/>
 
 					<include android:id = "@+id/home_orderby"

@@ -11,6 +11,7 @@ enum class SettingType() {
 	ALERT_YES_NO,
 	ALERT_OK,
 	ACTION,
+	RADIO,
 }
 
 @IgnoreExtraProperties
@@ -23,6 +24,7 @@ data class SettingItem(
 	val valueTo: Int = 100,
 	val alertMessage: String = "",
 	val action: (context: Context) -> Unit = {},
+	val options:List<String> = listOf(),
 //	val section: String? = null, // Display section title
 //	val isLast: Boolean = false, // Display bottom HLine
 ) : Serializable {

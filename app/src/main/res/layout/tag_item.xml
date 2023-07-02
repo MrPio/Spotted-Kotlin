@@ -6,35 +6,39 @@
 		<variable name = "viewModel"
 				  type = "it.univpm.spottedkotlin.viewmodel.TagItemViewModel"/>
 	</data>
+	<RelativeLayout android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content">
 
-	<LinearLayout
-		android:layout_width = "wrap_content"
-		android:layout_height = "32dp"
-		android:layout_marginEnd = "4dp"
-		android:background = "@{viewModel.selected?@drawable/border_rounded_red_tag:@drawable/border_outlined_red_tag}"
-		android:clickable = "true"
-		android:foreground = "@drawable/ripple_black_corner_round"
-		android:onClickListener = "@{()->viewModel.onClick()}"
-		android:orientation = "horizontal">
-
-		<TextView
-			android:id="@+id/tagname"
-			style="@style/LabelIcon"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:fontFamily="@font/material_design_icons"
-			android:text="@{model.icon}"
-			android:textColor="@{viewModel.selected?@color/white:@color/black}"
-			android:textSize="18sp" />
-
-		<TextView
-			android:id = "@+id/percentage_label"
-			style = "@style/LabelRegular"
+		<LinearLayout
 			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:layout_marginStart = "2dp"
-			android:text = "@{model.name}"
-			android:textAlignment = "center"
-			android:textColor = "@{viewModel.selected?@color/white:@color/black}"/>
-	</LinearLayout>
+			android:layout_height = "32dp"
+			android:layout_marginEnd = "4dp"
+			android:background = "@{viewModel.selected?@drawable/border_rounded_red_tag:@drawable/border_outlined_red_tag}"
+			android:clickable = "true"
+			android:foreground = "@drawable/ripple_black_corner_round"
+			android:onClickListener = "@{()->viewModel.onClick()}"
+			android:orientation = "horizontal">
+
+			<TextView
+				android:id = "@+id/tagname"
+				style = "@style/LabelIcon"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:fontFamily = "@font/material_design_icons"
+				android:text = "@{model.icon}"
+				android:textColor = "@{viewModel.selected?@color/white:@color/black}"
+				android:textSize = "18sp"/>
+
+			<TextView
+				android:id = "@+id/percentage_label"
+				style = "@style/LabelRegular"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_marginStart = "2dp"
+				android:text = "@{model.name}"
+				android:textAlignment = "center"
+				android:textColor = "@{viewModel.selected?@color/white:@color/black}"/>
+		</LinearLayout>
+	</RelativeLayout>
+
 </layout>

@@ -3,6 +3,7 @@ package it.univpm.spottedkotlin.managers
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.hardware.display.DisplayManager
 import android.net.Uri
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
@@ -11,11 +12,9 @@ import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.enums.Settings
-import it.univpm.spottedkotlin.extension.function.addDays
-import it.univpm.spottedkotlin.extension.function.randomList
-import it.univpm.spottedkotlin.extension.function.toShortDateStr
-import it.univpm.spottedkotlin.extension.function.toast
+import it.univpm.spottedkotlin.extension.function.*
 import it.univpm.spottedkotlin.model.*
+import it.univpm.spottedkotlin.view.MainActivity
 import java.util.*
 import kotlin.random.Random
 
@@ -398,6 +397,25 @@ object SeederManager {
 	}
 
 	fun generateSettings(context: Context): List<SettingMenu> = listOf(
+		SettingMenu(
+			icon = context.getString(R.string.BrushOutline),
+			title = "Estetica",
+			subtitle = "Modifica l'estetica dell'applicazione",
+			items = listOf(
+				SettingItem(
+					id = Settings.APPEARANCE_THEME.id,
+					title = "Tema dell'applicazione",
+					subtitle = "Modifica il tema dei colori dell'applicazione",
+					type = SettingType.RADIO,
+					options = listOf("Automatico", "Tema chiaro", "Tema scuro"),
+					action = { context ->
+						DeviceManager.loadTheme()
+						startActivity(context, Intent(context, MainActivity::class.java),null)
+						context.getActivity<MainActivity>()?.finish()
+					}
+				),
+			),
+		),
 		SettingMenu(
 			icon = context.getString(R.string.HomeOutline),
 			title = "Filtri dei post",

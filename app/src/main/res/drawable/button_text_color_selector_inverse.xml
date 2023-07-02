@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android = "http://schemas.android.com/apk/res/android">
 	<item
-		android:drawable = "@color/white"
+		android:drawable = "@color/inverse"
 		android:state_pressed = "true"/>
 	<item
-		android:color = "@color/black"
+		android:color = "@color/foreground"
 		android:state_pressed = "false"/>
 </selector>

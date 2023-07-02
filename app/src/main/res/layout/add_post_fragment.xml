@@ -14,14 +14,14 @@
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
-		android:background = "@color/black"
+		android:background = "@color/dark"
 		tools:context = ".view.fragments.AddPostFragment">
 
 		<!--Top Black roundedRectangle-->
 		<FrameLayout android:layout_width = "wrap_content"
 					 android:layout_height = "wrap_content"
 					 android:background = "@drawable/corner_radius_bottom"
-					 android:backgroundTint = "@color/black"
+					 android:backgroundTint = "@color/dark"
 					 android:elevation = "10dp"
 					 app:layout_constraintEnd_toEndOf = "parent"
 					 app:layout_constraintStart_toStartOf = "parent"
@@ -83,7 +83,7 @@
 												   android:layout_width = "match_parent"
 												   android:layout_height = "wrap_content"
 												   android:layout_marginTop = "-72dp"
-												   app:cardBackgroundColor = "@color/white"
+												   app:cardBackgroundColor = "@color/inverse"
 												   app:cardCornerRadius = "36dp">
 					<LinearLayout android:layout_width = "match_parent"
 								  android:layout_height = "wrap_content"
@@ -96,7 +96,7 @@
 								  android:layout_height = "wrap_content"
 								  android:layout_marginTop = "6dp"
 								  android:text = "Autore del post"
-								  android:textColor = "@color/red"
+								  android:textColor = "@color/primary"
 								  android:textSize = "22sp"/>
 						<Spinner android:id = "@+id/autore_spinner"
 								 android:layout_width = "match_parent"
@@ -112,11 +112,11 @@
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"
-							  android:layout_height = "0.5dp"
+							  android:layout_height = "0.65dp"
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/black"
+							  android:foreground = "@color/foreground"
 							  android:visibility = "@{viewModel.latitude!=null?view.GONE:view.VISIBLE}"/>
 
 						<!--Plesso-->
@@ -125,7 +125,7 @@
 								  android:layout_height = "wrap_content"
 								  android:layout_marginTop = "20dp"
 								  android:text = "@string/plesso"
-								  android:textColor = "@color/red"
+								  android:textColor = "@color/primary"
 								  android:textSize = "22sp"
 								  android:visibility = "@{viewModel.latitude!=null?view.GONE:view.VISIBLE}"/>
 						<Spinner android:id = "@+id/plesso_spinner"
@@ -144,11 +144,11 @@
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"
-							  android:layout_height = "0.5dp"
+							  android:layout_height = "0.65dp"
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/black"
+							  android:foreground = "@color/foreground"
 							  android:visibility = "@{(viewModel.zone.size()&lt;=1 || viewModel.latitude!=null)?view.GONE:view.VISIBLE}"/>
 
 						<!--Zona-->
@@ -157,7 +157,7 @@
 								  android:layout_height = "wrap_content"
 								  android:layout_marginTop = "20dp"
 								  android:text = "@string/zona"
-								  android:textColor = "@color/red"
+								  android:textColor = "@color/primary"
 								  android:textSize = "22sp"
 								  android:visibility = "@{(viewModel.zone.size()&lt;=1 || viewModel.latitude!=null)?view.GONE:view.VISIBLE}"/>
 						<Spinner android:id = "@+id/zona_spinner"
@@ -176,11 +176,11 @@
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"
-							  android:layout_height = "0.5dp"
+							  android:layout_height = "0.65dp"
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/black"
+							  android:foreground = "@color/foreground"
 							  android:visibility = "@{viewModel.latitude==null?view.GONE:view.VISIBLE}"/>
 
 						<!--Coordinate-->
@@ -194,7 +194,7 @@
 									  android:layout_height = "wrap_content"
 									  android:layout_marginTop = "20dp"
 									  android:text = "Coordinate"
-									  android:textColor = "@color/red"
+									  android:textColor = "@color/primary"
 									  android:textSize = "22sp"/>
 
 							<TextView
@@ -224,7 +224,7 @@
 									  android:background = "@drawable/border_rounded_red_small"
 									  android:padding = "10dp"
 									  android:text = '@{viewModel.latitude != null ? String.valueOf(viewModel.latitude).substring(0,8):""}'
-									  android:textColor = "@color/white"/>
+									  android:textColor = "@color/inverse"/>
 							<TextView style = "@style/LabelRegular"
 									  android:layout_width = "match_parent"
 									  android:layout_height = "wrap_content"
@@ -234,16 +234,16 @@
 									  android:background = "@drawable/border_rounded_red_small"
 									  android:padding = "10dp"
 									  android:text = '@{viewModel.longitude != null ? String.valueOf(viewModel.longitude).substring(0,8):""}'
-									  android:textColor = "@color/white"/>
+									  android:textColor = "@color/inverse"/>
 						</LinearLayout>
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"
-							  android:layout_height = "0.5dp"
+							  android:layout_height = "0.65dp"
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/black"
+							  android:foreground = "@color/foreground"
 							  android:visibility = "@{viewModel.zone.size()&lt;=1?view.GONE:view.VISIBLE}"/>
 
 						<!--Genere-->
@@ -252,7 +252,7 @@
 								  android:layout_height = "wrap_content"
 								  android:layout_marginTop = "20dp"
 								  android:text = "@string/genere"
-								  android:textColor = "@color/red"
+								  android:textColor = "@color/primary"
 								  android:textSize = "22sp"/>
 						<LinearLayout android:layout_width = "match_parent"
 									  android:layout_height = "wrap_content"
@@ -265,7 +265,7 @@
 									  android:layout_marginStart = "10dp"
 									  android:gravity = "center_vertical"
 									  android:text = "@{viewModel.currentGender.icon}"
-									  android:textColor = "@color/black"
+									  android:textColor = "@color/foreground"
 									  android:textSize = "26sp"/>
 
 							<Spinner android:id = "@+id/genere_spinner"
@@ -283,11 +283,11 @@
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"
-							  android:layout_height = "0.5dp"
+							  android:layout_height = "0.65dp"
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/black"
+							  android:foreground = "@color/foreground"
 							  android:visibility = "@{viewModel.zone.size()&lt;=1?view.GONE:view.VISIBLE}"/>
 
 						<!--Tags-->
@@ -296,7 +296,7 @@
 								  android:layout_height = "wrap_content"
 								  android:layout_marginTop = "20dp"
 								  android:text = "@string/tags"
-								  android:textColor = "@color/red"
+								  android:textColor = "@color/primary"
 								  android:textSize = "22sp"/>
 						<GridLayout android:id = "@+id/add_post_tags_grid"
 									android:layout_width = "match_parent"
@@ -311,11 +311,11 @@
 
 						<!--HLine-->
 						<View android:layout_width = "match_parent"
-							  android:layout_height = "0.5dp"
+							  android:layout_height = "0.65dp"
 							  android:layout_marginTop = "10dp"
 							  android:layout_marginEnd = "-30dp"
 							  android:alpha = "0.125"
-							  android:foreground = "@color/black"/>
+							  android:foreground = "@color/foreground"/>
 
 						<!--Descrizione-->
 						<TextView style = "@style/LabelBold"
@@ -323,7 +323,7 @@
 								  android:layout_height = "wrap_content"
 								  android:layout_marginTop = "20dp"
 								  android:text = "@string/descrizione"
-								  android:textColor = "@color/red"
+								  android:textColor = "@color/primary"
 								  android:textSize = "22sp"/>
 						<EditText style = "@style/LabelRegular"
 								  android:layout_width = "match_parent"
@@ -360,7 +360,7 @@
 			android:id = "@+id/add_post_footer"
 			android:layout_width = "match_parent"
 			android:layout_height = "196dp"
-			android:background = "@color/grey"
+			android:background = "@color/background"
 			android:elevation = "10dp"
 			android:gravity = "start"
 			android:orientation = "horizontal"
@@ -378,7 +378,7 @@
 													   android:foreground = "@drawable/ripple_white_corner_round"
 													   android:onClickListener = "@{()->viewModel.azzera()}"
 													   android:text = "@string/azzera"
-													   android:textColor = "@color/black"
+													   android:textColor = "@color/foreground"
 													   android:textSize = "16sp"/>
 
 			<androidx.appcompat.widget.AppCompatButton android:id = "@+id/add_post_pubblica_button"

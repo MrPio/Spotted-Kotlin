@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#303030</color>
-    <color name="red">#f15450</color>
-    <color name="grey">#efefef</color>
-    <color name="white">#ffffff</color>
+	<!--MAIN-->
+	<color name = "dark_black">#181818</color>
+	<color name = "black">#303030</color>
+	<color name = "red">#f15450</color>
+	<color name = "grey">#efefef</color>
+	<color name = "white">#ffffff</color>
+	<color name = "green">#00FF00</color>
+	<color name = "yellow">#FFEA00</color>
+	<color name = "orange">#ffa500</color>
 
-    <color name="green">#00FF00</color>
-    <color name="yellow">#FFEA00</color>
-    <color name="orange">#ffa500</color>
+	<!--ORDINAL-->
+	<color name = "primary">@color/red</color>
+	<color name = "foreground">@color/black</color>
+	<color name = "background">@color/grey</color>
+	<color name = "inverse">@color/white</color>
+	<color name = "dark">@color/black</color>
 
-    <color name = "overlay">#60000000</color>
-    <color name="transparent">#00000000</color>
+	<!--MISC-->
+	<color name = "overlay">@color/white</color>
+	<color name = "white_overlay">#60000000</color>
+	<color name = "transparent">#00000000</color>
+
 </resources>

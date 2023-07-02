@@ -32,6 +32,7 @@
 						  android:layout_gravity = "center"
 						  android:layout_marginStart = "6dp"
 						  android:layout_marginEnd = "20dp"
+						  android:textColor = "@color/foreground"
 						  android:text = "@{model.icon}"
 						  android:textSize = "28sp"/>
 
@@ -45,14 +46,14 @@
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:text = "@{model.title}"
-						android:textColor = "@color/white"
+						android:textColor = "@color/foreground"
 						android:textSize = "18sp"/>
 					<TextView
 						style = "@style/LabelLight"
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:text = "@{model.subtitle}"
-						android:textColor = "@color/white"
+						android:textColor = "@color/foreground"
 						android:textSize = "16sp"/>
 				</LinearLayout>
 			</LinearLayout>
@@ -64,7 +65,7 @@
 						  android:orientation = "horizontal"
 						  android:paddingHorizontal = "20dp"
 						  android:paddingVertical="8dp"
-						  android:background="#484848"
+						  android:background="@color/overlay"
 				>
 
 				<View android:layout_width = "28sp"

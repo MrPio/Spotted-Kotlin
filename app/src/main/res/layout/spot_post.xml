@@ -125,6 +125,7 @@
 						<TextView
 							style = "@style/LabelIcon"
 							android:text = "@string/MapMarker"
+							android:textColor="@color/white"
 							android:textSize = "24sp"/>
 						<!--LocationText-->
 						<TextView
@@ -146,6 +147,7 @@
 						<!--GenderIcon-->
 						<TextView
 							style = "@style/LabelIcon"
+							android:textColor="@color/white"
 							android:text = "@{model.gender.icon}"
 							android:textSize = "38sp"/>
 					</LinearLayout>
@@ -161,6 +163,7 @@
 						<!--DateIcon-->
 						<TextView
 							style = "@style/LabelIcon"
+							android:textColor="@color/white"
 							android:text = "@string/CalendarBlank"/>
 						<!--DateText-->
 						<TextView
@@ -175,6 +178,7 @@
 						<!--TimeIcon-->
 						<TextView
 							style = "@style/LabelIcon"
+							android:textColor="@color/white"
 							android:text = "@string/Clock"/>
 						<!--TimeText-->
 						<TextView
@@ -197,6 +201,7 @@
 						<!--MessageIcon-->
 						<TextView
 							style = "@style/LabelIcon"
+							android:textColor="@color/white"
 							android:text = "@string/Message"/>
 						<!--MessageText-->
 						<TextView
@@ -211,6 +216,7 @@
 						<!--FollowIcon-->
 						<TextView
 							style = "@style/LabelIcon"
+							android:textColor="@color/white"
 							android:text = "@string/Bookmark"/>
 						<!--FollowText-->
 						<TextView
@@ -226,6 +232,7 @@
 					<HorizontalScrollView
 						android:id = "@+id/tags_scroll"
 						android:layout_width = "0dp"
+						android:scrollbars="none"
 						android:layout_height = "wrap_content"
 						app:layout_constraintBottom_toBottomOf = "parent"
 						app:layout_constraintEnd_toEndOf = "parent"
