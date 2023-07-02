@@ -33,6 +33,7 @@
 			<LinearLayout android:layout_width = "match_parent"
 						  android:layout_height = "wrap_content"
 						  android:orientation = "vertical">
+
 				<!--Title-->
 				<TextView
 					style = "@style/LabelBold"
@@ -45,6 +46,11 @@
 					android:text = "Impostazioni"
 					android:textColor = "@color/white"
 					android:textSize = "28sp"/>
+
+				<include layout = "@layout/setting_element"
+						 app:icon = "@string/HomeOutline"
+						 app:subtitle = "ciaiervkerfokerofkerf"
+						 app:title = "ciao"/>
 
 				<!--Filtri Post-->
 				<LinearLayout android:layout_width = "match_parent"

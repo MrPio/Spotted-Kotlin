@@ -46,7 +46,7 @@ object AccountManager {
 	// Perform FirebaseAuth login with email and password
 	suspend fun login(email: String, password: String) {
 		val authResult = auth.signInWithEmailAndPassword(email, password).await()
-		loginHandleAuthResult(authResult)
+			loginHandleAuthResult(authResult)
 	}
 
 	// Perform FirebaseAuth login with Google provider

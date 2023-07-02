@@ -71,7 +71,10 @@ object DataManager {
 	suspend fun loadUserPosts(user: User) {
 		for (postUID in user.postsUIDs.reversed().take(30))
 			if (user.posts.find { it.uid == postUID } == null)
-				DatabaseManager.get<Post>("posts/$postUID")?.let { user.posts.add(it) }
+				DatabaseManager.get<Post>("posts/$postUID")?.let {
+					it.uid = postUID
+					user.posts.add(it)
+				}
 	}
 
 	// Apply a given filter to the posts
