@@ -1,37 +1,29 @@
 package it.univpm.spottedkotlin.view.fragments
 
 import android.app.Activity
-import kotlinx.coroutines.async
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import it.univpm.spottedkotlin.R
-import it.univpm.spottedkotlin.adapter.PostsAdapter
+import it.univpm.spottedkotlin.adapter.AccountPostsAdapter
 import it.univpm.spottedkotlin.databinding.AccountFragmentBinding
 import it.univpm.spottedkotlin.databinding.TagItemAddBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
-import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.extension.function.loadUrl
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
-import it.univpm.spottedkotlin.managers.LogManager.TAG
 import it.univpm.spottedkotlin.model.User
-import it.univpm.spottedkotlin.view.ViewPostActivity
 import it.univpm.spottedkotlin.viewmodel.AccountViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class AccountFragment : Fragment() {
@@ -40,7 +32,7 @@ class AccountFragment : Fragment() {
 	lateinit var user: User
 
     private lateinit var layoutManager: LinearLayoutManager
-    private var postsAdapter: PostsAdapter = PostsAdapter(mutableListOf())
+    private var accountPostsAdapter: AccountPostsAdapter = AccountPostsAdapter(mutableListOf())
 
     private val PICK_IMAGE_REQUEST = 1
 
@@ -70,7 +62,7 @@ class AccountFragment : Fragment() {
         viewModel = AccountViewModel(user)
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.postsRecyclerView.layoutManager = layoutManager
-        binding.postsAdapter = postsAdapter
+        binding.postsAdapter = accountPostsAdapter
 
         return binding.root
     }
@@ -150,7 +142,7 @@ class AccountFragment : Fragment() {
     }
 
     fun addPosts() {
-        postsAdapter.updatePosts(viewModel.userPosts)
+        accountPostsAdapter.updatePosts(viewModel.userPosts)
     }
 
 

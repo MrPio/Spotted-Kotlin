@@ -9,7 +9,7 @@
             type="it.univpm.spottedkotlin.viewmodel.AccountViewModel" />
         <variable
             name = "posts_adapter"
-            type = "it.univpm.spottedkotlin.adapter.PostsAdapter"/>
+            type = "it.univpm.spottedkotlin.adapter.AccountPostsAdapter"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

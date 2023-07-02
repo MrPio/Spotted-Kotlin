@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.Plexuses
+import it.univpm.spottedkotlin.enums.Settings
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.Filter
@@ -43,11 +44,7 @@ class HomeViewModel : ViewModel() {
 	)
 	private val plexuses = Plexuses.values().toList()
 	val subtitle = MutableLiveData(subtitles[0])
-	var filter = Filter(
-		plexus = Plexuses.INGEGNERIA,
-		exceptUsers = listOf(AccountManager.user.uid?:""),
-		exceptSpotted = false
-	)
+	var filter = Filter(plexus = Plexuses.INGEGNERIA,	)
 
 	fun onRadioCheckedChanged(group: RadioGroup, checkedId: Int) {
 		val index = radios.indexOf(checkedId)
@@ -69,5 +66,16 @@ class HomeViewModel : ViewModel() {
 		DataManager.filterPosts(filter)
 	}
 
-	fun reloadPosts() = DataManager.reloadPaginatedData()
+	fun reloadPosts() {
+
+		// Apply settings
+		filter.exceptUsers =
+			if (Settings.FILTER_MINE.bool)
+				listOf()
+			else
+				listOf(AccountManager.user.uid ?: "")
+		filter.exceptSpotted = !Settings.FILTER_SPOTTED.bool
+
+		DataManager.reloadPaginatedData()
+	}
 }

@@ -32,7 +32,7 @@
 						  android:layout_height = "wrap_content"
 						  android:layoutDirection = "ltr"
 						  android:orientation = "horizontal"
-						  android:visibility = "@{viewModel.full?View.VISIBLE:View.GONE}">
+						  android:visibility = "@{viewModel.timeShow &amp;&amp; viewModel.full?View.VISIBLE:View.GONE}">
 				<TextView style = "@style/LabelRegular"
 						  android:layout_width = "wrap_content"
 						  android:layout_height = "wrap_content"

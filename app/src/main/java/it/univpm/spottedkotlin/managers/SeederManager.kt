@@ -5,12 +5,11 @@ import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
 import it.univpm.spottedkotlin.enums.RemoteImages
+import it.univpm.spottedkotlin.enums.Settings
 import it.univpm.spottedkotlin.extension.function.addDays
 import it.univpm.spottedkotlin.extension.function.randomList
 import it.univpm.spottedkotlin.extension.function.toShortDateStr
-import it.univpm.spottedkotlin.model.Post
-import it.univpm.spottedkotlin.model.Tag
-import it.univpm.spottedkotlin.model.User
+import it.univpm.spottedkotlin.model.*
 import java.util.*
 import kotlin.random.Random
 
@@ -451,6 +450,98 @@ object SeederManager {
 			Tag("Da sole", context.getString(R.string.Sunglasses)),
 		)
 	}
+
+	fun generateSettings(context: Context): List<SettingMenu> =
+		listOf(
+			SettingMenu(
+				icon = context.getString(R.string.HomeOutline),
+				title = "Filtri dei post",
+				subtitle = "Modifica i filtri dei post da visualizzare",
+				items = listOf(
+					SettingItem(
+						id = Settings.FILTER_SPOTTED.id,
+						title = "Post spottati",
+						subtitle = "Mostra i post spottati nella home",
+						type = SettingType.FLAG,
+					),
+					SettingItem(
+						id = Settings.FILTER_MINE.id,
+						title = "Tuoi post",
+						subtitle = "Mostra i tuoi post nella home",
+						type = SettingType.FLAG,
+					),
+				),
+			),
+			SettingMenu(
+				icon = context.getString(R.string.ChatOutline),
+				title = "Preferenze chat",
+				subtitle = "Modifica il comportamento delle chat",
+				items = listOf(
+					SettingItem(
+						id = Settings.CHAT_OBSERVE.id,
+						title = "Chat in tempo reale",
+						subtitle = "Aggiorna la chat in tempo reale",
+						type = SettingType.FLAG,
+					),
+					SettingItem(
+						id = Settings.CHAT_EMOJI.id,
+						title = "Emoji",
+						subtitle = "Mostra le emoji nella chat",
+						type = SettingType.FLAG,
+					),
+					SettingItem(
+						id = Settings.CHAT_TIME.id,
+						title = "Data messaggi",
+						subtitle = "Mostra la data dei messaggi",
+						type = SettingType.FLAG,
+					),
+				),
+			),
+			SettingMenu(
+				icon = context.getString(R.string.MapOutline),
+				title = "Preferenze mappa",
+				subtitle = "Personalizza il comportamento della mappa",
+				items = listOf(
+					SettingItem(
+						id = Settings.MAP_BOUNDARY.id,
+						title = "Limita la mappa",
+						subtitle = "Blocca la mappa sulla città di Ancona",
+						type = SettingType.FLAG,
+					),
+					SettingItem(
+						id = Settings.MAP_MARKERS_BIG.id,
+						title = "Segnalini grandi",
+						subtitle = "Ingrandisci i segnalini nella mappa",
+						type = SettingType.FLAG,
+					),
+				),
+			),
+			SettingMenu(
+				icon = context.getString(R.string.ShieldOutline),
+				title = "Sicurezza",
+				subtitle = "Reimposta la tua password di accesso",
+			),
+			SettingMenu(
+				icon = context.getString(R.string.ChartBoxOutline),
+				title = "Statistiche",
+				subtitle = "Visualizza le tue statistiche su Spotted",
+			),
+			SettingMenu(
+				icon = context.getString(R.string.StarOutline),
+				title = "Valutaci",
+				subtitle = "Dacci la tua opinione!",
+			),
+			SettingMenu(
+				icon = context.getString(R.string.CellphoneArrowDown),
+				title = "Aggiornamenti",
+				subtitle = "Controlla la disponobilità di aggiornamenti",
+			),
+			SettingMenu(
+				icon = context.getString(R.string.LogoutVariant),
+				title = "Logout",
+				subtitle = "Effettua il logout dall'account",
+			),
+		)
 
 	fun seed(context: Context) {
 		generatePosts(200, context)

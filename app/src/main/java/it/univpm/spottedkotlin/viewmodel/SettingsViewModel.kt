@@ -1,14 +1,17 @@
 package it.univpm.spottedkotlin.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.managers.AccountManager
+import it.univpm.spottedkotlin.managers.DataManager
+import it.univpm.spottedkotlin.model.SettingMenu
 
 class SettingsViewModel : ViewModel() {
-    lateinit var gotoFirstActivityCallback: () -> Unit
+	lateinit var gotoFirstActivityCallback: () -> Unit
 
-    fun logout(){
-        AccountManager.logout()
-        gotoFirstActivityCallback.invoke()
-    }
+	val settingMenus: List<SettingMenu> get() = DataManager.settingMenus
+
+	fun logout() {
+		AccountManager.logout()
+		gotoFirstActivityCallback()
+	}
 }

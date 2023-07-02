@@ -33,7 +33,7 @@ class FirstActivity : AppCompatActivity() {
 		DeviceManager.displayMetrics = this.metrics()
 		IOManager.initialize(baseContext)
 		MainScope().launch {
-			DataManager.fetchData();
+			DataManager.fetchData(applicationContext);
 		}
 	}
 

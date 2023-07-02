@@ -1,8 +1,10 @@
 package it.univpm.spottedkotlin.viewmodel
 
+import android.view.View
 import androidx.databinding.Bindable
 import it.univpm.spottedkotlin.extension.ObservableViewModel
 import it.univpm.spottedkotlin.BR
+import it.univpm.spottedkotlin.enums.Settings
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.model.Comment
@@ -18,38 +20,49 @@ class CommentsViewModel(
 	ObservableViewModel() {
 	init {
 		post.comments.sortByDescending { it.date }
-		DatabaseManager.observeList<Comment>(
-			"posts/${post.uid}/comments",
-			observer = { comments ->
-				for (comment in comments) {
-					if (comment == null)
-						continue
-					val oldComment = post.comments.find { it.date.time == comment.date.time }
+		if (Settings.CHAT_OBSERVE.bool) {
+			DatabaseManager.observeList<Comment>(
+				"posts/${post.uid}/comments",
+				observer = { comments ->
+					for (comment in comments) {
+						if (comment == null)
+							continue
+						val oldComment = post.comments.find { it.date.time == comment.date.time }
 
-					// Remove the already existing comment in order to replace with the new one
-					if (oldComment != null)
-						post.comments.remove(oldComment)
-					post.comments.add(comment)
+						// Remove the already existing comment in order to replace with the new one
+						if (oldComment != null)
+							post.comments.remove(oldComment)
+						post.comments.add(comment)
+					}
+
+					// Update UI
+					post.comments.sortByDescending { it.date }
+					loadCommentsCallback()
 				}
-
-				// Update UI
-				post.comments.sortByDescending { it.date }
-				loadCommentsCallback()
-			}
-		)
+			)
+		}
 	}
 
 	@get:Bindable
 	var emojiVisible = false
 		set(value) {
-			field = value;
-			notifyPropertyChanged(BR.emojiVisible)
+			if (Settings.CHAT_EMOJI.bool) {
+				field = value;
+				notifyPropertyChanged(BR.emojiVisible)
+			}
 		}
 
 	@get:Bindable
 	var newComment: String = ""
 
 	private var currentType = 0
+
+	val emojiVisibility
+		get() =
+			if (Settings.CHAT_EMOJI.bool)
+				View.VISIBLE
+			else
+				View.GONE
 
 	fun commenta() {
 		if (newComment.isEmpty()) return

@@ -1,41 +1,92 @@
 package it.univpm.spottedkotlin.view.fragments
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
-import it.univpm.spottedkotlin.R
+import it.univpm.spottedkotlin.databinding.SettingItemBinding
+import it.univpm.spottedkotlin.databinding.SettingMenuBinding
 import it.univpm.spottedkotlin.databinding.SettingsFragmentBinding
+import it.univpm.spottedkotlin.enums.TimesInterpolator
+import it.univpm.spottedkotlin.extension.function.fromDp
+import it.univpm.spottedkotlin.extension.function.getActivity
+import it.univpm.spottedkotlin.extension.function.setHeight
 import it.univpm.spottedkotlin.extension.function.showAlertDialog
+import it.univpm.spottedkotlin.managers.AnimationManager
 import it.univpm.spottedkotlin.view.FirstActivity
+import it.univpm.spottedkotlin.view.MainActivity
+import it.univpm.spottedkotlin.viewmodel.SettingItemViewModel
 import it.univpm.spottedkotlin.viewmodel.SettingsViewModel
 
 class SettingsFragment : Fragment() {
 	private lateinit var binding: SettingsFragmentBinding
 	private val viewModel: SettingsViewModel by viewModels()
+	private val settingsBindings: MutableList<SettingMenuBinding> = mutableListOf()
 
 	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 	): View {
 		binding = SettingsFragmentBinding.inflate(inflater, container, false)
 		binding.viewModel = viewModel
 		viewModel.gotoFirstActivityCallback = ::gotoFirstActivity
-		binding.settingsLogoutButton.setOnClickListener {
-			context?.showAlertDialog(
-				title = "Logout dell'account",
-				message = "Sicuro di voler effettuare il logout?",
-				positiveCallback = viewModel::logout,
-				negativeCallback = {}
-			)
+		binding.settingsScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+			context?.getActivity<MainActivity>()?.binding?.bottomBarContainer?.translationY =
+				scrollY.toFloat()
 		}
+		loadSettings()
 		return binding.root
+	}
+
+	private fun loadSettings() {
+		binding.settingsContent.removeAllViews()
+		for (settingMenu in viewModel.settingMenus) {
+
+			// Set onClick listeners
+			when (settingMenu.title) {
+				"Logout" -> settingMenu.onClick = {
+					context?.showAlertDialog(title = "Logout dell'account",
+						message = "Sicuro di voler effettuare il logout?",
+						positiveCallback = viewModel::logout,
+						negativeCallback = {})
+				}
+			}
+
+			val settingMenuBinding =
+				SettingMenuBinding.inflate(layoutInflater, binding.settingsContent, false)
+			settingMenuBinding.model = settingMenu
+			settingsBindings.add(settingMenuBinding)
+
+			if (settingMenu.items != null) {
+
+				for (settingItem in settingMenu.items) {
+					val settingItemBinding = SettingItemBinding.inflate(
+						layoutInflater,
+						settingMenuBinding.settingMenuContent,
+						false
+					)
+					settingItemBinding.viewModel = SettingItemViewModel(settingItem)
+					settingMenuBinding.settingMenuContent.addView(settingItemBinding.root)
+				}
+				settingMenu.onClick = {
+
+					// Hide all the containers
+//					for (settingBinding in settingsBindings)
+//						settingBinding.settingMenuContentContainer.visibility=View.GONE
+
+					// Toggle current container visibility
+					val view = settingMenuBinding.settingMenuContentContainer
+					view.visibility = if (view.visibility == View.VISIBLE)
+						View.GONE
+					else
+						View.VISIBLE
+				}
+			} else
+				settingMenuBinding.settingMenuContentContainer.visibility = View.GONE
+			binding.settingsContent.addView(settingMenuBinding.root)
+		}
 	}
 
 	private fun gotoFirstActivity() {

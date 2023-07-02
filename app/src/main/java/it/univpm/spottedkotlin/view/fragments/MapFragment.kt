@@ -17,6 +17,7 @@ import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.MapFragmentBinding
 import it.univpm.spottedkotlin.enums.Numbers
 import it.univpm.spottedkotlin.enums.RemoteImages
+import it.univpm.spottedkotlin.enums.Settings
 import it.univpm.spottedkotlin.extension.MultiOverlayItem
 import it.univpm.spottedkotlin.extension.MyMapView
 import it.univpm.spottedkotlin.extension.function.*
@@ -60,11 +61,11 @@ class MapFragment : Fragment() {
 		mapController = map.controller
 		markerPlaceholder = requireContext().loadBitmapDrawable(R.drawable.map_marker, 55, 55)
 		binding.mapAddPost.setOnClickListener {
-			val mainActivity=(requireActivity() as MainActivity)
+			val mainActivity = (requireActivity() as MainActivity)
 			mainActivity.viewModel.currentFragment.value = 2
 			(mainActivity.viewModel.fragments[2] as AddPostFragment).apply {
-				latitude=(map.mapCenter as GeoPoint).latitude
-				longitude=(map.mapCenter as GeoPoint).longitude
+				latitude = (map.mapCenter as GeoPoint).latitude
+				longitude = (map.mapCenter as GeoPoint).longitude
 			}
 		}
 
@@ -98,6 +99,8 @@ class MapFragment : Fragment() {
 
 		map.setOnPanAndZoomListener(object : OnPanAndZoomListener {
 			override fun onDraw(geo: GeoPoint) {
+				if (!Settings.MAP_BOUNDARY.bool)
+					return
 
 				// BOUNDARY CONSTRAINT
 				if (System.currentTimeMillis() - startTime < 2000) return
@@ -148,8 +151,7 @@ class MapFragment : Fragment() {
 				}
 			}
 
-			override fun onPan(geo: GeoPoint) {
-			}
+			override fun onPan(geo: GeoPoint) {}
 
 			override fun onZoom(zoom: Int) {
 				val zooms = mapOf(

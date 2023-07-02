@@ -7,6 +7,7 @@ import android.provider.ContactsContract.Data
 import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.RemoteImages
+import it.univpm.spottedkotlin.enums.Settings
 import it.univpm.spottedkotlin.extension.function.loadBitmapDrawable
 import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.managers.BitmapManager
@@ -68,8 +69,9 @@ class MapViewModel : ViewModel() {
 					whiteCircleBitmap,
 					BitmapManager.load(avatarUrl),
 				)
+				val size = if (Settings.MAP_MARKERS_BIG.bool) 160 else 136
 				overlayItem.setMarker(
-					context.loadBitmapDrawable(bitmap, 136, 136)
+					context.loadBitmapDrawable(bitmap, size, size)
 				)
 			}
 		}

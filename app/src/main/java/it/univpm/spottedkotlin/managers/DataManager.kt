@@ -3,9 +3,7 @@ package it.univpm.spottedkotlin.managers
 import android.content.Context
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.RemoteImages
-import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.model.*
-import java.io.Serializable
 
 object DataManager {
 	enum class SaveMode { POST, PUT }
@@ -13,6 +11,7 @@ object DataManager {
 	const val pageSize = 100
 	var posts: MutableList<Post> = mutableListOf()
 	lateinit var tags: Set<Tag>
+	lateinit var settingMenus: List<SettingMenu>
 	val anonymous: User = User(
 		name = "Anonimo",
 		surname = "",
@@ -26,9 +25,10 @@ object DataManager {
 
 
 	// Fetch all the application's needed start data
-	suspend fun fetchData() {
+	suspend fun fetchData(context: Context) {
 		tags = DatabaseManager.getList<Tag>("tags", pageSize = 999)?.toSet() ?: setOf()
 		cachedUsers = DatabaseManager.getList<User>("users", 9999)?.toMutableSet() ?: mutableSetOf()
+		settingMenus=SeederManager.generateSettings(context)
 	}
 
 	// Request a new page for paginated data

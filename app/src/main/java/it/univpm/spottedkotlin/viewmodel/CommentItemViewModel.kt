@@ -2,6 +2,7 @@ package it.univpm.spottedkotlin.viewmodel
 
 import androidx.databinding.Bindable
 import it.univpm.spottedkotlin.BR
+import it.univpm.spottedkotlin.enums.Settings
 import it.univpm.spottedkotlin.extension.ObservableViewModel
 import it.univpm.spottedkotlin.extension.function.toConceptualStr
 import it.univpm.spottedkotlin.managers.AccountManager
@@ -18,6 +19,7 @@ class CommentItemViewModel(val comment: Comment) : ObservableViewModel() {
 
 	val isMe: Boolean get() = comment.authorUID == AccountManager.user.uid
 	var isAuthor: Boolean = false
+	val timeShow get() = Settings.CHAT_TIME.bool
 
 	suspend fun initialize() {
 		if (comment.user == null)

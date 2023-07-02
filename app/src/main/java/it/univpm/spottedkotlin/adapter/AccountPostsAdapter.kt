@@ -9,7 +9,7 @@ import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.view.holders.SpotPostViewHolder
 
 
-class PostsAdapter(var posts: MutableList<Post>, private var loaded: Int = 0) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AccountPostsAdapter(var posts: MutableList<Post>, private var loaded: Int = 0) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 	companion object {
 		private const val VIEW_TYPE_POST = 0

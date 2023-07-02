@@ -15,11 +15,16 @@ import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.view.holders.SpotPostViewHolder
 
 class HomePostsAdapter(var posts: MutableList<Post?>, var loaded: Int = 0) : Adapter<ViewHolder>() {
+	companion object {
+		private const val VIEW_TYPE_POST = 0
+		private const val VIEW_TYPE_SPACE = 1
+	}
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-		if (viewType == 0)
+		if (viewType == VIEW_TYPE_POST)
 			SpotPostViewHolder(parent.context.inflate(R.layout.spot_post))
 		else
-			object : ViewHolder(parent.context.inflate<VSpaceBinding>(R.layout.v_space).root){}
+			object : ViewHolder(parent.context.inflate<VSpaceBinding>(R.layout.v_space).root) {}
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		if (holder is SpotPostViewHolder)
@@ -29,5 +34,5 @@ class HomePostsAdapter(var posts: MutableList<Post?>, var loaded: Int = 0) : Ada
 	override fun getItemCount(): Int = posts.size
 
 	override fun getItemViewType(position: Int): Int =
-		if (posts[position] == null) 1 else 0
+		if (posts[position] == null) VIEW_TYPE_SPACE else VIEW_TYPE_POST
 }
