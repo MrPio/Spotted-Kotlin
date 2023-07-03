@@ -20,9 +20,9 @@ data class User(
 	val cellNumber: String? = null,
 	val instagramNickname: String? = null,
 ) {
-	@Exclude
+	@Exclude @JvmField
 	var uid: String? = null
 
-	@Exclude
+	@Exclude @JvmField
 	val posts: MutableList<Post> = mutableListOf()
 }

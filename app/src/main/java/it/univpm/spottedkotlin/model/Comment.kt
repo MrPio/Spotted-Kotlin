@@ -12,6 +12,6 @@ data class Comment(
 	val date: Date = Calendar.getInstance().time,
 ) : Serializable{
 
-	@Exclude
+	@Exclude @JvmField
 	var user: User? = null
 }

@@ -55,14 +55,10 @@ class FirstActivity : AppCompatActivity() {
 		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
 //		SeederManager.seed(applicationContext)
-//		WorkerManager.startOneTimeWorker<WorkerManager.NotificationWorker>(this)
+		WorkerManager.startOneTimeWorker<WorkerManager.NotificationWorker>(this)
 
-//		DatabaseManager.observeNode<Post>(
-//			"posts",
-//			observer = { post ->
-//			}
-//		)
 //		return
+
 //☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
 		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE

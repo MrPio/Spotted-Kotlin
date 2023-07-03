@@ -25,13 +25,14 @@ data class Post(
 	var anonymous: Boolean = false,
 	var spotted: Boolean = false,
 ) : Serializable, Validable {
-	@Exclude
+
+	@Exclude @JvmField
 	var uid: String? = null
 
-	@Exclude
+	@Exclude @JvmField
 	var author: User? = null
 
-	@Exclude
+	@Exclude @JvmField
 	var lastFollowers: MutableList<User?> = mutableListOf()
 
 	@get:Exclude
