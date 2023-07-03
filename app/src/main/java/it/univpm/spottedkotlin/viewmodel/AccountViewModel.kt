@@ -19,7 +19,6 @@ class AccountViewModel(val user: User) : ViewModel() {
     var avatar:String = user.avatar
     var name: String = user.name +" "+ user.surname
     var nameInsta: String? = " " + user.instagramNickname
-    //val postsUid: MutableList<String> = user.postsUIDs
     val posts: MutableList<Post> = setPostsUid()
     var numPost:String= posts.size.toString()
     var numFollowing:String = user.following.size.toString()

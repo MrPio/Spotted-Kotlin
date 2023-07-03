@@ -75,7 +75,7 @@ class AddPostViewModel : ObservableViewModel() {
 
 	@get:Bindable
 	val autori: List<String?>
-		get() = listOf(AccountManager.user.instagramNickname, "Anonimo")
+		get() = listOf(AccountManager.user.name+" "+ AccountManager.user.surname, "Anonimo")
 
 	@get:Bindable
 	var author: Int = 0

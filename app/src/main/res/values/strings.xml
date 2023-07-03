@@ -39,6 +39,7 @@
     <string name="female">Femmina</string>
     <string name="other">Altro</string>
     <string name="optional_fields"> * Campi opzionali</string>
+    <string name="phone">Telefono*</string>
     <string name="profilo">Profilo</string>
     <string name="messaggia">Messaggia</string>
     <string name="chiama">Chiama</string>

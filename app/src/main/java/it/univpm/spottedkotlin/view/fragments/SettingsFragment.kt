@@ -103,5 +103,6 @@ class SettingsFragment : Fragment() {
 	private fun gotoFirstActivity() {
 		val intent = Intent(requireContext(), FirstActivity::class.java)
 		startActivity(intent)
+		requireActivity().finish()
 	}
 }

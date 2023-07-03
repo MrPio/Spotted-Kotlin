@@ -172,6 +172,28 @@
 						android:textCursorDrawable = "@drawable/black_cursor"/>
 
 					<TextView
+						android:id = "@+id/textPhone"
+						style = "@style/LabelBold"
+						android:layout_width = "match_parent"
+						android:layout_height = "wrap_content"
+						android:layout_marginTop = "10dp"
+						android:text = "@string/phone"
+						android:textSize = "16sp"/>
+
+					<EditText
+						android:id = "@+id/phoneTextView"
+						style = "@style/LabelRegular"
+						android:layout_width = "match_parent"
+						android:layout_height = "46dp"
+						android:layout_marginTop = "10dp"
+						android:background = "@drawable/text_view_border_grey"
+						android:imeOptions = "actionDone"
+						android:inputType = "phone"
+						android:padding = "10dp"
+						android:text = "@={viewModel.telephone}"
+						android:textCursorDrawable = "@drawable/black_cursor"/>
+
+					<TextView
 						android:id = "@+id/optional_fields_text"
 						style = "@style/LabelRegular"
 						android:layout_width = "match_parent"
