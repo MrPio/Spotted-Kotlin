@@ -59,6 +59,7 @@ object DataManager {
 		// Ask the database for the user and caching it
 		DatabaseManager.get<User>("users/$uid")?.let { user ->
 			user.uid = uid
+			loadUserPosts(user)
 			cachedUsers.add(user)
 			return user
 		}

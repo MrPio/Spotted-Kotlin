@@ -51,16 +51,17 @@
 						android:textSize = "16sp"/>
 
 					<EditText
-						style = "@style/LabelRegular"
-						android:layout_width = "match_parent"
-						android:layout_height = "46dp"
-						android:layout_marginTop = "10dp"
-						android:background = "@drawable/text_view_border_grey"
-						android:inputType = "textEmailAddress"
-						android:paddingHorizontal = "20dp"
-						android:paddingVertical = "0dp"
-						android:text = "@={viewModel.email}"
-						android:textCursorDrawable = "@drawable/black_cursor"/>
+						android:id="@+id/TextEmail"
+						style="@style/LabelRegular"
+						android:layout_width="match_parent"
+						android:layout_height="46dp"
+						android:layout_marginTop="10dp"
+						android:background="@drawable/text_view_border_grey"
+						android:inputType="textEmailAddress"
+						android:paddingHorizontal="20dp"
+						android:paddingVertical="0dp"
+						android:text="@={viewModel.email}"
+						android:textCursorDrawable="@drawable/black_cursor" />
 
 					<TextView
 						android:id = "@+id/password"
@@ -84,6 +85,12 @@
 						android:text = "@={viewModel.password}"
 						android:textCursorDrawable = "@drawable/black_cursor"/>
 
+					<TextView
+						android:id="@+id/error"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="" />
+
 					<androidx.appcompat.widget.AppCompatButton android:id = "@+id/login_button"
 															   android:layout_width = "match_parent"
 															   android:layout_height = "48dp"
@@ -93,7 +100,7 @@
 															   android:fontFamily = "@font/lato_regular"
 															   android:foreground = "@drawable/ripple_white_corner_round"
 															   android:text = "@string/login"
-															   android:onClickListener = "@{()->viewModel.login()}"
+
 															   android:textColor = "@drawable/button_text_color_selector"
 															   android:textSize = "15sp"/>
 
