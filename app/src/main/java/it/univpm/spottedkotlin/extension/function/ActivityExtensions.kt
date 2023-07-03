@@ -18,4 +18,4 @@ fun Activity.askPermission(vararg permissions: String) =
 
 fun Activity.checkAndAskPermission(vararg permissions: String) =
 	if (!this.applicationContext.checkPermission(*permissions))
-		this.askPermission(*permissions) else {}
+		this.askPermission(*permissions) else null
