@@ -1,31 +1,19 @@
 package it.univpm.spottedkotlin.view
 
 import android.Manifest
-import android.R
-import android.app.AlertDialog
-import android.bluetooth.BluetoothClass.Device
 import android.content.Intent
-import android.hardware.display.DisplayManager
 import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import it.univpm.spottedkotlin.databinding.FirstActivityBinding
-import it.univpm.spottedkotlin.enums.Settings
 import it.univpm.spottedkotlin.extension.function.checkAndAskPermission
-import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.extension.function.metrics
-import it.univpm.spottedkotlin.extension.function.showAlertDialog
 import it.univpm.spottedkotlin.managers.*
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.viewmodel.FirstActivityViewModel
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class FirstActivity : AppCompatActivity() {
@@ -39,8 +27,6 @@ class FirstActivity : AppCompatActivity() {
 		binding = FirstActivityBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 		binding.viewModel = viewModel
-		NotificationManager.notify(this, "ciao", "descrdescrdescrdescrdescr")
-
 	}
 
 	private fun initializeManagers() {
@@ -68,9 +54,15 @@ class FirstActivity : AppCompatActivity() {
 		// ======= DEBUG ZONE ========
 		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
-//		SeederManager.seed(applicationContext)
-//WorkerManager.startNotificationWorker(this)
-		return
+		SeederManager.seed(applicationContext)
+//WorkerManager.startOneTimeWorker<WorkerManager.NotificationWorker>(this)
+//		DatabaseManager.observeList2<Post>(
+//			"posts",
+//			observer = { post ->
+//val c=3
+//			}
+//		)
+//		return
 //☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
 		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE

@@ -2,6 +2,7 @@ package it.univpm.spottedkotlin.managers
 
 import android.net.Uri
 import android.util.Log
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -95,10 +96,30 @@ object DatabaseManager {
 
 	// Sync -- observe a list of objects
 	inline fun <reified T> observeList(path: String, crossinline observer: (it: List<T?>) -> Unit) =
-		getChild(path).addValueEventListener(object : ValueEventListener {
+		getChild(path).addListenerForSingleValueEvent(object : ValueEventListener {
 			override fun onDataChange(dataSnapshot: DataSnapshot) {
 				observer(dataSnapshot.children.map { it.getValue(T::class.java) })
 			}
+
+			override fun onCancelled(error: DatabaseError) {
+				Log.w(tag, "Failed to read value.", error.toException())
+			}
+		})
+
+	inline fun <reified T> observeList2(path: String, crossinline observer: (it: T?) -> Unit) =
+		getChild(path).addChildEventListener(object : ChildEventListener {
+			override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {}
+
+			override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+				observer(snapshot.getValue(T::class.java))
+			}
+
+			override fun onChildRemoved(snapshot: DataSnapshot) {
+			}
+
+			override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+			}
+
 
 			override fun onCancelled(error: DatabaseError) {
 				Log.w(tag, "Failed to read value.", error.toException())

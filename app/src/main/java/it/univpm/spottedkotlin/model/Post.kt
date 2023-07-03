@@ -15,7 +15,7 @@ data class Post(
 	var authorUID: String? = null,
 	var location: Locations? = null,
 	var gender: Gender = Gender.FEMALE,
-	var date: Date = Calendar.getInstance().time,
+	var timestamp: Long = Calendar.getInstance().time.time,
 	var description: String = "",
 	val tags: MutableList<Tag> = mutableListOf(),
 	val followers: MutableList<String> = mutableListOf(),
@@ -23,7 +23,7 @@ data class Post(
 	var latitude: Double? = null,
 	var longitude: Double? = null,
 	var anonymous: Boolean = false,
-	var spotted:Boolean=false,
+	var spotted: Boolean = false,
 ) : Serializable, Validable {
 	@Exclude
 	var uid: String? = null
@@ -33,6 +33,9 @@ data class Post(
 
 	@Exclude
 	var lastFollowers: MutableList<User?> = mutableListOf()
+
+	@get:Exclude
+	val date: Date get() = Date(timestamp)
 
 	fun dateStr() = date.toDateStr()
 	fun timeStr() = date.toTimeStr()

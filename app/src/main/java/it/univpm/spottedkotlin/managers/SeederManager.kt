@@ -3,9 +3,7 @@ package it.univpm.spottedkotlin.managers
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.hardware.display.DisplayManager
 import android.net.Uri
-import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.Gender
@@ -352,13 +350,13 @@ object SeederManager {
 						location = randLocation,
 						gender = Gender.values().random(),
 						tags = randTags,
-						date = randDate,
+						timestamp = randDate.time,
 						description = "Cerco ragazza/o ${randTags.first().name} e ${randTags.last().name}. " + "L'ho visto l'ultima volta il ${randDate.toShortDateStr()} " + "presso ${randLocation.name}. Grazie a tutti."
 					)
 				)
 			}
 		}
-		posts.sortedBy { it.date }.forEach {
+		posts.sortedBy { it.timestamp }.forEach {
 			DatabaseManager.post("posts", it)?.let { postUID ->
 				users.find { user -> it.authorUID == user.uid }?.postsUIDs?.add(postUID)
 			}

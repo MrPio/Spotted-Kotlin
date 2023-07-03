@@ -1,6 +1,5 @@
 package it.univpm.spottedkotlin.viewmodel
 
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.Bindable
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.ObservableViewModel

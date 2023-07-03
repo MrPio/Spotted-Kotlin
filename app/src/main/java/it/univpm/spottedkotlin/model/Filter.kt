@@ -3,7 +3,6 @@ package it.univpm.spottedkotlin.model
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Plexuses
 import it.univpm.spottedkotlin.managers.AccountManager
-import java.time.Instant
 import java.util.*
 
 class Filter(
@@ -31,7 +30,7 @@ class Filter(
 		}
 		return when (orderBy) {
 			OrderBy.RELEVANCE -> filtered.sortedByDescending { it.calculateRelevance(AccountManager.user.tags) }
-			OrderBy.DATE -> filtered.sortedByDescending { it.date }
+			OrderBy.DATE -> filtered.sortedByDescending { it.timestamp }
 			else -> filtered
 		}
 	}
