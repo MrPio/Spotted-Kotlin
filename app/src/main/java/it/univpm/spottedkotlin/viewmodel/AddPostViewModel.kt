@@ -10,6 +10,7 @@ import it.univpm.spottedkotlin.extension.ObservableViewModel
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.Post
+import java.util.Calendar
 
 class AddPostViewModel : ObservableViewModel() {
 	lateinit var loadTagsCallback: () -> Unit
@@ -88,11 +89,14 @@ class AddPostViewModel : ObservableViewModel() {
 	@get:Bindable
 	var longitude: Double? = null
 	fun azzera() {
-		author=0
+		author = 0
 		currentPlesso = Plexuses.INGEGNERIA
 		currentZona = Locations.QT_140
 		currentGender = Gender.FEMALE
-		nuovoPost = Post().apply { location = Locations.QT_140 }
+		nuovoPost = Post().apply {
+			location = currentZona
+			authorUID = AccountManager.user.uid
+		}
 		this.errors = ""
 		notifyChange()
 		loadTagsCallback()
@@ -112,6 +116,7 @@ class AddPostViewModel : ObservableViewModel() {
 				nuovoPost.latitude = latitude
 				nuovoPost.longitude = longitude
 			}
+			nuovoPost.timestamp = Calendar.getInstance().time.time
 			DataManager.save(nuovoPost, mode = DataManager.SaveMode.POST)
 			azzera()
 		} else

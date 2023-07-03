@@ -56,10 +56,10 @@ class FirstActivity : AppCompatActivity() {
 
 //		SeederManager.seed(applicationContext)
 //		WorkerManager.startOneTimeWorker<WorkerManager.NotificationWorker>(this)
-//		DatabaseManager.observeList2<Post>(
+
+//		DatabaseManager.observeNode<Post>(
 //			"posts",
 //			observer = { post ->
-//				val c = 3
 //			}
 //		)
 //		return

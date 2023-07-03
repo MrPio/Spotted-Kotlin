@@ -106,9 +106,10 @@ object DatabaseManager {
 			}
 		})
 
-	inline fun <reified T> observeList2(path: String, crossinline observer: (it: T?) -> Unit) =
-		getChild(path).addChildEventListener(object : ChildEventListener {
-			override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {}
+	inline fun <reified T> observeNode(path: String, crossinline observer: (it: T?) -> Unit) =
+		getChild(path).orderByKey().limitToLast(9999).addChildEventListener(object : ChildEventListener {
+			override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+			}
 
 			override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
 				observer(snapshot.getValue(T::class.java))
