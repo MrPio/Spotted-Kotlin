@@ -70,10 +70,10 @@ class AccountFragment : Fragment() {
         }
 
         viewModel = AccountViewModel(user)
-        binding.accountImageView.loadUrl(viewModel.avatar)
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.postsRecyclerView.layoutManager = layoutManager
         binding.postsAdapter = accountPostsAdapter
+        binding.accountImageView.loadUrl(viewModel.avatar)
         initialize()
         return binding.root
     }

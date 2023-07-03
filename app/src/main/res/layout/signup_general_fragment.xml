@@ -59,18 +59,17 @@
 						android:textSize = "16sp"/>
 
 					<EditText
-						android:id = "@+id/name"
-						style = "@style/LabelRegular"
-						android:layout_width = "match_parent"
-						android:layout_height = "46dp"
-						android:layout_marginTop = "10dp"
-						android:background = "@drawable/text_view_border_grey"
-						android:cursorVisible = "true"
-						android:imeOptions = "flagNavigateNext"
-						android:inputType = "textPersonName"
-						android:padding = "10dp"
-						android:text = "@={viewModel.name}"
-						android:textCursorDrawable = "@drawable/black_cursor"/>
+						android:id="@+id/name"
+						style="@style/LabelRegular"
+						android:layout_width="match_parent"
+						android:layout_height="46dp"
+						android:layout_marginTop="10dp"
+						android:background="@drawable/text_view_border_grey"
+						android:imeOptions="flagNavigateNext"
+						android:inputType="textPersonName"
+						android:padding="10dp"
+						android:text="@={viewModel.name}"
+						android:textCursorDrawable="@drawable/gray_cursor" />
 
 					<TextView
 						android:id = "@+id/surname_text"
@@ -82,17 +81,18 @@
 						android:textSize = "16sp"/>
 
 					<EditText
-						android:id = "@+id/surname"
-						style = "@style/LabelRegular"
-						android:layout_width = "match_parent"
-						android:layout_height = "46dp"
-						android:layout_marginTop = "16dp"
-						android:background = "@drawable/text_view_border_grey"
-						android:imeOptions = "flagNavigateNext"
-						android:inputType = "textPersonName"
-						android:padding = "10dp"
-						android:text = "@={viewModel.surname}"
-						android:textCursorDrawable = "@drawable/black_cursor"/>
+						android:id="@+id/surname"
+						style="@style/LabelRegular"
+						android:layout_width="match_parent"
+						android:layout_height="46dp"
+						android:layout_marginTop="16dp"
+						android:background="@drawable/text_view_border_grey"
+						android:cursorVisible="true"
+						android:imeOptions="flagNavigateNext"
+						android:inputType="textPersonName"
+						android:padding="10dp"
+						android:text="@={viewModel.surname}"
+						android:textCursorDrawable="@drawable/gray_cursor" />
 
 					<!--					<TextView-->
 					<!--						android:id = "@+id/strong_text"-->
@@ -169,7 +169,7 @@
 						android:inputType = "text"
 						android:padding = "10dp"
 						android:text = "@={viewModel.instaUrl}"
-						android:textCursorDrawable = "@drawable/black_cursor"/>
+						android:textCursorDrawable = "@drawable/gray_cursor"/>
 
 					<TextView
 						android:id = "@+id/textPhone"
@@ -191,7 +191,7 @@
 						android:inputType = "phone"
 						android:padding = "10dp"
 						android:text = "@={viewModel.telephone}"
-						android:textCursorDrawable = "@drawable/black_cursor"/>
+						android:textCursorDrawable = "@drawable/gray_cursor"/>
 
 					<TextView
 						android:id = "@+id/optional_fields_text"

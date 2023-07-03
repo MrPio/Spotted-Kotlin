@@ -61,7 +61,7 @@
 						android:paddingHorizontal="20dp"
 						android:paddingVertical="0dp"
 						android:text="@={viewModel.email}"
-						android:textCursorDrawable="@drawable/black_cursor" />
+						android:textCursorDrawable="@drawable/gray_cursor" />
 
 					<TextView
 						android:id = "@+id/password"
@@ -83,7 +83,7 @@
 						android:paddingHorizontal = "20dp"
 						android:paddingVertical = "0dp"
 						android:text = "@={viewModel.password}"
-						android:textCursorDrawable = "@drawable/black_cursor"/>
+						android:textCursorDrawable = "@drawable/gray_cursor"/>
 
 					<TextView
 						android:id="@+id/error"
