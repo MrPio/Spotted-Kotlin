@@ -103,6 +103,7 @@ object DataManager {
 							// Add the newly created post to current user's posts list
 							posts.add(model)
 							AccountManager.user.postsUIDs.add(uid)
+							AccountManager.user.posts.add(model)
 							save(AccountManager.user)
 						}
 					}

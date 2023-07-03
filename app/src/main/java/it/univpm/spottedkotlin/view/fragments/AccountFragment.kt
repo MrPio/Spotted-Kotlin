@@ -192,7 +192,7 @@ class AccountFragment : Fragment() {
     }
 
     fun addPosts() {
-        accountPostsAdapter.updatePosts(viewModel.user.posts)
+        accountPostsAdapter.updatePosts(viewModel.posts)
     }
 
 

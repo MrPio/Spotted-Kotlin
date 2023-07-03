@@ -19,10 +19,22 @@ class AccountViewModel(val user: User) : ViewModel() {
     var avatar:String = user.avatar
     var name: String = user.name +" "+ user.surname
     var nameInsta: String? = " " + user.instagramNickname
-    val postsUid: MutableList<String> = user.postsUIDs
-    var numPost:String= postsUid.size.toString()
+    //val postsUid: MutableList<String> = user.postsUIDs
+    val posts: MutableList<Post> = setPostsUid()
+    var numPost:String= posts.size.toString()
     var numFollowing:String = user.following.size.toString()
     var numComment:String= user.comments.size.toString()
     var tags: MutableList<Tag> = user.tags
+
+    fun setPostsUid(): MutableList<Post> {
+        val posts = mutableListOf<Post>()
+        if (user.uid == AccountManager.user.uid) return user.posts
+        else{
+            for (post in user.posts){
+                if (!post.anonymous) posts.add(post)
+            }
+        }
+        return posts
+    }
 }
 
