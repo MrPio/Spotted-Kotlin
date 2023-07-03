@@ -1,5 +1,6 @@
 package it.univpm.spottedkotlin.viewmodel
 
+import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.enums.Gender
@@ -25,6 +26,7 @@ class SignUpViewModel : ViewModel() {
 	var name: String = ""
 	var surname: String = ""
 	var instaUrl: String = ""
+	var telephone: String? = null
 	var gender: Gender? = null
 	var email: String = ""
 	var password: String = ""
@@ -34,7 +36,7 @@ class SignUpViewModel : ViewModel() {
 
 
 	fun setInfo() {
-		AccountManager.user = User(name = name, surname = surname, instagramNickname = instaUrl, gender = gender)
+		AccountManager.user = User(name = name, surname = surname, instagramNickname = instaUrl, gender = gender, cellNumber = telephone)
 		goToSignUpFragmentCallback()
 	}
 

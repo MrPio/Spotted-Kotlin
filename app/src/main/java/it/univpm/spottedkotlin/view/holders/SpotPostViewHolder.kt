@@ -1,5 +1,6 @@
 package it.univpm.spottedkotlin.view.holders
 
+import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -48,13 +49,14 @@ class SpotPostViewHolder(val binding: SpotPostBinding) : ViewHolder(binding.root
 
 
 	fun cardClicked(post: Post) {
-		val mainActivity = binding.root.context.getActivity<MainActivity>()
-		val intent = Intent(mainActivity, ViewPostActivity::class.java)
+		val activity = binding.root.context as? Activity
+		//val mainActivity = binding.root.context.getActivity<MainActivity>()
+		val intent = Intent(activity, ViewPostActivity::class.java)
 		intent.putExtra("postUID", post.uid)
 		val option = ActivityOptions.makeSceneTransitionAnimation(
-			mainActivity,
+			activity,
 			android.util.Pair(binding.backgroundImage, ViewPostActivity.TRANSITION_IMAGE),
 		)
-		mainActivity?.startActivity(intent, option.toBundle())
+		activity?.startActivity(intent, option.toBundle())
 	}
 }

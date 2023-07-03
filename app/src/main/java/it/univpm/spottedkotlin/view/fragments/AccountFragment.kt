@@ -55,10 +55,10 @@ class AccountFragment : Fragment() {
     ): View {
 
         binding = AccountFragmentBinding.inflate(inflater, container, false)
+
         binding.modifyImage.setOnClickListener { view ->
             openGallery()
         }
-
 
         val uid = arguments?.getString("uid")
         if (uid != null) {
@@ -68,11 +68,13 @@ class AccountFragment : Fragment() {
         } else {
             user = AccountManager.user
         }
+
         viewModel = AccountViewModel(user)
+        binding.accountImageView.loadUrl(viewModel.avatar)
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.postsRecyclerView.layoutManager = layoutManager
         binding.postsAdapter = accountPostsAdapter
-
+        initialize()
         return binding.root
     }
 
@@ -85,11 +87,35 @@ class AccountFragment : Fragment() {
         viewModel = AccountViewModel(user)
         binding.viewModel = viewModel
         binding.accountImageView.loadUrl(viewModel.avatar)
+
+        if (viewModel.user.posts.isEmpty()) {
+            binding.postsRecyclerView.visibility = View.GONE
+            binding.noPost.visibility = View.VISIBLE
+        }
+
+        if (viewModel.nameInsta == " " || viewModel.nameInsta == null) binding.instaName.visibility =
+            View.INVISIBLE
+
         if (viewModel.uid != AccountManager.user.uid) {
             binding.modifyImage.visibility = View.GONE
-            binding.chaimaButton.visibility = View.VISIBLE
-            binding.messaggiaButton.visibility = View.VISIBLE
             binding.tagText.text= "Tags:"
+
+            if(viewModel.user.cellNumber!=null) {
+                binding.chaimaButton.visibility = View.VISIBLE
+                binding.chaimaButton.setOnClickListener {
+                    val dialIntent = Intent(Intent.ACTION_DIAL)
+                    dialIntent.data = Uri.parse("tel:${viewModel.user.cellNumber}")
+                    startActivity(dialIntent)
+                }
+
+                binding.messaggiaButton.visibility = View.VISIBLE
+                binding.messaggiaButton.setOnClickListener {
+                    val messageIntent = Intent(Intent.ACTION_SENDTO)
+                    messageIntent.data = Uri.parse("smsto:${viewModel.user.cellNumber}")
+                    startActivity(messageIntent)
+                }
+            }
+
         } else {
             binding.chaimaButton.visibility = View.GONE
             binding.messaggiaButton.visibility = View.GONE
@@ -98,24 +124,27 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //TODO meglio nell' onCreateView ???
+
         Glide.with(this)
             .load(AccountManager.user.avatar)
             .placeholder(R.drawable.anonymous)
             .error(R.drawable.anonymous)
             .into(binding.accountImageView)
 
-
         loadTags()
         addPosts()
 
-        if (viewModel.nameInsta == " " || viewModel.nameInsta == null) binding.instaName.visibility =
-            View.INVISIBLE
-        if (viewModel.uid != AccountManager.user.uid) binding.modifyImage.visibility = View.GONE
-        if (viewModel.user.posts.isEmpty()) {
-            binding.postsRecyclerView.visibility = View.GONE
-            binding.noPost.visibility = View.VISIBLE
-        }
+//        if (viewModel.nameInsta == " " || viewModel.nameInsta == null) binding.instaName.visibility =
+//            View.INVISIBLE
+        //if (viewModel.uid != AccountManager.user.uid) binding.modifyImage.visibility = View.GONE
+//        if (viewModel.user.posts.isEmpty()) {
+//            binding.postsRecyclerView.visibility = View.GONE
+//            binding.noPost.visibility = View.VISIBLE
+//        }
+
+
+
+
         initialize()
     }
 
