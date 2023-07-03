@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +24,12 @@ import com.google.firebase.ktx.Firebase
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.SignupFragmentBinding
 import it.univpm.spottedkotlin.managers.AccountManager
+import it.univpm.spottedkotlin.managers.LogManager.TAG
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.SignUpViewModel
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class SignUpFragment : Fragment() {
@@ -57,9 +62,15 @@ class SignUpFragment : Fragment() {
             }
         })
 
-//        binding.doLoginText.setOnClickListener {
-//            binding.root.findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
-//        }
+        binding.singupSignupButton.setOnClickListener{
+            try {
+                runBlocking{ viewModel.signUp() }
+            }catch (e:Exception){
+                Log.e(TAG, e.toString())
+                binding.strongText.setTextColor(Color.RED)
+                binding.strongText.text= e.message
+            }
+        }
 
         binding.ControlPassword.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE)
@@ -73,6 +84,7 @@ class SignUpFragment : Fragment() {
     private fun goToMainActivity(){
         requireActivity().runOnUiThread { startActivity(Intent(activity, MainActivity::class.java)) }
     }
+
 
     /*
      0-No input
@@ -121,24 +133,21 @@ class SignUpFragment : Fragment() {
             1 ->{
                 binding.RegisterPassword.background=
                     context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }
-                binding.strongText.text= "Weak"
             }
 
             2 -> {
                 binding.RegisterPassword.background=
                     context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_orange) }
-                binding.strongText.text= "Normal"}
+                }
 
             3 ->{
                 binding.RegisterPassword.background=
                     context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_yellow) }
-                binding.strongText.text= "Normal"
             }
 
             4 ->{
                 binding.RegisterPassword.background=
                     context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_green) }
-                binding.strongText.text= "Strong"
             }
 
             else -> { // Note the block

@@ -1,6 +1,7 @@
 package it.univpm.spottedkotlin.managers
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.ActionCodeSettings
@@ -8,6 +9,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import it.univpm.spottedkotlin.managers.LogManager.TAG
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.User
 import kotlinx.coroutines.tasks.await
@@ -16,14 +18,17 @@ import kotlinx.coroutines.tasks.await
 object AccountManager {
 	private val auth = Firebase.auth
 	lateinit var user: User
+	private var MESSAGE_NO_CONNECTION="Qualcosa è andato storto!\nControlla la tua connessione e riprova!"
 	val userPosts: MutableList<Post> = mutableListOf()
 	val isUserInitialized get() = ::user.isInitialized
 
 	// Register new FirebaseAuth account and create new User object
 	suspend fun signup(email: String, password: String, newUser: User) {
-		val authResult = auth.createUserWithEmailAndPassword(email, password).await()
-			?: throw Exception("The email address is already in use by another account.")
-		signUpHandleAuthResult(authResult, newUser)
+		try {
+			val authResult = auth.createUserWithEmailAndPassword(email, password).await()
+			signUpHandleAuthResult(authResult, newUser)
+		}catch (e:Exception){throw Exception(MESSAGE_NO_CONNECTION)}
+
 	}
 
 	// Store a new User objet to FirebaseRD
@@ -85,5 +90,13 @@ object AccountManager {
 			throw Exception("No available email")
 
 		auth.sendPasswordResetEmail(auth.currentUser!!.email!!)
+	}
+
+	suspend fun isEmailUsed(email: String) : Boolean {
+		try {
+			val methods = auth.fetchSignInMethodsForEmail(email).await()
+			if (!(methods.signInMethods.isNullOrEmpty())) return true
+		}catch (e:Exception){throw Exception(MESSAGE_NO_CONNECTION)}
+		return false
 	}
 }

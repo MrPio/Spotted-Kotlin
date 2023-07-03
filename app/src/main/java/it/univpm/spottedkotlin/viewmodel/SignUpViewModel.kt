@@ -1,8 +1,11 @@
 package it.univpm.spottedkotlin.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.managers.AccountManager
+import it.univpm.spottedkotlin.managers.DatabaseManager
+import it.univpm.spottedkotlin.managers.LogManager.TAG
 import it.univpm.spottedkotlin.model.User
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -15,8 +18,9 @@ class SignUpViewModel : ViewModel() {
 	private val number: String = "0123456789"
 	private val special: String = "!\"#\$€%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 
-	//At least 6 character
+	//Almeno 6 caratteri, al massimo 10 (ideali 8)
 	private val MIN_LENGHT: Int = 6
+	private val MAX_LENGHT: Int = 10
 
 	var name: String = ""
 	var surname: String = ""
@@ -27,26 +31,42 @@ class SignUpViewModel : ViewModel() {
 	var repeat_password: String = ""
 	lateinit var goToMainActivityCallback: () -> Unit
 	lateinit var goToSignUpFragmentCallback: () -> Unit
-	lateinit var user: User
 
 
 	fun setInfo() {
-		println("\n\n\n" + gender.toString() + "null? \n\n\n")
-		user = User(name = name, surname = surname, instagramNickname = instaUrl, gender = gender)
+		AccountManager.user = User(name = name, surname = surname, instagramNickname = instaUrl, gender = gender)
 		goToSignUpFragmentCallback()
 	}
 
 
 	//Validazione della password
-	fun validation(): Boolean {
+	suspend fun validation(): Boolean {
 
-		if (password.length < MIN_LENGHT) return false
-		if (password != repeat_password) return false
+		if (!isEmailValid(email)) throw Exception("'E-mail' non valida")
+		if (AccountManager.isEmailUsed(email)) throw Exception("'E-mail' già in uso")
+		if (password.length < MIN_LENGHT) throw Exception("'Password' deve essere di almeno "+ MIN_LENGHT + " caratteri")
+		if (password.length > MAX_LENGHT) throw Exception("'Password' deve essere al più di "+ MAX_LENGHT + " caratteri")
+		if (password != repeat_password) throw Exception("'Password' deve essere uguale a\n'Ripeti password'")
 
 		for (i in pass_strong()) {
 			if (!i) return false
 		}
 		return true
+	}
+
+
+	/*Regular expression per verificare che:
+
+	1) Deve iniziare con una o più lettere, cifre o caratteri di sottolineatura \w+.
+	2) Può contenere un punto o un trattino seguito da una o più lettere, cifre o caratteri di sottolineatura ([.-]?\\w+)*.
+	3) Deve contenere il simbolo '@'.
+	4) Dopo l'@, deve seguire una o più lettere, cifre o caratteri di sottolineatura \\w+.
+	5) Può contenere un punto o un trattino seguito da una o più lettere, cifre o caratteri di sottolineatura ([.-]?\\w+)*.
+	6) Alla fine, deve terminare con un punto seguito da due o tre lettere \\.\\w{2,3}.
+	 */
+	fun isEmailValid(email: String): Boolean {
+		val emailRegex = Regex("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$")
+		return email.matches(emailRegex)
 	}
 
 	/*
@@ -85,19 +105,13 @@ class SignUpViewModel : ViewModel() {
 	}
 
 
-	fun signUp() {
-		try {
+	suspend fun signUp() {
 			if (validation()) {
 				MainScope().launch {
-					AccountManager.signup(email, password,user)
+					AccountManager.signup(email, password, AccountManager.user)
 					goToMainActivityCallback()
 				}
-			} else {
 			}
-
-		} catch (/*mia eccezione*/ _: Exception) {
-		}
-
 	}
 
 
