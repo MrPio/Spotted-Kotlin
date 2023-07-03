@@ -54,12 +54,12 @@ class FirstActivity : AppCompatActivity() {
 		// ======= DEBUG ZONE ========
 		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
-		SeederManager.seed(applicationContext)
-//WorkerManager.startOneTimeWorker<WorkerManager.NotificationWorker>(this)
+//		SeederManager.seed(applicationContext)
+//		WorkerManager.startOneTimeWorker<WorkerManager.NotificationWorker>(this)
 //		DatabaseManager.observeList2<Post>(
 //			"posts",
 //			observer = { post ->
-//val c=3
+//				val c = 3
 //			}
 //		)
 //		return
