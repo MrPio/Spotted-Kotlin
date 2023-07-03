@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
 			)
 		}
 		AccountManager.user.uid?.let { IOManager.writeKey("user_uid", it) }
+		WorkerManager.startOneTimeWorker<WorkerManager.NotificationWorker>(this)
+
 		observe()
 	}
 

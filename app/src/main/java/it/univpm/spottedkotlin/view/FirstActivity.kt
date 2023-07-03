@@ -55,7 +55,6 @@ class FirstActivity : AppCompatActivity() {
 		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
 //		SeederManager.seed(applicationContext)
-		WorkerManager.startOneTimeWorker<WorkerManager.NotificationWorker>(this)
 
 //		return
 

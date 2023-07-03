@@ -26,7 +26,6 @@ data class Post(
 	var spotted: Boolean = false,
 ) : Serializable, Validable {
 
-	@Exclude @JvmField
 	var uid: String? = null
 
 	@Exclude @JvmField

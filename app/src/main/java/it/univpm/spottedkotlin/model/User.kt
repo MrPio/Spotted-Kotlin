@@ -20,7 +20,6 @@ data class User(
 	val cellNumber: String? = null,
 	val instagramNickname: String? = null,
 ) {
-	@Exclude @JvmField
 	var uid: String? = null
 
 	@Exclude @JvmField
