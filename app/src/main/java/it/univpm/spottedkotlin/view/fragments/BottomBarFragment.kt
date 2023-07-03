@@ -45,6 +45,10 @@ class BottomBarFragment : Fragment() {
 		//The ViewModel is shared with MainActivity
 		binding.viewModel = requireContext().getActivity<MainActivity>()?.viewModel
 
+		val backupIndex = binding.viewModel?.currentFragment?.value ?: 0
+		if (backupIndex != 0)
+			changeIndex(0, backupIndex)
+
 		return binding.root
 	}
 
@@ -64,7 +68,7 @@ class BottomBarFragment : Fragment() {
 
 		//Circle Animation
 		circle.x = circles[from].rawX()
-		circle.y = circles[from].rawY() - 68
+//		circle.y = circles[from].rawY() - 68
 		circle.visibility = View.VISIBLE
 
 		circle.animate()

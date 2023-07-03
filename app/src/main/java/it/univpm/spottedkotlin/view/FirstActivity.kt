@@ -4,7 +4,9 @@ import android.R
 import android.app.AlertDialog
 import android.bluetooth.BluetoothClass.Device
 import android.content.Intent
+import android.hardware.display.DisplayManager
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -36,13 +38,14 @@ class FirstActivity : AppCompatActivity() {
 		binding.viewModel = viewModel
 	}
 
-	fun initializeManagers() {
+	private fun initializeManagers() {
 		DeviceManager.displayMetrics = this.metrics()
 		IOManager.initialize(baseContext)
 		MainScope().launch {
 			DataManager.fetchData(applicationContext);
 		}
 		DeviceManager.loadTheme()
+		DeviceManager.loadUiDensity(this)
 	}
 
 	fun goToMainActivity() {

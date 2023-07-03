@@ -3,6 +3,7 @@ package it.univpm.spottedkotlin.extension.function
 import android.app.AlertDialog
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
@@ -11,20 +12,28 @@ import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.databinding.DataBindingUtil
 import it.univpm.spottedkotlin.R
+import it.univpm.spottedkotlin.view.MainActivity
 
 fun Context.loadColor(res: Int) = this.resources.getColor(res, theme)
 fun Context.loadDrawable(res: Int) = AppCompatResources.getDrawable(this, res)
-inline fun <reified T> Context.getActivity(): T? {
+inline fun <reified T : AppCompatActivity> Context.getActivity(): T? {
 	var context = this
 	while (context is ContextWrapper) {
 		if (context is T) return context
 		context = context.baseContext
 	}
 	return null
+}
+
+inline fun <reified T : AppCompatActivity> Context.restartActivity(){
+	this.getActivity<T>()?.finish()
+	ContextCompat.startActivity(this, Intent(this, T::class.java), null)
 }
 
 fun <T> Context.inflate(layout: Int, parent: ViewGroup? = null, attachToParent: Boolean = false) =

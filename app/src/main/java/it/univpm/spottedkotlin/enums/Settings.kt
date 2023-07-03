@@ -7,6 +7,7 @@ enum class Settings(
 	private val default: Any? = null,
 ) {
 	APPEARANCE_THEME(default = 0),
+	APPEARANCE_SCALE_UI(default = 3),
 
 	FILTER_SPOTTED,
 	FILTER_MINE,
@@ -16,7 +17,7 @@ enum class Settings(
 	CHAT_TIME(default = true),
 
 	MAP_BOUNDARY(default = true),
-	MAP_MARKERS_SIZE(default = 2);
+	MAP_MARKERS_SIZE(default = 3);
 
 	val id get() = _id ?: name.uppercase()
 	var value

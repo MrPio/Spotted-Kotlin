@@ -33,7 +33,8 @@ class MainActivity : AppCompatActivity() {
 		binding.executePendingBindings()
 		supportFragmentManager.commit {
 			add(
-				binding.mainFragmentContainer.id, viewModel.fragments[0]
+				binding.mainFragmentContainer.id,
+				viewModel.fragments[viewModel.currentFragment.value ?: 0]
 			)
 			add(
 				binding.bottomBarContainer.id, viewModel.bottomBarFragment
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
 			if (currIndex != viewModel.lastIndex)
 				viewModel.bottomBarFragment.changeIndex(viewModel.lastIndex, currIndex)
+
 
 			//Transition with Animation framework
 			supportFragmentManager.commit {

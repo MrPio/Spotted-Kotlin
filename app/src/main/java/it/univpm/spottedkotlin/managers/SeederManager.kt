@@ -410,8 +410,18 @@ object SeederManager {
 					options = listOf("Automatico", "Tema chiaro", "Tema scuro"),
 					action = { context ->
 						DeviceManager.loadTheme()
-						startActivity(context, Intent(context, MainActivity::class.java),null)
-						context.getActivity<MainActivity>()?.finish()
+						context.restartActivity<MainActivity>()
+					}
+				),
+				SettingItem(
+					id = Settings.APPEARANCE_SCALE_UI.id,
+					title = "Dimensioni UI",
+					subtitle = "Scala le dimensioni dell'interfaccia grafica.",
+					type = SettingType.RADIO,
+					options = listOf("85%", "90%", "95%", "100%","105%", "110%"),
+					action = { context ->
+						DeviceManager.loadUiDensity(context)
+						context.restartActivity<MainActivity>()
 					}
 				),
 			),

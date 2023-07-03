@@ -62,7 +62,7 @@ class MapViewModel : ViewModel() {
 					whiteCircleBitmap,
 					BitmapManager.load(avatarUrl),
 				)
-				val size = Settings.MAP_MARKERS_SIZE.int!! * 15 + 110
+				val size = Settings.MAP_MARKERS_SIZE.int!! * 20 + 110
 				overlayItem.setMarker(
 					context.loadBitmapDrawable(bitmap, size, size)
 				)
