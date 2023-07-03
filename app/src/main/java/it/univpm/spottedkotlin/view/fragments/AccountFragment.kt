@@ -5,31 +5,40 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.adapter.AccountPostsAdapter
+import it.univpm.spottedkotlin.adapter.TagsAdapter
 import it.univpm.spottedkotlin.databinding.AccountFragmentBinding
+import it.univpm.spottedkotlin.databinding.SelectTagPopupBinding
 import it.univpm.spottedkotlin.databinding.TagItemAddBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
+import it.univpm.spottedkotlin.extension.function.addViewLast
 import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.extension.function.loadUrl
+import it.univpm.spottedkotlin.extension.function.showAlertDialog
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
+import it.univpm.spottedkotlin.managers.LogManager.TAG
+import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.model.User
 import it.univpm.spottedkotlin.viewmodel.AccountViewModel
+import it.univpm.spottedkotlin.viewmodel.TagItemAddViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import kotlinx.coroutines.runBlocking
 
 class AccountFragment : Fragment() {
     private lateinit var binding: AccountFragmentBinding
     private lateinit var viewModel: AccountViewModel
-	lateinit var user: User
+    lateinit var user: User
 
     private lateinit var layoutManager: LinearLayoutManager
     private var accountPostsAdapter: AccountPostsAdapter = AccountPostsAdapter(mutableListOf())
@@ -52,13 +61,13 @@ class AccountFragment : Fragment() {
 
 
         val uid = arguments?.getString("uid")
-		if (uid != null) {
-			runBlocking{
-				user = DataManager.loadUser(uid)
-			}
-		} else {
-			user = AccountManager.user
-		}
+        if (uid != null) {
+            runBlocking {
+                user = DataManager.loadUser(uid)
+            }
+        } else {
+            user = AccountManager.user
+        }
         viewModel = AccountViewModel(user)
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.postsRecyclerView.layoutManager = layoutManager
@@ -80,6 +89,7 @@ class AccountFragment : Fragment() {
             binding.modifyImage.visibility = View.GONE
             binding.chaimaButton.visibility = View.VISIBLE
             binding.messaggiaButton.visibility = View.VISIBLE
+            binding.tagText.text= "Tags:"
         } else {
             binding.chaimaButton.visibility = View.GONE
             binding.messaggiaButton.visibility = View.GONE
@@ -96,14 +106,13 @@ class AccountFragment : Fragment() {
             .into(binding.accountImageView)
 
 
-        addTags()
+        loadTags()
         addPosts()
 
         if (viewModel.nameInsta == " " || viewModel.nameInsta == null) binding.instaName.visibility =
             View.INVISIBLE
-        print(viewModel.uid + " " + AccountManager.user.uid + "\n\n\n\n\n\n")
         if (viewModel.uid != AccountManager.user.uid) binding.modifyImage.visibility = View.GONE
-        if (viewModel.userPosts.isEmpty()) {
+        if (viewModel.user.posts.isEmpty()) {
             binding.postsRecyclerView.visibility = View.GONE
             binding.noPost.visibility = View.VISIBLE
         }
@@ -130,19 +139,60 @@ class AccountFragment : Fragment() {
         }
     }
 
-    fun addTags() {
+    fun loadTags() {
         for (tag in viewModel.tags) {
             val tagBinding: TagItemBinding = binding.root.context.inflate(R.layout.tag_item)
             tagBinding.viewModel = TagItemViewModel()
             tagBinding.model = tag
             binding.addAccountTagsGrid.addView(tagBinding.root)
         }
-        val tagBinding: TagItemAddBinding = binding.root.context.inflate(R.layout.tag_item_add)
-        binding.addAccountTagsGrid.addView(tagBinding.root)
+        if (viewModel.uid == AccountManager.user.uid || binding.addAccountTagsGrid.isEmpty()) {
+            val addTagBinding: TagItemAddBinding = binding.root.context.inflate(R.layout.tag_item_add)
+            addTagBinding.viewModel = TagItemAddViewModel()
+            addTagBinding.onClickListener = View.OnClickListener { addTags() }
+            binding.addAccountTagsGrid.addView(addTagBinding.root)
+        }
+
+    }
+
+    private fun addTags() {
+
+        // Recover the users's current tags
+        val selectedTags = mutableSetOf<Tag>()
+        viewModel.user.tags.let { selectedTags.addAll(it) }
+
+        // Inflate SelectTagPopupBinding
+        val popupBinding =
+            SelectTagPopupBinding.inflate(layoutInflater, null, false)
+        popupBinding.tagsAdapter = TagsAdapter(
+            tags = DataManager.tags.toList(),
+            selectedTags = selectedTags
+        ) {
+            // TagClickCallback
+                tag, checked ->
+            if (checked)
+                tag?.let { selectedTags.add(it) }
+            else
+                selectedTags.remove(tag)
+        }
+
+        // Show AlertDialog
+        context?.showAlertDialog(
+            title = "Scegli dei tag da aggiungere",
+            view = popupBinding.root,
+            positiveText = "Aggiungi",
+            positiveCallback = {
+                binding.addAccountTagsGrid.removeAllViews()
+                viewModel.user.tags.clear()
+                AccountManager.user.tags.addAll(selectedTags)
+                loadTags()
+                DataManager.save(viewModel.user)
+            }
+        )
     }
 
     fun addPosts() {
-        accountPostsAdapter.updatePosts(viewModel.userPosts)
+        accountPostsAdapter.updatePosts(viewModel.user.posts)
     }
 
 

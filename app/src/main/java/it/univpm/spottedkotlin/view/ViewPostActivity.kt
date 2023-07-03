@@ -65,9 +65,10 @@ class ViewPostActivity : AppCompatActivity() {
 		binding.exitOnClick = View.OnClickListener { finishAfterTransition() }
 
 		binding.accountOnClick = View.OnClickListener {
+			if (viewModel.post.authorUID != null){
 			val intent = Intent(this, AccountActivity::class.java)
 			intent.putExtra("userUID", viewModel.post.authorUID)
-			this.startActivity(intent)
+			this.startActivity(intent)}
 		}
 		binding.commentsOnClick = View.OnClickListener {
 			val intent = Intent(this, CommentsActivity::class.java)

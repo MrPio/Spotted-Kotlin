@@ -42,7 +42,7 @@ class SignUpViewModel : ViewModel() {
 	//Validazione della password
 	suspend fun validation(): Boolean {
 
-		if (!isEmailValid(email)) throw Exception("'E-mail' non valida")
+		if (!AccountManager.isEmailValid(email)) throw Exception("'E-mail' non valida")
 		if (AccountManager.isEmailUsed(email)) throw Exception("'E-mail' già in uso")
 		if (password.length < MIN_LENGHT) throw Exception("'Password' deve essere di almeno "+ MIN_LENGHT + " caratteri")
 		if (password.length > MAX_LENGHT) throw Exception("'Password' deve essere al più di "+ MAX_LENGHT + " caratteri")
@@ -64,10 +64,6 @@ class SignUpViewModel : ViewModel() {
 	5) Può contenere un punto o un trattino seguito da una o più lettere, cifre o caratteri di sottolineatura ([.-]?\\w+)*.
 	6) Alla fine, deve terminare con un punto seguito da due o tre lettere \\.\\w{2,3}.
 	 */
-	fun isEmailValid(email: String): Boolean {
-		val emailRegex = Regex("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$")
-		return email.matches(emailRegex)
-	}
 
 	/*
 	0-No input

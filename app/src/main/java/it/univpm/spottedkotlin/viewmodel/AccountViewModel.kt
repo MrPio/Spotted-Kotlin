@@ -14,10 +14,6 @@ import kotlinx.coroutines.launch
 import okhttp3.internal.wait
 
 class AccountViewModel(val user: User) : ViewModel() {
-    //lateinit var user: User
-    //lateinit var userPosts: MutableList<Post>
-
-    var userPosts: MutableList<Post> = AccountManager.userPosts
 
     var uid:String? = user.uid
     var avatar:String = user.avatar
@@ -28,19 +24,5 @@ class AccountViewModel(val user: User) : ViewModel() {
     var numFollowing:String = user.following.size.toString()
     var numComment:String= user.comments.size.toString()
     var tags: MutableList<Tag> = user.tags
-
-
-//    suspend fun setUser (user: User){
-//        if(user==AccountManager.user) {
-//            this.user = AccountManager.user
-//            this.userPosts = AccountManager.userPosts
-//        }
-//        else {
-//            //this.user = DataManager.loadUser(uid)
-//            //userPosts = DataManager.loadUserPost(uid)
-//            this.user = user
-//            this.userPosts = DataManager.loadUserPost(user.uid)
-//        }
-//    }
 }
 

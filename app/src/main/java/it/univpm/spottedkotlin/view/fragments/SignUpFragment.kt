@@ -66,7 +66,6 @@ class SignUpFragment : Fragment() {
             try {
                 runBlocking{ viewModel.signUp() }
             }catch (e:Exception){
-                Log.e(TAG, e.toString())
                 binding.strongText.setTextColor(Color.RED)
                 binding.strongText.text= e.message
             }

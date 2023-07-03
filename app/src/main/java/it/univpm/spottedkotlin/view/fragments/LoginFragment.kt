@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -15,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.LoginFragmentBinding
 import it.univpm.spottedkotlin.managers.AccountManager
@@ -23,6 +25,7 @@ import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.LoginViewModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class LoginFragment : Fragment() {
 	private lateinit var binding: LoginFragmentBinding
@@ -53,13 +56,8 @@ class LoginFragment : Fragment() {
 							val account = task.getResult(ApiException::class.java)!!
 							AccountManager.login(account)
 							goToMainActivity()
-						} catch (_: ApiException) {
 						} catch (e: Exception) {
-							if (e.message?.contains("user not found in database") == true) {
-
-							} else if (e.message?.contains("user not found in auth") == true) {
-
-							}
+							binding.error.text = e.message
 						}
 					}
 				}
@@ -73,6 +71,28 @@ class LoginFragment : Fragment() {
 			binding.root.findNavController()
 				.navigate(R.id.action_loginFragment_to_signUpGeneralFragment)
 		}
+
+		binding.loginButton.setOnClickListener {
+
+			if(binding.TextPassword.text.toString() == ""){binding.TextPassword.background=
+				context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }}
+			else {binding.TextPassword.background=
+				context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_grey) }}
+
+			if (!AccountManager.isEmailValid(viewModel.email)){ binding.TextEmail.background=
+				context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_red) }
+				binding.error.text = "E-mail non valida"}
+			else {binding.TextEmail.background=
+				context?.let { ContextCompat.getDrawable(it, R.drawable.text_view_border_grey) }}
+
+			if (binding.TextPassword.text.toString() != "" && AccountManager.isEmailValid(viewModel.email)) {
+				try {
+					viewModel.login()
+				} catch (e: Exception) {
+					binding.error.text = e.message}
+			}
+		}
+
 
 		binding.loginGoogleButton.setOnClickListener {
 			resultLauncher.launch(googleSignInClient.signInIntent)

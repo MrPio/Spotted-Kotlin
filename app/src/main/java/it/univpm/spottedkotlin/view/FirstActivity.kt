@@ -1,7 +1,6 @@
 package it.univpm.spottedkotlin.view
 
 import android.Manifest
-import android.R
 import android.app.AlertDialog
 import android.bluetooth.BluetoothClass.Device
 import android.content.Intent
@@ -39,7 +38,7 @@ class FirstActivity : AppCompatActivity() {
 		binding = FirstActivityBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 		binding.viewModel = viewModel
-		NotificationManager.notify(this, "ciao", "descrdescrdescrdescrdescr")
+		//NotificationManager.notify(this, "ciao", "descrdescrdescrdescrdescr")
 
 	}
 
@@ -64,15 +63,6 @@ class FirstActivity : AppCompatActivity() {
 
 	override fun onStart() {
 		super.onStart()
-
-		// ======= DEBUG ZONE ========
-		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
-
-//		SeederManager.seed(applicationContext)
-//WorkerManager.startNotificationWorker(this)
-		return
-//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
-
 		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {
 			if (AccountManager.cacheLogin())
@@ -81,5 +71,15 @@ class FirstActivity : AppCompatActivity() {
 				binding.firstLoadingView.loadingViewRoot.visibility = View.GONE
 			}
 		}
+
+		// ======= DEBUG ZONE ========
+		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
+
+//		SeederManager.seed(applicationContext)
+//WorkerManager.startNotificationWorker(this)
+		//return
+//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
+
+
 	}
 }

@@ -8,17 +8,14 @@ import kotlinx.coroutines.launch
 
 
 class LoginViewModel : ViewModel() {
-	var email: String = ""
-	var password: String = ""
-	lateinit var goToMainActivityCallback: () -> Unit
+    var email: String = ""
+    var password: String = ""
+    lateinit var goToMainActivityCallback: () -> Unit
 
-	fun login() {
-		try {
-			MainScope().launch {
-				AccountManager.login(email, password)
-				goToMainActivityCallback()
-			}
-		} catch (_: Exception) {
-		}
-	}
+    fun login() {
+        MainScope().launch {
+            AccountManager.login(email, password)
+            goToMainActivityCallback()}
+    }
+
 }
