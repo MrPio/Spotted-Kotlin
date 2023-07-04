@@ -12,7 +12,9 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.Colors
+import it.univpm.spottedkotlin.view.FirstActivity
 import it.univpm.spottedkotlin.view.MainActivity
+import it.univpm.spottedkotlin.view.ViewPostActivity
 
 object NotificationManager {
 	enum class NotificationChannel(
@@ -21,7 +23,8 @@ object NotificationManager {
 		val description: String,
 		val importance: Int = android.app.NotificationManager.IMPORTANCE_DEFAULT
 	) {
-		GENERAL("0", "Notifiche dei post", "Canale di notifiche principale di Spotted!"),
+		GENERAL("0", "Persone spottate", "Notifiche di post seguiti spottati"),
+		CHAT("1", "Nuovi commenti", "Notifiche dei commenti ai post seguiti"),
 	}
 
 	private const val CHANNEL_ID = "spotted"
@@ -53,12 +56,25 @@ object NotificationManager {
 		secondMessage: String? = null,
 		secondSubtitle: String? = null,
 		notificationChannel: NotificationChannel = NotificationChannel.GENERAL,
+		extras: List<Pair<String, java.io.Serializable>> = listOf()
 	) {
 		createNotificationChannel(context, notificationChannel)
 
-//		val intent = Intent(context, MainActivity::class.java)
-//		val pendingIntent =
-//			PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT )
+		val intent = Intent(context, FirstActivity::class.java).apply {
+			extras.forEach {
+				putExtra(
+					it.first,
+					it.second
+				)
+			}
+		}
+		val pendingIntent =
+			PendingIntent.getActivity(
+				context,
+				0,
+				intent,
+				PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+			)
 
 		val bigText = NotificationCompat.BigTextStyle()
 		bigText.bigText(secondSubtitle)
@@ -71,7 +87,7 @@ object NotificationManager {
 			.setChannelId(notificationChannel.id)
 			.setPriority(NotificationCompat.PRIORITY_DEFAULT)
 			.setStyle(bigText)
-//			.setContentIntent(pendingIntent)
+			.setContentIntent(pendingIntent)
 			.setAutoCancel(true)
 			.build()
 
@@ -81,7 +97,7 @@ object NotificationManager {
 				context, Manifest.permission.POST_NOTIFICATIONS
 			) == PackageManager.PERMISSION_GRANTED
 		) {
-			notificationManager.notify(NOTIFICATION_ID, notification)
+			notificationManager.notify(notificationChannel.id.toInt(), notification)
 		}
 	}
 }

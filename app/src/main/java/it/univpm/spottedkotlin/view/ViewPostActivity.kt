@@ -37,11 +37,11 @@ class ViewPostActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		binding = ViewPostActivityBinding.inflate(layoutInflater)
 		setContentView(binding.root)
+
 		val postUID = intent.getStringExtra("postUID")
 		var post = DataManager.posts.find { it.uid == postUID }
-		//if(post==null) runBlocking{ post = DatabaseManager.get<Post>("posts/$postUID") }
-		Log.e(TAG, post.toString())
-		//if (post==null) runBlocking {DatabaseManager.get<Post>("posts/"+postUID)}
+		if (post == null) runBlocking { post = DatabaseManager.get<Post>("posts/$postUID") }
+
 		viewModel = ViewPostViewModel(post ?: Post())
 		binding.viewPostSpotted.setOnClickListener { spotted() }
 		initialize()
@@ -73,15 +73,14 @@ class ViewPostActivity : AppCompatActivity() {
 		binding.exitOnClick = View.OnClickListener { finishAfterTransition() }
 
 		binding.accountOnClick = View.OnClickListener {
-			if (viewModel.post.authorUID != null){
-			val intent = Intent(this, AccountActivity::class.java)
-			intent.putExtra("userUID", viewModel.post.authorUID)
-			this.startActivity(intent)}
+			if (viewModel.post.authorUID != null) {
+				val intent = Intent(this, AccountActivity::class.java)
+				intent.putExtra("userUID", viewModel.post.authorUID)
+				this.startActivity(intent)
+			}
 		}
 		binding.commentsOnClick = View.OnClickListener {
-			val intent = Intent(this, CommentsActivity::class.java)
-			intent.putExtra("postUID", viewModel.post.uid)
-			this.startActivity(intent)
+			gotoComments()
 		}
 
 		binding.userAccount.setOnClickListener {
@@ -92,6 +91,17 @@ class ViewPostActivity : AppCompatActivity() {
 			viewModel.initialize()
 		}
 		loadTags()
+
+		if (intent.getBooleanExtra("comments", false)){
+			intent.removeExtra("comments")
+			gotoComments()
+		}
+	}
+
+	private fun gotoComments() {
+		val intent = Intent(this, CommentsActivity::class.java)
+		intent.putExtra("postUID", viewModel.post.uid)
+		this.startActivity(intent)
 	}
 
 	private fun loadTags() {

@@ -41,7 +41,12 @@ class MainActivity : AppCompatActivity() {
 			)
 		}
 		AccountManager.user.uid?.let { IOManager.writeKey("user_uid", it) }
-		//WorkerManager.startOneTimeWorker<WorkerManager.NotificationWorker>(this)
+		MainScope().launch {
+			WorkerManager.startPeriodicWorker<WorkerManager.NotificationWorker>(
+				this@MainActivity,
+				"NotificationWorker"
+			)
+		}
 
 		observe()
 	}

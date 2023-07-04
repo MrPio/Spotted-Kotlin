@@ -41,9 +41,14 @@ class FirstActivity : AppCompatActivity() {
 			this.checkAndAskPermission(Manifest.permission.POST_NOTIFICATIONS)
 	}
 
-	fun goToMainActivity() {
+	fun goToMainActivity(activity: Class<*> = MainActivity::class.java) {
 		runOnUiThread {
-			startActivity(Intent(this, MainActivity::class.java))
+			val intent = Intent(this, activity).apply {
+				if (activity == ViewPostActivity::class.java)
+					this.putExtra("postUID", intent.getStringExtra("postUID"))
+						.putExtra("comments", intent.getBooleanExtra("comments", false))
+			}
+			startActivity(intent)
 			finish()
 		}
 	}
@@ -62,8 +67,13 @@ class FirstActivity : AppCompatActivity() {
 
 		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {
-			if (AccountManager.cacheLogin())
-				goToMainActivity()
+			if (AccountManager.cacheLogin()) {
+				if (intent.hasExtra("goto"))
+					goToMainActivity(intent.getSerializableExtra("goto") as Class<*>)
+				else
+					goToMainActivity()
+
+			}
 			runOnUiThread {
 				binding.firstLoadingView.loadingViewRoot.visibility = View.GONE
 			}

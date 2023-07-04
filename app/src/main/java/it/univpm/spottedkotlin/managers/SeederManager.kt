@@ -3,6 +3,7 @@ package it.univpm.spottedkotlin.managers
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
 import androidx.core.content.ContextCompat.startActivity
 import it.univpm.spottedkotlin.R
@@ -416,7 +417,7 @@ object SeederManager {
 					title = "Dimensioni UI",
 					subtitle = "Scala le dimensioni dell'interfaccia grafica.",
 					type = SettingType.RADIO,
-					options = listOf("85%", "90%", "95%", "100%","105%", "110%"),
+					options = listOf("85%", "90%", "95%", "100%", "105%", "110%"),
 					action = { context ->
 						DeviceManager.loadUiDensity(context)
 						context.restartActivity<MainActivity>()
@@ -534,35 +535,50 @@ object SeederManager {
 			),
 		),
 		SettingMenu(
-			icon = context.getString(R.string.StarOutline),
-			title = "Valutaci",
-			subtitle = "Dacci la tua opinione!",
+			icon = context.getString(R.string.ChartBoxOutline),
+			title = "Statistiche",
+			subtitle = "Visualizza le tue statistiche su Spotted",
 			items = listOf(
 				SettingItem(
-					title = "Lascia una tua recenzione",
-					subtitle = "Valuta l'applicazione e aiutaci a migliorarla.",
+					title = "Statistiche sul profilo",
+					subtitle = "Scopri le tue abitudini nell'interazione con l'app.",
+					type = SettingType.ALERT_OK,
+					alertMessage = "Spiacenti, ma questa funzionalità non è stata ancora implementata... Non sarebbe grandioso però?",
+				),
+				SettingItem(
+					title = "Statistiche sui post",
+					subtitle = "Scopri le tue interazioni con i post di Spotted!.",
+					type = SettingType.ALERT_OK,
+					alertMessage = "Spiacenti, ma questa funzionalità non è stata ancora implementata... Non sarebbe grandioso però?",
+				),
+				SettingItem(
+					title = "Statistiche sulla community",
+					subtitle = "Scopri le tue abitudini nell'interazione con la community.",
+					type = SettingType.ALERT_OK,
+					alertMessage = "Spiacenti, ma questa funzionalità non è stata ancora implementata... Non sarebbe grandioso però?",
+				),
+			),
+		),
+		SettingMenu(
+			icon = context.getString(R.string.BellOutline),
+			title = "Notifiche",
+			subtitle = "Modifica le preferenze di notifiche.",
+			items = listOf(
+				SettingItem(
+					title = "Modifica i canali di notifica.",
+					subtitle = "Attiva o disattiva le tipologie di notifiche che vuoi ricevere.",
 					type = SettingType.ACTION,
 					action = {
-						try {
-							startActivity(
-								context,
-								Intent(
-									Intent.ACTION_VIEW,
-									Uri.parse("market://details?id=spotted")
-								).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) },
-								null
-							)
-						} catch (e: ActivityNotFoundException) {
-							// Play Store app is not installed, fallback to opening the Play Store website
-							startActivity(
-								context,
-								Intent(
-									Intent.ACTION_VIEW,
-									Uri.parse("https://play.google.com/store/apps/details?id=spotted")
-								).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) },
-								null
+						val mainActivity = context.getActivity<MainActivity>()
+						val intent = Intent().apply {
+							addFlags(FLAG_ACTIVITY_NEW_TASK)
+							action = "android.settings.APP_NOTIFICATION_SETTINGS"
+							putExtra(
+								"android.provider.extra.APP_PACKAGE",
+								mainActivity?.packageName
 							)
 						}
+						startActivity(context, intent, null)
 					},
 				),
 			),
