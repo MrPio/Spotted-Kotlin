@@ -4,10 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.firebase.auth.ActionCodeSettings
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import it.univpm.spottedkotlin.managers.LogManager.TAG
@@ -60,8 +57,8 @@ object AccountManager {
             val authResult = auth.signInWithEmailAndPassword(email, password).await()
             loginHandleAuthResult(authResult)
         } catch (e: Exception) {
-            throw Exception(e.message)
-        }
+            throw Exception("E-mail o password errate")
+            }
     }
 
     // Perform FirebaseAuth login with Google provider
@@ -110,6 +107,15 @@ object AccountManager {
         return false
     }
 
+    /*Regular expression per verificare che:
+
+	1) Deve iniziare con una o più lettere, cifre o caratteri di sottolineatura \w+.
+	2) Può contenere un punto o un trattino seguito da una o più lettere, cifre o caratteri di sottolineatura ([.-]?\\w+)*.
+	3) Deve contenere il simbolo '@'.
+	4) Dopo l'@, deve seguire una o più lettere, cifre o caratteri di sottolineatura \\w+.
+	5) Può contenere un punto o un trattino seguito da una o più lettere, cifre o caratteri di sottolineatura ([.-]?\\w+)*.
+	6) Alla fine, deve terminare con un punto seguito da due o tre lettere \\.\\w{2,3}.
+	 */
     fun isEmailValid(email: String): Boolean {
         val emailRegex = Regex("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$")
         return email.matches(emailRegex)

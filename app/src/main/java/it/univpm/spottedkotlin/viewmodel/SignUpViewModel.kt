@@ -56,17 +56,6 @@ class SignUpViewModel : ViewModel() {
 		return true
 	}
 
-
-	/*Regular expression per verificare che:
-
-	1) Deve iniziare con una o più lettere, cifre o caratteri di sottolineatura \w+.
-	2) Può contenere un punto o un trattino seguito da una o più lettere, cifre o caratteri di sottolineatura ([.-]?\\w+)*.
-	3) Deve contenere il simbolo '@'.
-	4) Dopo l'@, deve seguire una o più lettere, cifre o caratteri di sottolineatura \\w+.
-	5) Può contenere un punto o un trattino seguito da una o più lettere, cifre o caratteri di sottolineatura ([.-]?\\w+)*.
-	6) Alla fine, deve terminare con un punto seguito da due o tre lettere \\.\\w{2,3}.
-	 */
-
 	/*
 	0-No input
 	1-Weak
@@ -101,7 +90,6 @@ class SignUpViewModel : ViewModel() {
 		return listOf<Boolean>(checkChar, checkCharUp, checkSpecial, checkNumber)
 
 	}
-
 
 	suspend fun signUp() {
 			if (validation()) {

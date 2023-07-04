@@ -81,7 +81,8 @@ class SignUpFragment : Fragment() {
     }
 
     private fun goToMainActivity(){
-        requireActivity().runOnUiThread { startActivity(Intent(activity, MainActivity::class.java)) }
+        requireActivity().runOnUiThread { startActivity(Intent(activity, MainActivity::class.java))
+            requireActivity().finish()}
     }
 
 
