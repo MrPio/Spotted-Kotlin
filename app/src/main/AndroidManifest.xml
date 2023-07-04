@@ -25,28 +25,33 @@
 		<activity
 			android:name = ".view.ViewPostActivity"
 			android:exported = "false"
+			android:screenOrientation="portrait"
 			android:theme = "@style/Theme.SpottedKotlin.NoActionBar"/>
 
 		<activity
 			android:name = ".view.CommentsActivity"
 			android:exported = "false"
+			android:screenOrientation="portrait"
 			android:theme = "@style/Theme.SpottedKotlin.NoActionBar"/>
 
 		<activity
 			android:name = ".view.MainActivity"
 			android:exported = "true"
+			android:screenOrientation="portrait"
 			android:theme = "@style/Theme.SpottedKotlin.NoActionBar">
 		</activity>
 
 		<activity
 			android:name = ".view.AccountActivity"
 			android:exported = "true"
+			android:screenOrientation="portrait"
 			android:theme = "@style/Theme.SpottedKotlin.NoActionBar">
 		</activity>
 
 		<activity
 			android:name = ".view.FirstActivity"
 			android:exported = "true"
+			android:screenOrientation="portrait"
 			android:theme = "@style/Theme.SpottedKotlin.NoActionBar"
 			android:windowSoftInputMode = "adjustPan">
 			<intent-filter>
