@@ -6,42 +6,46 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.KeyEventDispatcher.dispatchKeyEvent
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import it.univpm.spottedkotlin.R
+import it.univpm.spottedkotlin.adapter.AccountFollowingAdapter
 import it.univpm.spottedkotlin.adapter.AccountPostsAdapter
 import it.univpm.spottedkotlin.adapter.TagsAdapter
 import it.univpm.spottedkotlin.databinding.AccountFragmentBinding
 import it.univpm.spottedkotlin.databinding.SelectTagPopupBinding
 import it.univpm.spottedkotlin.databinding.TagItemAddBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
-import it.univpm.spottedkotlin.extension.function.addViewLast
-import it.univpm.spottedkotlin.extension.function.inflate
-import it.univpm.spottedkotlin.extension.function.loadUrl
-import it.univpm.spottedkotlin.extension.function.showAlertDialog
+import it.univpm.spottedkotlin.extension.function.*
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.managers.LogManager.TAG
 import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.model.User
+import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.AccountViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemAddViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import kotlinx.coroutines.runBlocking
+import kotlin.math.max
 
 class AccountFragment : Fragment() {
     private lateinit var binding: AccountFragmentBinding
     private lateinit var viewModel: AccountViewModel
     lateinit var user: User
 
-    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var postLayoutManager: LinearLayoutManager
+    private lateinit var followingLayoutManager: LinearLayoutManager
     private var accountPostsAdapter: AccountPostsAdapter = AccountPostsAdapter(mutableListOf())
+    private var accountFollowingAdapter: AccountFollowingAdapter = AccountFollowingAdapter(mutableListOf())
 
     private val PICK_IMAGE_REQUEST = 1
 
@@ -70,9 +74,16 @@ class AccountFragment : Fragment() {
         }
 
         viewModel = AccountViewModel(user)
-        layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.postsRecyclerView.layoutManager = layoutManager
+
+        postLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        followingLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        binding.postsRecyclerView.layoutManager = postLayoutManager
+        binding.followingRecyclerView.layoutManager = followingLayoutManager
+
         binding.postsAdapter = accountPostsAdapter
+        binding.followingAdapter = accountFollowingAdapter
+
         binding.accountImageView.loadUrl(viewModel.avatar)
         initialize()
         return binding.root
@@ -93,12 +104,21 @@ class AccountFragment : Fragment() {
             binding.noPost.visibility = View.VISIBLE
         }
 
+        if (viewModel.user.followingPosts.isEmpty()) {
+            binding.followingRecyclerView.visibility = View.GONE
+            binding.noFollowingPost.visibility = View.VISIBLE
+        }
+
         if (viewModel.nameInsta == " " || viewModel.nameInsta == null) binding.instaName.visibility =
             View.INVISIBLE
 
         if (viewModel.uid != AccountManager.user.uid) {
             binding.modifyImage.visibility = View.GONE
             binding.tagText.text= "Tags:"
+
+            binding.backButton.setOnClickListener {
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
 
             if(viewModel.user.cellNumber!=null) {
                 binding.chaimaButton.visibility = View.VISIBLE
@@ -119,6 +139,7 @@ class AccountFragment : Fragment() {
         } else {
             binding.chaimaButton.visibility = View.GONE
             binding.messaggiaButton.visibility = View.GONE
+            binding.backButton.visibility = View.GONE
         }
     }
 
@@ -131,20 +152,13 @@ class AccountFragment : Fragment() {
             .error(R.drawable.anonymous)
             .into(binding.accountImageView)
 
+        binding.profileScrollview.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            context?.getActivity<MainActivity>()?.binding?.bottomBarContainer?.translationY =
+                scrollY.toFloat()
+        }
+
         loadTags()
         addPosts()
-
-//        if (viewModel.nameInsta == " " || viewModel.nameInsta == null) binding.instaName.visibility =
-//            View.INVISIBLE
-        //if (viewModel.uid != AccountManager.user.uid) binding.modifyImage.visibility = View.GONE
-//        if (viewModel.user.posts.isEmpty()) {
-//            binding.postsRecyclerView.visibility = View.GONE
-//            binding.noPost.visibility = View.VISIBLE
-//        }
-
-
-
-
         initialize()
     }
 
@@ -222,6 +236,7 @@ class AccountFragment : Fragment() {
 
     fun addPosts() {
         accountPostsAdapter.updatePosts(viewModel.posts)
+        accountFollowingAdapter.updatePosts(viewModel.user.followingPosts)
     }
 
 

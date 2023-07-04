@@ -46,6 +46,7 @@ object AccountManager {
         IOManager.readKey("user_uid")?.let { uid ->
             user = DataManager.loadUser(uid as String)
             DataManager.loadUserPosts(user)
+            DataManager.loadUserFollowingPosts(user)
             return user != DataManager.anonymous
         }
         return false
@@ -74,6 +75,7 @@ object AccountManager {
             val uid = authResult.user?.uid
             user = DataManager.loadUser(uid)
             DataManager.loadUserPosts(user)
+            DataManager.loadUserFollowingPosts(user)
             if (user == DataManager.anonymous)
                 throw Exception("Credenziali non corrette.\nControlla e riprova")
         } else

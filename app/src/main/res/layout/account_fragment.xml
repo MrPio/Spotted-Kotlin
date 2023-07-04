@@ -1,285 +1,377 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android = "http://schemas.android.com/apk/res/android"
-		xmlns:app = "http://schemas.android.com/apk/res-auto"
-		xmlns:tools = "http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-	<data>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="it.univpm.spottedkotlin.viewmodel.AccountViewModel" />
+
+        <variable
+            name="posts_adapter"
+            type="it.univpm.spottedkotlin.adapter.AccountPostsAdapter" />
+
 		<variable
-			name = "viewModel"
-			type = "it.univpm.spottedkotlin.viewmodel.AccountViewModel"/>
-		<variable
-			name = "posts_adapter"
-			type = "it.univpm.spottedkotlin.adapter.AccountPostsAdapter"/>
-	</data>
+			name="following_adapter"
+			type="it.univpm.spottedkotlin.adapter.AccountFollowingAdapter"/>
+    </data>
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:layout_width = "match_parent"
-		android:layout_height = "match_parent"
-		android:background = "@color/dark"
-		android:scrollbars = "none">
 
-		<LinearLayout
-			android:layout_width = "match_parent"
-			android:layout_height = "0dp"
-			android:background = "@drawable/corner_radius_up_white"
-			android:orientation = "vertical"
-			android:paddingHorizontal = "30dp"
-			app:layout_constraintBottom_toBottomOf = "parent"
-			app:layout_constraintStart_toStartOf = "parent"
-			app:layout_constraintTop_toBottomOf = "@+id/linearLayout">
+	<ScrollView
+		android:id="@+id/profile_scrollview"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@color/dark"
+			android:scrollbars="none">
 
 			<TextView
-				android:id = "@+id/tag_text"
-				style = "@style/LabelBold"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginTop = "36dp"
-				android:text = "@string/my_tags"
-				android:textColor = "@color/primary"
-				android:textSize = "22sp"/>
+				android:id="@+id/back_button"
+				style="@style/LabelIcon"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="20dp"
+				android:background="@drawable/corner_radius_fill_white_alpha"
+				android:clickable="true"
+				android:foreground="@drawable/ripple_white_corner_round"
+				android:gravity="center"
+				android:text="@string/ChevronLeft"
+				android:textColor="@color/black"
+				android:textSize="28sp"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
 
-			<GridLayout
-				android:id = "@+id/add_account_tags_grid"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginTop = "10dp"
-				android:columnCount = "3"
-				android:numColumns = "3"
-				android:useDefaultMargins = "true">
-
-			</GridLayout>
-
-			<!--HLine-->
-			<View android:layout_width = "match_parent"
-				  android:layout_height = "0.65dp"
-				  android:layout_marginTop = "10dp"
-				  android:layout_marginEnd = "-30dp"
-				  android:alpha = "0.125"
-				  android:foreground = "@color/foreground"/>
-
-			<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/postsRecyclerView"
-				android:layout_width="wrap_content"
-				android:layout_height="match_parent"
-				android:layout_gravity="center"
-				android:layout_marginTop="10dp"
-				android:adapter="@{posts_adapter}"
-				android:orientation="horizontal"
-				android:scrollbars="none"
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/corner_radius_up_white"
+				android:orientation="vertical"
+				android:paddingHorizontal="30dp"
 				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+				<TextView
+					android:id="@+id/tag_text"
+					style="@style/LabelBold"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="36dp"
+					android:text="@string/my_tags"
+					android:textColor="@color/primary"
+					android:textSize="22sp" />
+
+				<GridLayout
+					android:id="@+id/add_account_tags_grid"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:columnCount="3"
+					android:numColumns="3"
+					android:useDefaultMargins="true">
+
+				</GridLayout>
+
+				<!--HLine-->
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="0.65dp"
+					android:layout_marginTop="10dp"
+					android:layout_marginEnd="-30dp"
+					android:alpha="0.125"
+					android:foreground="@color/foreground" />
+
+				<TextView
+					android:id="@+id/my_post"
+					style="@style/LabelBold"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="20dp"
+					android:text="@string/my_posts"
+					android:textColor="@color/primary"
+					android:textSize="22sp" />
+
+				<TextView
+					android:id="@+id/no_post"
+					style="@style/LabelBlack"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="20dp"
+					android:layout_marginBottom="20dp"
+					android:alpha="0.4"
+					android:gravity="center_vertical"
+					android:text="@string/ancora_nessun_post"
+					android:textAlignment="center"
+					android:visibility="gone">
+
+				</TextView>
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/postsRecyclerView"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:layout_marginTop="10dp"
+					android:adapter="@{posts_adapter}"
+					android:orientation="horizontal"
+					android:scrollbars="none"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent">
+
+				</androidx.recyclerview.widget.RecyclerView>
+
+				<View
+					android:id="@+id/view3"
+					android:layout_width="match_parent"
+					android:layout_height="0.65dp"
+					android:layout_marginTop="10dp"
+					android:layout_marginEnd="-30dp"
+					android:alpha="0.125"
+					android:foreground="@color/foreground" />
+
+				<TextView
+					android:id="@+id/my_following"
+					style="@style/LabelBold"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="20dp"
+					android:text="@string/my_following"
+					android:textColor="@color/primary"
+					android:textSize="22sp" />
+
+				<TextView
+					android:id="@+id/no_following_post"
+					style="@style/LabelBlack"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="20dp"
+					android:layout_marginBottom="20dp"
+					android:alpha="0.4"
+					android:gravity="center_vertical"
+					android:text="@string/ancora_nessun_post"
+					android:textAlignment="center"
+					android:visibility="gone">
+
+				</TextView>
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/followingRecyclerView"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:layout_marginTop="10dp"
+					android:adapter="@{following_adapter}"
+					android:orientation="horizontal"
+					android:scrollbars="none"
+					app:layout_constraintBottom_toBottomOf="@+id/postsRecyclerView"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent">
+				</androidx.recyclerview.widget.RecyclerView>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/linearLayout"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:paddingHorizontal="30dp"
+				android:paddingVertical="20dp"
+				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent">
 
-			</androidx.recyclerview.widget.RecyclerView>
+				<!--AvatarImage-->
 
-			<TextView
-				android:id = "@+id/no_post"
-				style = "@style/LabelBlack"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginTop = "20dp"
-				android:alpha = "0.4"
-				android:gravity = "center_vertical"
-				android:text = "@string/ancora_nessun_post"
-				android:textAlignment = "center"
-				android:visibility = "gone">
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="100dp"
+					android:layout_height="100dp"
+					android:layout_gravity="center"
+					android:layout_marginTop="20dp">
 
-			</TextView>
+					<ImageButton
+						android:id="@+id/modify_image"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:background="@drawable/button_modify"
+						android:elevation="10dp"
+						android:src="@drawable/brush"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toEndOf="parent" />
 
-		</LinearLayout>
+					<androidx.cardview.widget.CardView
+						android:id="@+id/UserCard"
+						android:layout_width="100dp"
+						android:layout_height="100dp"
+						android:layout_gravity="center"
+						app:cardBackgroundColor="@color/white"
+						app:cardCornerRadius="999dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent">
 
-		<LinearLayout
-			android:id = "@+id/linearLayout"
-			android:layout_width = "0dp"
-			android:layout_height = "wrap_content"
-			android:orientation = "vertical"
-			android:paddingHorizontal = "30dp"
-			android:paddingVertical = "20dp"
-			app:layout_constraintEnd_toEndOf = "parent"
-			app:layout_constraintStart_toStartOf = "parent"
-			app:layout_constraintTop_toTopOf = "parent">
+						<ImageView
+							android:id="@+id/account_imageView"
+							android:layout_width="100dp"
+							android:layout_height="100dp"
+							android:contentDescription="@string/todo"
+							android:src="@drawable/anonymous" />
 
-			<!--AvatarImage-->
+					</androidx.cardview.widget.CardView>
 
-			<androidx.constraintlayout.widget.ConstraintLayout
-				android:layout_width = "100dp"
-				android:layout_height = "100dp"
-				android:layout_gravity = "center"
-				android:layout_marginTop = "20dp">
-
-				<ImageButton
-					android:id = "@+id/modify_image"
-					android:layout_width = "40dp"
-					android:layout_height = "40dp"
-					android:background = "@drawable/button_modify"
-					android:elevation = "10dp"
-					android:src = "@drawable/brush"
-					app:layout_constraintBottom_toBottomOf = "parent"
-					app:layout_constraintEnd_toEndOf = "parent"/>
-
-				<androidx.cardview.widget.CardView
-					android:id = "@+id/UserCard"
-					android:layout_width = "100dp"
-					android:layout_height = "100dp"
-					android:layout_gravity = "center"
-					app:cardBackgroundColor = "@color/white"
-					app:cardCornerRadius = "999dp"
-					app:layout_constraintBottom_toBottomOf = "parent"
-					app:layout_constraintEnd_toEndOf = "parent"
-					app:layout_constraintStart_toStartOf = "parent"
-					app:layout_constraintTop_toTopOf = "parent">
-
-					<ImageView
-						android:id = "@+id/account_imageView"
-						android:layout_width = "100dp"
-						android:layout_height = "100dp"
-						android:contentDescription = "@string/todo"
-						android:src = "@drawable/anonymous"/>
-
-				</androidx.cardview.widget.CardView>
-
-			</androidx.constraintlayout.widget.ConstraintLayout>
-
-			<TextView
-				android:id = "@+id/nome"
-				style = "@style/LabelRegular"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginTop = "8dp"
-				android:text = "@{viewModel.name}"
-				android:textAlignment = "center"
-				android:textColor = "@color/white"
-				android:textSize = "20sp"/>
-
-			<TextView
-				android:id = "@+id/instaName"
-				style = "@style/LabelBold"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:layout_gravity = "center"
-				android:layout_marginTop = "6dp"
-				android:drawableStart = "@drawable/instagram_icon"
-				android:drawablePadding = "6dp"
-				android:gravity = "center"
-				android:text = "@{viewModel.nameInsta}"
-				android:textColor = "@color/white"
-				android:textSize = "16dp"/>
-
-			<LinearLayout
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginTop = "26dp"
-				android:orientation = "horizontal">
+				</androidx.constraintlayout.widget.ConstraintLayout>
 
 				<TextView
-					android:id = "@+id/numPost"
-					style = "@style/LabelBold"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
-					android:layout_weight = "1"
-					android:text = "@{viewModel.numPost}"
-					android:textAlignment = "center"
-					android:textColor = "@color/white"/>
+					android:id="@+id/nome"
+					style="@style/LabelRegular"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:text="@{viewModel.name}"
+					android:textAlignment="center"
+					android:textColor="@color/white"
+					android:textSize="20sp" />
 
 				<TextView
-					android:id = "@+id/numFollowing"
-					style = "@style/LabelBold"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
-					android:layout_weight = "1"
-					android:text = "@{viewModel.numFollowing}"
-					android:textAlignment = "center"
-					android:textColor = "@color/white"/>
+					android:id="@+id/instaName"
+					style="@style/LabelBold"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:layout_marginTop="6dp"
+					android:drawableStart="@drawable/instagram_icon"
+					android:drawablePadding="6dp"
+					android:gravity="center"
+					android:text="@{viewModel.nameInsta}"
+					android:textColor="@color/white"
+					android:textSize="16dp" />
 
-				<TextView
-					android:id = "@+id/numComments"
-					style = "@style/LabelBold"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
-					android:layout_weight = "1"
-					android:text = "@{viewModel.numComment}"
-					android:textAlignment = "center"
-					android:textColor = "@color/white"/>
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="26dp"
+					android:orientation="horizontal">
+
+					<TextView
+						android:id="@+id/numPost"
+						style="@style/LabelBold"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:text="@{viewModel.numPost}"
+						android:textAlignment="center"
+						android:textColor="@color/white" />
+
+					<TextView
+						android:id="@+id/numFollowing"
+						style="@style/LabelBold"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:text="@{viewModel.numFollowing}"
+						android:textAlignment="center"
+						android:textColor="@color/white" />
+
+					<TextView
+						android:id="@+id/numComments"
+						style="@style/LabelBold"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:text="@{viewModel.numComment}"
+						android:textAlignment="center"
+						android:textColor="@color/white" />
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
+
+					<TextView
+						android:id="@+id/post"
+						style="@style/LabelRegular"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:text="@string/post"
+						android:textAlignment="center"
+						android:textColor="@color/white"
+						android:textSize="16sp" />
+
+					<TextView
+						android:id="@+id/following"
+						style="@style/LabelRegular"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:text="@string/following"
+						android:textAlignment="center"
+						android:textColor="@color/white"
+						android:textSize="16sp" />
+
+					<TextView
+						android:id="@+id/comments"
+						style="@style/LabelRegular"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:text="@string/comments"
+						android:textAlignment="center"
+						android:textColor="@color/white"
+						android:textSize="16sp" />
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="26dp"
+					android:orientation="horizontal">
+
+					<Button
+						android:id="@+id/messaggia_button"
+						android:layout_width="0dp"
+						android:layout_height="64dp"
+						android:layout_marginRight="10dp"
+						android:layout_weight="1"
+						android:backgroundTint="@color/white"
+						android:fontFamily="@font/lato_bold"
+						android:text="@string/messaggia"
+						android:textAlignment="center"
+						android:textAllCaps="false"
+						android:textColor="@color/black"
+						android:textSize="15sp"
+						app:cornerRadius="14dp"
+						app:icon="@drawable/chat"
+						app:iconTint="@color/black" />
+
+					<Button
+						android:id="@+id/chaima_button"
+						android:layout_width="0dp"
+						android:layout_height="64dp"
+						android:layout_marginLeft="10dp"
+						android:layout_weight="1"
+						android:backgroundTint="@color/red"
+						android:text="@string/chiama"
+						android:textAlignment="center"
+						android:textAllCaps="false"
+						android:textSize="15sp"
+						app:cornerRadius="14dp"
+						app:icon="@drawable/telephone" />
+
+				</LinearLayout>
 			</LinearLayout>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</ScrollView>
 
-			<LinearLayout
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:orientation = "horizontal">
-
-				<TextView
-					android:id = "@+id/post"
-					style = "@style/LabelRegular"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
-					android:layout_weight = "1"
-					android:text = "@string/post"
-					android:textAlignment = "center"
-					android:textColor = "@color/white"
-					android:textSize = "16sp"/>
-
-				<TextView
-					android:id = "@+id/following"
-					style = "@style/LabelRegular"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
-					android:layout_weight = "1"
-					android:text = "@string/following"
-					android:textAlignment = "center"
-					android:textColor = "@color/white"
-					android:textSize = "16sp"/>
-
-				<TextView
-					android:id = "@+id/comments"
-					style = "@style/LabelRegular"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
-					android:layout_weight = "1"
-					android:text = "@string/comments"
-					android:textAlignment = "center"
-					android:textColor = "@color/white"
-					android:textSize = "16sp"/>
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginTop = "26dp"
-				android:orientation = "horizontal">
-
-				<Button
-					android:id = "@+id/messaggia_button"
-					android:layout_width = "0dp"
-					android:layout_height = "64dp"
-					android:layout_marginRight = "10dp"
-					android:layout_weight = "1"
-					android:backgroundTint = "@color/white"
-					android:fontFamily = "@font/lato_bold"
-					android:text = "@string/messaggia"
-					android:textAlignment = "center"
-					android:textAllCaps = "false"
-					android:textColor = "@color/black"
-					android:textSize = "15sp"
-					app:cornerRadius = "14dp"
-					app:icon = "@drawable/chat"
-					app:iconTint = "@color/black"/>
-
-				<Button
-					android:id = "@+id/chaima_button"
-					android:layout_width = "0dp"
-					android:layout_height = "64dp"
-					android:layout_marginLeft = "10dp"
-					android:layout_weight = "1"
-					android:backgroundTint = "@color/red"
-					android:text = "@string/chiama"
-					android:textAlignment = "center"
-					android:textAllCaps = "false"
-					android:textSize = "15sp"
-					app:cornerRadius = "14dp"
-					app:icon = "@drawable/telephone"/>
-
-			</LinearLayout>
-		</LinearLayout>
-
-	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

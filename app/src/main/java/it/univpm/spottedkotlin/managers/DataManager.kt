@@ -60,6 +60,7 @@ object DataManager {
 		DatabaseManager.get<User>("users/$uid")?.let { user ->
 			user.uid = uid
 			loadUserPosts(user)
+			loadUserFollowingPosts(user)
 			cachedUsers.add(user)
 			return user
 		}
@@ -70,11 +71,22 @@ object DataManager {
 
 	// Load the first 30 posts of a given User
 	suspend fun loadUserPosts(user: User) {
+		user.posts.clear()
 		for (postUID in user.postsUIDs.reversed().take(30))
 			if (user.posts.find { it.uid == postUID } == null)
 				DatabaseManager.get<Post>("posts/$postUID")?.let {
 					it.uid = postUID
 					user.posts.add(it)
+				}
+	}
+
+	suspend fun loadUserFollowingPosts(user: User) {
+		user.followingPosts.clear()
+		for (postUID in user.following.take(30))
+			if (user.posts.find { it.uid == postUID } == null)
+				DatabaseManager.get<Post>("posts/$postUID")?.let {
+					it.uid = postUID
+					user.followingPosts.add(it)
 				}
 	}
 
