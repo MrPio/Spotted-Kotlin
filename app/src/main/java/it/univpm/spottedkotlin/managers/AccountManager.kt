@@ -7,6 +7,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.managers.LogManager.TAG
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.User
@@ -44,9 +45,12 @@ object AccountManager {
     // Perform an automated login fetching the user's uid from the local storage
     suspend fun cacheLogin(): Boolean {
         IOManager.readKey("user_uid")?.let { uid ->
+            val start=System.currentTimeMillis()
             user = DataManager.loadUser(uid as String)
-            DataManager.loadUserPosts(user)
-            DataManager.loadUserFollowingPosts(user)
+            (System.currentTimeMillis()-start).toString().log()
+//            DataManager.loadUserPosts(user)
+//            DataManager.loadUserFollowingPosts(user)
+            (System.currentTimeMillis()-start).toString().log()
             return user != DataManager.anonymous
         }
         return false

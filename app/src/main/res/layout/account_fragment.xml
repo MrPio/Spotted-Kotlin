@@ -55,7 +55,7 @@
 				android:layout_height="wrap_content"
 				android:background="@drawable/corner_radius_up_white"
 				android:orientation="vertical"
-				android:paddingHorizontal="30dp"
+				android:paddingHorizontal="0dp"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
