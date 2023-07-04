@@ -24,5 +24,7 @@ data class User(
 
 	@Exclude @JvmField
 	val posts: MutableList<Post> = mutableListOf()
+
+	@Exclude @JvmField
 	val followingPosts: MutableList<Post> = mutableListOf()
 }
