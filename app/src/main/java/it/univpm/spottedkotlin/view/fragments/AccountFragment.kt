@@ -68,6 +68,8 @@ class AccountFragment : Fragment() {
         if (uid != null) {
             runBlocking {
                 user = DataManager.loadUser(uid)
+                DataManager.loadUserPosts(user)
+                DataManager.loadUserFollowingPosts(user)
             }
         } else {
             user = AccountManager.user

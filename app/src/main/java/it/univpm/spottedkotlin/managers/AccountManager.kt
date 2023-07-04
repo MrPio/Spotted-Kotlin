@@ -88,7 +88,7 @@ object AccountManager {
 
 
     // Remove cached login
-    fun logout() {
+    fun logout()    {
         IOManager.removeKey("user_uid")
         auth.signOut()
     }

@@ -177,6 +177,9 @@
 					app:layout_constraintTop_toTopOf="parent">
 				</androidx.recyclerview.widget.RecyclerView>
 
+				<View android:layout_width = "wrap_content"
+					  android:layout_height = "100dp"/>
+
 			</LinearLayout>
 
 			<LinearLayout
@@ -372,6 +375,7 @@
 				</LinearLayout>
 			</LinearLayout>
 		</androidx.constraintlayout.widget.ConstraintLayout>
+
 	</ScrollView>
 
 </layout>
