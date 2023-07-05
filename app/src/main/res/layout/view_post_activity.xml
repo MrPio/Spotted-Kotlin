@@ -288,14 +288,14 @@
 							  android:gravity = "center_vertical"
 							  android:orientation = "horizontal">
 					<ImageView
-						imageUrl = "@{viewModel.lastFollowersAvatar.size()>0?viewModel.lastFollowersAvatar[0]:RemoteImages.ANONNYMOUS.url}"
+						imageUrl = "@{viewModel.lastFollowersAvatar.size()>0?viewModel.lastFollowersAvatar[0]:RemoteImages.ANONYMOUS.url}"
 						android:layout_width = "30dp"
 						android:layout_height = "30dp"
 						android:background = "@drawable/avatar_corner"
 						android:contentDescription = "@string/todo"
 						android:visibility = "@{viewModel.post.followers.size()>0? View.VISIBLE:View.GONE}"/>
 					<ImageView
-						imageUrl = "@{viewModel.lastFollowersAvatar.size()>1?viewModel.lastFollowersAvatar[1]:RemoteImages.ANONNYMOUS.url}"
+						imageUrl = "@{viewModel.lastFollowersAvatar.size()>1?viewModel.lastFollowersAvatar[1]:RemoteImages.ANONYMOUS.url}"
 						android:layout_width = "30dp"
 						android:layout_height = "30dp"
 						android:layout_marginStart = "-15dp"
@@ -303,7 +303,7 @@
 						android:contentDescription = "@string/todo"
 						android:visibility = "@{viewModel.post.followers.size()>1? View.VISIBLE:View.GONE}"/>
 					<ImageView
-						imageUrl = "@{viewModel.lastFollowersAvatar.size()>1?viewModel.lastFollowersAvatar[2]:RemoteImages.ANONNYMOUS.url}"
+						imageUrl = "@{viewModel.lastFollowersAvatar.size()>1?viewModel.lastFollowersAvatar[2]:RemoteImages.ANONYMOUS.url}"
 						android:layout_width = "30dp"
 						android:layout_height = "30dp"
 						android:layout_marginStart = "-15dp"

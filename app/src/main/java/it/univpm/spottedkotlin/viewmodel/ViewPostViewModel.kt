@@ -55,7 +55,7 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 
 	@get:Bindable
 	val lastFollowersAvatar: List<String>
-		get() = post.lastFollowers.map { it?.avatar ?: RemoteImages.ANONNYMOUS.url }
+		get() = post.lastFollowers.map { it?.avatar ?: RemoteImages.ANONYMOUS.url }
 
 	@get:Bindable
 	val following: Boolean

@@ -1,10 +1,8 @@
 package it.univpm.spottedkotlin.managers
 
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.net.Uri
 import androidx.core.content.ContextCompat.startActivity
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.enums.Gender

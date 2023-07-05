@@ -10,8 +10,8 @@ import java.util.*
 data class User(
 	val name: String? = null,
 	val surname: String? = null,
-	var avatar: String = RemoteImages.ANONNYMOUS.url,
-	val regDate: Date = Calendar.getInstance().time,
+	var avatar: String = RemoteImages.ANONYMOUS.url,
+	val regDateTimestamp: Long = Calendar.getInstance().time.time,
 	val gender: Gender? = null,
 	val tags: MutableList<Tag> = mutableListOf(),
 	val postsUIDs: MutableList<String> = mutableListOf(),
@@ -21,6 +21,9 @@ data class User(
 	val instagramNickname: String? = null,
 ) {
 	var uid: String? = null
+
+	@get:Exclude
+	val regDate: Date get() = Date(regDateTimestamp)
 
 	@Exclude @JvmField
 	val posts: MutableList<Post> = mutableListOf()

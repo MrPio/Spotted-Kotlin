@@ -3,11 +3,11 @@ package it.univpm.spottedkotlin.enums
 import android.graphics.Bitmap
 import it.univpm.spottedkotlin.managers.BitmapManager
 
-enum class RemoteImages(private val _url: String = "") {
+	enum class RemoteImages(private val _url: String = "") {
 
-	//Misc
-	TOP_SPRITE_001("top_sprite_001.png"),
-	ANONNYMOUS("anonymous.png"),
+		//Misc
+		TOP_SPRITE_001("top_sprite_001.png"),
+			ANONYMOUS("anonymous.png"),
 	AVATAR("avatar.png"),
 	CROSSHAIR("crosshair.png"),
 	AVATAR_1, AVATAR_2, AVATAR_3, AVATAR_4, AVATAR_5, AVATAR_6, AVATAR_7, AVATAR_8,

@@ -60,7 +60,6 @@ class FirstActivity : AppCompatActivity() {
 		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
 //		SeederManager.seed(applicationContext)
-
 //		return
 
 //☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️

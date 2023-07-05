@@ -16,7 +16,7 @@ object DataManager {
 		name = "Anonimo",
 		surname = "",
 		gender = Gender.OTHER,
-		avatar = RemoteImages.ANONNYMOUS.url,
+		avatar = RemoteImages.ANONYMOUS.url,
 		cellNumber = null,
 		instagramNickname = null,
 		tags = mutableListOf(),
