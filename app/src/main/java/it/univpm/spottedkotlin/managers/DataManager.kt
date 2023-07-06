@@ -3,6 +3,7 @@ package it.univpm.spottedkotlin.managers
 import android.content.Context
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.RemoteImages
+import it.univpm.spottedkotlin.enums.Tags
 import it.univpm.spottedkotlin.model.*
 
 object DataManager {
@@ -10,7 +11,7 @@ object DataManager {
 
 	const val pageSize = 100
 	var posts: MutableList<Post> = mutableListOf()
-	lateinit var tags: Set<Tag>
+	lateinit var tags: Set<Tags>
 	lateinit var settingMenus: List<SettingMenu>
 	val anonymous: User = User(
 		name = "Anonimo",
@@ -26,7 +27,7 @@ object DataManager {
 
 	// Fetch all the application's needed start data
 	suspend fun fetchData(context: Context) {
-		tags = DatabaseManager.getList<Tag>("tags", pageSize = 999)?.toSet() ?: setOf()
+		tags = Tags.values().toSet()
 		cachedUsers = DatabaseManager.getList<User>("users", 9999)?.toMutableSet() ?: mutableSetOf()
 		settingMenus=SeederManager.generateSettings(context)
 	}
@@ -82,7 +83,7 @@ object DataManager {
 
 	suspend fun loadUserFollowingPosts(user: User) {
 		user.followingPosts.clear()
-		for (postUID in user.following.take(30))
+		for (postUID in user.following.reversed().take(30))
 			if (user.posts.find { it.uid == postUID } == null)
 				DatabaseManager.get<Post>("posts/$postUID")?.let {
 					it.uid = postUID

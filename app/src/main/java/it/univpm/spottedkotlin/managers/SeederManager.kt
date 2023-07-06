@@ -5,10 +5,7 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import androidx.core.content.ContextCompat.startActivity
 import it.univpm.spottedkotlin.R
-import it.univpm.spottedkotlin.enums.Gender
-import it.univpm.spottedkotlin.enums.Locations
-import it.univpm.spottedkotlin.enums.RemoteImages
-import it.univpm.spottedkotlin.enums.Settings
+import it.univpm.spottedkotlin.enums.*
 import it.univpm.spottedkotlin.extension.function.*
 import it.univpm.spottedkotlin.model.*
 import it.univpm.spottedkotlin.view.MainActivity
@@ -326,7 +323,7 @@ object SeederManager {
 	private fun generatePosts(limit: Int = 5, context: Context) {
 		val posts = mutableListOf<Post>()
 		val users = mutableListOf<User>()
-		val tags = generateTags(context).toList()
+		val tags = Tags.values().toList() // generateTags(context).toList()
 		for (i in 1..limit) {
 			val user = User(
 				name = names.names.random(),
@@ -372,7 +369,7 @@ object SeederManager {
 	}
 
 	// Populate the tags with a predefined set
-	private fun generateTags(context: Context): Set<Tag> {
+/*	fun generateTags(context: Context): Set<Tag> {
 		return setOf(
 
 			//Height
@@ -391,7 +388,7 @@ object SeederManager {
 			Tag("Da vista", context.getString(R.string.Sunglasses)),
 			Tag("Da sole", context.getString(R.string.Sunglasses)),
 		)
-	}
+	}*/
 
 	fun generateSettings(context: Context): List<SettingMenu> = listOf(
 		SettingMenu(
@@ -603,6 +600,6 @@ object SeederManager {
 
 	fun seed(context: Context) {
 		generatePosts(200, context)
-		generateTags(context).forEach { DatabaseManager.post("tags", it) }
+//		generateTags(context).forEach { DatabaseManager.post("tags", it) }
 	}
 }

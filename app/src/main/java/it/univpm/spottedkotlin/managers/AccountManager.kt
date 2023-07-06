@@ -45,12 +45,7 @@ object AccountManager {
     // Perform an automated login fetching the user's uid from the local storage
     suspend fun cacheLogin(): Boolean {
         IOManager.readKey("user_uid")?.let { uid ->
-            val start=System.currentTimeMillis()
             user = DataManager.loadUser(uid as String)
-            (System.currentTimeMillis()-start).toString().log()
-//            DataManager.loadUserPosts(user)
-//            DataManager.loadUserFollowingPosts(user)
-            (System.currentTimeMillis()-start).toString().log()
             return user != DataManager.anonymous
         }
         return false

@@ -5,12 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.KeyEventDispatcher.dispatchKeyEvent
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,19 +20,17 @@ import it.univpm.spottedkotlin.databinding.AccountFragmentBinding
 import it.univpm.spottedkotlin.databinding.SelectTagPopupBinding
 import it.univpm.spottedkotlin.databinding.TagItemAddBinding
 import it.univpm.spottedkotlin.databinding.TagItemBinding
+import it.univpm.spottedkotlin.enums.Tags
 import it.univpm.spottedkotlin.extension.function.*
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
-import it.univpm.spottedkotlin.managers.LogManager.TAG
-import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.model.User
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.AccountViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemAddViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import kotlinx.coroutines.runBlocking
-import kotlin.math.max
 
 class AccountFragment : Fragment() {
     private lateinit var binding: AccountFragmentBinding
@@ -203,7 +198,7 @@ class AccountFragment : Fragment() {
     private fun addTags() {
 
         // Recover the users's current tags
-        val selectedTags = mutableSetOf<Tag>()
+        val selectedTags = mutableSetOf<Tags>()
         viewModel.user.tags.let { selectedTags.addAll(it) }
 
         // Inflate SelectTagPopupBinding

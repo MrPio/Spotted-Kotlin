@@ -4,6 +4,7 @@ import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.RemoteImages
+import it.univpm.spottedkotlin.enums.Tags
 import java.util.*
 
 @IgnoreExtraProperties
@@ -13,7 +14,7 @@ data class User(
 	var avatar: String = RemoteImages.ANONYMOUS.url,
 	val regDateTimestamp: Long = Calendar.getInstance().time.time,
 	val gender: Gender? = null,
-	val tags: MutableList<Tag> = mutableListOf(),
+	val tags: MutableList<Tags> = mutableListOf(),
 	val postsUIDs: MutableList<String> = mutableListOf(),
 	val comments: MutableList<Comment> = mutableListOf(),
 	val following: MutableList<String> = mutableListOf(),

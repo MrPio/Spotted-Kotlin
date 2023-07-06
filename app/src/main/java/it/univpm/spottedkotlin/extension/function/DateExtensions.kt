@@ -20,11 +20,11 @@ fun Date.toPostStr(): String =
 		"alcuni sec fa"
 	else if (now - this.time < 1000 * 3600)
 		"${((now - this.time) / 1000 / 60).toInt()} min fa"
-	else if (now - this.time < 1000 * 3600 * 23)
+	else if (now - this.time < 1000 * 3600 * 24)
 		"${((now - this.time) / 1000 / 3600).toInt()} ore fa"
-	else if (now - this.time < 1000 * 3600 * 24 * 6)
+	else if (now - this.time < 1000 * 3600 * 24 * 7)
 		SimpleDateFormat("EEEE", Locale.getDefault()).format(this)
-	else if (now - this.time < 1000L * 3600 * 24 * 364)
+	else if (now - this.time < 1000L * 3600 * 24 * 365)
 		this.toShortDateStr()
 	else this.toDateStr()
 

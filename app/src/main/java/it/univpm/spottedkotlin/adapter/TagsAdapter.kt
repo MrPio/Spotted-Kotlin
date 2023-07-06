@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.TagItemBinding
+import it.univpm.spottedkotlin.enums.Tags
 import it.univpm.spottedkotlin.extension.function.inflate
-import it.univpm.spottedkotlin.model.Tag
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 
 class TagsAdapter(
-	private val tags: List<Tag?>,
-	private val selectedTags: MutableSet<Tag>,
-	private val tagClickCallback: (tag: Tag?, selected: Boolean) -> Unit,
+	private val tags: List<Tags?>,
+	private val selectedTags: MutableSet<Tags>,
+	private val tagClickCallback: (tag: Tags?, selected: Boolean) -> Unit,
 ) : BaseAdapter() {
 	override fun getItem(position: Int): Any? = null
 	override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {

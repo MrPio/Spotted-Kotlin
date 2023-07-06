@@ -4,6 +4,7 @@ import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.Locations
+import it.univpm.spottedkotlin.enums.Tags
 import it.univpm.spottedkotlin.extension.function.toDateStr
 import it.univpm.spottedkotlin.extension.function.toTimeStr
 import it.univpm.spottedkotlin.interfaces.Validable
@@ -17,7 +18,7 @@ data class Post(
 	var gender: Gender = Gender.FEMALE,
 	var timestamp: Long = Calendar.getInstance().time.time,
 	var description: String = "",
-	val tags: MutableList<Tag> = mutableListOf(),
+	val tags: MutableList<Tags> = mutableListOf(),
 	val followers: MutableList<String> = mutableListOf(),
 	val comments: MutableList<Comment> = mutableListOf(),
 	var latitude: Double? = null,
@@ -39,7 +40,7 @@ data class Post(
 
 	fun dateStr() = date.toDateStr()
 	fun timeStr() = date.toTimeStr()
-	fun calculateRelevance(tags: List<Tag>): Int =
+	fun calculateRelevance(tags: List<Tags>): Int =
 		if (tags.isEmpty())
 			0
 		else
