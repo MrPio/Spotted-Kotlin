@@ -17,8 +17,8 @@ import kotlinx.coroutines.tasks.await
 
 object DatabaseManager {
 	const val tag = "FIREBASE"
-	private val database = Firebase.database.reference
-	private val storage = FirebaseStorage.getInstance().reference
+	private val database get() =  Firebase.database.reference
+	private val storage get() =  FirebaseStorage.getInstance().reference
 	val paginateKeys: HashMap<String, String?> = hashMapOf()
 
 	// Retrieve a child from a given path string
@@ -84,7 +84,7 @@ object DatabaseManager {
 	}
 
 	// Async -- get a single object
-	suspend inline fun <reified T> get(path: String): T? =
+	suspend inline fun < reified T> get(path: String): T? =
 		getChild(path).get().await().getValue(T::class.java)
 
 	// Sync -- get a single object

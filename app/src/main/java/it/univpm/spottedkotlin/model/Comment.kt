@@ -9,9 +9,13 @@ import java.util.*
 data class Comment(
 	val authorUID: String? = null,
 	val text: String = "",
-	val date: Date = Calendar.getInstance().time,
+	val timestamp: Long = Calendar.getInstance().time.time,
 ) : Serializable{
 
 	@Exclude @JvmField
 	var user: User? = null
+
+	@get:Exclude
+	val date: Date get() = Date(timestamp)
+
 }

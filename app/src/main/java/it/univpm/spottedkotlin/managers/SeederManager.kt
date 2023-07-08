@@ -13,8 +13,13 @@ import java.util.*
 import kotlin.random.Random
 
 object SeederManager {
+		val defaultUser = User(
+			"Valerio", "Morelli", RemoteImages.AVATAR.url, instagramNickname = "valeriomorelli5"
+		).apply {
+			uid = "rPg4dSvpc3dJO6Re3WLk4exxBWa2"
+			this.tags.addAll(Tags.values().toList().randomList(5).toMutableList())
+		}
 	object names {
-
 		val names: List<String>
 			get() = ("Abaco Abbondanzio " + "Abbondio Abdone " + "Abelardo Abele " + "Abenzio Abibo " + "Abramio Abramo " + "Acacio Acario " + "Accursio Achille " + "Acilio Aciscolo " + "Acrisio Adalardo " + "Adalberto Adalfredo " + "Adalgiso Adalrico " + "Adamo Addo " + "Adelardo Adelberto " + "Adelchi Adelfo " + "Adelgardo Adelmo " + "Adeodato Adolfo " + "Adone Adriano " + "Adrione Afro " + "Agabio Agamennone " + "Agapito Agazio " + "Agenore Agesilao " + "Agostino Agrippa " + "Aiace Aidano " + "Aimone Aladino " + "Alamanno Alano " + "Alarico Albano " + "Alberico Alberto " + "Albino Alboino " + "Albrico Alceo " + "Alceste Alcibiade " + "Alcide Alcino " + "Aldo Aldobrando " + "Aleandro Aleardo " + "Aleramo Alessandro " + "Alessio Alfio " + "Alfonso Alfredo " + "Algiso Alighiero " + "Almerigo Almiro " + "Aloisio Alvaro " + "Alviero Alvise " + "Amabile Amadeo " + "Amando Amanzio " + "Amaranto Amato " + "Amatore Amauri " + "Ambrogio Ambrosiano " + "Amedeo Amelio " + "Amerigo Amico " + "Amilcare Amintore " + "Amleto Amone " + "Amore Amos " + "Ampelio Anacleto " + "Andrea Angelo " + "Aniceto Aniello " + "Annibale Ansaldo " + "Anselmo Ansovino " + "Antelmo Antero " + "Antimo Antino " + "Antioco Antonello " +
 //					"Antonio Apollinare " +
@@ -320,7 +325,7 @@ object SeederManager {
 	}
 
 	// Random generate posts and authors
-	private fun generatePosts(limit: Int = 5, context: Context) {
+	private fun generatePosts(limit: Int = 5) {
 		val posts = mutableListOf<Post>()
 		val users = mutableListOf<User>()
 		val tags = Tags.values().toList() // generateTags(context).toList()
@@ -358,13 +363,6 @@ object SeederManager {
 			}
 		}
 		users.forEach { DatabaseManager.put("users/${it.uid}", it) }
-
-		val defaultUser = User(
-			"Valerio", "Morelli", RemoteImages.AVATAR.url, instagramNickname = "valeriomorelli5"
-		).apply {
-			uid = "rPg4dSvpc3dJO6Re3WLk4exxBWa2"
-			this.tags.addAll(tags.randomList(5).toMutableList())
-		}
 		DatabaseManager.put("users/${defaultUser.uid}", defaultUser)
 	}
 
@@ -598,8 +596,7 @@ object SeederManager {
 		),
 	)
 
-	fun seed(context: Context) {
-		generatePosts(200, context)
-//		generateTags(context).forEach { DatabaseManager.post("tags", it) }
+	fun seed() {
+		generatePosts(200)
 	}
 }

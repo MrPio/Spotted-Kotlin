@@ -9,6 +9,7 @@ plugins {
 android {
     namespace 'it.univpm.spottedkotlin'
     compileSdk 33
+    testBuildType "debug"
 
     defaultConfig {
         applicationId "it.univpm.spottedkotlin"
@@ -16,8 +17,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -71,17 +71,25 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
+    implementation 'androidx.test:core-ktx:1.4.0'
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation "org.jetbrains.kotlin:kotlin-script-runtime:1.8.20-RC2"
 
     implementation 'com.squareup.picasso:picasso:2.8'
     testImplementation 'junit:junit:4.13.2'
+    testImplementation "io.mockk:mockk:1.12.0"
+    testImplementation 'org.mockito:mockito-core:5.4.0'
     implementation 'org.osmdroid:osmdroid-android:6.1.13'
 
-    implementation fileTree(dir: "libs", include: ["*.aar"]) // ADD THIS LINE    implementation 'org.osmdroid:osmdroid-android:6.1.13'
+    implementation fileTree(dir: "libs", include: ["*.aar"])
     implementation 'org.apache.commons:commons-lang3:3.8.1'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation "androidx.work:work-runtime-ktx:2.8.1"
+
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.5.1')
+    androidTestImplementation('androidx.test:runner:1.5.2')
+    androidTestImplementation('androidx.test:rules:1.5.0')
+
 }

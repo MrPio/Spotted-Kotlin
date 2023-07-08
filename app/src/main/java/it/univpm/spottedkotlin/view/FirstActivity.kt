@@ -59,7 +59,7 @@ class FirstActivity : AppCompatActivity() {
 		// ======= DEBUG ZONE ========
 		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
-//		SeederManager.seed(applicationContext)
+//		SeederManager.seed()
 //		return
 
 //☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️

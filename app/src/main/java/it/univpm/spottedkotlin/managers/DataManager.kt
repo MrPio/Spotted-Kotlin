@@ -22,7 +22,7 @@ object DataManager {
 		instagramNickname = null,
 		tags = mutableListOf(),
 	)
-	private var cachedUsers: MutableSet<User> = mutableSetOf()
+	var cachedUsers: MutableSet<User> = mutableSetOf()
 
 
 	// Fetch all the application's needed start data

@@ -1,22 +1,18 @@
 package it.univpm.spottedkotlin.managers
 
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.firebase.auth.*
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import it.univpm.spottedkotlin.extension.function.log
-import it.univpm.spottedkotlin.managers.LogManager.TAG
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.User
 import kotlinx.coroutines.tasks.await
 
 
 object AccountManager {
-    private val auth = Firebase.auth
-    lateinit var user: User
+    private val auth get() =  Firebase.auth
+     lateinit var user: User
     private var MESSAGE_NO_CONNECTION =
         "Qualcosa è andato storto!\nControlla la tua connessione e riprova!"
     val userPosts: MutableList<Post> = mutableListOf()
