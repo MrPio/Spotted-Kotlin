@@ -22,8 +22,9 @@ import kotlinx.coroutines.launch
 class SpotPostViewHolder(val binding: SpotPostBinding) : ViewHolder(binding.root) {
 
 	val dataPost get() = binding.model?.date?.toPostStr()
-	fun bind(post: Post) {
+	fun bind(post: Post,onHome:Boolean=true) {
 		binding.model = post
+		binding.onHome=onHome
 		binding.percentage = post.calculateRelevance(AccountManager.user.tags)
 		binding.setView(this)
 

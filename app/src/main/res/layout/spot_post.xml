@@ -12,6 +12,8 @@
 			type = "it.univpm.spottedkotlin.model.Post"/>
 		<variable name = "view"
 				  type = "it.univpm.spottedkotlin.view.holders.SpotPostViewHolder"/>
+		<variable name = "onHome"
+				  type = "Boolean"/>
 	</data>
 
 	<RelativeLayout
@@ -22,7 +24,8 @@
 			android:id = "@+id/cardView"
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
-			android:layout_marginHorizontal="24dp"
+			app:marginLeft="@{onHome?@dimen/horizontal_margins:@dimen/horizontal_margins2}"
+			app:marginRight="@{onHome?@dimen/horizontal_margins:0f}"
 			android:layout_marginBottom = "20dp"
 			android:alpha = '@{model.spotted?0.5f:1.0f}'
 			app:cardCornerRadius = "16dp">

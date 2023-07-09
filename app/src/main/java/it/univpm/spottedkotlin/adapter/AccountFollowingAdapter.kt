@@ -30,7 +30,7 @@ class AccountFollowingAdapter(var posts: MutableList<Post>, private var loaded: 
 
 	override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 		if (holder is SpotPostViewHolder){
-			holder.bind(posts[position])}
+			holder.bind(posts[position],false)}
 	}
 
 	override fun getItemCount(): Int {

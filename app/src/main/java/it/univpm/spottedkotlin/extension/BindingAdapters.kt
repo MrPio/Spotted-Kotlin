@@ -1,10 +1,11 @@
 package it.univpm.spottedkotlin.extension
 
 import android.graphics.Typeface
-import android.icu.lang.UProperty.INT_START
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -58,4 +59,17 @@ fun setSliderValue(slider: Slider, value: Int) {
 	if (slider.value.toInt() != value) {
 		slider.value = value.toFloat()
 	}
+}
+
+@BindingAdapter("marginLeft")
+fun setMarginLeft(view: View, leftMargin: Float) {
+	val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+	layoutParams.leftMargin = leftMargin.toInt()
+	view.layoutParams = layoutParams
+}
+@BindingAdapter("marginRight")
+fun setMarginRight(view: View, leftMargin: Float) {
+	val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+	layoutParams.rightMargin = leftMargin.toInt()
+	view.layoutParams = layoutParams
 }
