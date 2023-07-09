@@ -16,6 +16,34 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-415300004">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="RF8N72KXCVY" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-G980F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1882427659">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="RF8N72KXCVY" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-G980F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

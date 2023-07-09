@@ -325,20 +325,23 @@
 								  android:text = "@string/descrizione"
 								  android:textColor = "@color/primary"
 								  android:textSize = "22sp"/>
-						<EditText style = "@style/LabelRegular"
-								  android:layout_width = "match_parent"
-								  android:layout_height = "wrap_content"
-								  android:alpha = "0.75"
-								  android:autofillHints = "name"
-								  android:gravity = "top|start"
-								  android:hint = "@string/indossava_una_felpa_nera"
-								  android:inputType = "textMultiLine"
-								  android:lines = "6"
-								  android:maxLines = "10"
-								  android:minLines = "4"
-								  android:scrollbars = "vertical"
-								  android:text = "@={viewModel.nuovoPost.description}"
-								  android:textSize = "16sp"/>
+
+						<EditText
+							android:id="@+id/descizione_editText"
+							style="@style/LabelRegular"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:alpha="0.75"
+							android:autofillHints="name"
+							android:gravity="top|start"
+							android:hint="@string/indossava_una_felpa_nera"
+							android:inputType="textMultiLine"
+							android:lines="6"
+							android:maxLines="10"
+							android:minLines="4"
+							android:scrollbars="vertical"
+							android:text="@={viewModel.nuovoPost.description}"
+							android:textSize="16sp" />
 
 						<!--Errori-->
 						<TextView style = "@style/LabelRegular"
