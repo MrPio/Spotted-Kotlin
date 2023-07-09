@@ -528,31 +528,6 @@ object SeederManager {
 			),
 		),
 		SettingMenu(
-			icon = context.getString(R.string.ChartBoxOutline),
-			title = "Statistiche",
-			subtitle = "Visualizza le tue statistiche su Spotted",
-			items = listOf(
-				SettingItem(
-					title = "Statistiche sul profilo",
-					subtitle = "Scopri le tue abitudini nell'interazione con l'app.",
-					type = SettingType.ALERT_OK,
-					alertMessage = "Spiacenti, ma questa funzionalità non è stata ancora implementata... Non sarebbe grandioso però?",
-				),
-				SettingItem(
-					title = "Statistiche sui post",
-					subtitle = "Scopri le tue interazioni con i post di Spotted!.",
-					type = SettingType.ALERT_OK,
-					alertMessage = "Spiacenti, ma questa funzionalità non è stata ancora implementata... Non sarebbe grandioso però?",
-				),
-				SettingItem(
-					title = "Statistiche sulla community",
-					subtitle = "Scopri le tue abitudini nell'interazione con la community.",
-					type = SettingType.ALERT_OK,
-					alertMessage = "Spiacenti, ma questa funzionalità non è stata ancora implementata... Non sarebbe grandioso però?",
-				),
-			),
-		),
-		SettingMenu(
 			icon = context.getString(R.string.BellOutline),
 			title = "Notifiche",
 			subtitle = "Modifica le preferenze di notifiche.",
