@@ -15,5 +15,4 @@ class StringExtensionsTest {
 		Assert.assertEquals("hello_world!".toUpperCamelCase(), "HelloWorld!")
 		Assert.assertEquals("_hello_world_!".toUpperCamelCase(), "HelloWorld!")
 	}
-
 }

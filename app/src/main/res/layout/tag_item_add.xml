@@ -10,6 +10,7 @@
 	</data>
 
 	<LinearLayout
+		android:id="@+id/add_tag"
 		android:layout_width = "180dp"
 		android:layout_height = "31dp"
 		android:background = "@drawable/border_dashed_red_tag"
