@@ -25,9 +25,9 @@ import kotlin.math.max
 
 class AddPostFragment : Fragment() {
 	private lateinit var binding: AddPostFragmentBinding
+	val viewModel: AddPostViewModel by viewModels()
 	var latitude: Double? = null
 	var longitude: Double? = null
-	val viewModel: AddPostViewModel by viewModels()
 	private var footerHeight = 0
 
 	override fun onCreateView(

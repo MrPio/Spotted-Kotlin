@@ -8,14 +8,6 @@
 		<variable
 			name = "viewModel"
 			type = "it.univpm.spottedkotlin.viewmodel.AccountViewModel"/>
-
-		<variable
-			name = "posts_adapter"
-			type = "it.univpm.spottedkotlin.adapter.AccountPostsAdapter"/>
-
-		<variable
-			name = "following_adapter"
-			type = "it.univpm.spottedkotlin.adapter.AccountFollowingAdapter"/>
 	</data>
 
 	<ScrollView
@@ -112,7 +104,7 @@
 					android:layout_marginTop = "20dp"
 					android:layout_marginBottom = "20dp"
 					android:alpha = "0.4"
-					android:gravity = "center_vertical"
+					android:gravity = "center_horizontal"
 					android:text = "@string/ancora_nessun_post"
 					android:textAlignment = "center"
 					android:visibility = "gone">
@@ -120,11 +112,10 @@
 				</TextView>
 
 				<androidx.recyclerview.widget.RecyclerView
-					android:id = "@+id/postsRecyclerView"
+					android:id = "@+id/account_post_recycler"
 					android:layout_width = "wrap_content"
 					android:layout_height = "match_parent"
 					android:layout_marginTop = "10dp"
-					android:adapter = "@{posts_adapter}"
 					android:orientation = "horizontal"
 					android:scrollbars = "none"
 					app:layout_constraintBottom_toBottomOf = "parent"
@@ -162,7 +153,7 @@
 					android:layout_marginTop = "20dp"
 					android:layout_marginBottom = "20dp"
 					android:alpha = "0.4"
-					android:gravity = "center_vertical"
+					android:gravity = "center_horizontal"
 					android:text = "@string/ancora_nessun_post"
 					android:textAlignment = "center"
 					android:visibility = "gone">
@@ -170,11 +161,10 @@
 				</TextView>
 
 				<androidx.recyclerview.widget.RecyclerView
-					android:id = "@+id/followingRecyclerView"
+					android:id = "@+id/account_following_recycler"
 					android:layout_width = "wrap_content"
 					android:layout_height = "match_parent"
 					android:layout_marginTop = "10dp"
-					android:adapter = "@{following_adapter}"
 					android:orientation = "horizontal"
 					android:scrollbars = "none"
 					app:layout_constraintBottom_toBottomOf = "@+id/postsRecyclerView"
@@ -245,7 +235,7 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content"
 					android:layout_marginTop = "8dp"
-					android:text = "@{viewModel.name}"
+					android:text = '@{viewModel.user.name+" "+viewModel.user.surname}'
 					android:textAlignment = "center"
 					android:textColor = "@color/white"
 					android:textSize = "20sp"/>
@@ -260,7 +250,7 @@
 					android:drawableStart = "@drawable/instagram_icon"
 					android:drawablePadding = "6dp"
 					android:gravity = "center"
-					android:text = "@{viewModel.nameInsta}"
+					android:text = "@{viewModel.user.instagramNickname}"
 					android:textColor = "@color/white"
 					android:textSize = "16dp"/>
 
@@ -276,7 +266,7 @@
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:layout_weight = "1"
-						android:text = "@{viewModel.numPost}"
+						android:text = "@{String.valueOf(viewModel.user.postsUIDs.size())}"
 						android:textAlignment = "center"
 						android:textColor = "@color/white"/>
 
@@ -286,7 +276,7 @@
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:layout_weight = "1"
-						android:text = "@{viewModel.numFollowing}"
+						android:text = "@{String.valueOf(viewModel.user.following.size())}"
 						android:textAlignment = "center"
 						android:textColor = "@color/white"/>
 
@@ -296,7 +286,7 @@
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:layout_weight = "1"
-						android:text = "@{viewModel.numComment}"
+						android:text = "@{String.valueOf(viewModel.user.comments.size())}"
 						android:textAlignment = "center"
 						android:textColor = "@color/white"/>
 				</LinearLayout>
@@ -364,7 +354,7 @@
 						app:iconTint = "@color/black"/>
 
 					<Button
-						android:id = "@+id/chaima_button"
+						android:id = "@+id/call_button"
 						android:layout_width = "0dp"
 						android:layout_height = "64dp"
 						android:layout_marginLeft = "10dp"

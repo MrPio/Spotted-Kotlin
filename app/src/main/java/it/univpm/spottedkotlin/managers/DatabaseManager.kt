@@ -17,8 +17,8 @@ import kotlinx.coroutines.tasks.await
 
 object DatabaseManager {
 	const val tag = "FIREBASE"
-	private val database get() =  Firebase.database.reference
-	private val storage get() =  FirebaseStorage.getInstance().reference
+	private val database get() = Firebase.database.reference
+	private val storage get() = FirebaseStorage.getInstance().reference
 	val paginateKeys: HashMap<String, String?> = hashMapOf()
 
 	// Retrieve a child from a given path string
@@ -84,7 +84,7 @@ object DatabaseManager {
 	}
 
 	// Async -- get a single object
-	suspend inline fun < reified T> get(path: String): T? =
+	suspend inline fun <reified T> get(path: String): T? =
 		getChild(path).get().await().getValue(T::class.java)
 
 	// Sync -- get a single object
@@ -107,42 +107,37 @@ object DatabaseManager {
 		})
 
 	inline fun <reified T> observeNode(path: String, crossinline observer: (it: T?) -> Unit) =
-		getChild(path).orderByKey().limitToLast(9999).addChildEventListener(object : ChildEventListener {
-			override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-			}
+		getChild(path).orderByKey().limitToLast(9999)
+			.addChildEventListener(object : ChildEventListener {
+				override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+				}
 
-			override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-				observer(snapshot.getValue(T::class.java))
-			}
+				override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+					observer(snapshot.getValue(T::class.java))
+				}
 
-			override fun onChildRemoved(snapshot: DataSnapshot) {
-			}
+				override fun onChildRemoved(snapshot: DataSnapshot) {
+				}
 
-			override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-			}
+				override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+				}
 
 
-			override fun onCancelled(error: DatabaseError) {
-				Log.w(tag, "Failed to read value.", error.toException())
-			}
-		})
+				override fun onCancelled(error: DatabaseError) {
+					Log.w(tag, "Failed to read value.", error.toException())
+				}
+			})
 
-	// Sync -- upload file to a given URI in storage
-	fun loadImg(localUrl: Uri) {
+	// Async -- upload file to a given URI in storage
+	suspend fun uploadImage(localUrl: Uri) {
 		val riversRef = storage.child("images/account_${AccountManager.user.uid}")
-		val uploadTask = riversRef.putFile(localUrl)
+		val uploadTask = riversRef.putFile(localUrl).await()
+		val url = uploadTask.storage.downloadUrl.await().toString()
 
-		uploadTask.addOnSuccessListener { taskSnapshot ->
-			// Ottieni l'URL dell'immagine caricata
-			taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
-				val uploadedImageUrl = uri.toString()
+		// Imposta l'URL come valore di AccountManager.user.avatar
+		AccountManager.user.avatar = url
 
-				// Imposta l'URL come valore di AccountManager.user.avatar
-				AccountManager.user.avatar = uploadedImageUrl
-
-				// Salva l'oggetto AccountManager.user nel database
-				DataManager.save(AccountManager.user)
-			}
-		}
+		// Salva l'oggetto AccountManager.user nel database
+		DataManager.save(AccountManager.user)
 	}
 }

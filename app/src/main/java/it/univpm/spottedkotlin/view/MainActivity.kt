@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 		binding = ActivityMainBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 		binding.viewModel = viewModel
-		binding.executePendingBindings()
+		viewModel.initialize(this);
 		supportFragmentManager.commit {
 			add(
 				binding.mainFragmentContainer.id,
@@ -33,14 +33,6 @@ class MainActivity : AppCompatActivity() {
 				binding.bottomBarContainer.id, viewModel.bottomBarFragment
 			)
 		}
-		AccountManager.user.uid?.let { IOManager.writeKey("user_uid", it) }
-		MainScope().launch {
-			WorkerManager.startPeriodicWorker<WorkerManager.NotificationWorker>(
-				this@MainActivity,
-				"NotificationWorker"
-			)
-		}
-
 		observe()
 	}
 

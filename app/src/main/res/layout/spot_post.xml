@@ -3,6 +3,7 @@
 		xmlns:app = "http://schemas.android.com/apk/res-auto">
 	<data>
 		<import type = "android.view.View"/>
+		<import type = "it.univpm.spottedkotlin.enums.Locations"/>
 		<variable name = "percentage"
 				  type = "Integer"/>
 		<variable name = "avatar"
@@ -43,7 +44,7 @@
 					android:contentDescription = "@string/luogo"
 					android:scaleType = "centerCrop"
 					android:src = "@drawable/uni_140"
-					app:imageUrl = "@{model.location.imageUrl}"
+					app:imageUrl = "@{model.location != null ? model.location.imageUrl : Locations.ANCONA.imageUrl}"
 					app:layout_constraintStart_toStartOf = "parent"
 					app:layout_constraintTop_toTopOf = "parent"/>
 				<!--Vignette-->
@@ -136,7 +137,7 @@
 							style = "@style/LabelBold"
 							android:layout_marginStart = "4dp"
 							android:layout_marginEnd = "8dp"
-							android:text = "@{model.location.title}"
+							android:text = '@{model.location != null? model.location.title:"Personalizzato"}'
 							android:textAlignment = "center"
 							android:textColor = "@color/white"/>
 					</LinearLayout>
