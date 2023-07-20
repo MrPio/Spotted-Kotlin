@@ -6,10 +6,6 @@ import android.graphics.Matrix
 import androidx.core.graphics.scale
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
-import it.univpm.spottedkotlin.enums.RemoteImages
-import it.univpm.spottedkotlin.extension.function.log
-import java.util.Calendar
-import kotlin.system.measureTimeMillis
 
 
 object BitmapManager {

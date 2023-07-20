@@ -2,6 +2,7 @@ package it.univpm.spottedkotlin.managers
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 
 object IOManager {
 	private const val defaultFile = "settings"
@@ -26,4 +27,11 @@ object IOManager {
 
 	fun removeKey(key: String) =
 		sharedPreferences.edit().remove(key).apply()
+
+	fun getFileSize(context: Context, uri: Uri): Int {
+		val inputStream = context.contentResolver.openInputStream(uri)
+		val fileSizeInBytes = inputStream?.available() ?: 0
+		inputStream?.close()
+		return fileSizeInBytes
+	}
 }

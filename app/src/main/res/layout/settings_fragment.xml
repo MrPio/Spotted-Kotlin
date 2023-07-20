@@ -14,26 +14,47 @@
 				  android:orientation = "vertical"
 		>
 
-		<!--InfoIcon-->
-		<TextView android:id = "@+id/settings_info"
-				  style = "@style/LabelIcon"
-				  android:layout_width = "wrap_content"
-				  android:layout_height = "wrap_content"
-				  android:layout_gravity = "end"
-				  android:layout_marginTop = "10dp"
-				  android:layout_marginEnd = "10dp"
-				  android:clickable = "true"
-				  android:textColor="@color/foreground"
-				  android:foreground = "@drawable/ripple_white_corner_round"
-				  android:padding = "20dp"
-				  android:text = "@string/InformationOutline"
-				  android:textSize = "28sp"/>
+		<RelativeLayout android:layout_width = "match_parent"
+						android:layout_height = "wrap_content">
 
-		<ScrollView android:id="@+id/settings_scroll_view" android:layout_width = "match_parent"
+			<!--BackIcon-->
+			<TextView android:id = "@+id/settings_back"
+					  style = "@style/LabelIcon"
+					  android:layout_width = "wrap_content"
+					  android:layout_height = "wrap_content"
+					  android:layout_alignParentStart = "true"
+					  android:layout_marginTop = "10dp"
+					  android:layout_marginStart="10dp"
+					  android:clickable = "true"
+					  android:foreground = "@drawable/ripple_white_corner_round"
+					  android:padding = "20dp"
+					  android:text = "@string/ChevronLeft"
+					  android:textColor = "@color/foreground"
+					  android:textSize = "28sp"/>
+
+		<!--InfoIcon-->
+			<TextView android:id = "@+id/settings_info"
+					  style = "@style/LabelIcon"
+					  android:layout_width = "wrap_content"
+					  android:layout_height = "wrap_content"
+					  android:layout_alignParentEnd = "true"
+					  android:layout_marginTop = "10dp"
+					  android:layout_marginEnd="10dp"
+					  android:clickable = "true"
+					  android:foreground = "@drawable/ripple_white_corner_round"
+					  android:padding = "20dp"
+					  android:text = "@string/InformationOutline"
+					  android:textColor = "@color/foreground"
+					  android:textSize = "28sp"/>
+		</RelativeLayout>
+
+		<ScrollView android:id = "@+id/settings_scroll_view"
+					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content">
 			<LinearLayout android:layout_width = "match_parent"
 						  android:layout_height = "wrap_content"
-						  android:orientation = "vertical">
+						  android:orientation = "vertical"
+				android:layout_marginTop="20dp">
 
 				<!--Title-->
 				<TextView

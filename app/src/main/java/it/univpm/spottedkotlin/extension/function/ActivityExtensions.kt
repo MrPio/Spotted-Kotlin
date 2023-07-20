@@ -1,6 +1,7 @@
 package it.univpm.spottedkotlin.extension.function
 
 import android.app.Activity
+import android.content.Intent
 import android.util.DisplayMetrics
 import androidx.core.app.ActivityCompat
 
@@ -17,5 +18,15 @@ fun Activity.askPermission(vararg permissions: String) =
 	ActivityCompat.requestPermissions(this, permissions, 1)
 
 fun Activity.checkAndAskPermission(vararg permissions: String) =
-	if (!this.applicationContext.checkPermission(*permissions))
-		this.askPermission(*permissions) else null
+	if (!this.applicationContext.checkPermission(*permissions)) this.askPermission(*permissions) else null
+
+inline fun <reified T> Activity.goto(arguments: Map<String, String?>) {
+	this.startActivity(Intent(this, T::class.java).apply {
+		arguments.forEach {
+			putExtra(
+				it.key,
+				it.value
+			)
+		}
+	})
+}

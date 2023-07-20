@@ -2,28 +2,20 @@ package it.univpm.spottedkotlin.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AlertDialog
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.databinding.TagItemBinding
 import it.univpm.spottedkotlin.databinding.ViewPostActivityBinding
-import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.function.addViewLast
+import it.univpm.spottedkotlin.extension.function.goto
 import it.univpm.spottedkotlin.extension.function.inflate
-import it.univpm.spottedkotlin.extension.function.loadUrl
 import it.univpm.spottedkotlin.extension.function.showAlertDialog
-import it.univpm.spottedkotlin.managers.AccountManager
-import it.univpm.spottedkotlin.managers.DataManager
-import it.univpm.spottedkotlin.managers.DatabaseManager
-import it.univpm.spottedkotlin.managers.LogManager.TAG
-import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import it.univpm.spottedkotlin.viewmodel.ViewPostViewModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class ViewPostActivity : AppCompatActivity() {
 	companion object {
@@ -31,20 +23,36 @@ class ViewPostActivity : AppCompatActivity() {
 	}
 
 	lateinit var binding: ViewPostActivityBinding
-	lateinit var viewModel: ViewPostViewModel
+	val viewModel: ViewPostViewModel by viewModels()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		binding = ViewPostActivityBinding.inflate(layoutInflater)
-		setContentView(binding.root)
-
 		val postUID = intent.getStringExtra("postUID")
-		var post = DataManager.posts.find { it.uid == postUID }
-		if (post == null) runBlocking { post = DatabaseManager.get<Post>("posts/$postUID") }
+		viewModel.postUID = postUID
 
-		viewModel = ViewPostViewModel(post ?: Post())
+		binding = ViewPostActivityBinding.inflate(layoutInflater)
+		binding.viewPostImage.transitionName = TRANSITION_IMAGE
+		binding.viewModel = viewModel
+		binding.exitOnClick = View.OnClickListener { finishAfterTransition() }
+		binding.accountOnClick = View.OnClickListener {
+			if (viewModel.post.authorUID != null) {
+				this.startActivity(
+					Intent(this, AccountActivity::class.java).putExtra(
+						"userUID", viewModel.post.authorUID
+					)
+				)
+			}
+		}
+		binding.commentsOnClick = View.OnClickListener {
+			gotoComments()
+		}
 		binding.viewPostSpotted.setOnClickListener { spotted() }
-		initialize()
+		binding.userAccount.setOnClickListener {
+			val intent = Intent(this, AccountActivity::class.java)
+			startActivity(intent)
+		}
+
+		setContentView(binding.root)
 	}
 
 	override fun onResume() {
@@ -53,61 +61,25 @@ class ViewPostActivity : AppCompatActivity() {
 	}
 
 	private fun initialize() {
-		binding.viewPostImage.transitionName = TRANSITION_IMAGE
-		binding.viewModel = viewModel
-
-		val imageUrl = viewModel.post.location?.imageUrl
-//		if (imageUrl == null && viewModel.post.latitude != null && viewModel.post.longitude != null) {
-//			val latitude = viewModel.post.latitude!!
-//			val longitude = viewModel.post.longitude!!
-//			val zoomLevel = 12
-//
-//			val x = ((longitude + 180) / 360 * 2.0.pow(zoomLevel.toDouble())).toInt()
-//			val latRad = Math.toRadians(latitude)
-//			val y =
-//				((1 - ln(tan(latRad) + 1 / cos(latRad)) / Math.PI) / 2 * 2.0.pow(zoomLevel.toDouble())).toInt()
-//
-//			imageUrl = "https://tile.openstreetmap.org/$zoomLevel/$x/$y.png"
-//		}
-		binding.viewPostImage.loadUrl(imageUrl ?: RemoteImages.ANCONA.url)
-		binding.exitOnClick = View.OnClickListener { finishAfterTransition() }
-
-		binding.accountOnClick = View.OnClickListener {
-			if (viewModel.post.authorUID != null) {
-				val intent = Intent(this, AccountActivity::class.java)
-				intent.putExtra("userUID", viewModel.post.authorUID)
-				this.startActivity(intent)
-			}
-		}
-		binding.commentsOnClick = View.OnClickListener {
-			gotoComments()
-		}
-
-		binding.userAccount.setOnClickListener {
-			val intent = Intent(this, AccountActivity::class.java)
-			startActivity(intent)
-		}
 		MainScope().launch {
+			binding.viewPostLoadingView.root.visibility=View.VISIBLE
 			viewModel.initialize()
+			loadTags()
+			binding.viewPostLoadingView.root.visibility=View.GONE
 		}
-		loadTags()
 
-		if (intent.getBooleanExtra("comments", false)){
+		if (intent.getBooleanExtra("comments", false)) {
 			intent.removeExtra("comments")
 			gotoComments()
 		}
 	}
 
-	private fun gotoComments() {
-		val intent = Intent(this, CommentsActivity::class.java)
-		intent.putExtra("postUID", viewModel.post.uid)
-		this.startActivity(intent)
-	}
+	private fun gotoComments() = goto<CommentsActivity>(mapOf("postUID" to viewModel.post.uid))
 
+	// Inflate the post tags inside the viewPostTagsGrid
 	private fun loadTags() {
 		val grid = binding.viewPostTagsGrid
 		grid.removeAllViews()
-		//Tags
 		for (tag in viewModel.post.tags) {
 			val tagBinding: TagItemBinding = this.inflate(R.layout.tag_item)
 			tagBinding.model = tag

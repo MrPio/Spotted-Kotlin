@@ -10,6 +10,8 @@
     <color name = "background">@color/dark_black</color>
     <color name = "inverse">@color/black</color>
     <color name = "dark">@color/dark_black</color>
+    <color name = "dark_inverse">@color/black</color>
+
 
     <!--MISC-->
     <color name = "overlay">#22ffffff</color>

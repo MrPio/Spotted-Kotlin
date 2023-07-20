@@ -1,11 +1,14 @@
 package it.univpm.spottedkotlin.viewmodel
 
 import androidx.databinding.Bindable
+import androidx.lifecycle.viewModelScope
+import it.univpm.spottedkotlin.BR
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.extension.ObservableViewModel
 import it.univpm.spottedkotlin.extension.function.toDateStr
 import it.univpm.spottedkotlin.extension.function.toggle
 import it.univpm.spottedkotlin.managers.AccountManager
+import it.univpm.spottedkotlin.managers.BenchmarkManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.model.User
@@ -13,10 +16,9 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlin.math.min
 
-class ViewPostViewModel(val post: Post) : ObservableViewModel() {
-	init {
-		post.comments.sortByDescending { it.date }
-	}
+class ViewPostViewModel : ObservableViewModel() {
+	var postUID: String? = null
+	var post = Post()
 
 	@get:Bindable
 	val lastComment: String
@@ -46,8 +48,7 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 	@get:Bindable
 	val lastFollower: String
 		get() {
-			if (post.lastFollowers.isNotEmpty() && post.lastFollowers[0] is User)
-				return "${post.lastFollowers[0]!!.name} ${post.lastFollowers[0]!!.surname}"
+			if (post.lastFollowers.isNotEmpty() && post.lastFollowers[0] is User) return "${post.lastFollowers[0]!!.name} ${post.lastFollowers[0]!!.surname}"
 			return ""
 		}
 
@@ -59,8 +60,7 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 
 	@get:Bindable
 	val following: Boolean
-		get() =
-			AccountManager.user.following.contains(post.uid)
+		get() = AccountManager.user.following.contains(post.uid)
 
 	@get:Bindable
 	val relevance: Int
@@ -70,31 +70,23 @@ class ViewPostViewModel(val post: Post) : ObservableViewModel() {
 	val isMine: Boolean
 		get() = post.authorUID == AccountManager.user.uid
 
+	@get:Bindable
+	val imageUrl: String
+		get() = post.location?.imageUrl ?: RemoteImages.ANCONA.url
+
 	suspend fun initialize() {
-
-		// Carico l'autore del post
-		post.author =
-			if (post.anonymous)
-				DataManager.anonymous
-			else
-				DataManager.loadUser(post.authorUID)
-
-		// Carico gli autori dei commenti
-		for (comment in post.comments)
-			if (comment.user == null)
-				comment.user = DataManager.loadUser(comment.authorUID)
-
-		// Carico gli ultimi 3 followers
-		post.lastFollowers.clear()
-		for (i in 1..min(3, post.followers.size))
-			post.lastFollowers.add(DataManager.loadUser(post.followers[post.followers.size - i]))
-
+		BenchmarkManager.lap()
+		post = DataManager.loadPost(postUID)
+		BenchmarkManager.lap("loadPost")
+		post.comments.sortByDescending { it.date }
 		notifyChange()
+		BenchmarkManager.lap("notifyChange")
 	}
 
 	fun follow() {
-		post.followers.toggle(AccountManager.user.uid)
-		AccountManager.user.following.toggle(post.uid)
+		val isFollowing=following
+		post.followers.toggle(AccountManager.user.uid, isFollowing)
+		AccountManager.user.following.toggle(post.uid, isFollowing)
 		MainScope().launch { initialize() }
 	}
 

@@ -1,5 +1,6 @@
 package it.univpm.spottedkotlin.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
@@ -22,7 +23,9 @@ import it.univpm.spottedkotlin.managers.AnimationManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.Filter
 import it.univpm.spottedkotlin.model.Post
+import it.univpm.spottedkotlin.view.AccountActivity
 import it.univpm.spottedkotlin.view.MainActivity
+import it.univpm.spottedkotlin.view.SettingsActivity
 import it.univpm.spottedkotlin.viewmodel.HomeViewModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -47,7 +50,7 @@ class HomeFragment : Fragment() {
 				(requireActivity() as MainActivity).viewModel.currentFragment.value = 3
 			}
 			homeMenu.setOnClickListener {
-				(requireActivity() as MainActivity).viewModel.currentFragment.value = 4
+				startActivity(Intent(context, SettingsActivity::class.java))
 			}
 			homeOrderby.setOnClickListener {
 				orderBy()

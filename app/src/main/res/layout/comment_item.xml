@@ -70,12 +70,12 @@
 				<FrameLayout android:layout_width = "match_parent"
 							 android:layout_height = "wrap_content"
 							 android:background = "@drawable/comment_border_left"
-							 android:backgroundTint = "@{viewModel.author?@color/red:viewModel.me?@color/foreground:@color/background}">
+							 android:backgroundTint = "@{viewModel.author?@color/dark_inverse:viewModel.me?@color/foreground:@color/background}">
 					<TextView style = "@style/LabelLight"
 							  markdown = "@{viewModel.comment.text}"
 							  android:layout_width = "wrap_content"
 							  android:layout_height = "wrap_content"
-							  android:textColor = "@{viewModel.author?@color/white:viewModel.me?@color/white:@color/black}"
+							  android:textColor = "@{viewModel.author?@color/white:viewModel.me?@color/inverse:@color/foreground}"
 							  android:textSize = "16sp"/>
 				</FrameLayout>
 			</LinearLayout>

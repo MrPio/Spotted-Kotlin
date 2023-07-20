@@ -22,9 +22,9 @@ import kotlinx.coroutines.launch
 class SpotPostViewHolder(val binding: SpotPostBinding) : ViewHolder(binding.root) {
 
 	val dataPost get() = binding.model?.date?.toPostStr()
-	fun bind(post: Post,onHome:Boolean=true) {
+	fun bind(post: Post, onHome: Boolean = true) {
 		binding.model = post
-		binding.onHome=onHome
+		binding.onHome = onHome
 		binding.percentage = post.calculateRelevance(AccountManager.user.tags)
 		binding.setView(this)
 
@@ -51,9 +51,8 @@ class SpotPostViewHolder(val binding: SpotPostBinding) : ViewHolder(binding.root
 
 	fun cardClicked(post: Post) {
 		val activity = binding.root.context as? Activity
-		//val mainActivity = binding.root.context.getActivity<MainActivity>()
 		val intent = Intent(activity, ViewPostActivity::class.java)
-		intent.putExtra("postUID", post.uid)
+			.putExtra("postUID", post.uid)
 		val option = ActivityOptions.makeSceneTransitionAnimation(
 			activity,
 			android.util.Pair(binding.backgroundImage, ViewPostActivity.TRANSITION_IMAGE),

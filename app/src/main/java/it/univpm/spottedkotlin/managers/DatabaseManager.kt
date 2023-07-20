@@ -13,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.model.Post
+import it.univpm.spottedkotlin.model.User
 import kotlinx.coroutines.tasks.await
 
 object DatabaseManager {
@@ -50,7 +51,7 @@ object DatabaseManager {
 		return key
 	}
 
-	// Async -- get a list of object and paginate it
+	// Async -- get a list of objects and paginate it
 	suspend inline fun <reified T> getList(
 		path: String,
 		pageSize: Int = 10,
@@ -78,6 +79,9 @@ object DatabaseManager {
 		when (T::class) {
 			Post::class -> map.forEach { e ->
 				(e.value as Post).uid = e.key
+			}
+			User::class -> map.forEach { e ->
+				(e.value as User).uid = e.key
 			}
 		}
 		return map.values.toList()

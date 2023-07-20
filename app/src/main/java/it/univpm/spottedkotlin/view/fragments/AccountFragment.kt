@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,6 +26,7 @@ import it.univpm.spottedkotlin.extension.function.*
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
+import it.univpm.spottedkotlin.managers.IOManager
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.AccountViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemAddViewModel
@@ -49,6 +51,8 @@ class AccountFragment(val uid: String? = null) : Fragment() {
 		binding.accountFollowingRecycler.layoutManager =
 			LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
+		viewModel.isCurrentUser = uid == null
+
 		binding.modifyImage.setOnClickListener {
 			openGallery()
 		}
@@ -56,8 +60,9 @@ class AccountFragment(val uid: String? = null) : Fragment() {
 			context?.getActivity<MainActivity>()?.binding?.bottomBarContainer?.translationY =
 				scrollY.toFloat()
 		}
-		viewModel.user.observe(viewLifecycleOwner) {user->
+		viewModel.user.observe(viewLifecycleOwner) { user ->
 			"AccountFragment - viewModel.user.observe".log()
+			binding.accountLoadingView.root.visibility=View.GONE
 			binding.accountImageView.loadUrl(user.avatar)
 
 			if (user.posts.isEmpty()) {
@@ -89,8 +94,9 @@ class AccountFragment(val uid: String? = null) : Fragment() {
 			} else {
 				binding.callButton.visibility = View.GONE
 				binding.messaggiaButton.visibility = View.GONE
-				binding.backButton.visibility = View.GONE
 			}
+			binding.backButton.visibility = if (viewModel.isCurrentUser) View.GONE else View.VISIBLE
+
 
 			if (viewModel.isCurrentUser) {
 				binding.modifyImage.visibility = View.GONE
@@ -113,9 +119,9 @@ class AccountFragment(val uid: String? = null) : Fragment() {
 			}
 
 			binding.accountPostRecycler.adapter =
-				AccountPostsAdapter(viewModel.posts.toMutableList())
+				AccountPostsAdapter(viewModel.posts.sortedByDescending { it.timestamp }.toMutableList())
 			binding.accountFollowingRecycler.adapter =
-				AccountFollowingAdapter(user.followingPosts)
+				AccountFollowingAdapter(user.followingPosts.sortedByDescending { it.timestamp }.toMutableList())
 
 		}
 		binding.backButton.setOnClickListener {
@@ -127,6 +133,7 @@ class AccountFragment(val uid: String? = null) : Fragment() {
 
 	override fun onResume() {
 		super.onResume()
+		binding.accountLoadingView.loadingViewRoot.visibility=View.VISIBLE
 		viewModel.initialize(uid)
 	}
 
@@ -139,31 +146,31 @@ class AccountFragment(val uid: String? = null) : Fragment() {
 
 	private fun addTags() {
 		viewModel.user.value?.let { user ->
-		// Recover the users's current tags
-		val selectedTags = mutableSetOf<Tags>()
-		user.tags.let { selectedTags.addAll(it) }
+			// Recover the users's current tags
+			val selectedTags = mutableSetOf<Tags>()
+			user.tags.let { selectedTags.addAll(it) }
 
-		// Inflate SelectTagPopupBinding
-		val popupBinding = SelectTagPopupBinding.inflate(layoutInflater, null, false)
-		popupBinding.tagsAdapter = TagsAdapter(
-			tags = DataManager.tags.toList(), selectedTags = selectedTags
-		) {
-			// TagClickCallback
-				tag, checked ->
-			if (checked) tag?.let { selectedTags.add(it) }
-			else selectedTags.remove(tag)
-		}
+			// Inflate SelectTagPopupBinding
+			val popupBinding = SelectTagPopupBinding.inflate(layoutInflater, null, false)
+			popupBinding.tagsAdapter = TagsAdapter(
+				tags = DataManager.tags.toList(), selectedTags = selectedTags
+			) {
+				// TagClickCallback
+					tag, checked ->
+				if (checked) tag?.let { selectedTags.add(it) }
+				else selectedTags.remove(tag)
+			}
 
-		// Show AlertDialog
-		context?.showAlertDialog(title = "Scegli dei tag da aggiungere",
-			view = popupBinding.root,
-			positiveText = "Aggiungi",
-			positiveCallback = {
-				user.tags.clear()
-				user.tags.addAll(selectedTags)
-				DataManager.save(user)
-				viewModel.user.value=user
-			})
+			// Show AlertDialog
+			context?.showAlertDialog(title = "Scegli dei tag da aggiungere",
+				view = popupBinding.root,
+				positiveText = "Aggiungi",
+				positiveCallback = {
+					user.tags.clear()
+					user.tags.addAll(selectedTags)
+					DataManager.save(user)
+					viewModel.user.value = user
+				})
 		}
 	}
 
@@ -173,6 +180,10 @@ class AccountFragment(val uid: String? = null) : Fragment() {
 
 		if (requestCode == pickImageRequest && resultCode == Activity.RESULT_OK && data != null) {
 			val selectedImageUri: Uri? = data.data
+			if(selectedImageUri!=null && IOManager.getFileSize(requireContext(),selectedImageUri)>1024*1024){
+				context?.toast("L'immagine non può superare 1MB")
+				return
+			}
 			binding.accountImageView.setImageURI(selectedImageUri)
 			selectedImageUri?.let {
 				MainScope().launch {

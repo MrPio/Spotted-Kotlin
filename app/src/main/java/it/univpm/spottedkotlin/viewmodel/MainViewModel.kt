@@ -21,7 +21,7 @@ class MainViewModel : ViewModel() {
 			MapFragment(),
 			AddPostFragment(),
 			AccountFragment(),
-			SettingsFragment()
+			SearchUserFragment(),
 		)
 
 	fun initialize(context: Context) {

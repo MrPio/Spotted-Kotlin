@@ -69,19 +69,14 @@
 									android:layout_height = "310dp"
 									android:layout_marginBottom = "36dp">
 
-						<!--LoadingView-->
-						<!--						<include android:id = "@+id/home_loading_view"-->
-						<!--								 layout = "@layout/loading_view"-->
-						<!--								 android:visibility = "visible"/>-->
 
-						<!--								   imageUrl = "@{viewModel.post.location.imageUrl}"-->
 						<ImageView android:id = "@+id/view_post_image"
+								   imageUrl = "@{viewModel.imageUrl}"
 								   android:layout_width = "match_parent"
 								   android:layout_height = "310dp"
 								   android:adjustViewBounds = "true"
 								   android:alpha = "@{viewModel.post.spotted?0.6f:1f}"
-								   android:scaleType = "centerCrop"
-							/>
+								   android:scaleType = "centerCrop"/>
 
 						<TextView style = "@style/LabelBlack"
 								  android:layout_width = "match_parent"
@@ -239,10 +234,10 @@
 					<FrameLayout android:layout_width = "70dp"
 								 android:layout_height = "70dp"
 								 android:layout_marginEnd = "40dp"
-								 android:visibility="@{viewModel.post.spotted?View.GONE:View.VISIBLE}"
 								 android:background = "@drawable/corner_radius_fill_white"
 								 android:elevation = "2dp"
 								 android:gravity = "center"
+								 android:visibility = "@{viewModel.post.spotted?View.GONE:View.VISIBLE}"
 								 app:layout_constraintEnd_toEndOf = "parent"
 								 app:layout_constraintTop_toTopOf = "parent">
 
@@ -342,23 +337,29 @@
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
 					  android:layout_marginTop = "10dp"
-					  android:maxLines="1"
+					  android:maxLines = "1"
 					  android:visibility = "@{viewModel.lastComment.empty?View.GONE:View.VISIBLE}"/>
 			<TextView style = "@style/LabelLight"
 					  markdown = "@{viewModel.penultimateComment}"
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
 					  android:layout_marginTop = "10dp"
-					  android:maxLines="1"
+					  android:maxLines = "1"
 					  android:visibility = "@{viewModel.penultimateComment.empty?View.GONE:View.VISIBLE}"/>
 			<TextView style = "@style/LabelRegular"
 					  android:layout_width = "match_parent"
 					  android:layout_height = "wrap_content"
 					  android:layout_marginTop = "12dp"
 					  android:alpha = "0.65"
-					  android:maxLines="1"
+					  android:maxLines = "1"
 					  android:text = "@{viewModel.bottomText}"/>
 		</LinearLayout>
+
+		<!--LoadingView-->
+		<include android:id = "@+id/view_post_loading_view"
+				 layout = "@layout/loading_view"
+				 app:layout_constraintTop_toTopOf="parent"
+				 app:layout_constraintStart_toStartOf="parent"/>
 
 		<androidx.appcompat.widget.AppCompatButton android:id = "@+id/view_post_spotted"
 												   android:layout_width = "match_parent"

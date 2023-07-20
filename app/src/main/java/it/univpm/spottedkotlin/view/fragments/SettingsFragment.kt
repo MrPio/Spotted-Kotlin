@@ -39,6 +39,10 @@ class SettingsFragment : Fragment() {
 //				scrollY.toFloat()
 //		}
 
+		binding.settingsBack.setOnClickListener {
+			requireActivity().finish()
+		}
+
 		binding.settingsInfo.setOnClickListener {
 			context?.showAlertDialog(
 				title = "Info sull'applicazione",
