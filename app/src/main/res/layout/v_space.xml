@@ -3,17 +3,17 @@
 		xmlns:app = "http://schemas.android.com/apk/res-auto">
 	<RelativeLayout android:layout_width = "match_parent"
 					android:layout_height = "wrap_content">
-	<View
-		android:layout_width = "match_parent"
-		android:layout_height = "300dp">
-	</View>
-		<TextView android:layout_width = "match_parent"
+		<View
+			android:layout_width = "match_parent"
+			android:layout_height = "300dp">
+		</View>
+		<TextView style = "@style/LabelBlack"
+				  android:layout_width = "match_parent"
 				  android:layout_height = "wrap_content"
-				  style="@style/LabelBlack"
-				  android:text="@string/fine_dei_post"
-				  android:layout_marginTop="20dp"
-				  android:alpha="0.4"
-			android:textAlignment="center">
+				  android:layout_marginTop = "20dp"
+				  android:alpha = "0.4"
+				  android:text = "@string/fine_dei_post"
+				  android:textAlignment = "center">
 
 		</TextView>
 	</RelativeLayout>

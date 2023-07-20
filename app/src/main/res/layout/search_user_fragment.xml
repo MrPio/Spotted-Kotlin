@@ -3,6 +3,7 @@
 		xmlns:app = "http://schemas.android.com/apk/res-auto"
 		xmlns:tools = "http://schemas.android.com/tools">
 	<data>
+		<import type = "android.view.View"/>
 		<variable
 			name = "viewModel"
 			type = "it.univpm.spottedkotlin.viewmodel.SearchUserViewModel"/>
@@ -16,8 +17,8 @@
 
 		<LinearLayout android:layout_width = "match_parent"
 					  android:layout_height = "wrap_content"
-					  android:paddingHorizontal = "30dp"
-					  android:orientation = "horizontal">
+					  android:orientation = "horizontal"
+					  android:paddingHorizontal = "30dp">
 
 			<TextView style = "@style/LabelIcon"
 					  android:layout_width = "32sp"
@@ -44,8 +45,16 @@
 		<androidx.recyclerview.widget.RecyclerView android:id = "@+id/search_user_recycler"
 												   android:layout_width = "match_parent"
 												   android:layout_height = "wrap_content"
-												   android:layout_marginTop = "30dp">
-		</androidx.recyclerview.widget.RecyclerView>
+												   android:layout_marginTop = "30dp"/>
+
+		<TextView style = "@style/LabelBlack"
+				  android:layout_width = "match_parent"
+				  android:layout_height = "wrap_content"
+				  android:layout_marginTop = "40dp"
+				  android:alpha = "0.4"
+				  android:text = "@string/niente_da_mostrare"
+				  android:textAlignment = "center"
+				  android:visibility = '@{(viewModel.users.size()==0 &amp;&amp; viewModel.searchToken!="")?View.VISIBLE:View.GONE}'/>
 	</LinearLayout>
 
 </layout>

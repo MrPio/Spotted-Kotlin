@@ -108,5 +108,6 @@
 	<string name = "spotted_post">Spotted!</string>
 	<string name = "persona_spottata">(Persona spottata)</string>
 	<string name = "valerio_morelli">Valerio Morelli</string>
+	<string name = "niente_da_mostrare">Niente da mostrare</string>
 
 </resources>
