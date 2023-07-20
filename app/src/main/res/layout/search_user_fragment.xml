@@ -10,8 +10,42 @@
 
 	<LinearLayout android:layout_width = "match_parent"
 				  android:layout_height = "match_parent"
-				  android:orientation = "vertical">
+				  android:background = "@color/background"
+				  android:orientation = "vertical"
+				  android:paddingTop = "30dp">
 
+		<LinearLayout android:layout_width = "match_parent"
+					  android:layout_height = "wrap_content"
+					  android:paddingHorizontal = "30dp"
+					  android:orientation = "horizontal">
+
+			<TextView style = "@style/LabelIcon"
+					  android:layout_width = "32sp"
+					  android:layout_height = "wrap_content"
+					  android:layout_gravity = "center"
+					  android:layout_marginEnd = "20dp"
+					  android:text = "@string/Magnify"
+					  android:textColor = "@color/foreground"
+					  android:textSize = "28sp"/>
+
+			<EditText style = "@style/LabelRegular"
+					  android:layout_width = "0dp"
+					  android:layout_height = "wrap_content"
+					  android:layout_weight = "1"
+					  android:autofillHints = "name"
+					  android:backgroundTint = "@color/transparent"
+					  android:hint = "@string/valerio_morelli"
+					  android:text = "@={viewModel.searchToken}"
+					  android:textColor = "@color/foreground"
+					  android:textColorHint = "@color/hint"
+					  android:textSize = "18sp"/>
+		</LinearLayout>
+
+		<androidx.recyclerview.widget.RecyclerView android:id = "@+id/search_user_recycler"
+												   android:layout_width = "match_parent"
+												   android:layout_height = "wrap_content"
+												   android:layout_marginTop = "30dp">
+		</androidx.recyclerview.widget.RecyclerView>
 	</LinearLayout>
 
 </layout>

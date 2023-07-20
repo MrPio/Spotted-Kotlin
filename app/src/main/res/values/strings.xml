@@ -68,7 +68,7 @@
 	<string name="home_medicina_murri_subtitle">Univpm - Polo Universitario Torrette </string>
 	<string name="home_medicina_eustacchio_subtitle">Univpm - Polo Universitario Torrette </string>
 	<string name="home_ancona_subtitle">Città di Ancona </string>
-	<string name="home_altri_subtitle">Mensa, luoghi di Ancona e altro ancora</string>
+	<string name="home_altri_subtitle">Mense e altri luoghi</string>
 
 	<string name="home_title">Ciao, %1$s! </string>
 	<string name = "nuovo_spot">Nuovo Spot</string>
@@ -107,5 +107,6 @@
 	<string name = "spotted">Spotted</string>
 	<string name = "spotted_post">Spotted!</string>
 	<string name = "persona_spottata">(Persona spottata)</string>
+	<string name = "valerio_morelli">Valerio Morelli</string>
 
 </resources>

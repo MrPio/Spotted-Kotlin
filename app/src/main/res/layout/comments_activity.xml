@@ -108,9 +108,11 @@
 					  android:lines = "1"
 					  android:maxLines = "4"
 					  android:minLines = "1"
+					  style="@style/LabelRegular"
+					  android:textSize="16sp"
 					  android:text = "@={viewModel.newComment}"
 					  android:textColor = "@color/white"
-					  android:textColorHint = "#80ffffff"/>
+					  android:textColorHint = "@color/hint"/>
 			<LinearLayout android:layout_width = "match_parent"
 						  android:layout_height = "wrap_content"
 						  android:layout_marginTop = "10dp">

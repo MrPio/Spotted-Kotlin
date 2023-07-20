@@ -35,22 +35,13 @@ class ViewPostActivity : AppCompatActivity() {
 		binding.viewModel = viewModel
 		binding.exitOnClick = View.OnClickListener { finishAfterTransition() }
 		binding.accountOnClick = View.OnClickListener {
-			if (viewModel.post.authorUID != null) {
-				this.startActivity(
-					Intent(this, AccountActivity::class.java).putExtra(
-						"userUID", viewModel.post.authorUID
-					)
-				)
-			}
+			if (viewModel.post.authorUID != null)
+				this.goto<AccountActivity>(mapOf("userUID" to viewModel.post.authorUID))
 		}
 		binding.commentsOnClick = View.OnClickListener {
 			gotoComments()
 		}
 		binding.viewPostSpotted.setOnClickListener { spotted() }
-		binding.userAccount.setOnClickListener {
-			val intent = Intent(this, AccountActivity::class.java)
-			startActivity(intent)
-		}
 
 		setContentView(binding.root)
 	}

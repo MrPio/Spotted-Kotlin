@@ -11,6 +11,7 @@
     <color name = "inverse">@color/black</color>
     <color name = "dark">@color/dark_black</color>
     <color name = "dark_inverse">@color/black</color>
+    <color name = "hint">#80ffffff</color>
 
 
     <!--MISC-->

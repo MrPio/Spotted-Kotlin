@@ -47,6 +47,7 @@
 					app:imageUrl = "@{model.location != null ? model.location.imageUrl : Locations.ANCONA.imageUrl}"
 					app:layout_constraintStart_toStartOf = "parent"
 					app:layout_constraintTop_toTopOf = "parent"/>
+
 				<!--Vignette-->
 				<View
 					android:id = "@+id/view"

@@ -20,9 +20,9 @@ fun Activity.askPermission(vararg permissions: String) =
 fun Activity.checkAndAskPermission(vararg permissions: String) =
 	if (!this.applicationContext.checkPermission(*permissions)) this.askPermission(*permissions) else null
 
-inline fun <reified T> Activity.goto(arguments: Map<String, String?>) {
+inline fun <reified T> Activity.goto(arguments: Map<String, String?>?=null) {
 	this.startActivity(Intent(this, T::class.java).apply {
-		arguments.forEach {
+		arguments?.forEach {
 			putExtra(
 				it.key,
 				it.value

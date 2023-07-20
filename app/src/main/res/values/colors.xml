@@ -17,6 +17,8 @@
 	<color name = "inverse">@color/white</color>
 	<color name = "dark">@color/black</color>
 	<color name = "dark_inverse">@color/dark_black</color>
+	<color name = "hint">#60000000</color>
+
 
 	<!--MISC-->
 	<color name = "overlay">@color/white</color>

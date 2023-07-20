@@ -1,16 +1,11 @@
 package it.univpm.spottedkotlin.adapter
 
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import it.univpm.spottedkotlin.R
-import it.univpm.spottedkotlin.databinding.SpotPostBinding
 import it.univpm.spottedkotlin.databinding.VSpaceBinding
 import it.univpm.spottedkotlin.extension.function.inflate
-import it.univpm.spottedkotlin.extension.function.log
-import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.view.holders.SpotPostViewHolder
 

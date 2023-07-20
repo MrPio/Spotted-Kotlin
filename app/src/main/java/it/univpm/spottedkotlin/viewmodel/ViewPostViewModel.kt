@@ -84,7 +84,7 @@ class ViewPostViewModel : ObservableViewModel() {
 	}
 
 	fun follow() {
-		val isFollowing=following
+		val isFollowing=!following
 		post.followers.toggle(AccountManager.user.uid, isFollowing)
 		AccountManager.user.following.toggle(post.uid, isFollowing)
 		MainScope().launch { initialize() }
