@@ -32,6 +32,7 @@ import it.univpm.spottedkotlin.viewmodel.AccountViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemAddViewModel
 import it.univpm.spottedkotlin.viewmodel.TagItemViewModel
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.internal.notify
 
@@ -135,6 +136,10 @@ class AccountFragment(val uid: String? = null) : Fragment() {
 		super.onResume()
 		binding.accountLoadingView.loadingViewRoot.visibility=View.VISIBLE
 		viewModel.initialize(uid)
+		MainScope().launch {
+			delay(1000)
+			binding.accountLoadingView.loadingViewRoot.visibility=View.GONE
+		}
 	}
 
 
