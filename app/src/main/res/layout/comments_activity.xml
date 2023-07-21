@@ -107,12 +107,12 @@
 					  android:inputType = "textMultiLine"
 					  android:lines = "1"
 					  android:maxLines = "4"
+					  android:textColorHint = "@color/hint_inverse"
 					  android:minLines = "1"
 					  style="@style/LabelRegular"
 					  android:textSize="16sp"
 					  android:text = "@={viewModel.newComment}"
-					  android:textColor = "@color/white"
-					  android:textColorHint = "@color/hint"/>
+					  android:textColor = "@color/white"/>
 			<LinearLayout android:layout_width = "match_parent"
 						  android:layout_height = "wrap_content"
 						  android:layout_marginTop = "10dp">

@@ -25,6 +25,7 @@ object DataManager {
 		tags = mutableListOf(),
 	)
 	var cachedUsers: MutableSet<User> = mutableSetOf()
+	val chats: MutableList<Chat> = mutableListOf()
 
 
 	// Fetch all the application's needed start data

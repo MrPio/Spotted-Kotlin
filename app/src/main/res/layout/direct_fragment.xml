@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android = "http://schemas.android.com/apk/res/android"
-		xmlns:app = "http://schemas.android.com/apk/res-auto">
-
+		xmlns:app = "http://schemas.android.com/apk/res-auto"
+		xmlns:tools = "http://schemas.android.com/tools">
 	<data>
-		<variable
-			name = "viewModel"
-			type = "it.univpm.spottedkotlin.viewmodel.SettingsViewModel"/>
+		<variable name = "viewModel"
+				  type = "it.univpm.spottedkotlin.viewmodel.DirectViewModel"/>
 	</data>
 
 	<LinearLayout android:layout_width = "match_parent"
@@ -16,33 +15,18 @@
 		<RelativeLayout android:layout_width = "match_parent"
 						android:layout_height = "wrap_content">
 
-			<!--BackIcon-->
-			<TextView android:id = "@+id/settings_back"
-					  style = "@style/LabelIcon"
-					  android:layout_width = "wrap_content"
-					  android:layout_height = "wrap_content"
-					  android:layout_alignParentStart = "true"
-					  android:layout_marginTop = "10dp"
-					  android:layout_marginStart="10dp"
-					  android:clickable = "true"
-					  android:foreground = "@drawable/ripple_white_corner_round"
-					  android:padding = "20dp"
-					  android:text = "@string/ChevronLeft"
-					  android:textColor = "@color/foreground"
-					  android:textSize = "28sp"/>
-
-		<!--InfoIcon-->
+			<!--InfoIcon-->
 			<TextView android:id = "@+id/settings_info"
 					  style = "@style/LabelIcon"
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
 					  android:layout_alignParentEnd = "true"
 					  android:layout_marginTop = "10dp"
-					  android:layout_marginEnd="10dp"
+					  android:layout_marginEnd = "10dp"
 					  android:clickable = "true"
 					  android:foreground = "@drawable/ripple_white_corner_round"
 					  android:padding = "20dp"
-					  android:text = "@string/InformationOutline"
+					  android:text = "@string/ChatPlusOutline"
 					  android:textColor = "@color/foreground"
 					  android:textSize = "28sp"/>
 		</RelativeLayout>
@@ -52,8 +36,8 @@
 					android:layout_height = "wrap_content">
 			<LinearLayout android:layout_width = "match_parent"
 						  android:layout_height = "wrap_content"
-						  android:orientation = "vertical"
-				android:layout_marginTop="20dp">
+						  android:layout_marginTop = "20dp"
+						  android:orientation = "vertical">
 
 				<!--Title-->
 				<TextView
@@ -64,11 +48,24 @@
 					android:clickable = "true"
 					android:paddingHorizontal = "20dp"
 					android:paddingVertical = "12dp"
-					android:text = "Impostazioni"
+					android:text = "Messaggi"
 					android:textColor = "@color/foreground"
 					android:textSize = "28sp"/>
 
-				<LinearLayout android:id = "@+id/settings_content"
+				<LinearLayout android:id = "@+id/direct_new_content"
+							  android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:orientation = "vertical"/>
+
+				<!--HLine-->
+				<View android:layout_width = "match_parent"
+					  android:layout_height = "0.65dp"
+					  android:layout_marginHorizontal = "30dp"
+					  android:layout_marginVertical = "20dp"
+					  android:alpha = "0.125"
+					  android:foreground = "@color/foreground"/>
+
+				<LinearLayout android:id = "@+id/direct_old_content"
 							  android:layout_width = "match_parent"
 							  android:layout_height = "wrap_content"
 							  android:orientation = "vertical"/>

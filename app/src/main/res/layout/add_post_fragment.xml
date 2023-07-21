@@ -336,6 +336,7 @@
 							android:gravity="top|start"
 							android:hint="@string/indossava_una_felpa_nera"
 							android:inputType="textMultiLine"
+							android:textColorHint = "@color/hint"
 							android:lines="6"
 							android:maxLines="10"
 							android:minLines="4"

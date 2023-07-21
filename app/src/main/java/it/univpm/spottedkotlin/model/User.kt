@@ -20,6 +20,7 @@ data class User(
 	val comments: MutableList<Comment> = mutableListOf(),
 	val following: MutableList<String> = mutableListOf(),
 	val followingUsers: MutableList<String> = mutableListOf(),
+	val chatsUID: MutableList<String> = mutableListOf(),
 	val cellNumber: String? = null,
 	val instagramNickname: String? = null,
 ) {
@@ -41,6 +42,6 @@ data class User(
 		AccountManager.isUserInitialized && AccountManager.user.followingUsers.contains(this.uid)
 
 	@Exclude
-	fun isMe(): Boolean =
-		AccountManager.isUserInitialized && AccountManager.user.uid == this.uid
+	fun isMe(): Boolean = AccountManager.isUserInitialized && AccountManager.user.uid == this.uid
 }
+

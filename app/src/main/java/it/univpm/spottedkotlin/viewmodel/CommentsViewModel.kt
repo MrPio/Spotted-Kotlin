@@ -5,6 +5,7 @@ import androidx.databinding.Bindable
 import it.univpm.spottedkotlin.extension.ObservableViewModel
 import it.univpm.spottedkotlin.BR
 import it.univpm.spottedkotlin.enums.Settings
+import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DatabaseManager
 import it.univpm.spottedkotlin.model.Comment
@@ -16,30 +17,27 @@ class CommentsViewModel(
 	val loadCommentsCallback: () -> Unit,
 	val emojiToggleCallback: () -> Unit,
 	val loadEmojiCallback: (Int) -> Unit,
-) :
-	ObservableViewModel() {
+) : ObservableViewModel() {
 	init {
 		post.comments.sortByDescending { it.date }
 		if (Settings.CHAT_OBSERVE.bool) {
 			DatabaseManager.observeList<Comment>(
 				"posts/${post.uid}/comments",
 				observer = { comments ->
+					"OBSERVER---------------------".log()
 					for (comment in comments) {
-						if (comment == null)
-							continue
+						if (comment == null) continue
 						val oldComment = post.comments.find { it.date.time == comment.date.time }
 
 						// Remove the already existing comment in order to replace with the new one
-						if (oldComment != null)
-							post.comments.remove(oldComment)
+						if (oldComment != null) post.comments.remove(oldComment)
 						post.comments.add(comment)
 					}
 
 					// Update UI
 					post.comments.sortByDescending { it.date }
 					loadCommentsCallback()
-				}
-			)
+				})
 		}
 	}
 
@@ -58,11 +56,7 @@ class CommentsViewModel(
 	private var currentType = 0
 
 	val emojiVisibility
-		get() =
-			if (Settings.CHAT_EMOJI.bool)
-				View.VISIBLE
-			else
-				View.GONE
+		get() = if (Settings.CHAT_EMOJI.bool) View.VISIBLE else View.GONE
 
 	fun commenta() {
 		if (newComment.isEmpty()) return
@@ -74,15 +68,12 @@ class CommentsViewModel(
 		newComment = ""
 		notifyChange()
 		loadCommentsCallback()
-		if (emojiVisible)
-			emojiToggleCallback()
+		if (emojiVisible) emojiToggleCallback()
 	}
 
 	fun toggleEmoji(type: Int) {
-		if (currentType != type)
-			loadEmojiCallback(type)
-		if (!emojiVisible || emojiVisible && currentType == type)
-			emojiToggleCallback()
+		if (currentType != type) loadEmojiCallback(type)
+		if (!emojiVisible || emojiVisible && currentType == type) emojiToggleCallback()
 		currentType = type
 	}
 }

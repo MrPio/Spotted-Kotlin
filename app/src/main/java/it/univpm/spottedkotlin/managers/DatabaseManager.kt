@@ -100,7 +100,7 @@ object DatabaseManager {
 
 	// Sync -- observe a list of objects
 	inline fun <reified T> observeList(path: String, crossinline observer: (it: List<T?>) -> Unit) =
-		getChild(path).addListenerForSingleValueEvent(object : ValueEventListener {
+		getChild(path).addValueEventListener(object : ValueEventListener {
 			override fun onDataChange(dataSnapshot: DataSnapshot) {
 				observer(dataSnapshot.children.map { it.getValue(T::class.java) })
 			}

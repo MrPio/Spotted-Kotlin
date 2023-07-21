@@ -33,7 +33,7 @@ class CommentsActivity : AppCompatActivity() {
 		viewModel = CommentsViewModel(post ?: Post(), ::loadComments, ::emojiToggle, ::loadEmoji)
 		binding.viewModel = viewModel
 		binding.commentsRecycler.layoutManager =
-			LinearLayoutManager(this).apply { reverseLayout = true; stackFromEnd = true }
+			LinearLayoutManager(this).apply { reverseLayout = true }
 		commentsAdapter = CommentsAdapter(viewModel.post.comments, post?.authorUID ?: "")
 		binding.commentsRecycler.adapter = commentsAdapter
 		binding.commentsBack.setOnClickListener { finish() }
@@ -49,10 +49,13 @@ class CommentsActivity : AppCompatActivity() {
 
 	private fun loadComments() {
 		val comments = viewModel.post.comments
+		val start=commentsAdapter.comments.size
+
 		for (comment in comments.reversed())
-			if (!commentsAdapter.comments.contains(comment))
-				commentsAdapter.comments.add(0, comment)
-		commentsAdapter.notifyDataSetChanged()
+			if (!commentsAdapter.comments.contains(comment)){
+				commentsAdapter.comments.add( comment)
+			}
+				commentsAdapter.notifyDataSetChanged()
 	}
 
 	private fun loadEmoji(type: Int = 0) {

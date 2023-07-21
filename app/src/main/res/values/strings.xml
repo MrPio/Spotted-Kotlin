@@ -1,86 +1,82 @@
 <resources>
-    <string name="app_name">Spotted!</string>
-    <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="home_fragment_label">Home</string>
-    <string name="map_fragment_label">Mappa</string>
-    <string name="add_spot_fragment_label">Pubblica uno Spot</string>
-    <string name="account_fragment_label">Account</string>
-    <string name="settings_fragment_label">Impostazioni</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+	<string name = "app_name">Spotted!</string>
+	<string name = "action_settings">Settings</string>
+	<!-- Strings used for fragments for navigation -->
+	<string name = "home_fragment_label">Home</string>
+	<string name = "map_fragment_label">Mappa</string>
+	<string name = "add_spot_fragment_label">Pubblica uno Spot</string>
+	<string name = "account_fragment_label">Account</string>
+	<string name = "settings_fragment_label">Impostazioni</string>
+	<string name = "next">Next</string>
+	<string name = "previous">Previous</string>
 
-    <string name="intro_title">Dai un nome\nai volti che incontri</string>
-    <string name="intro_subtitle">Pubblica annunci e trova\nle persone che stai cercando.</string>
-    <string name="start_button">Iniziamo</string>
-    <string name="app_title">Spotted</string>
-    <string name="login">Login</string>
-    <string name="email">E-mail:</string>
-    <string name="password">Password:</string>
-    <string name="oppure">Oppure</string>
-    <string name="not_registered">Non sei ancora registrato?</string>
-    <string name="registrati"><u>Registrati</u></string>
-    <string name="sign_up">Sign Up</string>
-    <string name="repeat_password">Ripeti password:</string>
-    <string name="already_registered">Sei già registrato?</string>
-    <string name="do_login"><u>Effettua il Login</u></string>
-    <string name="contain">La password deve contenere almeno un:</string>
-    <string name="requirement1">- Carattere minuscolo</string>
-    <string name="requirement2">- Carattere maiuscolo</string>
-    <string name="requirement3">- Carattere speciale</string>
-    <string name="requirement4">- Numero</string>
-    <string name="ClienId">todo</string>
-    <string name="name">Nome:</string>
-    <string name="surname">Cognome:</string>
-    <string name="gender">Genere: *</string>
-    <string name="insta">Nome Instagram: *</string>
-    <string name="continua">Continua</string>
-    <string name="male">Maschio</string>
-    <string name="female">Femmina</string>
-    <string name="other">Altro</string>
-    <string name="optional_fields"> * Campi opzionali</string>
-    <string name="phone">Telefono*</string>
-    <string name="profilo">Profilo</string>
-    <string name="messaggia">Messaggia</string>
-    <string name="chiama">Chiama</string>
-    <string name="post">Post</string>
-    <string name="following">Following</string>
-    <string name="comments">Commenti</string>
+	<string name = "intro_title">Dai un nome\nai volti che incontri</string>
+	<string name = "intro_subtitle">Pubblica annunci e trova\nle persone che stai cercando.</string>
+	<string name = "start_button">Iniziamo</string>
+	<string name = "app_title">Spotted</string>
+	<string name = "login">Login</string>
+	<string name = "email">E-mail:</string>
+	<string name = "password">Password:</string>
+	<string name = "oppure">Oppure</string>
+	<string name = "not_registered">Non sei ancora registrato?</string>
+	<string name = "registrati"><u>Registrati</u></string>
+	<string name = "sign_up">Sign Up</string>
+	<string name = "repeat_password">Ripeti password:</string>
+	<string name = "already_registered">Sei già registrato?</string>
+	<string name = "do_login"><u>Effettua il Login</u></string>
+	<string name = "contain">La password deve contenere almeno un:</string>
+	<string name = "requirement1">- Carattere minuscolo</string>
+	<string name = "requirement2">- Carattere maiuscolo</string>
+	<string name = "requirement3">- Carattere speciale</string>
+	<string name = "requirement4">- Numero</string>
+	<string name = "ClienId">todo</string>
+	<string name = "name">Nome:</string>
+	<string name = "surname">Cognome:</string>
+	<string name = "gender">Genere: *</string>
+	<string name = "insta">Nome Instagram: *</string>
+	<string name = "continua">Continua</string>
+	<string name = "male">Maschio</string>
+	<string name = "female">Femmina</string>
+	<string name = "other">Altro</string>
+	<string name = "optional_fields"> * Campi opzionali</string>
+	<string name = "phone">Telefono*</string>
+	<string name = "profilo">Profilo</string>
+	<string name = "messaggia">Messaggia</string>
+	<string name = "chiama">Chiama</string>
+	<string name = "post">Post</string>
+	<string name = "following">Following</string>
+	<string name = "comments">Commenti</string>
 
+	<string name = "luogo">Luogo</string>
+	<string name = "todo">TODO</string>
+	<string name = "type_feste">Feste</string>
+	<string name = "type_sport">Sport</string>
+	<string name = "type_persone">Persone</string>
+	<string name = "home_persone_subtitle">Ecco gli spot recenti, ti riconosci in queste descrizioni?</string>
+	<string name = "home_feste_subtitle">Pronto a festeggiare? Questi party aspettano solo te!</string>
+	<string name = "home_sport_subtitle">Hai voglia di fare un po\' di sport? Controlla i seguenti spot.</string>
 
+	<string name = "home_tutti_subtitle">Tutti i post</string>
+	<string name = "home_ingegneria_subtitle">Univpm - Plesso Monte Dago</string>
+	<string name = "home_agraria_subtitle">Univpm - Plesso Monte Dago</string>
+	<string name = "home_scienze_subtitle">Univpm - Dipartimento di Scienze della Vita e dell’Ambiente</string>
+	<string name = "home_economia_subtitle">Univpm - Facoltà di Economia "Giorgio Fuà"</string>
+	<string name = "home_medicina_murri_subtitle">Univpm - Polo Universitario Torrette </string>
+	<string name = "home_medicina_eustacchio_subtitle">Univpm - Polo Universitario Torrette </string>
+	<string name = "home_ancona_subtitle">Città di Ancona </string>
+	<string name = "home_altri_subtitle">Mense e altri luoghi</string>
 
-
-
-    <string name="luogo">Luogo</string>
-    <string name="todo">TODO</string>
-    <string name="type_feste">Feste</string>
-    <string name="type_sport">Sport</string>
-    <string name="type_persone">Persone</string>
-    <string name="home_persone_subtitle">Ecco gli spot recenti, ti riconosci in queste descrizioni?</string>
-    <string name="home_feste_subtitle">Pronto a festeggiare? Questi party aspettano solo te!</string>
-    <string name="home_sport_subtitle">Hai voglia di fare un po\' di sport? Controlla i seguenti spot.</string>
-
-	<string name="home_tutti_subtitle">Tutti i post</string>
-	<string name="home_ingegneria_subtitle">Univpm - Plesso Monte Dago</string>
-	<string name="home_agraria_subtitle">Univpm - Plesso Monte Dago</string>
-	<string name="home_scienze_subtitle">Univpm - Dipartimento di Scienze della Vita e dell’Ambiente</string>
-	<string name="home_economia_subtitle">Univpm - Facoltà di Economia "Giorgio Fuà"</string>
-	<string name="home_medicina_murri_subtitle">Univpm - Polo Universitario Torrette </string>
-	<string name="home_medicina_eustacchio_subtitle">Univpm - Polo Universitario Torrette </string>
-	<string name="home_ancona_subtitle">Città di Ancona </string>
-	<string name="home_altri_subtitle">Mense e altri luoghi</string>
-
-	<string name="home_title">Ciao, %1$s! </string>
+	<string name = "home_title">Ciao, %1$s! </string>
 	<string name = "nuovo_spot">Nuovo Spot</string>
 	<string name = "tags">Tags</string>
-    <string name = "my_tags">I miei tag:</string>
-    <string name = "my_posts">I miei post:</string>
-    <string name = "my_following">Post seguiti:</string>
-    <string name = "zona">Zona</string>
-    <string name = "plesso">Plesso</string>
+	<string name = "my_tags">I miei tag:</string>
+	<string name = "my_posts">I miei post:</string>
+	<string name = "my_following">Post seguiti:</string>
+	<string name = "zona">Zona</string>
+	<string name = "plesso">Plesso</string>
 	<string name = "descrizione">Descrizione</string>
 	<string name = "reimposta">Reimposta</string>
-    <string name = "pubblica">Pubblica</string>
+	<string name = "pubblica">Pubblica</string>
 	<string name = "indossava_una_felpa_nera">Indossava una felpa nera</string>
 	<string name = "genere">Genere</string>
 	<string name = "azzera">azzera</string>
@@ -99,7 +95,7 @@
 	<string name = "type_altri">Altri</string>
 	<string name = "modalit_anonima">Modalità anonima</string>
 	<string name = "fine_dei_post">Fine dei post</string>
-    <string name = "ancora_nessun_post">Ancora nessun post</string>
+	<string name = "ancora_nessun_post">Ancora nessun post</string>
 	<string name = "rilevanza">Rilevanza</string>
 	<string name = "data">Data</string>
 	<string name = "rimuovi_coordinate">- <u>Rimuovi</u></string>
@@ -109,5 +105,7 @@
 	<string name = "persona_spottata">(Persona spottata)</string>
 	<string name = "valerio_morelli">Valerio Morelli</string>
 	<string name = "niente_da_mostrare">Niente da mostrare</string>
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name = "hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

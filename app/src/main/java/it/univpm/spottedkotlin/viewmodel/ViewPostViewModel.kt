@@ -24,7 +24,7 @@ class ViewPostViewModel : ObservableViewModel() {
 	val lastComment: String
 		get() {
 			if (post.comments.size > 0) {
-				val comment = post.comments.last()
+				val comment = post.comments[0]
 				return "**${comment.user?.name} ${comment.user?.surname}** ${comment.text}"
 			}
 			return ""
@@ -34,7 +34,7 @@ class ViewPostViewModel : ObservableViewModel() {
 	val penultimateComment: String
 		get() {
 			if (post.comments.size > 1) {
-				val comment = post.comments[post.comments.size - 2]
+				val comment = post.comments[1]
 				return "**${comment.user?.name} ${comment.user?.surname}** ${comment.text}"
 			}
 			return ""
