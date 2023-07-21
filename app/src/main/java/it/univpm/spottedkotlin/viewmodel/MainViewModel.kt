@@ -20,7 +20,6 @@ class MainViewModel : ViewModel() {
 			HomeFragment(),
 			MapFragment(),
 			AddPostFragment(),
-			AccountFragment(),
 			SearchUserFragment(),
 		)
 

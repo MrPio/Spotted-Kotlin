@@ -96,7 +96,6 @@ class AccountFragment(val uid: String? = null) : Fragment() {
 				binding.callButton.visibility = View.GONE
 				binding.messaggiaButton.visibility = View.GONE
 			}
-			binding.backButton.visibility = if (viewModel.isCurrentUser) View.GONE else View.VISIBLE
 
 
 			if (viewModel.isCurrentUser) {

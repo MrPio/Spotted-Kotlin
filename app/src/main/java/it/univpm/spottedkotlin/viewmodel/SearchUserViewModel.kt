@@ -29,6 +29,7 @@ class SearchUserViewModel : ObservableViewModel() {
 			field = value
 			searchUsers()
 			notifyPropertyChanged(BR.users)
+			notifyPropertyChanged(BR.searchToken)
 		}
 
 	fun searchUsers() {
@@ -41,7 +42,12 @@ class SearchUserViewModel : ObservableViewModel() {
 
 	fun loadMore(): Boolean {
 		loaded += loadingStep
-		return loaded-loadingStep<_users.size
+		return loaded - loadingStep < _users.size
+	}
+
+	fun reset() {
+		if (searchToken != "")
+			searchToken = ""
 	}
 }
 

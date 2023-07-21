@@ -16,12 +16,11 @@ class AccountActivity : AppCompatActivity() {
 		binding = ActivityAccountBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 
-		if (intent.hasExtra("userUID"))
-			supportFragmentManager.commit {
-				add(
-					binding.accountContainer.id, AccountFragment(intent.getStringExtra("userUID"))
-				)
-			}
+		supportFragmentManager.commit {
+			add(
+				binding.accountContainer.id, AccountFragment(intent.getStringExtra("userUID"))
+			)
+		}
 	}
 }
 

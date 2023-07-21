@@ -47,10 +47,10 @@ class HomeFragment : Fragment() {
 		layoutManager = LinearLayoutManager(context)
 		binding.apply {
 			homeAvatar.setOnClickListener {
-				(requireActivity() as MainActivity).viewModel.currentFragment.value = 3
+				activity?.goto<AccountActivity>()
 			}
 			homeMenu.setOnClickListener {
-				startActivity(Intent(context, SettingsActivity::class.java))
+				activity?.goto<SettingsActivity>()
 			}
 			homeOrderby.setOnClickListener {
 				orderBy()

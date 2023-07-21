@@ -124,7 +124,7 @@
 					  android:foreground = "@drawable/ripple_white_round"
 					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(2)}"/>
 			</RelativeLayout>
-			<!--AccountIcon-->
+			<!--SearchUserIcon-->
 			<RelativeLayout android:layout_width = "52dp"
 							android:layout_height = "52dp"
 							android:layout_weight = "1">
@@ -139,7 +139,7 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "match_parent"
 					android:gravity = "center"
-					android:text = "@string/AccountOutline"
+					android:text = "@string/AccountSearchOutline"
 					android:textColor = "@color/white"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
@@ -151,7 +151,7 @@
 					  android:onClickListener = "@{()->viewModel.bottomBarItemClicked(3)}"/>
 			</RelativeLayout>
 
-			<!--SettingsIcon-->
+			<!--DirectIcon-->
 			<RelativeLayout android:layout_width = "52dp"
 							android:layout_height = "52dp"
 							android:layout_weight = "1">
@@ -166,7 +166,7 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "match_parent"
 					android:gravity = "center"
-					android:text = "@string/AccountSearchOutline"
+					android:text = "@string/BellOutline"
 					android:textColor = "@color/white"
 					android:textSize = "28sp"/>
 				<View android:layout_width = "match_parent"
