@@ -13,6 +13,7 @@ import it.univpm.spottedkotlin.databinding.SearchUserFragmentBinding
 import it.univpm.spottedkotlin.extension.function.getActivity
 import it.univpm.spottedkotlin.extension.function.log
 import it.univpm.spottedkotlin.managers.DataManager
+import it.univpm.spottedkotlin.model.User
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.SearchUserViewModel
 import kotlinx.coroutines.MainScope
@@ -61,12 +62,25 @@ class SearchUserFragment(val uid: String? = null) : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		viewModel.users.observe(requireActivity()) { userList ->
-			val originalSize=searchUserAdapter.users.size
+			val originalSize = searchUserAdapter.users.size
+			var reset = false
+			val toRemove = mutableListOf<User>()
+			searchUserAdapter.users.forEach { user ->
+				if (userList.find { it.uid == user.uid } == null)
+					toRemove.add(user)
+			}
+			searchUserAdapter.users.removeAll(toRemove)
 			userList.forEach { user ->
 				if (searchUserAdapter.users.find { it.uid == user.uid } == null)
 					searchUserAdapter.users.add(user)
 			}
-			searchUserAdapter.notifyItemRangeInserted(originalSize,searchUserAdapter.users.size-originalSize)
+			if (toRemove.size > 0)
+				searchUserAdapter.notifyDataSetChanged()
+			else
+				searchUserAdapter.notifyItemRangeInserted(
+					originalSize,
+					searchUserAdapter.users.size - originalSize
+				)
 		}
 	}
 }

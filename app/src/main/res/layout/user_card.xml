@@ -2,61 +2,90 @@
 <layout xmlns:android = "http://schemas.android.com/apk/res/android"
 		xmlns:app = "http://schemas.android.com/apk/res-auto">
 	<data>
-		<variable
-			name = "model"
-			type = "it.univpm.spottedkotlin.model.User"/>
-		<variable name = "view"
+		<import type = "android.view.View"/>
+		<variable name = "viewHolder"
 				  type = "it.univpm.spottedkotlin.view.holders.UserCardViewHolder"/>
 	</data>
 
 	<RelativeLayout android:layout_width = "match_parent"
 					android:layout_height = "wrap_content">
-	<androidx.constraintlayout.widget.ConstraintLayout android:layout_width = "match_parent"
-													   android:layout_height = "wrap_content">
+		<androidx.constraintlayout.widget.ConstraintLayout android:layout_width = "match_parent"
+														   android:layout_height = "wrap_content">
 
-		<LinearLayout android:layout_width = "match_parent"
-					  android:layout_height = "wrap_content"
-					  android:paddingVertical = "10dp"
-					  android:paddingHorizontal="20dp"
-					  android:orientation = "horizontal">
-
-			<!--AvatarImage-->
-			<androidx.cardview.widget.CardView
-				android:layout_width = "46dp"
-				android:layout_height = "46dp"
-				android:layout_marginEnd = "20dp"
-				app:cardCornerRadius = "999dp">
-
-				<ImageView
-					imageUrl = "@{model.avatar}"
-					android:layout_width = "match_parent"
-					android:layout_height = "match_parent"/>
-			</androidx.cardview.widget.CardView>
-
-			<!--Name, Surname and Nickname-->
-			<LinearLayout android:layout_width = "0dp"
-						  android:layout_height = "wrap_content"
-						  android:layout_weight = "1"
-						  android:orientation = "vertical">
-				<TextView style = "@style/LabelBold"
+			<LinearLayout android:id = "@+id/linearLayout2"
 						  android:layout_width = "match_parent"
 						  android:layout_height = "wrap_content"
-						  android:text = '@{model.name + " " + model.surname }'/>
-				<TextView style = "@style/LabelRegular"
-						  android:layout_width = "match_parent"
-						  android:layout_height = "wrap_content"
-						  android:layout_marginTop = "4dp"
-						  android:text = "@{model.instagramNickname}"
-						  android:textColor = "@color/hint"/>
+						  android:orientation = "horizontal"
+						  android:paddingHorizontal = "20dp"
+						  android:paddingVertical = "10dp">
+
+				<!--AvatarImage-->
+				<androidx.cardview.widget.CardView
+					android:layout_width = "46dp"
+					android:layout_height = "46dp"
+					android:layout_marginEnd = "20dp"
+					app:cardCornerRadius = "999dp">
+
+					<ImageView
+						imageUrl = "@{viewHolder.user.avatar}"
+						android:layout_width = "match_parent"
+						android:layout_height = "match_parent"/>
+				</androidx.cardview.widget.CardView>
+
+				<!--Name, Surname and Nickname-->
+				<LinearLayout android:layout_width = "0dp"
+							  android:layout_height = "wrap_content"
+							  android:layout_weight = "1"
+							  android:orientation = "vertical">
+					<TextView style = "@style/LabelBold"
+							  android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:text = '@{viewHolder.user.name + " " + viewHolder.user.surname }'/>
+					<TextView style = "@style/LabelRegular"
+							  android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:layout_marginTop = "4dp"
+							  android:text = "@{viewHolder.user.instagramNickname}"
+							  android:textColor = "@color/hint"/>
+				</LinearLayout>
 			</LinearLayout>
-		</LinearLayout>
 
-		<!--HighlightView-->
-		<include layout = "@layout/highlight_view"
-				 app:foreground = "@{@drawable/ripple_foreground}"
-				 android:paddingVertical = "10dp"
-				 app:onClickListener = "@{()->view.onClick(model)}"/>
-	</androidx.constraintlayout.widget.ConstraintLayout>
+			<!--HighlightView-->
+			<include layout = "@layout/highlight_view"
+					 android:paddingVertical = "10dp"
+					 app:foreground = "@{@drawable/ripple_foreground}"
+					 app:onClickListener = "@{()->viewHolder.onClick()}"/>
+
+			<!--FollowIcon-->
+			<RelativeLayout
+				android:layout_width = "70dp"
+				android:layout_height = "0dp"
+				android:gravity = "center"
+				app:layout_constraintBottom_toBottomOf = "parent"
+				app:layout_constraintEnd_toEndOf = "parent"
+				android:layout_marginEnd="20dp"
+				android:visibility="@{viewHolder.user.isMe()?View.GONE:View.VISIBLE}"
+				app:layout_constraintTop_toTopOf = "parent">
+
+				<TextView style = "@style/LabelIcon"
+						  android:layout_width = "match_parent"
+						  android:layout_height = "match_parent"
+						  android:layout_gravity = "center"
+						  android:clickable = "true"
+						  android:gravity = "center"
+						  android:text = "@{viewHolder.user.isFollowing()?@string/AccountCheckOutline:@string/AccountPlusOutline}"
+						  android:textColor = "@color/foreground"
+						  android:textSize = "28sp"/>
+
+				<include android:id="@+id/user_card_follow" layout = "@layout/highlight_view"
+						 android:layout_width = "match_parent"
+						 android:layout_height = "match_parent"
+						 android:gravity = "center"
+						 app:foreground = "@{@drawable/ripple_black_round}">
+				</include>
+			</RelativeLayout>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
 
 	</RelativeLayout>
 </layout>
