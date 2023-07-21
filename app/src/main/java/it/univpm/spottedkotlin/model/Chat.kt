@@ -14,7 +14,7 @@ data class Chat(
 
 	@Exclude
 	@JvmField
-	var users: List<User>? = null
+	var users: MutableList<User> = mutableListOf()
 
 	@Exclude
 	@JvmField

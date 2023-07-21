@@ -21,6 +21,7 @@ class MainViewModel : ViewModel() {
 			MapFragment(),
 			AddPostFragment(),
 			SearchUserFragment(),
+			DirectFragment(),
 		)
 
 	fun initialize(context: Context) {

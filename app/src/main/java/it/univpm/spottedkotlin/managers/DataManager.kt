@@ -25,7 +25,7 @@ object DataManager {
 		tags = mutableListOf(),
 	)
 	var cachedUsers: MutableSet<User> = mutableSetOf()
-	val chats: MutableList<Chat> = mutableListOf()
+	var cachedChats: MutableList<Chat> = mutableListOf()
 
 
 	// Fetch all the application's needed start data
@@ -33,6 +33,7 @@ object DataManager {
 		tags = Tags.values().toSet()
 		cachedUsers = DatabaseManager.getList<User>("users", 9999)?.toMutableSet() ?: mutableSetOf()
 		settingMenus = SeederManager.generateSettings(context)
+		cachedChats = DatabaseManager.getList<Chat>("chats", 9999)?.toMutableList() ?: mutableListOf()
 	}
 
 	// Request a new page for paginated data
@@ -130,6 +131,26 @@ object DataManager {
 		post.lastFollowers.clear()
 		for (i in 1..min(3, post.followers.size))
 			post.lastFollowers.add(loadUser(post.followers[post.followers.size - i]))
+	}
+
+	// Load a single Chat object from a given pair of user uids
+	suspend fun loadChat(firstUID: String, secondUID: String): Chat? {
+		val uid = listOf(firstUID, secondUID).sorted().joinToString("_")
+
+		// Already cached?
+		cachedChats.find { it.uid == uid }?.let { return it }
+
+		// Ask the database for the user and caching it
+		DatabaseManager.get<Chat>("chats/$uid")?.let { chat ->
+			chat.uid = uid
+			for (author in chat.authors)
+				chat.users.add(loadUser(author))
+			cachedChats.add(chat)
+			return chat
+		}
+
+		// If everything above failed
+		return null
 	}
 
 	// Apply a given filter to the posts

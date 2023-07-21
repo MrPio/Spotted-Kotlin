@@ -10,6 +10,8 @@ data class Comment(
 	val authorUID: String? = null,
 	val text: String = "",
 	val timestamp: Long = Calendar.getInstance().time.time,
+	val receivedTimestamp:Long?=null,
+	val readTimestamp:Long?=null,
 ) : Serializable{
 
 	@Exclude @JvmField
