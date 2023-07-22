@@ -33,12 +33,6 @@ class SettingsFragment : Fragment() {
 		binding.viewModel = viewModel
 		viewModel.gotoFirstActivityCallback = ::gotoFirstActivity
 
-		// Hide the BottomBar with scroll
-//		binding.settingsScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-//			context?.getActivity<MainActivity>()?.binding?.bottomBarContainer?.translationY =
-//				scrollY.toFloat()
-//		}
-
 		binding.settingsBack.setOnClickListener {
 			requireActivity().finish()
 		}

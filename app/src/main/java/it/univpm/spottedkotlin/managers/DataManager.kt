@@ -4,7 +4,6 @@ import android.content.Context
 import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.enums.Tags
-import it.univpm.spottedkotlin.extension.function.then
 import it.univpm.spottedkotlin.model.*
 import kotlin.math.min
 
@@ -24,8 +23,9 @@ object DataManager {
 		instagramNickname = null,
 		tags = mutableListOf(),
 	)
+	var cachedPosts: MutableSet<Post> = mutableSetOf()
 	var cachedUsers: MutableSet<User> = mutableSetOf()
-	var cachedChats: MutableList<Chat> = mutableListOf()
+	var cachedChats: MutableSet<Chat> = mutableSetOf()
 
 
 	// Fetch all the application's needed start data
@@ -33,12 +33,17 @@ object DataManager {
 		tags = Tags.values().toSet()
 		cachedUsers = DatabaseManager.getList<User>("users", 9999)?.toMutableSet() ?: mutableSetOf()
 		settingMenus = SeederManager.generateSettings(context)
-		cachedChats = DatabaseManager.getList<Chat>("chats", 9999)?.toMutableList() ?: mutableListOf()
+		cachedChats = DatabaseManager.getList<Chat>("chats", 9999)?.toMutableSet() ?: mutableSetOf()
 	}
 
 	// Request a new page for paginated data
 	suspend fun loadMore(pageSize: Int = this.pageSize) {
 		posts.addAll(DatabaseManager.getList("posts", pageSize = pageSize) ?: listOf())
+		cachedPosts.addAll(posts.filter { post ->
+			cachedPosts.find { cachedPost ->
+				post.uid == cachedPost.uid
+			} == null
+		})
 	}
 
 	// Remove the last page pointer of paginated data
@@ -73,13 +78,13 @@ object DataManager {
 	}
 
 	// Load a single Post object from a given uid
-	suspend fun loadPost(uid: String?): Post {
+	suspend fun loadPost(uid: String?, withInfo: Boolean = true): Post {
 
 		// Is null?
 		if (uid == null) return Post()
 
 		// Already cached?
-		posts.find { it.uid == uid }?.let { post ->
+		cachedPosts.find { it.uid == uid }?.let { post ->
 			loadPostInfo(post)
 			return post
 		}
@@ -87,8 +92,8 @@ object DataManager {
 		// Ask the database for the post and caching it
 		DatabaseManager.get<Post>("posts/$uid")?.let { post ->
 			post.uid = uid
-			loadPostInfo(post)
-			posts.add(post)
+			if (withInfo) loadPostInfo(post)
+			cachedPosts.add(post)
 			return post
 		}
 
@@ -98,24 +103,20 @@ object DataManager {
 
 	// Load the first 30 posts of a given user
 	suspend fun loadUserPosts(user: User) {
-//		user.posts.clear()
-		for (postUID in user.postsUIDs.reversed().take(30))
-			if (user.posts.find { it.uid == postUID } == null)
-				DatabaseManager.get<Post>("posts/$postUID")?.let {
-					it.uid = postUID
-					user.posts.add(it)
-				}
+		for (postUID in user.postsUIDs.reversed()
+			.take(30)) if (user.posts.find { it.uid == postUID } == null) user.posts.add(
+			loadPost(
+				postUID, false
+			)
+		)
 	}
 
 	// Load the first 30 posts of a given user's following posts
 	suspend fun loadUserFollowingPosts(user: User) {
-//		user.followingPosts.clear()
-		for (postUID in user.following.reversed().take(30))
-			if (user.followingPosts.find { it.uid == postUID } == null)
-				DatabaseManager.get<Post>("posts/$postUID")?.let {
-					it.uid = postUID
-					user.followingPosts.add(it)
-				}
+		for (postUID in user.following.reversed()
+			.take(30)) if (user.followingPosts.find { it.uid == postUID } == null) user.followingPosts.add(
+			loadPost(postUID, false)
+		)
 	}
 
 	// Load post author, last followers and comments authors
@@ -129,28 +130,39 @@ object DataManager {
 
 		// Carico gli ultimi 3 followers
 		post.lastFollowers.clear()
-		for (i in 1..min(3, post.followers.size))
-			post.lastFollowers.add(loadUser(post.followers[post.followers.size - i]))
+		for (i in 1..min(
+			3, post.followers.size
+		)) post.lastFollowers.add(loadUser(post.followers[post.followers.size - i]))
 	}
 
 	// Load a single Chat object from a given pair of user uids
-	suspend fun loadChat(firstUID: String, secondUID: String): Chat? {
-		val uid = listOf(firstUID, secondUID).sorted().joinToString("_")
+	suspend fun loadChat(uid: String): Chat? {
 
 		// Already cached?
 		cachedChats.find { it.uid == uid }?.let { return it }
 
 		// Ask the database for the user and caching it
 		DatabaseManager.get<Chat>("chats/$uid")?.let { chat ->
-			chat.uid = uid
-			for (author in chat.authors)
-				chat.users.add(loadUser(author))
+			for (author in chat.authors) chat.users.add(loadUser(author))
 			cachedChats.add(chat)
 			return chat
 		}
 
 		// If everything above failed
 		return null
+	}
+
+	suspend fun loadChat(firstUserUID: String, secondUserUID: String) =
+		DataManager.loadChat(Chat(authors = mutableListOf(firstUserUID, secondUserUID)).uid)
+
+	// Load the first 30 chats of a given user
+	suspend fun loadUserChats(user: User) {
+		for (userUID in user.chatsUserUID.reversed()
+			.take(30)) if (user.chats.find { it.uid.contains(userUID) } == null) loadChat(user.uid?:"",userUID)?.let {
+			user.chats.add(
+				it
+			)
+		}
 	}
 
 	// Apply a given filter to the posts
@@ -164,6 +176,7 @@ object DataManager {
 			val path = when (model) {
 				is User -> "users/" + if (mode == SaveMode.PUT) model.uid else ""
 				is Post -> "posts/" + if (mode == SaveMode.PUT) model.uid else ""
+				is Chat -> "chats/" + if (mode == SaveMode.PUT) model.uid else ""
 				else -> return
 			}
 
@@ -174,7 +187,7 @@ object DataManager {
 				when (model) {
 					is Post -> {
 						// Add the newly created post to current user's posts list
-						posts.add(model)
+						cachedPosts.add(model)
 						AccountManager.user.postsUIDs.add(uid)
 						AccountManager.user.posts.add(model)
 						save(AccountManager.user)

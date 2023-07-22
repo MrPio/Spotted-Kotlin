@@ -2,6 +2,8 @@ package it.univpm.spottedkotlin.model
 
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
+import it.univpm.spottedkotlin.extension.function.toConceptualStr
+import it.univpm.spottedkotlin.extension.function.toPostStr
 import java.io.Serializable
 import java.util.*
 
@@ -16,10 +18,12 @@ data class Chat(
 	@JvmField
 	var users: MutableList<User> = mutableListOf()
 
-	@Exclude
-	@JvmField
-	var uid: String? = null
+	@get:Exclude
+	val uid: String get() = authors.sorted().joinToString("_")
 
 	@get:Exclude
 	val date: Date get() = Date(timestamp)
+
+	@get:Exclude
+	val lastSeen: String get() = date.toPostStr()
 }

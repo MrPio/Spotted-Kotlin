@@ -2,7 +2,6 @@ package it.univpm.spottedkotlin.view.holders
 
 import android.app.Activity
 import androidx.databinding.Bindable
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import it.univpm.spottedkotlin.BR
 import it.univpm.spottedkotlin.databinding.UserCardBinding
 import it.univpm.spottedkotlin.extension.ObservableViewHolder
@@ -13,8 +12,6 @@ import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.User
 import it.univpm.spottedkotlin.view.AccountActivity
-import it.univpm.spottedkotlin.view.MainActivity
-import it.univpm.spottedkotlin.view.SettingsActivity
 
 class UserCardViewHolder(val binding: UserCardBinding) : ObservableViewHolder(binding.root) {
 	@get:Bindable
@@ -23,6 +20,7 @@ class UserCardViewHolder(val binding: UserCardBinding) : ObservableViewHolder(bi
 		this.user = user
 		binding.viewHolder = this
 		binding.userCardFollow.setOnClickListener { follow() }
+		binding.userCardChat.setOnClickListener { gotoChat() }
 	}
 
 	fun onClick() =
@@ -38,5 +36,13 @@ class UserCardViewHolder(val binding: UserCardBinding) : ObservableViewHolder(bi
 			DataManager.save(AccountManager.user)
 		}
 		notifyPropertyChanged(BR.user)
+	}
+
+	private fun gotoChat() {
+//			AccountManager.user.uid?.let { user.chatsUserUID.add(it) }
+//			user.uid?.let { AccountManager.user.chatsUserUID.add(it) }
+//			DataManager.save(AccountManager.user,user)
+//			notifyPropertyChanged(BR.user)
+
 	}
 }

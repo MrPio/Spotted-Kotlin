@@ -3,6 +3,7 @@
 		xmlns:app = "http://schemas.android.com/apk/res-auto"
 		xmlns:tools = "http://schemas.android.com/tools">
 	<data>
+		<import type = "android.view.View"/>
 		<variable name = "viewModel"
 				  type = "it.univpm.spottedkotlin.viewmodel.DirectViewModel"/>
 	</data>
@@ -16,7 +17,7 @@
 						android:layout_height = "wrap_content">
 
 			<!--InfoIcon-->
-			<TextView android:id = "@+id/settings_info"
+			<TextView android:id = "@+id/direct_new_chat"
 					  style = "@style/LabelIcon"
 					  android:layout_width = "wrap_content"
 					  android:layout_height = "wrap_content"
@@ -31,7 +32,7 @@
 					  android:textSize = "28sp"/>
 		</RelativeLayout>
 
-		<ScrollView android:id = "@+id/settings_scroll_view"
+		<ScrollView android:id = "@+id/direct_scroll_view"
 					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content">
 			<LinearLayout android:layout_width = "match_parent"
@@ -52,23 +53,32 @@
 					android:textColor = "@color/foreground"
 					android:textSize = "28sp"/>
 
-				<LinearLayout android:id = "@+id/direct_new_content"
+				<LinearLayout android:id = "@+id/direct_content"
 							  android:layout_width = "match_parent"
 							  android:layout_height = "wrap_content"
 							  android:orientation = "vertical"/>
 
 				<!--HLine-->
-				<View android:layout_width = "match_parent"
-					  android:layout_height = "0.65dp"
-					  android:layout_marginHorizontal = "30dp"
-					  android:layout_marginVertical = "20dp"
-					  android:alpha = "0.125"
-					  android:foreground = "@color/foreground"/>
+				<!--				<View android:layout_width = "match_parent"-->
+				<!--					  android:layout_height = "0.65dp"-->
+				<!--					  android:layout_marginHorizontal = "30dp"-->
+				<!--					  android:layout_marginVertical = "20dp"-->
+				<!--					  android:alpha = "0.125"-->
+				<!--					  android:foreground = "@color/foreground"/>-->
 
-				<LinearLayout android:id = "@+id/direct_old_content"
-							  android:layout_width = "match_parent"
-							  android:layout_height = "wrap_content"
-							  android:orientation = "vertical"/>
+				<!--				<LinearLayout android:id = "@+id/direct_old_content"-->
+				<!--							  android:layout_width = "match_parent"-->
+				<!--							  android:layout_height = "wrap_content"-->
+				<!--							  android:orientation = "vertical"/>-->
+
+				<TextView style = "@style/LabelBlack"
+						  android:layout_width = "match_parent"
+						  android:layout_height = "wrap_content"
+						  android:layout_marginTop = "40dp"
+						  android:alpha = "0.4"
+						  android:text = "@string/niente_da_mostrare"
+						  android:textAlignment = "center"
+						  android:visibility = '@{viewModel.chats.size()==0?View.VISIBLE:View.GONE}'/>
 
 				<View android:layout_width = "match_parent"
 					  android:layout_height = "160dp"/>

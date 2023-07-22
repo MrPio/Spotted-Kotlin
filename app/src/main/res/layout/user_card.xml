@@ -33,6 +33,10 @@
 				</androidx.cardview.widget.CardView>
 
 				<!--Name, Surname and Nickname-->
+				<HorizontalScrollView android:layout_width = "match_parent"
+									  android:layout_marginEnd="108dp"
+									  android:layout_height = "wrap_content">
+
 				<LinearLayout android:layout_width = "0dp"
 							  android:layout_height = "wrap_content"
 							  android:layout_weight = "1"
@@ -48,6 +52,7 @@
 							  android:text = "@{viewHolder.user.instagramNickname}"
 							  android:textColor = "@color/hint"/>
 				</LinearLayout>
+				</HorizontalScrollView>
 			</LinearLayout>
 
 			<!--HighlightView-->
@@ -58,13 +63,14 @@
 
 			<!--FollowIcon-->
 			<RelativeLayout
-				android:layout_width = "70dp"
+				android:id="@+id/user_card_icon_1"
+				android:layout_width = "54dp"
 				android:layout_height = "0dp"
 				android:gravity = "center"
+				android:layout_marginEnd = "20dp"
+				android:visibility = "@{viewHolder.user.isMe()?View.GONE:View.VISIBLE}"
 				app:layout_constraintBottom_toBottomOf = "parent"
 				app:layout_constraintEnd_toEndOf = "parent"
-				android:layout_marginEnd="20dp"
-				android:visibility="@{viewHolder.user.isMe()?View.GONE:View.VISIBLE}"
 				app:layout_constraintTop_toTopOf = "parent">
 
 				<TextView style = "@style/LabelIcon"
@@ -77,7 +83,38 @@
 						  android:textColor = "@color/foreground"
 						  android:textSize = "28sp"/>
 
-				<include android:id="@+id/user_card_follow" layout = "@layout/highlight_view"
+				<include android:id = "@+id/user_card_follow"
+						 layout = "@layout/highlight_view"
+						 android:layout_width = "match_parent"
+						 android:layout_height = "match_parent"
+						 android:gravity = "center"
+						 app:foreground = "@{@drawable/ripple_black_round}">
+				</include>
+			</RelativeLayout>
+
+			<!--ProfileIcon-->
+			<RelativeLayout
+				android:id="@+id/user_card_icon_2"
+				android:layout_width = "54dp"
+				android:layout_height = "0dp"
+				android:gravity = "center"
+				android:visibility = "@{viewHolder.user.hasChatWithMe()?View.GONE:View.VISIBLE}"
+				app:layout_constraintEnd_toStartOf = "@id/user_card_icon_1"
+				app:layout_constraintBottom_toBottomOf = "parent"
+				app:layout_constraintTop_toTopOf = "parent">
+
+				<TextView style = "@style/LabelIcon"
+						  android:layout_width = "match_parent"
+						  android:layout_height = "match_parent"
+						  android:layout_gravity = "center"
+						  android:clickable = "true"
+						  android:gravity = "center"
+						  android:text = "@string/ChatPlusOutline"
+						  android:textColor = "@color/foreground"
+						  android:textSize = "28sp"/>
+
+				<include android:id = "@+id/user_card_chat"
+						 layout = "@layout/highlight_view"
 						 android:layout_width = "match_parent"
 						 android:layout_height = "match_parent"
 						 android:gravity = "center"

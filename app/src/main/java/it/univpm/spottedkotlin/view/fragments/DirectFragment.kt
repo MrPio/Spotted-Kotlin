@@ -10,9 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.univpm.spottedkotlin.R
 import it.univpm.spottedkotlin.adapter.SearchUserAdapter
+import it.univpm.spottedkotlin.databinding.ChatCardBinding
 import it.univpm.spottedkotlin.databinding.DirectFragmentBinding
+import it.univpm.spottedkotlin.databinding.EmojiItemBinding
 import it.univpm.spottedkotlin.databinding.SearchUserFragmentBinding
 import it.univpm.spottedkotlin.extension.function.getActivity
+import it.univpm.spottedkotlin.extension.function.inflate
+import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.DirectViewModel
 import it.univpm.spottedkotlin.viewmodel.SearchUserViewModel
@@ -35,5 +39,34 @@ class DirectFragment : Fragment() {
 
 		binding.viewModel = viewModel
 		return binding.root
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+
+		// AddChat
+		(requireActivity() as MainActivity).viewModel.currentFragment.value = 3
+
+		// Hide the BottomBar with scroll
+		binding.directScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+			context?.getActivity<MainActivity>()?.binding?.bottomBarContainer?.translationY =
+				scrollY.toFloat()
+		}
+
+		// Populate the chats inside the ViewGroup
+		viewModel.chats.observe(requireActivity()) { chats ->
+			binding.directContent.removeAllViews()
+			chats.forEach { chat ->
+				val chatView = requireContext().inflate<ChatCardBinding>(R.layout.chat_card)
+				chatView.modelChat = chat
+				chatView.modelUser = chat.users.find { it.uid != AccountManager.user.uid }
+				binding.directContent.addView(chatView.root)
+			}
+		}
+	}
+
+	override fun onResume() {
+		super.onResume()
+		viewModel.initialize()
 	}
 }

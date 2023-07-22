@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android = "http://schemas.android.com/apk/res/android"
+		xmlns:app = "http://schemas.android.com/apk/res-auto">
+	<data>
+		<import type = "android.view.View"/>
+		<variable name = "modelChat"
+				  type = "it.univpm.spottedkotlin.model.Chat"/>
+		<variable name = "modelUser"
+				  type = "it.univpm.spottedkotlin.model.User"/>
+	</data>
+
+	<RelativeLayout android:layout_width = "match_parent"
+					android:layout_height = "wrap_content">
+		<androidx.constraintlayout.widget.ConstraintLayout android:layout_width = "match_parent"
+														   android:layout_height = "wrap_content">
+
+			<LinearLayout android:id = "@+id/linearLayout2"
+						  android:layout_width = "match_parent"
+						  android:layout_height = "wrap_content"
+						  android:orientation = "horizontal"
+						  android:paddingHorizontal = "20dp"
+						  android:paddingVertical = "10dp">
+
+				<!--AvatarImage-->
+				<androidx.cardview.widget.CardView
+					android:layout_width = "60dp"
+					android:layout_height = "60dp"
+					android:layout_marginEnd = "20dp"
+					app:cardCornerRadius = "999dp">
+
+					<ImageView
+						imageUrl = "@{modelUser.avatar}"
+						android:layout_width = "match_parent"
+						android:layout_height = "match_parent"/>
+				</androidx.cardview.widget.CardView>
+
+				<!--Name, Surname and Nickname-->
+				<LinearLayout android:layout_width = "0dp"
+							  android:layout_height = "match_parent"
+							  android:layout_weight = "1"
+							  android:layout_marginVertical="2dp"
+							  android:orientation = "vertical">
+					<TextView style = "@style/LabelBold"
+							  android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:text = '@{modelUser.name + " " + modelUser.surname }'/>
+					<TextView style = "@style/LabelRegular"
+							  android:layout_width = "match_parent"
+							  android:layout_height = "wrap_content"
+							  android:layout_marginTop = "4dp"
+							  android:text = "@{modelChat.lastSeen}"
+							  android:textColor = "@color/hint"/>
+				</LinearLayout>
+			</LinearLayout>
+
+			<!--HighlightView-->
+			<include android:id="@+id/chat_card_highlight_view"
+				layout = "@layout/highlight_view"
+					 android:paddingVertical = "10dp"
+					 app:foreground = "@{@drawable/ripple_foreground}"/>
+
+			<!--ChevronIcon-->
+			<RelativeLayout
+				android:layout_width = "70dp"
+				android:layout_height = "0dp"
+				android:gravity = "center"
+				app:layout_constraintBottom_toBottomOf = "parent"
+				app:layout_constraintEnd_toEndOf = "parent"
+				android:layout_marginEnd="20dp"
+				app:layout_constraintTop_toTopOf = "parent">
+
+				<TextView style = "@style/LabelIcon"
+						  android:layout_width = "match_parent"
+						  android:layout_height = "match_parent"
+						  android:layout_gravity = "center"
+						  android:clickable = "true"
+						  android:gravity = "center"
+						  android:text = "@string/ChevronRight"
+						  android:textColor = "@color/foreground"
+						  android:textSize = "28sp"/>
+			</RelativeLayout>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+	</RelativeLayout>
+</layout>
