@@ -12,6 +12,7 @@ import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.User
 import it.univpm.spottedkotlin.view.AccountActivity
+import it.univpm.spottedkotlin.view.CommentsActivity
 
 class UserCardViewHolder(val binding: UserCardBinding) : ObservableViewHolder(binding.root) {
 	@get:Bindable
@@ -38,11 +39,10 @@ class UserCardViewHolder(val binding: UserCardBinding) : ObservableViewHolder(bi
 		notifyPropertyChanged(BR.user)
 	}
 
-	private fun gotoChat() {
-//			AccountManager.user.uid?.let { user.chatsUserUID.add(it) }
-//			user.uid?.let { AccountManager.user.chatsUserUID.add(it) }
-//			DataManager.save(AccountManager.user,user)
-//			notifyPropertyChanged(BR.user)
-
-	}
+	private fun gotoChat() =
+		(binding.root.context as? Activity)?.goto<CommentsActivity>(
+			mapOf(
+				"chatUserUID" to user.uid
+			)
+		)
 }

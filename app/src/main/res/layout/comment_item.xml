@@ -77,6 +77,16 @@
 							  android:layout_height = "wrap_content"
 							  android:textColor = "@{viewModel.author?@color/white:viewModel.me?@color/inverse:@color/foreground}"
 							  android:textSize = "16sp"/>
+					<TextView style = "@style/LabelIcon"
+							  android:layout_width = "wrap_content"
+							  android:layout_height = "wrap_content"
+							  android:gravity="end|bottom"
+							  android:layout_gravity="end|bottom"
+							  android:layout_marginEnd="4dp"
+							  android:text = "@{viewModel.comment.receivedTimestamp==null?@string/CheckOutline:(viewModel.comment.readTimestamp==null?@string/Check:@string/CheckAll)}"
+							  android:textColor = "@{viewModel.author?@color/white:viewModel.me?@color/inverse:@color/foreground}"
+							  android:textSize = "18sp"
+							  android:visibility = "@{viewModel.chat &amp;&amp; !viewModel.me?View.VISIBLE:View.GONE}"/>
 				</FrameLayout>
 			</LinearLayout>
 		</LinearLayout>

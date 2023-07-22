@@ -25,7 +25,7 @@
 					  app:layout_constraintStart_toStartOf = "parent"
 					  app:layout_constraintTop_toTopOf = "parent">
 			<TextView style = "@style/LabelBold"
-					  markdown = '@{"Spot di **"+viewModel.post.author.name+" "+viewModel.post.author.surname+"**"}'
+					  markdown = '@{viewModel.post!=null?"Spot di **"+viewModel.post.author.name+" "+viewModel.post.author.surname+"**":"**"+viewModel.otherUser.name+" "+viewModel.otherUser.surname+"**"}'
 					  android:layout_width = "match_parent"
 					  android:layout_height = "wrap_content"
 					  android:gravity = "center_horizontal"
@@ -35,7 +35,7 @@
 					  android:layout_height = "wrap_content"
 					  android:layout_marginTop = "6dp"
 					  android:gravity = "center_horizontal"
-					  android:text = '@{viewModel.post.comments.size()+" commenti"}'
+					  android:text = '@{viewModel.post.comments.size()+(viewModel.post!=null ? " commenti":" messaggi")}'
 					  android:textColor = "@color/white"/>
 		</LinearLayout>
 
@@ -99,20 +99,20 @@
 					  app:layout_constraintBottom_toBottomOf = "parent"
 					  app:layout_constraintStart_toStartOf = "parent">
 			<EditText android:id = "@+id/comments_edit"
+					  style = "@style/LabelRegular"
 					  android:layout_width = "match_parent"
 					  android:layout_height = "wrap_content"
 					  android:autofillHints = "name"
 					  android:backgroundTint = "@color/grey"
-					  android:hint = "@string/credo_proprio_di_essere_io"
+					  android:hint = '@{viewModel.post!=null?@string/credo_proprio_di_essere_io:"Ciao "+ viewModel.otherUser.name+"!"}'
 					  android:inputType = "textMultiLine"
 					  android:lines = "1"
 					  android:maxLines = "4"
-					  android:textColorHint = "@color/hint_inverse"
 					  android:minLines = "1"
-					  style="@style/LabelRegular"
-					  android:textSize="16sp"
 					  android:text = "@={viewModel.newComment}"
-					  android:textColor = "@color/white"/>
+					  android:textColor = "@color/white"
+					  android:textColorHint = "@color/hint_inverse"
+					  android:textSize = "16sp"/>
 			<LinearLayout android:layout_width = "match_parent"
 						  android:layout_height = "wrap_content"
 						  android:layout_marginTop = "10dp">

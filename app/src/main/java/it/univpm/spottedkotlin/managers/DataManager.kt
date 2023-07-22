@@ -5,6 +5,7 @@ import it.univpm.spottedkotlin.enums.Gender
 import it.univpm.spottedkotlin.enums.RemoteImages
 import it.univpm.spottedkotlin.enums.Tags
 import it.univpm.spottedkotlin.model.*
+import java.util.*
 import kotlin.math.min
 
 object DataManager {
@@ -139,11 +140,16 @@ object DataManager {
 	suspend fun loadChat(uid: String): Chat? {
 
 		// Already cached?
-		cachedChats.find { it.uid == uid }?.let { return it }
+		cachedChats.find { it.uid == uid }?.let {
+			loadChatUsers(it)
+			readChat(it)
+			return it
+		}
 
 		// Ask the database for the user and caching it
 		DatabaseManager.get<Chat>("chats/$uid")?.let { chat ->
-			for (author in chat.authors) chat.users.add(loadUser(author))
+			loadChatUsers(chat)
+			readChat(chat)
 			cachedChats.add(chat)
 			return chat
 		}
@@ -152,13 +158,34 @@ object DataManager {
 		return null
 	}
 
+	fun readChat(chat: Chat) {
+		if (chat.authors.contains(AccountManager.user.uid)) {
+			var changes = false
+			for (comment in chat.messages.filter { it.authorUID != AccountManager.user.uid }) comment.apply {
+				if (receivedTimestamp == null) {
+					receivedTimestamp = Calendar.getInstance().time.time
+					changes = true
+				}
+			}
+			if (changes) save(chat)
+		}
+	}
+
+	suspend fun loadChatUsers(chat: Chat) {
+		for (userUID in chat.authors)
+			if (chat.users.find { it.uid == userUID } == null)
+				chat.users.add(loadUser(userUID))
+	}
+
 	suspend fun loadChat(firstUserUID: String, secondUserUID: String) =
-		DataManager.loadChat(Chat(authors = mutableListOf(firstUserUID, secondUserUID)).uid)
+		loadChat(Chat(authors = mutableListOf(firstUserUID, secondUserUID)).uid)
 
 	// Load the first 30 chats of a given user
 	suspend fun loadUserChats(user: User) {
 		for (userUID in user.chatsUserUID.reversed()
-			.take(30)) if (user.chats.find { it.uid.contains(userUID) } == null) loadChat(user.uid?:"",userUID)?.let {
+			.take(30)) if (user.chats.find { it.uid.contains(userUID) } == null) loadChat(
+			user.uid ?: "", userUID
+		)?.let {
 			user.chats.add(
 				it
 			)

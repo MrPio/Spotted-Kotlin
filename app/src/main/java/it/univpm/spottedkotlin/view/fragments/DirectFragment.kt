@@ -15,8 +15,10 @@ import it.univpm.spottedkotlin.databinding.DirectFragmentBinding
 import it.univpm.spottedkotlin.databinding.EmojiItemBinding
 import it.univpm.spottedkotlin.databinding.SearchUserFragmentBinding
 import it.univpm.spottedkotlin.extension.function.getActivity
+import it.univpm.spottedkotlin.extension.function.goto
 import it.univpm.spottedkotlin.extension.function.inflate
 import it.univpm.spottedkotlin.managers.AccountManager
+import it.univpm.spottedkotlin.view.CommentsActivity
 import it.univpm.spottedkotlin.view.MainActivity
 import it.univpm.spottedkotlin.viewmodel.DirectViewModel
 import it.univpm.spottedkotlin.viewmodel.SearchUserViewModel
@@ -45,7 +47,9 @@ class DirectFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 
 		// AddChat
-		(requireActivity() as MainActivity).viewModel.currentFragment.value = 3
+		binding.directNewChat.setOnClickListener {
+			(requireActivity() as MainActivity).viewModel.currentFragment.value = 3
+		}
 
 		// Hide the BottomBar with scroll
 		binding.directScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
@@ -58,8 +62,12 @@ class DirectFragment : Fragment() {
 			binding.directContent.removeAllViews()
 			chats.forEach { chat ->
 				val chatView = requireContext().inflate<ChatCardBinding>(R.layout.chat_card)
+				val otherUser = chat.users.find { it.uid != AccountManager.user.uid }
 				chatView.modelChat = chat
-				chatView.modelUser = chat.users.find { it.uid != AccountManager.user.uid }
+				chatView.modelUser = otherUser
+				chatView.chatCardHighlightView.setOnClickListener {
+					activity?.goto<CommentsActivity>(mapOf("chatUserUID" to otherUser?.uid))
+				}
 				binding.directContent.addView(chatView.root)
 			}
 		}

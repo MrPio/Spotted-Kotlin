@@ -9,7 +9,7 @@ import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.DataManager
 import it.univpm.spottedkotlin.model.Comment
 
-class CommentItemViewModel(val comment: Comment) : ObservableViewModel() {
+class CommentItemViewModel(val comment: Comment, val isChat:Boolean) : ObservableViewModel() {
 	@get:Bindable
 	var full: Boolean = true
 		set(value) {

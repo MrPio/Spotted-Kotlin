@@ -12,50 +12,79 @@ import it.univpm.spottedkotlin.databinding.CommentsActivityBinding
 import it.univpm.spottedkotlin.databinding.EmojiItemBinding
 import it.univpm.spottedkotlin.enums.TimesInterpolator
 import it.univpm.spottedkotlin.extension.function.*
+import it.univpm.spottedkotlin.managers.AccountManager
 import it.univpm.spottedkotlin.managers.AnimationManager
 import it.univpm.spottedkotlin.managers.DataManager
+import it.univpm.spottedkotlin.model.Chat
+import it.univpm.spottedkotlin.model.Comment
 import it.univpm.spottedkotlin.model.Post
 import it.univpm.spottedkotlin.viewmodel.CommentsViewModel
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 
 class CommentsActivity : AppCompatActivity() {
 	lateinit var binding: CommentsActivityBinding
 	lateinit var viewModel: CommentsViewModel
-	lateinit var commentsAdapter: CommentsAdapter
+	private lateinit var commentsAdapter: CommentsAdapter
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		binding = CommentsActivityBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 
-		val postUID = intent.getStringExtra("postUID")
-		val post = DataManager.posts.find { it.uid == postUID }
-		viewModel = CommentsViewModel(post ?: Post(), ::loadComments, ::emojiToggle, ::loadEmoji)
-		binding.viewModel = viewModel
 		binding.commentsRecycler.layoutManager =
 			LinearLayoutManager(this).apply { reverseLayout = true }
-		commentsAdapter = CommentsAdapter(viewModel.post.comments, post?.authorUID ?: "")
+
+		MainScope().launch {
+			val post = intent.getStringExtra("postUID")
+				?.run { DataManager.cachedPosts.find { it.uid == this } }
+			val chat = intent.getStringExtra("chatUserUID")
+				?.run {
+					AccountManager.user.chats.find { it.uid.contains(this) }
+						?: Chat(authors = mutableListOf(AccountManager.user.uid!!, this)).apply {
+							for (author in authors) users.add(DataManager.loadUser(author))
+						}
+				}
+			viewModel = CommentsViewModel(post, chat, ::loadComments, ::emojiToggle, ::loadEmoji)
+			binding.viewModel = viewModel
+		if (post != null)
+			commentsAdapter = CommentsAdapter(post.comments.toNullable(), post.authorUID ?: "")
+		if (chat != null)
+			commentsAdapter = CommentsAdapter(chat.messages.toNullable(), viewModel.otherUser?.uid ?: "",true)
 		binding.commentsRecycler.adapter = commentsAdapter
+		}
 		binding.commentsBack.setOnClickListener { finish() }
 		binding.commentsInfo.setOnClickListener {
-			this.showAlertDialog(
-				title = "Info post",
-				message = "Post del ${viewModel.post.dateStr()}, con ${viewModel.post.comments.size} commenti"
-			)
+			if (viewModel.post != null)
+				this.showAlertDialog(
+					title = "Info post",
+					message = "Post del ${viewModel.post!!.dateStr()}, con ${viewModel.post!!.comments.size} commenti"
+				)
+			if (viewModel.chat != null)
+				this.showAlertDialog(
+					title = "Info chat",
+					message = "Chat del ${viewModel.chat!!.date.toDateStr()}, con ${viewModel.chat!!.messages.size} messaggi"
+				)
 		}
 		if (binding.commentsEmojiGrid.childCount < 1)
 			loadEmoji()
 	}
 
 	private fun loadComments() {
-		val comments = viewModel.post.comments
-		val start=commentsAdapter.comments.size
-
+		val comments =
+			if (viewModel.post != null)
+				viewModel.post!!.comments
+			else if (viewModel.chat != null)
+				viewModel.chat!!.messages
+			else
+				return
 		for (comment in comments.reversed())
-			if (!commentsAdapter.comments.contains(comment)){
-				commentsAdapter.comments.add( comment)
-			}
-				commentsAdapter.notifyDataSetChanged()
+			if (!commentsAdapter.comments.contains(comment))
+				commentsAdapter.comments.add(comment)
+		commentsAdapter.comments.remove(null)
+		commentsAdapter.comments.add(null)
+		commentsAdapter.notifyDataSetChanged()
 	}
 
 	private fun loadEmoji(type: Int = 0) {

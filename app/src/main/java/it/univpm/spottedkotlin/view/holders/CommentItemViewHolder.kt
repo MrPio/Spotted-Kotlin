@@ -8,8 +8,8 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class CommentItemViewHolder(val binding: CommentItemBinding) : ViewHolder(binding.root) {
-	fun bind(comment: Comment, full: Boolean = true, isAuthor: Boolean = false) {
-		val viewModel = CommentItemViewModel(comment).apply { this.isAuthor = isAuthor }
+	fun bind(comment: Comment, full: Boolean = true, isAuthor: Boolean = false,showCheck:Boolean=false) {
+		val viewModel = CommentItemViewModel(comment,showCheck).apply { this.isAuthor = isAuthor }
 		binding.viewModel = viewModel
 		viewModel.full = full
 		MainScope().launch { viewModel.initialize() }
