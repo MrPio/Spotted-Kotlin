@@ -7,6 +7,7 @@ import android.text.style.StyleSpan
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -71,5 +72,12 @@ fun setMarginLeft(view: View, leftMargin: Float) {
 fun setMarginRight(view: View, leftMargin: Float) {
 	val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
 	layoutParams.rightMargin = leftMargin.toInt()
+	view.layoutParams = layoutParams
+}
+
+@BindingAdapter("layout_gravity")
+fun setLayoutGravity(view: View, gravity: Int) {
+	val layoutParams = view.layoutParams as? LinearLayout.LayoutParams
+	layoutParams?.gravity = gravity
 	view.layoutParams = layoutParams
 }

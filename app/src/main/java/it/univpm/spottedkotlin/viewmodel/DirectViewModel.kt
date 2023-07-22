@@ -21,17 +21,14 @@ class DirectViewModel : ObservableViewModel() {
 			val chats = mutableListOf<Chat>()
 
 			// Load the chat objects
-			for (chatUID in chatsUID) AccountManager.user.uid?.let {
+			for (chatUID in chatsUID) AccountManager.user.uid?.let { userUID ->
 				DataManager.loadChat(
-					it, chatUID
+					userUID, chatUID
 				)?.let { chats.add(it) }
 			}
 
 			// Put all the chat with unread messages first
-			chats.sortWith(
-				compareByDescending<Chat> { it.timestamp}
-					.thenBy { chat -> chat.messages.find { msg -> msg.receivedTimestamp == null } != null  }
-			)
+			chats.sortWith(compareByDescending<Chat> { it.timestamp }.thenBy { it.hasNewMessages })
 			this@DirectViewModel.chats.value = chats
 			notifyPropertyChanged(BR.chats)
 		}

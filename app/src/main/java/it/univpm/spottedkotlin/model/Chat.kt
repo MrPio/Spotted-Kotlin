@@ -26,4 +26,7 @@ data class Chat(
 
 	@get:Exclude
 	val lastSeen: String get() = date.toPostStr()
+
+	@get:Exclude
+	val hasNewMessages: Boolean get() = messages.find { msg -> !msg.isMine && msg.receivedTimestamp == null } != null
 }
