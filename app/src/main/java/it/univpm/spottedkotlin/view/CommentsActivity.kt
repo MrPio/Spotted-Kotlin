@@ -79,7 +79,7 @@ class CommentsActivity : AppCompatActivity() {
 				viewModel.chat!!.messages
 			else
 				return
-		for (comment in comments.reversed())
+		for (comment in comments)
 			if (!commentsAdapter.comments.contains(comment))
 				commentsAdapter.comments.add(comment)
 		commentsAdapter.comments.remove(null)
