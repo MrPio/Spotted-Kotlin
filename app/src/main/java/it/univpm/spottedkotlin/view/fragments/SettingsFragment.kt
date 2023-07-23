@@ -40,7 +40,7 @@ class SettingsFragment : Fragment() {
 		binding.settingsInfo.setOnClickListener {
 			context?.showAlertDialog(
 				title = "Info sull'applicazione",
-				message = "Spotted! - Applicazione realizzata per il progetto d'esame del corso di Programmazione Mobile del professore Emanuele Storti all'università Politecnica delle Marche (a.a. 2022/2023).\n\nAutori:\n\t• Valerio Morelli\n\t• Mattia Sbattella",
+				message = "Spotted! - Applicazione realizzata per il progetto d'esame del corso di Programmazione Mobile del professore Emanuele Storti all'università Politecnica delle Marche (a.a. 2022/2023).\n\nAutori:\n\t• Morelli Valerio (85%)\n\t• Sbattella Mattia (15%)\n\nSu idea di Sbattella Mattia.",
 				positiveText = "Chiudi",
 				positiveCallback = {},
 			)

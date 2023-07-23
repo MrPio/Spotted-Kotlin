@@ -23,7 +23,7 @@
 						  android:onClickListener = "@{()->model.onClick.invoke()}"
 						  android:orientation = "horizontal"
 						  android:paddingHorizontal = "20dp"
-						  android:paddingVertical = "12dp"
+						  android:paddingVertical = "14dp"
 				>
 
 				<TextView style = "@style/LabelIcon"

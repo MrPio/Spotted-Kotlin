@@ -68,9 +68,13 @@
 	</style>
 
 	<!--Popup-->
-	<style name = "PopupTheme">
-		<item name = "android:background" parent="Theme.AppCompat.Light.Dialog.Alert">
-			@drawable/small_corner_radius
-		</item>
+	<style name = "PopupTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+		<item name="android:windowBackground">@drawable/popup_shape</item>
+		<item name="android:buttonBarButtonStyle">@style/PopupButton</item>
 	</style>
+	<style name="PopupButton" parent="Widget.AppCompat.Button">
+		<item name="android:textColor">@color/primary</item>
+		<item name="android:background">@drawable/ripple_popup</item>
+	</style>
+
 </resources>

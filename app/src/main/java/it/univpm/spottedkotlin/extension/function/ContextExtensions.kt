@@ -69,7 +69,7 @@ fun Context.showAlertDialog(
 	checked:Int=0,
 	radioCallback: ((Int) -> Unit)? = null,
 ) {
-	AlertDialog.Builder(this).setTitle(title).apply {
+	AlertDialog.Builder(this,R.style.PopupTheme).setTitle(title).apply {
 		message?.let { setMessage(it) }
 		view?.let { setView(it) }
 		positiveCallback?.let { setPositiveButton(positiveText) { _, _ -> it() } }
