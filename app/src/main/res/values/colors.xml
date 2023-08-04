@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
 	<!--MAIN-->
 	<color name = "dark_black">#181818</color>
 	<color name = "black">#303030</color>
@@ -19,8 +20,6 @@
 	<color name = "dark_inverse">@color/dark_black</color>
 	<color name = "hint">#60000000</color>
 	<color name = "hint_inverse">#80ffffff</color>
-
-
 
 	<!--MISC-->
 	<color name = "overlay">@color/white</color>

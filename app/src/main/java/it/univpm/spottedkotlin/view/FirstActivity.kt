@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import it.univpm.spottedkotlin.databinding.FirstActivityBinding
 import it.univpm.spottedkotlin.extension.function.checkAndAskPermission
+import it.univpm.spottedkotlin.extension.function.goto
 import it.univpm.spottedkotlin.extension.function.metrics
 import it.univpm.spottedkotlin.managers.*
 import it.univpm.spottedkotlin.model.Post
@@ -37,16 +38,18 @@ class FirstActivity : AppCompatActivity() {
 		}
 		DeviceManager.loadTheme()
 		DeviceManager.loadUiDensity(this)
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-			this.checkAndAskPermission(Manifest.permission.POST_NOTIFICATIONS)
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) this.checkAndAskPermission(
+			Manifest.permission.POST_NOTIFICATIONS
+		)
 	}
 
 	fun goToMainActivity(activity: Class<*> = MainActivity::class.java) {
 		runOnUiThread {
 			val intent = Intent(this, activity).apply {
-				if (activity == ViewPostActivity::class.java)
-					this.putExtra("postUID", intent.getStringExtra("postUID"))
-						.putExtra("comments", intent.getBooleanExtra("comments", false))
+				if (activity == ViewPostActivity::class.java) this.putExtra(
+					"postUID",
+					intent.getStringExtra("postUID")
+				).putExtra("comments", intent.getBooleanExtra("comments", false))
 			}
 			startActivity(intent)
 			finish()
@@ -56,6 +59,10 @@ class FirstActivity : AppCompatActivity() {
 	override fun onStart() {
 		super.onStart()
 
+		if (IOManager.readKey("first_access") != false) {
+			goto<TutorialActivity>()
+			finish()
+		}
 		// ======= DEBUG ZONE ========
 		//☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
 
@@ -67,10 +74,8 @@ class FirstActivity : AppCompatActivity() {
 		binding.firstLoadingView.loadingViewRoot.visibility = View.VISIBLE
 		MainScope().launch {
 			if (AccountManager.cacheLogin()) {
-				if (intent.hasExtra("goto"))
-					goToMainActivity(intent.getSerializableExtra("goto") as Class<*>)
-				else
-					goToMainActivity()
+				if (intent.hasExtra("goto")) goToMainActivity(intent.getSerializableExtra("goto") as Class<*>)
+				else goToMainActivity()
 
 			}
 			runOnUiThread {

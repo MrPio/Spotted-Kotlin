@@ -1,6 +1,6 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="horizontal_margins">24dp</dimen>
-    <dimen name="horizontal_margins2">30dp</dimen>
+	<dimen name = "fab_margin">16dp</dimen>
+	<dimen name = "horizontal_margins">24dp</dimen>
+	<dimen name = "horizontal_margins2">30dp</dimen>
 
 </resources>

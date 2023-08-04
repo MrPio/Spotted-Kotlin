@@ -1,34 +1,33 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.SpottedKotlin" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="android:windowActivityTransitions">true</item>
-        <item name="android:windowSharedElementEnterTransition" tools:ignore="NewApi">
-            @transition/view_post_transition
-        </item>
-        <item name="android:windowSharedElementExitTransition" tools:ignore="NewApi">
-            @transition/view_post_transition
-        </item>
+<resources xmlns:tools = "http://schemas.android.com/tools">
+	<!-- Base application theme. -->
+	<style name = "Theme.SpottedKotlin" parent = "Theme.MaterialComponents.DayNight.DarkActionBar">
+		<item name = "android:windowActivityTransitions">true</item>
+		<item name = "android:windowSharedElementEnterTransition" tools:ignore = "NewApi">
+			@transition/view_post_transition
+		</item>
+		<item name = "android:windowSharedElementExitTransition" tools:ignore = "NewApi">
+			@transition/view_post_transition
+		</item>
 
+		<!-- Primary brand color. -->
+		<item name = "colorPrimary">@color/red</item>
+		<item name = "colorPrimaryVariant">@color/black</item>
+		<item name = "colorOnPrimary">@color/white</item>
+		<!-- Secondary brand color. -->
+		<item name = "colorSecondary">@color/white</item>
+		<item name = "colorSecondaryVariant">@color/grey</item>
+		<item name = "colorOnSecondary">@color/black</item>
+		<!-- Status bar color. -->
+		<item name = "android:statusBarColor">?attr/colorPrimaryVariant</item>
+		<!-- Customize your theme here. -->
+	</style>
 
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/red</item>
-        <item name="colorPrimaryVariant">@color/black</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/white</item>
-        <item name="colorSecondaryVariant">@color/grey</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-    </style>
+	<style name = "Theme.SpottedKotlin.NoActionBar">
+		<item name = "windowActionBar">false</item>
+		<item name = "windowNoTitle">true</item>
+	</style>
 
-    <style name="Theme.SpottedKotlin.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+	<style name = "Theme.SpottedKotlin.AppBarOverlay" parent = "ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="Theme.SpottedKotlin.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.SpottedKotlin.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+	<style name = "Theme.SpottedKotlin.PopupOverlay" parent = "ThemeOverlay.AppCompat.Light"/>
 </resources>

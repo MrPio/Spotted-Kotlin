@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android = "http://schemas.android.com/apk/res/android"
+			xmlns:app = "http://schemas.android.com/apk/res-auto"
+			xmlns:tools = "http://schemas.android.com/tools"
+			app:startDestination = "@id/tutorial_fragment_1">
+
+	<fragment
+		android:id = "@+id/tutorial_fragment_1"
+		android:name="it.univpm.spottedkotlin.view.fragments.Tutorial1Fragment"
+		tools:layout = "@layout/tutorial1_fragment">
+
+		<action
+			app:enterAnim="@anim/slide_in_right"
+			android:id = "@+id/tutorial_fragment_1_to_tutorial_fragment_2"
+			app:destination = "@+id/tutorial_fragment_2"/>
+	</fragment>
+	<fragment
+		android:id = "@+id/tutorial_fragment_2"
+		android:name="it.univpm.spottedkotlin.view.fragments.Tutorial2Fragment"
+		tools:layout = "@layout/tutorial2_fragment">
+
+		<action
+			app:enterAnim="@anim/slide_in_right"
+			android:id = "@+id/tutorial_fragment_2_to_tutorial_fragment_3"
+			app:destination = "@id/tutorial_fragment_3"/>
+	</fragment>
+	<fragment
+		android:id = "@+id/tutorial_fragment_3"
+		android:name="it.univpm.spottedkotlin.view.fragments.Tutorial3Fragment"
+		tools:layout = "@layout/tutorial3_fragment">
+	</fragment>
+</navigation>

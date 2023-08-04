@@ -20,49 +20,49 @@
 		android:supportsRtl = "true"
 		android:theme = "@style/Theme.SpottedKotlin"
 		tools:targetApi = "tiramisu">
-
+		<activity
+			android:name = ".view.TutorialActivity"
+			android:exported = "false"
+			android:label = "@string/title_activity_tutorial"
+			android:theme = "@style/Theme.SpottedKotlin.NoActionBar"/>
 		<activity
 			android:name = ".view.ViewPostActivity"
 			android:exported = "false"
-			android:screenOrientation="portrait"
+			android:screenOrientation = "portrait"
 			android:theme = "@style/Theme.SpottedKotlin.NoActionBar"/>
-
 		<activity
 			android:name = ".view.CommentsActivity"
 			android:exported = "false"
-			android:screenOrientation="portrait"
+			android:screenOrientation = "portrait"
 			android:theme = "@style/Theme.SpottedKotlin.NoActionBar"/>
-
 		<activity
 			android:name = ".view.MainActivity"
 			android:exported = "true"
-			android:screenOrientation="portrait"
+			android:screenOrientation = "portrait"
 			android:theme = "@style/Theme.SpottedKotlin.NoActionBar">
 		</activity>
-
 		<activity
 			android:name = ".view.AccountActivity"
 			android:exported = "true"
-			android:screenOrientation="portrait"
+			android:screenOrientation = "portrait"
 			android:theme = "@style/Theme.SpottedKotlin.NoActionBar">
 		</activity>
-
 		<activity
 			android:name = ".view.FirstActivity"
 			android:exported = "true"
-			android:screenOrientation="portrait"
+			android:screenOrientation = "portrait"
 			android:theme = "@style/Theme.SpottedKotlin.NoActionBar"
 			android:windowSoftInputMode = "adjustPan">
 			<intent-filter>
 				<action android:name = "android.intent.action.MAIN"/>
+
 				<category android:name = "android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
-
 		<activity
 			android:name = ".view.SettingsActivity"
 			android:exported = "true"
-			android:screenOrientation="portrait"
+			android:screenOrientation = "portrait"
 			android:theme = "@style/Theme.SpottedKotlin.NoActionBar">
 		</activity>
 	</application>
