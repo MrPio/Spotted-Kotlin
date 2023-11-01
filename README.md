@@ -1,7 +1,14 @@
-# Spotted-Kotlin
-App per il progetto di esame del corso di Programmazione Mobile. Lo scopo è quello di realizzare un piccolo social network per l'identificazione di persone incontrate in ambito universitario.
+# Spotted
+### AndroidStudio version
 
-## Mockup (visibili [qui](https://mockittapp.wondershare.com/app/4bffa0737d7a4539901d460826942bd877c2c28b))
+Examination project application for Mobile Programming course (UnivPM a.y. 2022/2023).
+The objective is to establish a compact social network designed to facilitate the identification of individuals encountered within the university environment.
+
+## Documentation
+[Morelli-Sbattella Spotted!.pdf](https://github.com/MrPio/Spotted-Flutter/files/13225401/Morelli-Sbattella.Programmazione_Mobile.pdf)
+
+
+## Mockup (visible [here](https://mockittapp.wondershare.com/app/4bffa0737d7a4539901d460826942bd877c2c28b))
 
 <div align="left">
 <img src="https://user-images.githubusercontent.com/22773005/227030895-6216d059-52d1-47b4-8abc-d876df7406e9.png" width="300"/>
